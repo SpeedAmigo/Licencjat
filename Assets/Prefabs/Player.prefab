@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5027504159207425052}
   - component: {fileID: 5494240458988316082}
   - component: {fileID: 7985183086078060353}
+  - component: {fileID: 2943689781349225375}
   - component: {fileID: 714776938958965697}
   - component: {fileID: 5315229089820142365}
   - component: {fileID: 6927043152948294079}
@@ -38,6 +39,7 @@ Transform:
   - {fileID: 7617486500100946565}
   - {fileID: 7207350701484265828}
   - {fileID: 1263067452869651265}
+  - {fileID: 7607416426630918179}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5494240458988316082
@@ -80,6 +82,23 @@ MonoBehaviour:
   minPitch: -80
   maxPitch: 80
   cameraHolder: {fileID: 7617486500100946565}
+--- !u!114 &2943689781349225375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418864778330149249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9e3255f1fa30b849884d17fb30bf22a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 5315229089820142365}
+  _networkObjectCache: {fileID: 5315229089820142365}
+  itemHolder: {fileID: 0}
+  interactionDistance: 5
 --- !u!143 &714776938958965697
 CharacterController:
   m_ObjectHideFlags: 0
@@ -126,10 +145,12 @@ MonoBehaviour:
   NetworkBehaviours:
   - {fileID: 5494240458988316082}
   - {fileID: 7985183086078060353}
+  - {fileID: 2943689781349225375}
   - {fileID: 6927043152948294079}
   - {fileID: 1872121817953363922}
   InitializedParentNetworkBehaviour: {fileID: 0}
-  InitializedNestedNetworkObjects: []
+  InitializedNestedNetworkObjects:
+  - {fileID: 0}
   RuntimeParentNetworkBehaviour: {fileID: 0}
   RuntimeChildNetworkBehaviours: []
   _isNetworked: 1
@@ -173,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 2
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   _componentConfiguration: 0
@@ -510,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0229bfbfe18badd4cbf6f5ecd7c0afed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 3
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   networkObject: {fileID: 5315229089820142365}
@@ -629,6 +650,37 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &6366912382489424151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7607416426630918179}
+  m_Layer: 0
+  m_Name: ItemHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7607416426630918179
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6366912382489424151}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.435, y: 0.127, z: 0.601}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5027504159207425052}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8116910945631756706
 GameObject:
   m_ObjectHideFlags: 0

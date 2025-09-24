@@ -34,6 +34,8 @@ public class CameraController : NetworkBehaviour
     private void Awake()
     {
         _inputSystem = new InputSystem_Actions();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void OnEnable()
