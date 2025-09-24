@@ -4,44 +4,33 @@ using UnityEngine.InputSystem;
 using FishNet.Connection;
 using FishNet.Object;
 
+[RequireComponent(typeof(CharacterController))]
 public class PlayerController : NetworkBehaviour
 {
-    [Header("Movement")]
+    [Header("Movement Settings")]
     [SerializeField] private float walkingSpeed = 5f;
     [SerializeField] private float sprintSpeed = 8f;
     [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float fallMultiplier = 2f;
+    [SerializeField] private float jumpMultiplier = 2f;
     
-    [Header("Camera Settings")]
-    [SerializeField] private float sensitivity = 15f;
-    [SerializeField] private float minPitch = -80f;
-    [SerializeField] private float maxPitch = -80f;
-    [SerializeField] private Transform cameraHolder;
+    [Header("Gravity Settings")]
+    [SerializeField] private float gravity = -9.8f;
     
     private InputSystem_Actions _inputSystem;
-    private InputAction _move;
-    private InputAction _sprint;
-    private InputAction _jump;
-    private InputAction _look;
+    private CharacterController _controller;
     
-    private Rigidbody _rb;
-    private Camera _playerCamera;
     private Vector2 _moveInput;
-    private Vector2 _lookInput;
     private bool _isSprinting;
-
-    private float _pitch;
     private float _moveSpeed;
+
+    private Vector3 _velocity;
+    private bool isGrounded;
     
     public override void OnStartClient()
     {
         base.OnStartClient();
-        if (base.IsOwner)
-        {
-            _playerCamera = Camera.main;
-            _playerCamera.transform.SetParent(cameraHolder);
-            _playerCamera.transform.localPosition = Vector3.zero;
-        }
-        else
+        if (!IsOwner)
         {
             _inputSystem.Disable();
         }
@@ -49,81 +38,83 @@ public class PlayerController : NetworkBehaviour
     
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody>();
-        _moveSpeed = walkingSpeed;
-        
         _inputSystem = new InputSystem_Actions();
+        _controller = GetComponent<CharacterController>();
         
-        _move = _inputSystem.Player.Move;
-        _move.performed += ctx => _moveInput = ctx.ReadValue<Vector2>();
-        _move.canceled += ctx => _moveInput = Vector2.zero;
-        
-        _sprint = _inputSystem.Player.Sprint;
+        _moveSpeed = walkingSpeed;
+    }
 
-        _jump = _inputSystem.Player.Jump;
-        _jump.performed += ctx => JumpHandler();
-        
-        _look = _inputSystem.Player.Look;
-        _look.performed += ctx => _lookInput = ctx.ReadValue<Vector2>();
-        _look.canceled += ctx => _lookInput = Vector2.zero;
+    private void OnMove(InputAction.CallbackContext context)
+    {
+        _moveInput = context.ReadValue<Vector2>();
+    }
+
+    private void OnMoveCancelled(InputAction.CallbackContext context)
+    {
+        _moveInput = Vector2.zero;
+    }
+
+    private void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.performed && isGrounded)
+        {
+            float jumpVelocity = Mathf.Sqrt(jumpForce * -2f * gravity * jumpMultiplier);
+            _velocity.y = jumpVelocity;
+        }
     }
 
     private void OnEnable()
     {
         _inputSystem.Enable();
-        
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        _inputSystem.Player.Move.performed += OnMove;
+        _inputSystem.Player.Move.canceled += OnMoveCancelled;
+        _inputSystem.Player.Jump.performed += OnJump;
     }
 
     private void OnDisable()
     {
         _inputSystem.Disable();    
+        _inputSystem.Player.Move.performed -= OnMove;
+        _inputSystem.Player.Move.canceled -= OnMoveCancelled;
+        _inputSystem.Player.Jump.performed -= OnJump;
     }
     
     private void MoveHandler()
     {
-        Vector3 movement = new Vector3(_moveInput.x, 0f, _moveInput.y).normalized * _moveSpeed;
+        Vector3 move = new Vector3(_moveInput.x, 0, _moveInput.y);
+        move = transform.TransformDirection(move);
         
-        Vector3 velocity = transform.TransformDirection(movement);
-        velocity.y = _rb.linearVelocity.y;
-
-        _rb.linearVelocity = velocity;
+        _controller.Move(move * _moveSpeed * Time.deltaTime);
     }
 
     private void OnSprint()
     {
-        _isSprinting = _sprint.IsPressed();
+        _isSprinting = _inputSystem.Player.Sprint.IsPressed();
         _moveSpeed = _isSprinting ? sprintSpeed : walkingSpeed;
-    }
-
-    private void JumpHandler()
-    {
-        if (!Physics.Raycast(transform.position, Vector3.down, 1.5f)) return;
-
-        _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-    }
-    
-    private void RotationHandler()
-    {
-        transform.Rotate(Vector3.up * _lookInput.x * sensitivity * Time.deltaTime);
-        
-        _pitch -= _lookInput.y * sensitivity * Time.deltaTime;
-        _pitch = Mathf.Clamp(_pitch, minPitch, maxPitch);
-        
-        cameraHolder.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
     }
     
     private void Update()
     {
-        Debug.DrawRay(transform.position, Vector3.down * 1.5f, Color.red);
+        isGrounded = _controller.isGrounded;  
         
-        RotationHandler();
-        OnSprint();
-    }
-    
-    private void FixedUpdate()
-    {
         MoveHandler();
+        OnSprint();
+
+        
+        if (isGrounded && _velocity.y < 0)
+        {
+            _velocity.y = -2f;
+        }
+
+        if (_velocity.y < 0)
+        {
+            _velocity.y += gravity * fallMultiplier * Time.deltaTime;
+        }
+        else
+        {
+            _velocity.y += gravity * jumpMultiplier * Time.deltaTime;
+        }
+        
+        _controller.Move(_velocity * Time.deltaTime);
     }
 }
