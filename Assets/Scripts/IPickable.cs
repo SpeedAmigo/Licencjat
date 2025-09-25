@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IPickable
 {
-    public void Pickup(NetworkConnection picker, NetworkObject holder);
+    public void Pickup(NetworkObject holder);
 }

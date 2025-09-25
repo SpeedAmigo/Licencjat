@@ -1,40 +1,41 @@
-using System;
-using FishNet.Connection;
 using FishNet.Object;
 using UnityEngine;
 
-public class testObjectScript : NetworkBehaviour, IPickable
+public class TestObjectScript : NetworkBehaviour, IPickable
 {
-    private Collider _collider;
     private Rigidbody _rigidbody;
-    
-    private void Start()
+    private Collider _collider;
+
+    private void Awake()
     {
-        _collider = GetComponent<Collider>();
         _rigidbody = GetComponent<Rigidbody>();
+        _collider = GetComponent<Collider>();
     }
     
-    public void Pickup(NetworkConnection picker, NetworkObject holder)
+    public void Pickup(NetworkObject holder)
     {
-        if (!IsServer) return;
-        SetPickedUp(holder);
-
-        Pickup_Client(holder);
-    }
-    
-    [ObserversRpc(RunLocally = true)]
-    private void Pickup_Client(NetworkObject holder)
-    {
-        SetPickedUp(holder);
-    }
-
-    private void SetPickedUp(NetworkObject holder)
-    {
-        _rigidbody.isKinematic = true;
-        _collider.enabled = false;
+        SetNewPosition(holder);
         
+        SetNewPosition_Client(holder);
+    }
+    
+    [ObserversRpc(RunLocally = true, BufferLast = true)]
+    private void SetNewPosition_Client(NetworkObject holder)
+    {
+        SetNewPosition(holder);
+    }
+
+    private void SetNewPosition(NetworkObject holder)
+    {
         transform.SetParent(holder.transform);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
+        
+        _rigidbody.isKinematic = true;
+        _rigidbody.interpolation = RigidbodyInterpolation.None;
+        
+        _collider.enabled = false;
     }
 }
+
+

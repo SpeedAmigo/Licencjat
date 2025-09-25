@@ -10,6 +10,15 @@ public class PlayerInteractor : NetworkBehaviour
     
     private InputSystem_Actions _inputSystem;
     private Camera _camera;
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (!IsOwner)
+        {
+            enabled = false;
+        }
+    }
     
     private void Awake()
     {
@@ -31,7 +40,8 @@ public class PlayerInteractor : NetworkBehaviour
 
     private void OnInteraction(InputAction.CallbackContext context)
     {
-        if (!context.performed || !IsOwner) return;
+        if (!IsOwner) return;
+        if (!context.performed) return;
 
         RaycastHit hit;
 
@@ -39,32 +49,22 @@ public class PlayerInteractor : NetworkBehaviour
 
         if (hit.collider.TryGetComponent<NetworkObject>(out var netObj))
         {
-            if (hit.collider.TryGetComponent<IPickable>(out var pickable))
+            if (netObj.TryGetComponent<ObjectPickup>(out var pickup))
             {
                 Pickup_Server(netObj, itemHolder);
             }
-            else if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
-            {
-                Interact_Server(netObj);
-            }
         }
     }
-
+    
     [ServerRpc(RequireOwnership = false)]
-    private void Pickup_Server(NetworkObject obj, NetworkObject holder, NetworkConnection picker = null)
+    private void Pickup_Server(NetworkObject obj, NetworkObject holder)
     {
-        if (obj.TryGetComponent<IPickable>(out var pickable))
+        if (obj != null && obj.TryGetComponent<ObjectPickup>(out var pickup))
         {
-            pickable.Pickup(picker, holder);
-        }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void Interact_Server(NetworkObject obj)
-    {
-        if(obj.TryGetComponent<IInteractable>(out var interactable))
-        {
-            interactable.Interact();
+            pickup.Pickup(holder);
         }
     }
 }
+
+
+

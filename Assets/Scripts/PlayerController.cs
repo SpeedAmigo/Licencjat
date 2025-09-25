@@ -95,11 +95,13 @@ public class PlayerController : NetworkBehaviour
     
     private void Update()
     {
-        isGrounded = _controller.isGrounded;  
-        
-        MoveHandler();
-        OnSprint();
+        isGrounded = _controller.isGrounded;
 
+        if (IsOwner)
+        {
+            MoveHandler();
+            OnSprint();
+        }
         
         if (isGrounded && _velocity.y < 0)
         {
@@ -114,7 +116,10 @@ public class PlayerController : NetworkBehaviour
         {
             _velocity.y += gravity * jumpMultiplier * Time.deltaTime;
         }
-        
-        _controller.Move(_velocity * Time.deltaTime);
+
+        if (_controller.enabled)
+        {
+            _controller.Move(_velocity * Time.deltaTime);
+        }
     }
 }
