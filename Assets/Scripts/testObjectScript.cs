@@ -19,7 +19,7 @@ public class TestObjectScript : NetworkBehaviour, IPickable
         SetNewPosition_Client(holder);
     }
     
-    [ObserversRpc(RunLocally = true, BufferLast = true)]
+    [ObserversRpc(BufferLast = true)]
     private void SetNewPosition_Client(NetworkObject holder)
     {
         SetNewPosition(holder);

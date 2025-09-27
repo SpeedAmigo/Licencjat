@@ -2,7 +2,7 @@ using System;
 using FishNet.Object;
 using UnityEngine;
 
-public class ObjectPickup : NetworkBehaviour
+public class ObjectPickable : NetworkBehaviour
 {
     private Rigidbody _rb;
     private Collider _col;
@@ -14,15 +14,28 @@ public class ObjectPickup : NetworkBehaviour
     
     public virtual void Pickup(NetworkObject holder)
     {
-        if (!IsServer) return;
+        if (!IsServerInitialized) return;
         PickupLogic(holder);
         Pickup_Client(holder);
+    }
+
+    public virtual void Drop()
+    {
+        if (!IsServerInitialized) return;
+        DropLogic();
+        Drop_Client();
     }
 
     [ObserversRpc]
     private void Pickup_Client(NetworkObject holder)
     {
         PickupLogic(holder);
+    }
+
+    [ObserversRpc]
+    private void Drop_Client()
+    {
+        DropLogic();
     }
 
     private void PickupLogic(NetworkObject holder)
@@ -35,5 +48,17 @@ public class ObjectPickup : NetworkBehaviour
         _rb.interpolation = RigidbodyInterpolation.None;
         
         _col.enabled = false;
+    }
+
+    private void DropLogic()
+    {
+        transform.SetParent(null);
+        
+        _rb.AddForce(Vector3.forward * 2f, ForceMode.Impulse);
+
+        _rb.isKinematic = false;
+        _rb.interpolation = RigidbodyInterpolation.None;
+        
+        _col.enabled = true;
     }
 }

@@ -1,10 +1,13 @@
 using FishNet.Connection;
 using FishNet.Object;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInteractor : NetworkBehaviour
 {
+    [SerializeField] private ObjectPickable currentItem;
+    
     [SerializeField] private NetworkObject itemHolder;
     [SerializeField] private float interactionDistance;
     
@@ -30,12 +33,14 @@ public class PlayerInteractor : NetworkBehaviour
     {
         _inputSystem.Enable();
         _inputSystem.Player.Interact.performed += OnInteraction;
+        _inputSystem.Player.Drop.performed += OnItemDrop;
     }
 
     private void OnDisable()
     {
         _inputSystem.Disable();
         _inputSystem.Player.Interact.performed -= OnInteraction;
+        _inputSystem.Player.Drop.performed -= OnItemDrop;
     }
 
     private void OnInteraction(InputAction.CallbackContext context)
@@ -49,20 +54,38 @@ public class PlayerInteractor : NetworkBehaviour
 
         if (hit.collider.TryGetComponent<NetworkObject>(out var netObj))
         {
-            if (netObj.TryGetComponent<ObjectPickup>(out var pickup))
+            if (netObj.TryGetComponent<ObjectPickable>(out var pickup))
             {
                 Pickup_Server(netObj, itemHolder);
             }
         }
     }
+
+    private void OnItemDrop(InputAction.CallbackContext context)
+    {
+        if (!IsOwner) return;
+        if (!context.performed) return;
+        
+        DropItem_Server();
+    }
     
     [ServerRpc(RequireOwnership = false)]
     private void Pickup_Server(NetworkObject obj, NetworkObject holder)
     {
-        if (obj != null && obj.TryGetComponent<ObjectPickup>(out var pickup))
+        if (obj != null && obj.TryGetComponent<ObjectPickable>(out var pickup))
         {
             pickup.Pickup(holder);
+            currentItem = pickup;
         }
+    }
+    
+    [ServerRpc(RequireOwnership = true)]
+    private void DropItem_Server()
+    {
+        if (currentItem == null) return;
+        
+        currentItem.Drop();
+        currentItem = null;
     }
 }
 
