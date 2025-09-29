@@ -39,7 +39,6 @@ MonoBehaviour:
     - Assembly-CSharp
     - Assembly-CSharp-firstpass
     - AstarPathfindingProject
-    - AstarPathfindingProjectExamples
     - Drawing
     - FishNet.Demos
     - FishNet.Runtime
