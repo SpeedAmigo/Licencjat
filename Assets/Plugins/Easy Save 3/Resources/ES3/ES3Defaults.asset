@@ -45,6 +45,7 @@ MonoBehaviour:
     - GameKit.Dependencies
     - Heathen.Steamworks
     - PackageTools
+    - RaycastPro
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

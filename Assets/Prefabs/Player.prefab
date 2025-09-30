@@ -17,9 +17,10 @@ GameObject:
   - component: {fileID: 6927043152948294079}
   - component: {fileID: 1264572649960622153}
   - component: {fileID: 730320371496090605}
-  m_Layer: 0
+  - component: {fileID: -5126884908997604730}
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,7 +153,8 @@ MonoBehaviour:
   - {fileID: 2943689781349225375}
   - {fileID: 6927043152948294079}
   - {fileID: 730320371496090605}
-  - {fileID: 0}
+  - {fileID: 925500053121600034}
+  - {fileID: 2665429102452664934}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects:
   - {fileID: 5910787284978885563}
@@ -263,6 +265,22 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   targetRenderer: {fileID: 3279577741967535430}
+--- !u!114 &-5126884908997604730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418864778330149249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183748dd497aa473a98ff0cd8cb67fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AstarPathfindingProject::Pathfinding.DynamicObstacle
+  version: 1073741824
+  uniqueID: 4738862406109616356
+  updateError: 1
+  checkTime: 0.2
 --- !u!1 &1485021697693250008
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,7 +292,7 @@ GameObject:
   - component: {fileID: 1170374254845626136}
   - component: {fileID: 6367376551673201630}
   - component: {fileID: 717568484744751197}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +475,7 @@ MonoBehaviour:
     jitterTimeWindow: 0.24
     jitterMeanOffsetWindow: 100
     outputMinBufferSize: 2
-  isEchoEnabled: 1
+  isEchoEnabled: 0
   isSineOverrideEnabled: 0
   maxCodecMilliseconds: 50
   allowMultipleCodecWarningsPerFrame: 0
@@ -481,9 +499,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1117dd79caed3949abdf12674fe3b7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MetaVoiceChat.NetProviders.FishNet.FishNetNetProvider
-  _componentIndexCache: 255
+  _componentIndexCache: 6
   _addedNetworkObject: {fileID: 5315229089820142365}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5315229089820142365}
 --- !u!114 &8081245131889440834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,7 +755,7 @@ GameObject:
   - component: {fileID: 3195981587653203502}
   - component: {fileID: 8132036618873378455}
   - component: {fileID: 5696332457155390617}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Resume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -846,10 +864,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8852014480968712057}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 925500053121600034}
+        m_TargetAssemblyTypeName: PauseMenuScript, Assembly-CSharp
+        m_MethodName: OnResumeButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -870,7 +888,7 @@ GameObject:
   - component: {fileID: 2281132232000830839}
   - component: {fileID: 7247080067559586135}
   - component: {fileID: 7163175393185009358}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: LeaveGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1004,7 +1022,7 @@ GameObject:
   - component: {fileID: 1352181157269940837}
   - component: {fileID: 2815891912582106134}
   - component: {fileID: 925500053121600034}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: PauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1106,9 +1124,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39c677e1adc1cf40acc33f07b8337c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 255
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 5315229089820142365}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5315229089820142365}
   pauseMenu: {fileID: 8852014480968712057}
   cameraController: {fileID: 0}
 --- !u!1 &4878554835193986385
@@ -1236,7 +1254,7 @@ GameObject:
   - component: {fileID: 1259228102168856457}
   - component: {fileID: 668711923726430002}
   - component: {fileID: 4757993939728041729}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: ExitGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1368,7 +1386,7 @@ GameObject:
   - component: {fileID: 7757652241129143911}
   - component: {fileID: 4320754224431279470}
   - component: {fileID: 776002573296491971}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1506,7 +1524,7 @@ GameObject:
   - component: {fileID: 1281649763328971183}
   - component: {fileID: 6508079293689644088}
   - component: {fileID: 4417241031708552703}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1774,7 +1792,7 @@ GameObject:
   - component: {fileID: 4261993050139014615}
   - component: {fileID: 2575223914632122552}
   - component: {fileID: 1021871653550157893}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

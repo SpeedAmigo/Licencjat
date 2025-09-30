@@ -62,6 +62,11 @@ public class PauseMenuScript : NetworkBehaviour
         }
     }
     
+    public void OnResumeButton()
+    {
+        ShowMenu(false);
+    }
+    
     public void OnLeaveButton()
     {
         if (IsOwner)
