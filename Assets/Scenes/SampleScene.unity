@@ -19087,6 +19087,10 @@ PrefabInstance:
       propertyPath: onDetectCollider.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1362546713967026012, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 3087007513
+      objectReference: {fileID: 0}
     - target: {fileID: 1655243461288019699, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: m_Name
       value: RunningCube
@@ -19099,13 +19103,21 @@ PrefabInstance:
       propertyPath: <SceneId>k__BackingField
       value: 3152993613
       objectReference: {fileID: 0}
+    - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: playerMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259184264574372812, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8867258615847103610, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: _sendToOwner
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8867258615847103610, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: _clientAuthoritative
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

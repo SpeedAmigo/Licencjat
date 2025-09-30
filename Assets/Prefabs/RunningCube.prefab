@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 1080683043655782375}
   - component: {fileID: 8867258615847103610}
   - component: {fileID: 74714188588227426}
+  - component: {fileID: 9143923550222271396}
   m_Layer: 1
   m_Name: RunningCube
   m_TagString: Untagged
@@ -238,14 +239,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d1157b5af462b1438bb23b4cf10d1af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunningCubeScript
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 4097182591846747468}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 4097182591846747468}
   canWalk: 1
-  rangeDetector: {fileID: 1205760852057409835}
-  maxPlayers: 0
+  detectionRadius: 10
+  runDistance: 10
   range: 10
-  ai: {fileID: 0}
 --- !u!114 &4097182591846747468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,9 +264,12 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
-  NetworkBehaviours: []
+  NetworkBehaviours:
+  - {fileID: 5064801098740284251}
+  - {fileID: 8867258615847103610}
   InitializedParentNetworkBehaviour: {fileID: 0}
-  InitializedNestedNetworkObjects: []
+  InitializedNestedNetworkObjects:
+  - {fileID: 0}
   RuntimeParentNetworkBehaviour: {fileID: 0}
   RuntimeChildNetworkBehaviours: []
   _isNetworked: 1
@@ -289,15 +292,15 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 65535
+  <PrefabId>k__BackingField: 0
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 5230654586660485991
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Scale: {x: 0, y: 0, z: 0}
-    IsValid: 0
+    Position: {x: 34.78657, y: 0, z: 2.52629}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    Scale: {x: 1, y: 1, z: 1}
+    IsValid: 1
 --- !u!54 &1080683043655782375
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -337,9 +340,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 255
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 4097182591846747468}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 4097182591846747468}
   _componentConfiguration: 2
   _synchronizeParent: 0
   _packing:
@@ -385,6 +388,27 @@ MonoBehaviour:
   _overrideType: 3
   _updateHostVisibility: 1
   _observerConditions: []
+--- !u!135 &9143923550222271396
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655243461288019699}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5259184264574372812
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5812642380296092663
 Transform:
   m_ObjectHideFlags: 0
