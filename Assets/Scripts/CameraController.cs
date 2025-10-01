@@ -29,6 +29,10 @@ public class CameraController : NetworkBehaviour
                 _playerCamera.transform.localRotation = Quaternion.identity;
             }
         }
+        else
+        {
+            enabled = false;
+        }
     }
 
     private void Awake()

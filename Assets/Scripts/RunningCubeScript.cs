@@ -1,16 +1,16 @@
 using System.Collections.Generic;
-using FishNet.Demo.AdditiveScenes;
 using FishNet.Object;
 using Pathfinding;
+using RaycastPro.Detectors;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(AIPath))]
 public class RunningCubeScript : NetworkBehaviour
 {
+    [SerializeField] private RangeDetector rangeDetector;
+    
     public bool canWalk = true;
-    [SerializeField] private float detectionRadius = 10f;
     [SerializeField] private float runDistance = 10f;
     [SerializeField] private float range = 10f;
 
@@ -19,16 +19,11 @@ public class RunningCubeScript : NetworkBehaviour
     private bool _running;
 
     // Server-side list of players inside range
-    private readonly List<Collider> _playersInRange = new List<Collider>();
+    private readonly List<GameObject> _playersInRange = new();
 
     private void Awake()
     {
         _ai = GetComponent<AIPath>();
-
-        // Configure sphere trigger for detection
-        SphereCollider sphere = GetComponent<SphereCollider>();
-        sphere.isTrigger = true;
-        sphere.radius = detectionRadius;
     }
 
     public override void OnStartServer()
@@ -81,8 +76,7 @@ public class RunningCubeScript : NetworkBehaviour
         Vector3 direction = (_ai.position - player.position).normalized;
         Vector3 runTarget = _ai.position + direction * runDistance;
         runTarget.y = _ai.position.y;
-
-        Debug.Log($"[SERVER] Running away from {player.name} to {runTarget}");
+        
         _ai.destination = runTarget;
     }
 
@@ -97,44 +91,50 @@ public class RunningCubeScript : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void AddPlayerToServerList(GameObject obj)
     {
-        var player = obj.GetComponent<Collider>();
+        if (_playersInRange.Contains(obj)) return;
         
-        if (!_playersInRange.Contains(player))
-        {
-            _playersInRange.Add(player);
-            Debug.Log($"[SERVER] Player added to list: {player.name}");
-            ObserverTest();
-        }
-    }
-
-    [ObserversRpc]
-    private void ObserverTest()
-    {
-        Debug.Log($"[SERVER] Observer Test");
+        _playersInRange.Add(obj);
+        //Debug.Log($"[SERVER] Player added to list: {obj.name}");
     }
     
-    // Trigger events (server only)
-    private void OnTriggerEnter(Collider other)
+    [ServerRpc(RequireOwnership = false)]
+    private void RemovePlayerFromServerList(GameObject obj)
     {
-        Debug.Log($"[Client] OnTriggerEnter: {other.name}");
+        if (!_playersInRange.Contains(obj)) return;
         
-        //if (!IsServer) return;
-
-        if (other.CompareTag("Player") && !_playersInRange.Contains(other))
+        _playersInRange.Remove(obj);
+        //Debug.Log($"[SERVER] Player removed from list: {obj.name}");
+    }
+    
+    private void OnDetected(Collider other)
+    {
+        if (other.CompareTag("Player") && !_playersInRange.Contains(other.gameObject))
         {
+            _playersInRange.Add(other.gameObject);
             AddPlayerToServerList(other.gameObject);
-            Debug.Log($"[SERVER] Player entered range: {other.name}");
+            //Debug.Log($"[SERVER] Player entered range: {other.name}");
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnLost(Collider other)
     {
-        if (!IsServer) return;
-
-        if (other.CompareTag("Player") && _playersInRange.Contains(other))
+        if (other.CompareTag("Player") && _playersInRange.Contains(other.gameObject))
         {
-            _playersInRange.Remove(other);
-            Debug.Log($"[SERVER] Player left range: {other.name}");
+            _playersInRange.Remove(other.gameObject);
+            RemovePlayerFromServerList(other.gameObject);
+            //Debug.Log($"[SERVER] Player left range: {other.name}");
         }
+    }
+
+    private void OnEnable()
+    {
+        rangeDetector.onDetectCollider.AddListener(OnDetected);
+        rangeDetector.onLostCollider.AddListener(OnLost);
+    }
+
+    private void OnDisable()
+    {
+        rangeDetector.onDetectCollider.RemoveListener(OnDetected);
+        rangeDetector.onLostCollider.RemoveListener(OnLost);
     }
 }

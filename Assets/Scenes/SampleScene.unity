@@ -18969,7 +18969,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 303934322765963396, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00000047683716
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 303934322765963396, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19005,11 +19005,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1205760852057409835, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: onNewCollider.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1205760852057409835, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: onLostCollider.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1205760852057409835, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: onDetectCollider.m_PersistentCalls.m_Calls.Array.size
@@ -19104,12 +19104,20 @@ PrefabInstance:
       value: 3152993613
       objectReference: {fileID: 0}
     - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: canWalk
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: rangeDetector
+      value: 
+      objectReference: {fileID: 1958741681}
+    - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: playerMask.m_Bits
       value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 5259184264574372812, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8867258615847103610, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: _sendToOwner
@@ -19117,6 +19125,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8867258615847103610, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: _clientAuthoritative
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9143923550222271396, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -19205,6 +19217,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b650fca685f2eb41a86538aa883e4c1, type: 3}
+--- !u!114 &1958741681 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1205760852057409835, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+  m_PrefabInstance: {fileID: 1775622513}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2979db1e4f954ef48dddfdb2c21cb9d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RaycastPro::RaycastPro.Detectors.RangeDetector
 --- !u!43 &1996389456
 Mesh:
   m_ObjectHideFlags: 0
