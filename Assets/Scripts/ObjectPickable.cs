@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ObjectPickable : NetworkBehaviour
 {
+    public Sprite itemIcon;
+    
     private Rigidbody _rb;
     private Collider _col;
     private void Awake()
@@ -54,7 +56,7 @@ public class ObjectPickable : NetworkBehaviour
     {
         transform.SetParent(null);
         
-        _rb.AddForce(Vector3.forward * 2f, ForceMode.Impulse);
+        _rb.AddRelativeForce(Vector3.forward * 2f, ForceMode.Impulse);
 
         _rb.isKinematic = false;
         _rb.interpolation = RigidbodyInterpolation.None;

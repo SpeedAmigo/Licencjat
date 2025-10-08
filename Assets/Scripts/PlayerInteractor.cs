@@ -1,4 +1,5 @@
 using FishNet.Connection;
+using FishNet.Demo.AdditiveScenes;
 using FishNet.Object;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class PlayerInteractor : NetworkBehaviour
     
     private InputSystem_Actions _inputSystem;
     private Camera _camera;
+    private PlayerInventoryScript _playerInventory;
 
     public override void OnStartClient()
     {
@@ -27,6 +29,7 @@ public class PlayerInteractor : NetworkBehaviour
     {
         _inputSystem = new InputSystem_Actions();
         _camera = Camera.main;
+        _playerInventory = GetComponent<PlayerInventoryScript>();
     }
 
     private void OnEnable()
@@ -74,6 +77,9 @@ public class PlayerInteractor : NetworkBehaviour
     {
         if (obj != null && obj.TryGetComponent<ObjectPickable>(out var pickup))
         {
+            if (!_playerInventory.CheckForEmptySlot()) return;
+            
+            _playerInventory.AddItem(pickup);
             pickup.Pickup(holder);
             currentItem = pickup;
         }

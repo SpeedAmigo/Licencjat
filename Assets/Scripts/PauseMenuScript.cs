@@ -77,7 +77,7 @@ public class PauseMenuScript : NetworkBehaviour
                 networkManager.StopConnection();
             }
             
-            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
         }
     }
 
