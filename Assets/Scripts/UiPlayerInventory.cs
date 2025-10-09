@@ -12,14 +12,22 @@ public class UiPlayerInventory : NetworkBehaviour
         itemImages[index].gameObject.SetActive(true);
         itemImages[index].sprite = sprite;
     }
+
+    private void RemoveUiIcon(int index)
+    {
+        itemImages[index].gameObject.SetActive(false);
+        itemImages[index].sprite = null;
+    }
     
     private void OnEnable()
     {
-        PlayerInventoryScript.OnUIUpdate += AddUiIcon;
+        PlayerInventoryScript.OnUIUpdateAdd += AddUiIcon;
+        PlayerInventoryScript.OnUIUpdateRemove += RemoveUiIcon;
     }
 
     private void OnDisable()
     {
-        PlayerInventoryScript.OnUIUpdate -= AddUiIcon; 
+        PlayerInventoryScript.OnUIUpdateAdd -= AddUiIcon;
+        PlayerInventoryScript.OnUIUpdateRemove -= RemoveUiIcon;
     }
 }

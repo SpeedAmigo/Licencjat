@@ -81,17 +81,21 @@ public class PlayerInteractor : NetworkBehaviour
             
             _playerInventory.AddItem(pickup);
             pickup.Pickup(holder);
-            currentItem = pickup;
         }
     }
     
     [ServerRpc(RequireOwnership = true)]
     private void DropItem_Server()
     {
-        if (currentItem == null) return;
+        if (_playerInventory.currentItem.Value != null)
+        {
+            currentItem = _playerInventory.currentItem.Value;
+        }
+        //if (currentItem == null) return;
         
+        _playerInventory.RemoveItem(currentItem);
         currentItem.Drop();
-        currentItem = null;
+        //currentItem = null;
     }
 }
 
