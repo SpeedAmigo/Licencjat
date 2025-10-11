@@ -21,20 +21,36 @@ public class PlayerInventoryScript : NetworkBehaviour
     
     private InputSystem_Actions _inputSystem;
 
-    public override void OnStartServer()
-    {
+    public override void OnStartServer()        
+    {                                   
         base.OnStartServer();
         AddInventorySlots();
+        currentItem.OnChange += HandleCurrentItemChange;
     }
 
+    public override void OnStopServer()
+    {
+        base.OnStopServer();
+        currentItem.OnChange -= HandleCurrentItemChange;
+    }
+    
     public override void OnStartClient()
     {
         base.OnStartClient();
+        currentItem.OnChange += HandleCurrentItemChange;
+        
         if (!IsOwner)
         {
             enabled = false;
         }
     }
+
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+        currentItem.OnChange -= HandleCurrentItemChange;
+    }
+    
     private void AddInventorySlots()
     {
         for (int i = 0; i < inventorySize; i++)
@@ -76,31 +92,25 @@ public class PlayerInventoryScript : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void OnDrawCurrentItem_Server(int index)
     {
-        UpdateDrawItem(index);
-    }
-
-    [ObserversRpc(BufferLast = true)]
-    private void UpdateDrawItem(int index)
-    {
-        currentItemIndex = index;
+        if (index < 0 || index >= slots.Count) return;
         
-        if (slots[index] != null)
+        currentItemIndex = index;
+        currentItem.Value = slots[index];
+    }
+    
+    private void HandleCurrentItemChange(ObjectPickable prev, ObjectPickable next, bool asServer)
+    {
+        if (next != null && next.gameObject != null && !next.gameObject.activeSelf)
         {
-            // disable current item if exists
-            if (currentItem.Value != null)
-            {
-                currentItem.Value.gameObject.SetActive(false);
-            }
-            
-            // enable new item and set it as current
-            currentItem.Value = slots[index];
-            currentItem.Value.gameObject.SetActive(true);
+            next.gameObject.SetActive(true);
         }
-        else if (slots[index] == null && currentItem.Value != null)
+        
+        if (prev != null && prev != next && prev.gameObject != null && prev.gameObject.activeSelf)
         {
-            // disable current item if exists
-            currentItem.Value.gameObject.SetActive(false);
-            currentItem.Value = null;
+            if (slots.Contains(prev))
+            {
+                prev.gameObject.SetActive(false);   
+            }
         }
     }
     
@@ -116,6 +126,7 @@ public class PlayerInventoryScript : NetworkBehaviour
         return false;
     }
 
+    [Server]
     public void AddItem(ObjectPickable item)
     {
         for (int i = 0; i < slots.Count; i++)
@@ -125,12 +136,25 @@ public class PlayerInventoryScript : NetworkBehaviour
                 slots[i] = item;
                 
                 UpdateUIAdd(Owner, i, item); // update UI with free slot index and icon
-                AddItem_Client(i, item); // show or hide item for clients
+
+                if (i == currentItemIndex)
+                {
+                    currentItem.Value = item;
+                }
+                else
+                {
+                    if (item != null && item.gameObject != null)
+                    {
+                        item.gameObject.SetActive(false);
+                    }
+                    SetItem_Client(item, false);
+                }
                 break;
             }
         }
     }
 
+    [Server]
     public void RemoveItem(ObjectPickable item)
     {
         if (slots.Contains(item))
@@ -152,17 +176,11 @@ public class PlayerInventoryScript : NetworkBehaviour
     }
 
     [ObserversRpc(BufferLast = true)]
-    private void AddItem_Client(int index, ObjectPickable item)
+    private void SetItem_Client(ObjectPickable item, bool active)
     {
-        // disable item if not current on current index
-        if (index != currentItemIndex)
+        if (item != null && item.gameObject != null)
         {
-            item.gameObject.SetActive(false);   
-        }
-        else
-        {
-            item.gameObject.SetActive(true);
-            currentItem.Value = item;
+            item.gameObject.SetActive(active);
         }
     }
 

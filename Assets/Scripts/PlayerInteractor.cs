@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteractor : NetworkBehaviour
 {
-    [SerializeField] private ObjectPickable currentItem;
+    //[SerializeField] private ObjectPickable currentItem;
     
     [SerializeField] private NetworkObject itemHolder;
     [SerializeField] private float interactionDistance;
@@ -80,6 +80,7 @@ public class PlayerInteractor : NetworkBehaviour
             if (!_playerInventory.CheckForEmptySlot()) return;
             
             _playerInventory.AddItem(pickup);
+            //currentItem = _playerInventory.currentItem.Value;
             pickup.Pickup(holder);
         }
     }
@@ -87,14 +88,11 @@ public class PlayerInteractor : NetworkBehaviour
     [ServerRpc(RequireOwnership = true)]
     private void DropItem_Server()
     {
-        if (_playerInventory.currentItem.Value != null)
-        {
-            currentItem = _playerInventory.currentItem.Value;
-        }
-        //if (currentItem == null) return;
+        if (_playerInventory.currentItem.Value == null) return;
         
-        _playerInventory.RemoveItem(currentItem);
-        currentItem.Drop();
+        _playerInventory.currentItem.Value.Drop();
+        _playerInventory.RemoveItem(_playerInventory.currentItem.Value);
+        //currentItem.Drop();
         //currentItem = null;
     }
 }
