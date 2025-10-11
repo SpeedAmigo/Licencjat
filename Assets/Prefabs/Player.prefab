@@ -93,7 +93,6 @@ GameObject:
   - component: {fileID: 5315229089820142365}
   - component: {fileID: 6927043152948294079}
   - component: {fileID: 1264572649960622153}
-  - component: {fileID: 730320371496090605}
   - component: {fileID: -5126884908997604730}
   m_Layer: 6
   m_Name: Player
@@ -159,10 +158,11 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
-  sensitivity: 15
+  sensitivity: 0.8
   minPitch: -80
   maxPitch: 80
   cameraHolder: {fileID: 7617486500100946565}
+  smoothTime: 0.02
 --- !u!114 &2943689781349225375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +178,6 @@ MonoBehaviour:
   _componentIndexCache: 2
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
-  currentItem: {fileID: 0}
   itemHolder: {fileID: 5910787284978885563}
   interactionDistance: 5
 --- !u!114 &-6240383476758041566
@@ -193,11 +192,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 002157e4cd0d64e4b8c38029bd1453b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 255
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 5315229089820142365}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5315229089820142365}
+  currentItem:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: {fileID: 0}
   inventorySize: 3
-  slots: []
+  currentItemIndex: 0
+  slots:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    Collection: []
 --- !u!143 &714776938958965697
 CharacterController:
   m_ObjectHideFlags: 0
@@ -245,10 +252,11 @@ MonoBehaviour:
   - {fileID: 5494240458988316082}
   - {fileID: 7985183086078060353}
   - {fileID: 2943689781349225375}
+  - {fileID: -6240383476758041566}
   - {fileID: 6927043152948294079}
-  - {fileID: 730320371496090605}
   - {fileID: 925500053121600034}
   - {fileID: 2665429102452664934}
+  - {fileID: 4756922230646122949}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects:
   - {fileID: 5910787284978885563}
@@ -295,7 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 3
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   _componentConfiguration: 1
@@ -343,22 +351,6 @@ MonoBehaviour:
   _overrideType: 3
   _updateHostVisibility: 1
   _observerConditions: []
---- !u!114 &730320371496090605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 418864778330149249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce35e1c8c91008446ba78284af420ae0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  _componentIndexCache: 4
-  _addedNetworkObject: {fileID: 5315229089820142365}
-  _networkObjectCache: {fileID: 5315229089820142365}
-  targetRenderer: {fileID: 3279577741967535430}
 --- !u!114 &-5126884908997604730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2331,9 +2323,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 961338f0e28491c4294fcb062ebea57d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 255
+  _componentIndexCache: 7
   _addedNetworkObject: {fileID: 5315229089820142365}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5315229089820142365}
   itemImages:
   - {fileID: 2783024885148963458}
   - {fileID: 584990348487275169}

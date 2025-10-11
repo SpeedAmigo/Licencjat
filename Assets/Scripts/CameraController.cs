@@ -10,12 +10,13 @@ public class CameraController : NetworkBehaviour
     [SerializeField] private float maxPitch = 80f;
     [SerializeField] private Transform cameraHolder;
     
+    
     private InputSystem_Actions _inputSystem;
     private Camera _playerCamera;
 
     private float _pitch;
     private Vector2 _lookInput;
-    
+
     public override void OnStartClient()
     {
         base.OnStartClient();
@@ -73,9 +74,9 @@ public class CameraController : NetworkBehaviour
     
     private void RotationHandler()
     {
-        transform.Rotate(Vector3.up * _lookInput.x * sensitivity * Time.deltaTime);
+        transform.Rotate(Vector3.up * _lookInput.x * (sensitivity * 0.1f));
         
-        _pitch -= _lookInput.y * sensitivity * Time.deltaTime;
+        _pitch -= _lookInput.y * (sensitivity * 0.1f) ;
         _pitch = Mathf.Clamp(_pitch, minPitch, maxPitch);
         
         cameraHolder.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
