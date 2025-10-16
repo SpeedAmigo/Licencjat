@@ -143,6 +143,7 @@ MonoBehaviour:
   fallMultiplier: 2
   jumpMultiplier: 2
   gravity: -9.8
+  decelerationSpeed: 10
 --- !u!114 &7985183086078060353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +163,6 @@ MonoBehaviour:
   minPitch: -80
   maxPitch: 80
   cameraHolder: {fileID: 7617486500100946565}
-  smoothTime: 0.02
 --- !u!114 &2943689781349225375
 MonoBehaviour:
   m_ObjectHideFlags: 0

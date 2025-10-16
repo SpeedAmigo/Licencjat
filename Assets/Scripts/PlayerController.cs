@@ -79,12 +79,21 @@ public class PlayerController : NetworkBehaviour
         _inputSystem.Player.Jump.performed -= OnJump;
     }
     
+    private Vector3 _currentMove;
+    [SerializeField] private float decelerationSpeed = 8f;
+    
     private void MoveHandler()
     {
         Vector3 move = new Vector3(_moveInput.x, 0, _moveInput.y);
-        move = transform.TransformDirection(move);
+        move = transform.TransformDirection(move) * _moveSpeed;
         
-        _controller.Move(move * _moveSpeed * Time.deltaTime);
+        Vector3 horizontalCurrent = new Vector3(_currentMove.x, 0, _currentMove.z);
+        horizontalCurrent = Vector3.Lerp(horizontalCurrent, move, decelerationSpeed * Time.deltaTime);
+        
+        _currentMove = new Vector3(horizontalCurrent.x, _velocity.y, horizontalCurrent.z);
+        
+        //_controller.Move(move * _moveSpeed * Time.deltaTime);
+        _controller.Move(_currentMove * Time.deltaTime);
     }
 
     private void OnSprint()
