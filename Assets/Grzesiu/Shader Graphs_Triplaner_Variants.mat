@@ -39,8 +39,9 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Metalic: 1
-    - _Smoothness: 1
+    - _Alpha: 0
+    - _Metalic: 0
+    - _Smoothness: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
