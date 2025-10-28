@@ -6,7 +6,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AIPath))]
-public class RunningCubeScript : NetworkBehaviour
+public class FrogScript : NetworkBehaviour
 {
     [SerializeField] private RangeDetector rangeDetector;
     
