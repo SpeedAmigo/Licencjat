@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FishNet.Component.Animating;
 using FishNet.Object;
 using Pathfinding;
 using RaycastPro.Detectors;
@@ -8,6 +9,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(AIPath))]
 public class FrogScript : NetworkBehaviour
 {
+    [SerializeField] private NetworkAnimator animator;
     [SerializeField] private RangeDetector rangeDetector;
     
     public bool canWalk = true;
@@ -63,6 +65,8 @@ public class FrogScript : NetworkBehaviour
             _waitingForPath = true;
             Invoke(nameof(SetNewPath), 3f);
         }
+        
+        animator.Animator.SetFloat("Speed", _ai.velocity.magnitude);
     }
 
     private void SetNewPath()

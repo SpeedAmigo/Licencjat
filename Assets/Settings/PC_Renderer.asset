@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::FlatKit.ObjectOutlineRendererFeature
   m_Active: 1
   settings:
-    passTag: RenderObjectsFeature
+    passTag: Flat Kit Per Object Outline
     Event: 300
     filterSettings:
       RenderQueueType: 0
@@ -72,7 +72,8 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: 7833122117494664109}
   - {fileID: -4357060438197427333}
-  m_RendererFeatureMap: ad6b866f10d7b46c
+  - {fileID: 8347130439360066708}
+  m_RendererFeatureMap: ad6b866f10d7b46ce973a8f490a76f109434e8dbe8f6d673
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -127,3 +128,17 @@ MonoBehaviour:
     BlurQuality: 0
     Falloff: 100
     SampleCount: -1
+--- !u!114 &8347130439360066708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770acbaed70db4ad696458511aa3f084, type: 3}
+  m_Name: FlatKitFog
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::FlatKit.FlatKitFog
+  m_Active: 1
+  settings: {fileID: 11400000, guid: 6551b7c11b144314190123fb05f9c400, type: 2}
