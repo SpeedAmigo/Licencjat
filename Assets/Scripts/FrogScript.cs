@@ -13,6 +13,7 @@ public class FrogScript : NetworkBehaviour
     [SerializeField] private RangeDetector rangeDetector;
     
     public bool canWalk = true;
+    [SerializeField] private int maxPlayers;
     [SerializeField] private float runDistance = 10f;
     [SerializeField] private float range = 10f;
 
@@ -21,7 +22,7 @@ public class FrogScript : NetworkBehaviour
     private bool _running;
 
     // Server-side list of players inside range
-    private readonly List<GameObject> _playersInRange = new();
+    public List<GameObject> playersInRange = new();
 
     private void Awake()
     {
@@ -44,12 +45,12 @@ public class FrogScript : NetworkBehaviour
 
         _ai.maxSpeed = _running ? 5f : 2f;
 
-        if (_playersInRange.Count > 0) // someone nearby
+        if (playersInRange.Count > maxPlayers) // someone nearby
         {
             _running = true;
             CancelInvoke(nameof(SetNewPath));
 
-            var target = _playersInRange[0];
+            var target = playersInRange[0];
             if (target != null)
             {
                 SetRunningPath(target.transform, runDistance);
@@ -95,26 +96,26 @@ public class FrogScript : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void AddPlayerToServerList(GameObject obj)
     {
-        if (_playersInRange.Contains(obj)) return;
+        if (playersInRange.Contains(obj)) return;
         
-        _playersInRange.Add(obj);
+        playersInRange.Add(obj);
         //Debug.Log($"[SERVER] Player added to list: {obj.name}");
     }
     
     [ServerRpc(RequireOwnership = false)]
     private void RemovePlayerFromServerList(GameObject obj)
     {
-        if (!_playersInRange.Contains(obj)) return;
+        if (!playersInRange.Contains(obj)) return;
         
-        _playersInRange.Remove(obj);
+        playersInRange.Remove(obj);
         //Debug.Log($"[SERVER] Player removed from list: {obj.name}");
     }
     
     private void OnDetected(Collider other)
     {
-        if (other.CompareTag("Player") && !_playersInRange.Contains(other.gameObject))
+        if (other.CompareTag("Player") && !playersInRange.Contains(other.gameObject))
         {
-            _playersInRange.Add(other.gameObject);
+            playersInRange.Add(other.gameObject);
             AddPlayerToServerList(other.gameObject);
             //Debug.Log($"[SERVER] Player entered range: {other.name}");
         }
@@ -122,9 +123,9 @@ public class FrogScript : NetworkBehaviour
 
     private void OnLost(Collider other)
     {
-        if (other.CompareTag("Player") && _playersInRange.Contains(other.gameObject))
+        if (other.CompareTag("Player") && playersInRange.Contains(other.gameObject))
         {
-            _playersInRange.Remove(other.gameObject);
+            playersInRange.Remove(other.gameObject);
             RemovePlayerFromServerList(other.gameObject);
             //Debug.Log($"[SERVER] Player left range: {other.name}");
         }
