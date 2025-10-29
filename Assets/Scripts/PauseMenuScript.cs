@@ -18,6 +18,20 @@ public class PauseMenuScript : NetworkBehaviour
             enabled = false;
         }
     }
+    
+    public override void OnStopServer()
+    {
+        if (IsOwner)
+        {
+            var networkManager = NetworkManager.ClientManager;
+            if (networkManager != null)
+            {
+                networkManager.StopConnection();
+            }
+            
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+        }
+    }
 
     private void Awake()
     {
