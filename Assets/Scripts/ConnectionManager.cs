@@ -1,5 +1,7 @@
+using System;
 using FishNet.Managing.Scened;
 using Heathen.SteamworksIntegration;
+using Heathen.SteamworksIntegration.API;
 using TMPro;
 using UnityEngine;
 using SceneManager = UnityEngine.SceneManagement.SceneManager;
@@ -15,7 +17,7 @@ public class ConnectionManager : MonoBehaviour
     [SerializeField] private LobbyManager lobbyManager;
     
     private string _lobbyData;
-
+    
     private void Awake()
     {
         if (Instance != null)
@@ -35,6 +37,20 @@ public class ConnectionManager : MonoBehaviour
     private void JoinLobby(LobbyData lobbyData, UserData userData)
     {
         lobbyManager.Join(lobbyData);
+
+        var currentPlayers = lobbyManager.Lobby.MemberCount;
+        var maxPlayers = lobbyManager.Lobby.MaxMembers;
+        
+        //int maxPlayers = Matchmaking.Client.GetLobbyMemberLimit(lobbyData);
+        
+        Debug.Log($"connected Players: {currentPlayers}, max Players {maxPlayers}");
+        
+        if (lobbyManager.Lobby.Full)
+        {
+            Debug.Log("Game is full");
+            lobbyManager.Leave();
+            return;
+        }
         
         if (!userData.IsValid)
         {
@@ -52,7 +68,7 @@ public class ConnectionManager : MonoBehaviour
     {
         _lobbyData = lobbyData.HexId;
     }
-
+    
     public void StartHost()
     {
         fishySteamworks.StartConnection(true);
@@ -63,7 +79,7 @@ public class ConnectionManager : MonoBehaviour
 
     public void TryJoinLobby()
     {
-        var lobbyId = inputField.text;
+        var lobbyId = inputField.text.Trim();
         
         lobbyManager.Join(lobbyId);
     }
@@ -83,6 +99,11 @@ public class ConnectionManager : MonoBehaviour
         fishySteamworks.StartConnection(false);
         
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void StopConnection()
+    {
+        lobbyManager.Leave();
     }
     
     public static string GetHostHex()

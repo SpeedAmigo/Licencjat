@@ -10,29 +10,6 @@ public class PauseMenuScript : NetworkBehaviour
 
     private InputSystem_Actions _inputSystem;
     
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        if (!IsOwner)
-        {
-            enabled = false;
-        }
-    }
-    
-    public override void OnStopServer()
-    {
-        if (IsOwner)
-        {
-            var networkManager = NetworkManager.ClientManager;
-            if (networkManager != null)
-            {
-                networkManager.StopConnection();
-            }
-            
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
-        }
-    }
-
     private void Awake()
     {
         cameraController = GetComponentInParent<CameraController>();
@@ -90,8 +67,6 @@ public class PauseMenuScript : NetworkBehaviour
             {
                 networkManager.StopConnection();
             }
-            
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
         }
     }
 
@@ -104,5 +79,40 @@ public class PauseMenuScript : NetworkBehaviour
         }
         
         Application.Quit();
+    }
+    
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (!IsOwner)
+        {
+            enabled = false;
+        }
+    }
+    
+    public override void OnStopServer()
+    {
+        base.OnStopServer();
+        
+        DisconnectAllClients();
+        
+        if (ConnectionManager.Instance != null) ConnectionManager.Instance.StopConnection();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+        
+    }
+
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+        
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+    }
+
+    private void DisconnectAllClients()
+    {
+        foreach (var client in NetworkManager.ServerManager.Clients.Values)
+        {
+            client.Disconnect(true);
+        }
     }
 }
