@@ -1024,7 +1024,7 @@ MonoBehaviour:
   createArguments:
     usageHint: 2
     name: 
-    slots: 4
+    slots: 1
     type: 1
     metadata: []
     richPresenceFields: []
