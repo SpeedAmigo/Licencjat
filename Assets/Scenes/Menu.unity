@@ -1002,6 +1002,7 @@ MonoBehaviour:
   inputField: {fileID: 2042128233}
   fishySteamworks: {fileID: 7443408886847410971}
   lobbyManager: {fileID: 682601178}
+  overlayManager: {fileID: 0}
 --- !u!114 &682601178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1024,7 +1025,7 @@ MonoBehaviour:
   createArguments:
     usageHint: 2
     name: 
-    slots: 1
+    slots: 4
     type: 1
     metadata: []
     richPresenceFields: []
