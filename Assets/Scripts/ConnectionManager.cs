@@ -34,6 +34,7 @@ public class ConnectionManager : MonoBehaviour
         //lobbyManager.evtEnterSuccess.AddListener(StartConnection);
         
         Overlay.Client.EventGameLobbyJoinRequested.AddListener(JoinLobby);
+        lobbyManager.evtEnterSuccess.AddListener(OnLobbyEntered);
     }
 
     private void JoinLobby(LobbyData lobbyData, UserData userData)
@@ -50,13 +51,39 @@ public class ConnectionManager : MonoBehaviour
             return;
         }*/
         
-        if (!userData.IsValid)
+        
+        /*if (!userData.IsValid)
         {
             Debug.LogError("hostUser is not valid");
             return;
         }
         
         fishySteamworks.SetClientAddress(userData.id.ToString());
+        fishySteamworks.StartConnection(false);
+        
+        SceneManager.LoadScene(sceneName);*/
+    }
+
+    private void OnLobbyEntered(LobbyData lobbyData)
+    {
+        if (lobbyData.MemberCount > lobbyData.MaxMembers)
+        {
+            lobbyManager.Leave();
+            Debug.Log("Server if full");
+            return;
+        }
+        
+        Debug.Log($"Lobby Entered! players: {lobbyData.Members}, Max players: {lobbyData.MaxMembers}");
+        
+        var hostUser = lobbyData.Owner.user;
+        
+        if (!hostUser.IsValid)
+        {
+            Debug.LogError("hostUser is not valid");
+            return;
+        }
+        
+        fishySteamworks.SetClientAddress(hostUser.id.ToString());
         fishySteamworks.StartConnection(false);
         
         SceneManager.LoadScene(sceneName);
