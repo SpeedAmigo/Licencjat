@@ -165,12 +165,25 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 4097182591846747468}
+  itemIcon: {fileID: 0}
   animator: {fileID: 283597213382293966}
   rangeDetector: {fileID: 1205760852057409835}
   canWalk: 1
+  canSpit: 1
+  canRunaway: 1
+  walkSpeed: 2
+  runSpeed: 5
   maxPlayers: 0
   runDistance: 10
   range: 10
+  pickedUp:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
+  spitTime:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 5
   playersInRange: []
 --- !u!114 &4097182591846747468
 MonoBehaviour:

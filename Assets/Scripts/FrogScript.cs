@@ -1,34 +1,56 @@
 using System.Collections.Generic;
+using FishNet.CodeGenerating;
 using FishNet.Component.Animating;
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using Pathfinding;
 using RaycastPro.Detectors;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AIPath))]
-public class FrogScript : NetworkBehaviour
+public class FrogScript : ObjectPickable
 {
+    #region Variables
+
+    [Header("Dependencies")]
     [SerializeField] private NetworkAnimator animator;
     [SerializeField] private RangeDetector rangeDetector;
     
+    [Header("General settings")]
     public bool canWalk = true;
+    public bool canSpit = true;
+    public bool canRunaway = true;
+    
+    [Header("Speed settings")]
+    [SerializeField] private float walkSpeed;
+    [SerializeField] private float runSpeed;
+    
+    [Header("Run away setting")]
     [SerializeField] private int maxPlayers;
     [SerializeField] private float runDistance = 10f;
     [SerializeField] private float range = 10f;
+    
+    [Header("PickedUp settings")]
+    [AllowMutableSyncType] private SyncVar<bool> pickedUp;
+    [AllowMutableSyncType] private SyncVar<float> spitTime = new(5f);
+    
+    [Header("Players in range list")]
+    // Server-side list of players inside range
+    public List<GameObject> playersInRange = new();
 
     private AIPath _ai;
     private bool _waitingForPath;
     private bool _running;
 
-    // Server-side list of players inside range
-    public List<GameObject> playersInRange = new();
-
-    private void Awake()
+    #endregion
+    
+    protected override void Awake()
     {
+        base.Awake();
         _ai = GetComponent<AIPath>();
     }
-
+    
     public override void OnStartServer()
     {
         base.OnStartServer();
@@ -43,9 +65,22 @@ public class FrogScript : NetworkBehaviour
     {
         if (!IsServerInitialized) return; // only server runs logic
 
-        _ai.maxSpeed = _running ? 5f : 2f;
+        _ai.maxSpeed = _running ? runSpeed : walkSpeed;
+        
+        bool canRun = canRunaway && playersInRange.Count > maxPlayers;
+        
+        if (canSpit && pickedUp.Value)
+        {
+            spitTime.Value -= Time.deltaTime;
+            if (spitTime.Value <= 0f)
+            {
+                Debug.Log("Frog Spitted on you");
+                spitTime.Value = 5f;
+                DropLogic();
+            }
+        }
 
-        if (playersInRange.Count > maxPlayers) // someone nearby
+        if (canRun)
         {
             _running = true;
             CancelInvoke(nameof(SetNewPath));
@@ -58,18 +93,43 @@ public class FrogScript : NetworkBehaviour
 
             _waitingForPath = false;
         }
-        else if (!_ai.pathPending && (_ai.reachedEndOfPath || !_ai.hasPath) && !_waitingForPath)
+        else
         {
-            if (!canWalk) return;
-
             _running = false;
-            _waitingForPath = true;
-            Invoke(nameof(SetNewPath), 3f);
+            
+            if (!_ai.pathPending && (_ai.reachedEndOfPath || !_ai.hasPath) && !_waitingForPath)
+            {
+                if (!canWalk) return;
+                
+                _waitingForPath = true;
+                Invoke(nameof(SetNewPath), 3f);
+            }
         }
         
         animator.Animator.SetFloat("Speed", _ai.velocity.magnitude);
     }
+    
+    #region PickUpRegion
+    protected override void PickupLogic(NetworkObject holder)
+    {
+        base.PickupLogic(holder);
 
+        _ai.enabled = false;
+        pickedUp.Value = true;
+    }
+
+    protected override void DropLogic()
+    {
+        base.DropLogic();
+        
+        _ai.enabled = true;
+        pickedUp.Value = false;
+    }
+    
+    #endregion
+
+    #region HelperMethods
+    
     private void SetNewPath()
     {
         _ai.destination = PickRandomPoint();
@@ -93,6 +153,10 @@ public class FrogScript : NetworkBehaviour
         return randomPoint;
     }
     
+    #endregion
+    
+    #region PlayerDetection
+
     [ServerRpc(RequireOwnership = false)]
     private void AddPlayerToServerList(GameObject obj)
     {
@@ -131,6 +195,10 @@ public class FrogScript : NetworkBehaviour
         }
     }
 
+    #endregion
+    
+    #region Enable/Disable
+    
     private void OnEnable()
     {
         rangeDetector.onDetectCollider.AddListener(OnDetected);
@@ -142,4 +210,7 @@ public class FrogScript : NetworkBehaviour
         rangeDetector.onDetectCollider.RemoveListener(OnDetected);
         rangeDetector.onLostCollider.RemoveListener(OnLost);
     }
+    
+    #endregion
+
 }

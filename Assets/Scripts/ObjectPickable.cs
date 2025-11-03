@@ -8,20 +8,20 @@ public class ObjectPickable : NetworkBehaviour
     
     private Rigidbody _rb;
     private Collider _col;
-    private void Awake()
+    protected virtual void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _col = GetComponent<Collider>();
     }
     
-    public virtual void Pickup(NetworkObject holder)
+    public void Pickup(NetworkObject holder)
     {
         if (!IsServerInitialized) return;
         PickupLogic(holder);
         Pickup_Client(holder);
     }
 
-    public virtual void Drop()
+    public void Drop()
     {
         if (!IsServerInitialized) return;
         DropLogic();
@@ -40,7 +40,7 @@ public class ObjectPickable : NetworkBehaviour
         DropLogic();
     }
 
-    private void PickupLogic(NetworkObject holder)
+    protected virtual void PickupLogic(NetworkObject holder)
     {
         transform.SetParent(holder.transform);
         transform.localPosition = Vector3.zero;
@@ -52,7 +52,7 @@ public class ObjectPickable : NetworkBehaviour
         _col.enabled = false;
     }
 
-    private void DropLogic()
+    protected virtual void DropLogic()
     {
         transform.SetParent(null);
         

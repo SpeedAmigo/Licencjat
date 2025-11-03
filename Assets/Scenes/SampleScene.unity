@@ -2049,6 +2049,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpaceFrog (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1655243461288019699, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2000116408386180054, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 89.98021
@@ -2196,6 +2200,10 @@ PrefabInstance:
     - target: {fileID: 4518892802854839370, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 179.99995
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: canSpit
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: canWalk
@@ -2703,6 +2711,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpaceFrog (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1655243461288019699, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2000116408386180054, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 89.98021
@@ -2850,6 +2862,10 @@ PrefabInstance:
     - target: {fileID: 4518892802854839370, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 179.99995
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: canSpit
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: canWalk
@@ -3695,6 +3711,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpaceFrog (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1655243461288019699, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2000116408386180054, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 89.98021
@@ -3842,6 +3862,10 @@ PrefabInstance:
     - target: {fileID: 4518892802854839370, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 179.99995
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: canSpit
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: canWalk
@@ -4177,6 +4201,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpaceFrog
       objectReference: {fileID: 0}
+    - target: {fileID: 1655243461288019699, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4097182591846747468, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: WasActiveDuringEdit
       value: 1
@@ -4186,7 +4214,19 @@ PrefabInstance:
       value: 3152993613
       objectReference: {fileID: 0}
     - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: _rb
+      value: 
+      objectReference: {fileID: 1914729735}
+    - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: canSpit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: canWalk
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: canRunaway
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
@@ -4414,6 +4454,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 838e1cb2539f0cf49a163d3908135759, type: 3}
+--- !u!54 &1914729735 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 1080683043655782375, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+  m_PrefabInstance: {fileID: 1775622513}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2076326104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4617,8 +4662,8 @@ SceneRoots:
   - {fileID: 1775622513}
   - {fileID: 1600360783}
   - {fileID: 1381648523}
+  - {fileID: 1222590877}
   - {fileID: 1830000583}
   - {fileID: 919144024}
   - {fileID: 2076326104}
   - {fileID: 77928398}
-  - {fileID: 1222590877}
