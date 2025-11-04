@@ -76,37 +76,50 @@ public class FrogScript : ObjectPickable
             {
                 Debug.Log("Frog Spitted on you");
                 spitTime.Value = 5f;
-                DropLogic();
+                //DropLogic(); do poprawy
             }
         }
 
         if (canRun)
         {
-            _running = true;
-            CancelInvoke(nameof(SetNewPath));
-
-            var target = playersInRange[0];
-            if (target != null)
-            {
-                SetRunningPath(target.transform, runDistance);
-            }
-
-            _waitingForPath = false;
+            RunMethod();
         }
         else
         {
-            _running = false;
-            
-            if (!_ai.pathPending && (_ai.reachedEndOfPath || !_ai.hasPath) && !_waitingForPath)
-            {
-                if (!canWalk) return;
-                
-                _waitingForPath = true;
-                Invoke(nameof(SetNewPath), 3f);
-            }
+            WalkMethod();
         }
         
         animator.Animator.SetFloat("Speed", _ai.velocity.magnitude);
+        animator.Animator.SetBool("Running", _running);
+    }
+
+    [Server]
+    private void RunMethod()
+    {
+        _running = true;
+        CancelInvoke(nameof(SetNewPath));
+
+        var target = playersInRange[0];
+        if (target != null)
+        {
+            SetRunningPath(target.transform, runDistance);
+        }
+
+        _waitingForPath = false;
+    }
+
+    [Server]
+    private void WalkMethod()
+    {
+        _running = false;
+            
+        if (!_ai.pathPending && (_ai.reachedEndOfPath || !_ai.hasPath) && !_waitingForPath)
+        {
+            if (!canWalk) return;
+                
+            _waitingForPath = true;
+            Invoke(nameof(SetNewPath), 3f);
+        }
     }
     
     #region PickUpRegion

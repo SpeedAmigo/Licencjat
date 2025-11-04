@@ -972,6 +972,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &620528852 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1371515039683754198, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+  m_PrefabInstance: {fileID: 1600360783}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Animating.NetworkAnimator
 --- !u!1 &718748497
 GameObject:
   m_ObjectHideFlags: 0
@@ -1177,6 +1188,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 838e1cb2539f0cf49a163d3908135759, type: 3}
+--- !u!114 &830385306 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1371515039683754198, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+  m_PrefabInstance: {fileID: 1381648523}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Animating.NetworkAnimator
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2212,7 +2234,7 @@ PrefabInstance:
     - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: animator
       value: 
-      objectReference: {fileID: 1222590882}
+      objectReference: {fileID: 1255894541}
     - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: rangeDetector
       value: 
@@ -2397,25 +2419,8 @@ PrefabInstance:
     - {fileID: -2161937678035251799, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5503012243462650526, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1222590883}
-    - targetCorrespondingSourceObject: {fileID: 5503012243462650526, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1222590882}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
---- !u!114 &1222590878 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4097182591846747468, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
-  m_PrefabInstance: {fileID: 1222590877}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.NetworkObject
 --- !u!114 &1222590879 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
@@ -2438,55 +2443,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2979db1e4f954ef48dddfdb2c21cb9d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RaycastPro::RaycastPro.Detectors.RangeDetector
---- !u!1 &1222590881 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5503012243462650526, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+--- !u!114 &1255894541 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1371515039683754198, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
   m_PrefabInstance: {fileID: 1222590877}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1222590882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222590881}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Animating.NetworkAnimator
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 1222590878}
-  _networkObjectCache: {fileID: 0}
-  IgnoredParameters: []
-  _animator: {fileID: 1222590883}
-  _synchronizeWhenDisabled: 0
-  _smoothFloats: 1
-  _interpolation: 2
-  _clientAuthoritative: 1
-  _sendToOwner: 0
---- !u!95 &1222590883
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222590881}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8b933601213e30940acf56a00aff0378, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1381648523
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2874,7 +2841,7 @@ PrefabInstance:
     - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: animator
       value: 
-      objectReference: {fileID: 1381648528}
+      objectReference: {fileID: 830385306}
     - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: rangeDetector
       value: 
@@ -3059,25 +3026,8 @@ PrefabInstance:
     - {fileID: -2161937678035251799, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5503012243462650526, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1381648529}
-    - targetCorrespondingSourceObject: {fileID: 5503012243462650526, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1381648528}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
---- !u!114 &1381648524 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4097182591846747468, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
-  m_PrefabInstance: {fileID: 1381648523}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.NetworkObject
 --- !u!114 &1381648525 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
@@ -3100,55 +3050,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2979db1e4f954ef48dddfdb2c21cb9d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RaycastPro::RaycastPro.Detectors.RangeDetector
---- !u!1 &1381648527 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5503012243462650526, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
-  m_PrefabInstance: {fileID: 1381648523}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1381648528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1381648527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Animating.NetworkAnimator
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 1381648524}
-  _networkObjectCache: {fileID: 0}
-  IgnoredParameters: []
-  _animator: {fileID: 1381648529}
-  _synchronizeWhenDisabled: 0
-  _smoothFloats: 1
-  _interpolation: 2
-  _clientAuthoritative: 1
-  _sendToOwner: 0
---- !u!95 &1381648529
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1381648527}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8b933601213e30940acf56a00aff0378, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1454174623
 GameObject:
   m_ObjectHideFlags: 0
@@ -3874,7 +3775,7 @@ PrefabInstance:
     - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: animator
       value: 
-      objectReference: {fileID: 1600360788}
+      objectReference: {fileID: 620528852}
     - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: rangeDetector
       value: 
@@ -4059,25 +3960,8 @@ PrefabInstance:
     - {fileID: -2161937678035251799, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5503012243462650526, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1600360789}
-    - targetCorrespondingSourceObject: {fileID: 5503012243462650526, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1600360788}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
---- !u!114 &1600360784 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4097182591846747468, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
-  m_PrefabInstance: {fileID: 1600360783}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.NetworkObject
 --- !u!114 &1600360785 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
@@ -4100,55 +3984,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2979db1e4f954ef48dddfdb2c21cb9d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RaycastPro::RaycastPro.Detectors.RangeDetector
---- !u!1 &1600360787 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5503012243462650526, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
-  m_PrefabInstance: {fileID: 1600360783}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1600360788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1600360787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Animating.NetworkAnimator
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 1600360784}
-  _networkObjectCache: {fileID: 0}
-  IgnoredParameters: []
-  _animator: {fileID: 1600360789}
-  _synchronizeWhenDisabled: 0
-  _smoothFloats: 1
-  _interpolation: 2
-  _clientAuthoritative: 1
-  _sendToOwner: 0
---- !u!95 &1600360789
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1600360787}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8b933601213e30940acf56a00aff0378, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1775622513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4205,6 +4040,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3810328240186286207, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: lookMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3810328240186286207, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: lookSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3810328240186286207, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: lookRadius
+      value: 0.001
+      objectReference: {fileID: 0}
     - target: {fileID: 4097182591846747468, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: WasActiveDuringEdit
       value: 1
@@ -4223,7 +4070,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: canWalk
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: canRunaway
@@ -4232,6 +4079,18 @@ PrefabInstance:
     - target: {fileID: 5064801098740284251, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
       propertyPath: maxPlayers
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933775833598259240, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933775833598259240, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933775833598259240, guid: 47b607c064be8d84082d08ade89f788b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

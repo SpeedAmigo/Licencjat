@@ -6,9 +6,18 @@ public class CreatureFaceScript : NetworkBehaviour
     [Header("Eye Decals")]
     [SerializeField] private GameObject eyeDecal;
     
-    [Header("Look Settings")]
+    [Header("Look settings")]
     [SerializeField] private bool lookAtPlayer = true;
     [SerializeField] private LookMode lookMode = LookMode.ClosestPlayer;
+    
+    [Tooltip("If checked z axis will always stay at original position" +
+             " ensuring the eye will not fly towards the player")]
+    [SerializeField] private bool ignoreZAxis = true;
+    
+    [Header("Target offset settings")]
+    [SerializeField] private float xTargetOffset = 0f;
+    [SerializeField] private float yTargetOffset = 0f;
+    [SerializeField] private float zTargetOffset = 0f;
     
     [Header("Look radius settings")]
     [SerializeField] private float lookRadius;
@@ -23,7 +32,6 @@ public class CreatureFaceScript : NetworkBehaviour
         FirstPlayer,
         LastPlayer
     }
-    
     
     private void Start()
     {
@@ -79,7 +87,16 @@ public class CreatureFaceScript : NetworkBehaviour
         {
             Vector3 worldDir = (targetPos.Value - eyeDecal.transform.position).normalized;
             Vector3 localDir = eyeDecal.transform.parent.InverseTransformDirection(worldDir);
+            
             desiredPosition = _originalPosition + localDir * lookRadius;
+        }
+        
+        Vector3 offset = new Vector3(xTargetOffset, yTargetOffset, zTargetOffset);
+        desiredPosition += offset;
+
+        if (ignoreZAxis)
+        {
+            desiredPosition.z = _originalPosition.z;
         }
         
         eyeDecal.transform.localPosition = Vector3.Lerp(
