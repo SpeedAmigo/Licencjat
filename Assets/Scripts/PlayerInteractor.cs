@@ -79,9 +79,9 @@ public class PlayerInteractor : NetworkBehaviour
         {
             if (!_playerInventory.CheckForEmptySlot()) return;
             
-            _playerInventory.AddItem(pickup);
+            _playerInventory.AddItem(pickup, holder);
             //currentItem = _playerInventory.currentItem.Value;
-            pickup.Pickup(holder);
+            //pickup.Pickup(holder);
         }
     }
     
@@ -90,7 +90,7 @@ public class PlayerInteractor : NetworkBehaviour
     {
         if (_playerInventory.currentItem.Value == null) return;
         
-        _playerInventory.currentItem.Value.Drop();
+        //_playerInventory.currentItem.Value.Drop();
         _playerInventory.RemoveItem(_playerInventory.currentItem.Value);
         //currentItem.Drop();
         //currentItem = null;

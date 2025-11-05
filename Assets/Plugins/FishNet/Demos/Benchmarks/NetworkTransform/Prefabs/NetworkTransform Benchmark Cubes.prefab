@@ -80,9 +80,9 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 13
+  <PrefabId>k__BackingField: 36
   <SpawnableCollectionId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 1135307130674619079
+  <AssetPathHash>k__BackingField: 16183400258618928076
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
@@ -139,6 +139,7 @@ MonoBehaviour:
     Position: 1
     Rotation: 1
     Scale: 0
+  _useScaledTime: 1
   _interpolation: 3
   _extrapolation: 2
   _enableTeleport: 0

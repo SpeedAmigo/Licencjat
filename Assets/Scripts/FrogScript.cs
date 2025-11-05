@@ -3,6 +3,7 @@ using FishNet.CodeGenerating;
 using FishNet.Component.Animating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using Heathen.SteamworksIntegration.API;
 using Pathfinding;
 using RaycastPro.Detectors;
 using UnityEngine;
@@ -42,7 +43,9 @@ public class FrogScript : ObjectPickable
     private AIPath _ai;
     private bool _waitingForPath;
     private bool _running;
-
+    
+    private PlayerInventoryScript _playerInventory;
+    
     #endregion
     
     protected override void Awake()
@@ -54,7 +57,7 @@ public class FrogScript : ObjectPickable
     public override void OnStartServer()
     {
         base.OnStartServer();
-
+        
         if (canWalk)
         {
             _ai.destination = PickRandomPoint();
@@ -76,7 +79,7 @@ public class FrogScript : ObjectPickable
             {
                 Debug.Log("Frog Spitted on you");
                 spitTime.Value = 5f;
-                //DropLogic(); do poprawy
+                _playerInventory.RequestRemoveItem(this, _playerInventory);
             }
         }
 
@@ -129,6 +132,8 @@ public class FrogScript : ObjectPickable
 
         _ai.enabled = false;
         pickedUp.Value = true;
+        
+        _playerInventory = holder.transform.parent.gameObject.GetComponent<PlayerInventoryScript>();
     }
 
     protected override void DropLogic()
@@ -137,6 +142,8 @@ public class FrogScript : ObjectPickable
         
         _ai.enabled = true;
         pickedUp.Value = false;
+        
+        _playerInventory = null;
     }
     
     #endregion

@@ -4,6 +4,7 @@ using FishNet.CodeGenerating;
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using Heathen.SteamworksIntegration.API;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -127,7 +128,7 @@ public class PlayerInventoryScript : NetworkBehaviour
     }
 
     [Server]
-    public void AddItem(ObjectPickable item)
+    public void AddItem(ObjectPickable item, NetworkObject holder)
     {
         for (int i = 0; i < slots.Count; i++)
         {
@@ -136,6 +137,7 @@ public class PlayerInventoryScript : NetworkBehaviour
                 slots[i] = item;
                 
                 UpdateUIAdd(Owner, i, item); // update UI with free slot index and icon
+                item.Pickup(holder);
 
                 if (i == currentItemIndex)
                 {
@@ -165,6 +167,8 @@ public class PlayerInventoryScript : NetworkBehaviour
                 {
                     slots[i] = null;
                     UpdateUIRemove(Owner, i); // update UI with free slot index and null icon
+                    item.Drop();
+                    
                     if (currentItem.Value == item)
                     {
                         currentItem.Value = null;
@@ -173,6 +177,14 @@ public class PlayerInventoryScript : NetworkBehaviour
                 }
             }
         }
+    }
+    
+    [Server]
+    public void RequestRemoveItem(ObjectPickable item, PlayerInventoryScript inventory)
+    {
+        if (inventory == null || item == null) return;
+        
+        inventory.RemoveItem(item);
     }
 
     [ObserversRpc(BufferLast = true)]

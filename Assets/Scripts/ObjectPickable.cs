@@ -8,6 +8,7 @@ public class ObjectPickable : NetworkBehaviour
     
     private Rigidbody _rb;
     private Collider _col;
+    
     protected virtual void Awake()
     {
         _rb = GetComponent<Rigidbody>();

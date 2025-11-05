@@ -1,3 +1,4 @@
+using FishNet.Component.Transforming;
 using FishNet.Object;
 using UnityEngine;
 
