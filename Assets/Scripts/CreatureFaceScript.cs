@@ -1,11 +1,15 @@
+using FishNet.CodeGenerating;
 using FishNet.Component.Transforming;
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using UnityEngine;
 
 public class CreatureFaceScript : NetworkBehaviour
 {
     [Header("Eye Decals")]
     [SerializeField] private GameObject eyeDecal;
+
+    [AllowMutableSyncType] private SyncVar<Vector3> syncedEyePosition;
     
     [Header("Look settings")]
     [SerializeField] private bool lookAtPlayer = true;
@@ -24,7 +28,7 @@ public class CreatureFaceScript : NetworkBehaviour
     [SerializeField] private float lookRadius;
     [SerializeField] private float lookSpeed;
 
-    private FrogScript _frogScript;
+    [SerializeField] private FrogScript _frogScript;
     private Vector3 _originalPosition;
 
     private enum LookMode
@@ -37,14 +41,14 @@ public class CreatureFaceScript : NetworkBehaviour
     private void Start()
     {
         _originalPosition = Vector3.zero;
-        _frogScript = GetComponent<FrogScript>();
+        //_frogScript = GetComponent<FrogScript>();
     }
 
     private void Update()
     {
-        if (!IsServerInitialized) return;
-
-        Vector3? targetPos = null;
+        if (IsServer)
+        {
+                    Vector3? targetPos = null;
 
         if (_frogScript != null && _frogScript.playersInRange.Count > 0)
         {
@@ -99,11 +103,24 @@ public class CreatureFaceScript : NetworkBehaviour
         {
             desiredPosition.z = _originalPosition.z;
         }
+
+        if (IsServerInitialized)
+        {
+            syncedEyePosition.Value = desiredPosition;
+        }
+        }
+
+
         
-        eyeDecal.transform.localPosition = Vector3.Lerp(
-            eyeDecal.transform.localPosition,
-            desiredPosition,
-            Time.deltaTime * lookSpeed
-        );
+        Vector3 targetLocal = IsServer ? syncedEyePosition.Value : syncedEyePosition.Value;
+        
+        if (eyeDecal != null)
+        {
+            eyeDecal.transform.localPosition = Vector3.Lerp(
+                eyeDecal.transform.localPosition,
+                targetLocal,
+                Time.deltaTime * lookSpeed
+            );
+        }
     }
 }
