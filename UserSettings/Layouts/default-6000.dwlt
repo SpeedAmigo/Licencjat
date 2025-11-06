@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 168
-    y: 216
+    x: 243
+    y: 152
     width: 1902
     height: 971
   m_ShowMode: 4
@@ -827,7 +827,7 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 29.992908, y: 0.58581203, z: 0.15379456}
+    m_Target: {x: 18.135376, y: 8.4059305, z: 7.1104207}
     speed: 2
     m_Value: {x: 29.992908, y: 0.58581203, z: 0.15379456}
   m_RenderMode: 0
@@ -875,11 +875,11 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.07191674, y: 0.84556764, z: -0.119319126, w: 0.51487774}
+    m_Target: {x: 0.1283802, y: 0.8227424, z: -0.20721422, w: 0.5129911}
     speed: 2
     m_Value: {x: 0.07191674, y: 0.8455677, z: -0.119319126, w: 0.51487774}
   m_Size:
-    m_Target: 0.2627789
+    m_Target: 0.23917562
     speed: 2
     m_Value: 0.2627789
   m_Ortho:
@@ -1259,7 +1259,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 48e30000
     m_LastClickedID: 58184
-    m_ExpandedIDs: 0000000034e3000036e30000
+    m_ExpandedIDs: 000000006cf200006ef2000070f2000072f2000074f2000076f2000078f200007af200007cf200007ef2000080f2000082f2000084f2000086f2000088f200008af200008cf20000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1288,7 +1288,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000034e3000036e30000
+    m_ExpandedIDs: 000000006cf200006ef2000070f2000072f2000074f2000076f2000078f200007af200007cf200007ef2000080f2000082f2000084f2000086f2000088f200008af200008cf20000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1318,6 +1318,23 @@ MonoBehaviour:
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000000000007c7500006ed70000
+    m_RenameOverlay:
+      m_UserAcceptedRename: 0
+      m_Name: 
+      m_OriginalName: 
+      m_EditFieldRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      m_UserData: 0
+      m_IsWaitingForDelay: 0
+      m_IsRenaming: 0
+      m_OriginalEventType: 11
+      m_IsRenamingFilename: 0
+      m_TrimLeadingAndTrailingWhitespace: 0
+      m_ClientGUIView: {fileID: 0}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
