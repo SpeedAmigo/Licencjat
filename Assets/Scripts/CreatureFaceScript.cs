@@ -9,7 +9,7 @@ public class CreatureFaceScript : NetworkBehaviour
     [Header("Eye Decals")]
     [SerializeField] private GameObject eyeDecal;
 
-    [AllowMutableSyncType] private SyncVar<Vector3> syncedEyePosition;
+    //[AllowMutableSyncType] private SyncVar<Vector3> syncedEyePosition;
     
     [Header("Look settings")]
     [SerializeField] private bool lookAtPlayer = true;
@@ -46,9 +46,7 @@ public class CreatureFaceScript : NetworkBehaviour
 
     private void Update()
     {
-        if (IsServer)
-        {
-                    Vector3? targetPos = null;
+        Vector3? targetPos = null;
 
         if (_frogScript != null && _frogScript.playersInRange.Count > 0)
         {
@@ -104,23 +102,17 @@ public class CreatureFaceScript : NetworkBehaviour
             desiredPosition.z = _originalPosition.z;
         }
 
-        if (IsServerInitialized)
+        /*if (IsServerInitialized)
         {
             syncedEyePosition.Value = desiredPosition;
-        }
-        }
-
-
+        }*/
         
-        Vector3 targetLocal = IsServer ? syncedEyePosition.Value : syncedEyePosition.Value;
+        //Vector3 targetLocal = IsServer ? syncedEyePosition.Value : syncedEyePosition.Value;
         
-        if (eyeDecal != null)
-        {
-            eyeDecal.transform.localPosition = Vector3.Lerp(
-                eyeDecal.transform.localPosition,
-                targetLocal,
-                Time.deltaTime * lookSpeed
-            );
-        }
+        eyeDecal.transform.localPosition = Vector3.Lerp(
+            eyeDecal.transform.localPosition,
+            desiredPosition,
+            Time.deltaTime * lookSpeed
+        );
     }
 }

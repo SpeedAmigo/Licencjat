@@ -826,6 +826,10 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 4097182591846747468}
   eyeDecal: {fileID: 7667691514595561379}
+  syncedEyePosition:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: {x: 0, y: 0, z: 0}
   lookAtPlayer: 1
   lookMode: 0
   ignoreZAxis: 1
@@ -834,6 +838,7 @@ MonoBehaviour:
   zTargetOffset: 0
   lookRadius: 0.001
   lookSpeed: 5
+  _frogScript: {fileID: 0}
 --- !u!1 &1928808638965271899
 GameObject:
   m_ObjectHideFlags: 0
@@ -1989,7 +1994,7 @@ MonoBehaviour:
   _sendToOwner: 1
   _interval: 1
   _synchronizePosition: 1
-  _positionSensitivity: 0.001
+  _positionSensitivity: 0.0001
   _positionSnapping:
     X: 0
     Y: 0
