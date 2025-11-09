@@ -1,3 +1,4 @@
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,6 +14,15 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float fallMultiplier = 2f;
     [SerializeField] private float jumpMultiplier = 2f;
+    
+    [Header("Stamina Settings")]
+    [SerializeField] private float currentStamina;
+    [SerializeField] private float maxStamina;
+    [SerializeField] private float staminaDrainRate;
+    [SerializeField] private float staminaRegenRate;
+
+    public static event Action<float> OnMaxStamina;
+    public static event Action<float> OnCurrentStamina;
     
     [Header("Gravity Settings")]
     [SerializeField] private float gravity = -9.8f;
@@ -42,6 +52,14 @@ public class PlayerController : NetworkBehaviour
         _controller = GetComponent<CharacterController>();
         
         _moveSpeed = walkingSpeed;
+    }
+
+    private void Start()
+    {
+        currentStamina = maxStamina;
+        
+        OnMaxStamina?.Invoke(maxStamina);
+        OnCurrentStamina?.Invoke(currentStamina);
     }
 
     private void OnMove(InputAction.CallbackContext context)
@@ -98,13 +116,44 @@ public class PlayerController : NetworkBehaviour
 
     private void OnSprint()
     {
-        _isSprinting = _inputSystem.Player.Sprint.IsPressed();
-        _moveSpeed = _isSprinting ? sprintSpeed : walkingSpeed;
+        bool sprintKey = _inputSystem.Player.Sprint.IsPressed();
+        bool isMoving = _moveInput.sqrMagnitude > 0.01f;
+        //_isSprinting = _inputSystem.Player.Sprint.IsPressed();
+
+        if (sprintKey && isMoving && currentStamina > 0) // if key is pressed
+        {
+            _isSprinting = true;
+            _moveSpeed = sprintSpeed;
+            
+            currentStamina -= staminaDrainRate * Time.deltaTime;
+            if (currentStamina <= 0)
+            {
+                currentStamina = 0;
+                _isSprinting = false;
+                _moveSpeed = walkingSpeed;
+            }
+        }
+        else // if key isn't pressed
+        {
+            _isSprinting = false;
+            _moveSpeed = walkingSpeed;
+
+            if (currentStamina < maxStamina)
+            {
+                currentStamina += staminaRegenRate * Time.deltaTime;
+                if (currentStamina > maxStamina)
+                {
+                    currentStamina = maxStamina;
+                }
+            }
+        }
     }
     
     private void Update()
     {
         isGrounded = _controller.isGrounded;
+        
+        OnCurrentStamina?.Invoke(currentStamina);
 
         if (IsOwner)
         {
