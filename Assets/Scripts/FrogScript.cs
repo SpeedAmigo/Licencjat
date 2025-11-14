@@ -3,7 +3,6 @@ using FishNet.CodeGenerating;
 using FishNet.Component.Animating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using Heathen.SteamworksIntegration.API;
 using Pathfinding;
 using RaycastPro.Detectors;
 using UnityEngine;
@@ -131,7 +130,8 @@ public class FrogScript : ObjectPickable
         base.PickupLogic(holder);
 
         _ai.enabled = false;
-        pickedUp.Value = true;
+        ChangePickupValue(true);
+        //pickedUp.Value = true;
         
         _playerInventory = holder.transform.parent.gameObject.GetComponent<PlayerInventoryScript>();
     }
@@ -141,9 +141,16 @@ public class FrogScript : ObjectPickable
         base.DropLogic();
         
         _ai.enabled = true;
-        pickedUp.Value = false;
+        ChangePickupValue(false);
+        //pickedUp.Value = false;
         
         _playerInventory = null;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ChangePickupValue(bool value)
+    {
+        pickedUp.Value = value;
     }
     
     #endregion

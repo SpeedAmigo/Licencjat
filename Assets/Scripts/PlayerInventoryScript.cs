@@ -87,6 +87,8 @@ public class PlayerInventoryScript : NetworkBehaviour
 
     private void OnDrawCurrentItem(int index)
     {
+        if (currentItem.Value != null && currentItem.Value.isBig) return;
+        
         OnDrawCurrentItem_Server(index);
     }
 
@@ -94,7 +96,26 @@ public class PlayerInventoryScript : NetworkBehaviour
     private void OnDrawCurrentItem_Server(int index)
     {
         if (index < 0 || index >= slots.Count) return;
+        ObjectPickable slotItem = slots[index];
         
+        //hiding item if pressed the same button
+        if (currentItemIndex == index)
+        {
+            if (currentItem.Value != null)
+            {
+                currentItem.Value.gameObject.SetActive(false);
+                currentItem.Value = null;
+                return;
+            }
+            else
+            {
+                currentItemIndex = index;
+                currentItem.Value = slotItem;
+                return;
+            }
+        }
+        
+        // if pressed different key than the current slot index
         currentItemIndex = index;
         currentItem.Value = slots[index];
     }
@@ -125,6 +146,26 @@ public class PlayerInventoryScript : NetworkBehaviour
             }
         }
         return false;
+    }
+
+    [Server]
+    public void AddBigItem(ObjectPickable bigItem, NetworkObject holder)
+    {
+        if (currentItem.Value == null)
+        {
+            bigItem.Pickup(holder);
+            currentItem.Value = bigItem;
+        }
+    }
+
+    [Server]
+    public void RemoveBigItem(ObjectPickable bigItem)
+    {
+        if (currentItem.Value)
+        {
+            bigItem.Drop();
+            currentItem.Value = null;
+        }
     }
 
     [Server]
@@ -183,9 +224,17 @@ public class PlayerInventoryScript : NetworkBehaviour
     public void RequestRemoveItem(ObjectPickable item, PlayerInventoryScript inventory)
     {
         if (inventory == null || item == null) return;
-        
-        inventory.RemoveItem(item);
+
+        if (item.isBig)
+        {
+            inventory.RemoveBigItem(item);
+        }
+        else
+        {
+            inventory.RemoveItem(item);
+        }
     }
+    
 
     [ObserversRpc(BufferLast = true)]
     private void SetItem_Client(ObjectPickable item, bool active)

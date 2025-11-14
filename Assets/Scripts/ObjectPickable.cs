@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectPickable : NetworkBehaviour
 {
     public Sprite itemIcon;
+    public bool isBig;
     
     private Rigidbody _rb;
     private Collider _col;

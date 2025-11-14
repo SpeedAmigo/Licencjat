@@ -444,10 +444,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1181701566998836842, guid: bfb414b5ab502514e8d69209087030bb, type: 3}
-      propertyPath: <SceneId>k__BackingField
-      value: 3153319389
-      objectReference: {fileID: 0}
     - target: {fileID: 1655243461288019699, guid: bfb414b5ab502514e8d69209087030bb, type: 3}
       propertyPath: m_Name
       value: SpaceFrog 1
@@ -460,16 +456,12 @@ PrefabInstance:
       propertyPath: <SceneId>k__BackingField
       value: 3221222691
       objectReference: {fileID: 0}
+    - target: {fileID: 4097182591846747468, guid: bfb414b5ab502514e8d69209087030bb, type: 3}
+      propertyPath: 'InitializedNestedNetworkObjects.Array.data[0]'
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5064801098740284251, guid: bfb414b5ab502514e8d69209087030bb, type: 3}
       propertyPath: canSpit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5064801098740284251, guid: bfb414b5ab502514e8d69209087030bb, type: 3}
-      propertyPath: canWalk
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5064801098740284251, guid: bfb414b5ab502514e8d69209087030bb, type: 3}
-      propertyPath: canRunaway
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -77,9 +77,18 @@ public class PlayerInteractor : NetworkBehaviour
     {
         if (obj != null && obj.TryGetComponent<ObjectPickable>(out var pickup))
         {
-            if (!_playerInventory.CheckForEmptySlot()) return;
+            if (pickup.isBig)
+            {
+                _playerInventory.AddBigItem(pickup, holder);
+            }
+            else if (_playerInventory.CheckForEmptySlot() && !pickup.isBig)
+            {
+                _playerInventory.AddItem(pickup, holder);
+            }
             
-            _playerInventory.AddItem(pickup, holder);
+            //if (!_playerInventory.CheckForEmptySlot()) return;
+            //_playerInventory.AddItem(pickup, holder);
+            
             //currentItem = _playerInventory.currentItem.Value;
             //pickup.Pickup(holder);
         }
@@ -89,9 +98,18 @@ public class PlayerInteractor : NetworkBehaviour
     private void DropItem_Server()
     {
         if (_playerInventory.currentItem.Value == null) return;
+
+        if (_playerInventory.currentItem.Value.isBig)
+        {
+            _playerInventory.RemoveBigItem(_playerInventory.currentItem.Value);
+        }
+        else
+        {
+            _playerInventory.RemoveItem(_playerInventory.currentItem.Value);
+        }
         
         //_playerInventory.currentItem.Value.Drop();
-        _playerInventory.RemoveItem(_playerInventory.currentItem.Value);
+        
         //currentItem.Drop();
         //currentItem = null;
     }
