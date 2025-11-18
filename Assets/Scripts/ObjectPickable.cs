@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObjectPickable : NetworkBehaviour
 {
+    public Transform offset;
     public Sprite itemIcon;
     public bool isBig;
     
@@ -47,6 +48,12 @@ public class ObjectPickable : NetworkBehaviour
         transform.SetParent(holder.transform);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
+
+        if (offset != null)
+        {
+            transform.localPosition = offset.localPosition;
+            transform.localRotation = offset.localRotation;
+        }
         
         _rb.isKinematic = true;
         _rb.interpolation = RigidbodyInterpolation.None;
