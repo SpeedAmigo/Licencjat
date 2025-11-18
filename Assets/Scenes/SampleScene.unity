@@ -466,7 +466,7 @@ PrefabInstance:
       objectReference: {fileID: 957339367}
     - target: {fileID: 5064801098740284251, guid: bfb414b5ab502514e8d69209087030bb, type: 3}
       propertyPath: canSpit
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1607,13 +1607,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 957339366}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.624, y: 0, z: 0.53}
+  m_LocalRotation: {x: 0, y: 0.98742765, z: 0.15807183, w: 0}
+  m_LocalPosition: {x: -0.385, y: -0.458, z: 0.365}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 156189336}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -18.19, y: 180, z: 0}
 --- !u!1 &1092482535
 GameObject:
   m_ObjectHideFlags: 0
