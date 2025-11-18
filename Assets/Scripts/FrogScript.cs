@@ -78,6 +78,7 @@ public class FrogScript : ObjectPickable
             {
                 Debug.Log("Frog Spitted on you");
                 spitTime.Value = 5f;
+                animator.Animator.Play("Spit");
                 _playerInventory.RequestRemoveItem(this, _playerInventory);
             }
         }
@@ -94,10 +95,12 @@ public class FrogScript : ObjectPickable
         animator.Animator.SetFloat("Speed", _ai.velocity.magnitude);
         animator.Animator.SetBool("Running", _running);
     }
-
+    
     [Server]
     private void RunMethod()
     {
+        if (pickedUp.Value) return;
+        
         _running = true;
         CancelInvoke(nameof(SetNewPath));
 
@@ -113,6 +116,8 @@ public class FrogScript : ObjectPickable
     [Server]
     private void WalkMethod()
     {
+        if (pickedUp.Value) return;
+        
         _running = false;
             
         if (!_ai.pathPending && (_ai.reachedEndOfPath || !_ai.hasPath) && !_waitingForPath)
@@ -130,8 +135,8 @@ public class FrogScript : ObjectPickable
         base.PickupLogic(holder);
 
         _ai.enabled = false;
+        _running = false;
         ChangePickupValue(true);
-        //pickedUp.Value = true;
         
         _playerInventory = holder.transform.parent.gameObject.GetComponent<PlayerInventoryScript>();
     }
@@ -141,8 +146,8 @@ public class FrogScript : ObjectPickable
         base.DropLogic();
         
         _ai.enabled = true;
+        _running = true;
         ChangePickupValue(false);
-        //pickedUp.Value = false;
         
         _playerInventory = null;
     }
