@@ -10,9 +10,9 @@ public class CameraController : NetworkBehaviour
     [SerializeField] private float maxPitch = 80f;
     [SerializeField] private Transform cameraHolder;
     
-    
     private InputSystem_Actions _inputSystem;
     private Camera _playerCamera;
+    [SerializeField] private GameObject playerCameraPrefab;
 
     private float _pitch;
     private Vector2 _lookInput;

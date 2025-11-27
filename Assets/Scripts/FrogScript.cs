@@ -138,7 +138,7 @@ public class FrogScript : ObjectPickable
         _running = false;
         ChangePickupValue(true);
         
-        _playerInventory = holder.transform.parent.gameObject.GetComponent<PlayerInventoryScript>();
+        _playerInventory = holder.transform.root.gameObject.GetComponent<PlayerInventoryScript>();
     }
 
     protected override void DropLogic()

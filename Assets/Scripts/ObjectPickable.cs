@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectPickable : NetworkBehaviour
 {
     public Transform offset;
+    public GameObject objectToChangeLayer;
     public Sprite itemIcon;
     public bool isBig;
     
@@ -35,12 +36,30 @@ public class ObjectPickable : NetworkBehaviour
     private void Pickup_Client(NetworkObject holder)
     {
         PickupLogic(holder);
+
+        if (objectToChangeLayer != null)
+        {
+            objectToChangeLayer.layer = LayerMask.NameToLayer("PickableLayer");
+        }
+        else
+        {
+            gameObject.layer = LayerMask.NameToLayer("PickableLayer"); 
+        }
     }
 
     [ObserversRpc]
     private void Drop_Client()
     {
         DropLogic();
+        
+        if (objectToChangeLayer != null)
+        {
+            objectToChangeLayer.layer = LayerMask.NameToLayer("Default");
+        }
+        else
+        {
+            gameObject.layer = LayerMask.NameToLayer("Default"); 
+        }
     }
 
     protected virtual void PickupLogic(NetworkObject holder)
