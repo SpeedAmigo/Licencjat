@@ -274,9 +274,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 682601177}
-        m_TargetAssemblyTypeName: ConnectionManager, Assembly-CSharp
-        m_MethodName: StartHost
+      - m_Target: {fileID: 682601178}
+        m_TargetAssemblyTypeName: Heathen.SteamworksIntegration.LobbyManager, Heathen.Steamworks
+        m_MethodName: Create
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -963,6 +963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 682601176}
   - component: {fileID: 682601177}
+  - component: {fileID: 682601178}
   m_Layer: 0
   m_Name: ConnectionManager
   m_TagString: Untagged
@@ -998,8 +999,106 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConnectionManager
   sceneName: SampleScene
-  _inputField: {fileID: 2042128233}
+  inputField: {fileID: 2042128233}
   fishySteamworks: {fileID: 7443408886847410971}
+  lobbyManager: {fileID: 682601178}
+  overlayManager: {fileID: 0}
+--- !u!114 &682601178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682601175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0a0855a3ac23bb489fee2ce0e05c9b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Heathen.Steamworks::Heathen.SteamworksIntegration.LobbyManager
+  m_Delegates: 03000000
+  searchArguments:
+    slots: -1
+    distance: 1
+    nearValues: []
+    numericFilters: []
+    stringFilters: []
+  createArguments:
+    usageHint: 2
+    name: 
+    slots: 4
+    type: 1
+    metadata: []
+    richPresenceFields: []
+  richPresenceFields: []
+  evtLobbyInvite:
+    m_PersistentCalls:
+      m_Calls: []
+  evtChatMsgReceived:
+    m_PersistentCalls:
+      m_Calls: []
+  evtFound:
+    m_PersistentCalls:
+      m_Calls: []
+  evtEnterSuccess:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 682601177}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  evtEnterFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  evtCreated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 682601177}
+        m_TargetAssemblyTypeName: ConnectionManager, Assembly-CSharp
+        m_MethodName: StartHost
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  evtCreateFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  evtQuickMatchFailed:
+    m_PersistentCalls:
+      m_Calls: []
+  evtDataUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  evtLeave:
+    m_PersistentCalls:
+      m_Calls: []
+  evtAskedToLeave:
+    m_PersistentCalls:
+      m_Calls: []
+  evtGameCreated:
+    m_PersistentCalls:
+      m_Calls: []
+  evtUserJoined:
+    m_PersistentCalls:
+      m_Calls: []
+  evtUserLeft:
+    m_PersistentCalls:
+      m_Calls: []
+  evtAuthenticationSessionResult:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &845307606
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,7 +1232,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 682601177}
         m_TargetAssemblyTypeName: ConnectionManager, Assembly-CSharp
-        m_MethodName: StartConnection
+        m_MethodName: TryJoinLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2352,7 +2451,7 @@ MonoBehaviour:
   _objectPool: {fileID: 0}
   _persistence: 1
   _logging: {fileID: 0}
-  _spawnablePrefabs: {fileID: 11400000, guid: 3af9e9d005322b946b4761bdd8ba04cd, type: 2}
+  _spawnablePrefabs: {fileID: 11400000, guid: 4754f0e130c90d746a58bf84fe8a7c8d, type: 2}
 --- !u!4 &7443408886847410970
 Transform:
   m_ObjectHideFlags: 0
@@ -2383,7 +2482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FishySteamworks.FishySteamworks
   _serverBindAddress: 480
   _port: 7770
-  _maximumClients: 9001
+  _maximumClients: 4
   _peerToPeer: 1
   _clientAddress: 
 --- !u!114 &7443408886847410972

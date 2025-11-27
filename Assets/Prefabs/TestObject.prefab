@@ -159,7 +159,7 @@ MonoBehaviour:
   _teleportThreshold: 1
   <PrefabId>k__BackingField: 65535
   <SpawnableCollectionId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 14943847551380289561
+  <AssetPathHash>k__BackingField: 12509126754353122305
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
@@ -208,3 +208,4 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 4124304013795225681}
   _networkObjectCache: {fileID: 0}
+  itemIcon: {fileID: 0}

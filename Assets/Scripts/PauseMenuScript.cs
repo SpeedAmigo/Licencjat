@@ -1,7 +1,10 @@
+using System.Collections.Generic;
+using FishNet.Connection;
 using FishNet.Object;
+using Heathen.SteamworksIntegration;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using InputAction = UnityEngine.InputSystem.InputAction;
 
 public class PauseMenuScript : NetworkBehaviour
 {
@@ -10,15 +13,6 @@ public class PauseMenuScript : NetworkBehaviour
 
     private InputSystem_Actions _inputSystem;
     
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        if (!IsOwner)
-        {
-            enabled = false;
-        }
-    }
-
     private void Awake()
     {
         cameraController = GetComponentInParent<CameraController>();
@@ -69,26 +63,89 @@ public class PauseMenuScript : NetworkBehaviour
     
     public void OnLeaveButton()
     {
-        if (IsOwner)
+        if (!IsOwner) return;
+        
+        var networkManager = NetworkManager.ClientManager;
+        if (networkManager == null) return;
+        
+        
+        if (IsClientInitialized && !IsServerInitialized)
         {
-            var networkManager = NetworkManager.ClientManager;
-            if (networkManager != null)
-            {
-                networkManager.StopConnection();
-            }
-            
+            ConnectionManager.Instance?.StopConnection();
+            networkManager.StopConnection();
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+            return;
+        }
+
+        if (IsServerInitialized)
+        {
+            DisconnectAllClients();
+            ConnectionManager.Instance?.StopConnection();
+            networkManager.StopConnection();
             UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
         }
     }
 
+    public void OnInviteFriendsButton()
+    {
+        Heathen.SteamworksIntegration.API.Overlay.Client.Activate(OverlayDialog.friends);
+    }
+
     public void OnExitButton()
     {
+        if (!IsOwner) return;
+        
         var networkManager = NetworkManager.ClientManager;
-        if (networkManager != null)
+        if (networkManager == null) return;
+        
+        if (IsServerInitialized)
         {
+            DisconnectAllClients();
+            ConnectionManager.Instance?.StopConnection();
             networkManager.StopConnection();
+            Application.Quit();
         }
         
-        Application.Quit();
+        if (IsClientInitialized && !IsServerInitialized)
+        {
+            ConnectionManager.Instance?.StopConnection();
+            networkManager.StopConnection();
+            Application.Quit();
+        }
+    }
+    
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (!IsOwner)
+        {
+            enabled = false;
+        }
+    }
+    
+    private void DisconnectAllClients()
+    {
+        var networkManager = NetworkManager.ServerManager;
+        if (networkManager == null) return;
+        
+        var clients = new List<NetworkConnection>(networkManager.Clients.Values);
+        
+        foreach (var client in clients)
+        {
+            client.Disconnect(true);
+        }
+    }
+
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+
+        if (!IsServerInitialized)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+        }
     }
 }

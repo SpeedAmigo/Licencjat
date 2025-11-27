@@ -13,7 +13,7 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
+  - PickableLayer
   - 
   - 
   - 
@@ -51,3 +51,5 @@ TagManager:
   - Light Layer 5
   - Light Layer 6
   - Light Layer 7
+  - EyesocketLayer
+  - Eye
