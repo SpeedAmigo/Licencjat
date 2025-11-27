@@ -109,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 418864778330149249}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0.15837769, z: -0, w: 0.98737866}
   m_LocalPosition: {x: 0, y: 1.001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -121,7 +121,7 @@ Transform:
   - {fileID: 4369587123735508614}
   - {fileID: 3194816223510903235}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -18.225, z: 0}
 --- !u!114 &5494240458988316082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,11 +259,11 @@ MonoBehaviour:
   - {fileID: 2943689781349225375}
   - {fileID: -6240383476758041566}
   - {fileID: 6927043152948294079}
+  - {fileID: -4524563169624058738}
   - {fileID: 925500053121600034}
   - {fileID: 2665429102452664934}
   - {fileID: 4653022419282362611}
   - {fileID: 4756922230646122949}
-  - {fileID: -4524563169624058738}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects:
   - {fileID: 6169077427322889598}
@@ -825,7 +825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a469c64f4dfded94881bc0cd690b5ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VoiceChatController
-  _componentIndexCache: 7
+  _componentIndexCache: 8
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   micAudioInput: {fileID: 8081245131889440834}
@@ -911,7 +911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1117dd79caed3949abdf12674fe3b7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MetaVoiceChat.NetProviders.FishNet.FishNetNetProvider
-  _componentIndexCache: 6
+  _componentIndexCache: 7
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
 --- !u!114 &8081245131889440834
@@ -1800,7 +1800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39c677e1adc1cf40acc33f07b8337c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 5
+  _componentIndexCache: 6
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   pauseMenu: {fileID: 8852014480968712057}
@@ -3056,7 +3056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 9
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
 --- !u!1 &8339830472346321184
@@ -3137,7 +3137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 961338f0e28491c4294fcb062ebea57d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 8
+  _componentIndexCache: 9
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   itemImages:

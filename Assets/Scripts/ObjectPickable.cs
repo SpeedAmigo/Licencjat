@@ -79,7 +79,7 @@ public class ObjectPickable : NetworkBehaviour
         
         _col.enabled = false;
     }
-
+    
     protected virtual void DropLogic()
     {
         transform.SetParent(null);
@@ -87,7 +87,7 @@ public class ObjectPickable : NetworkBehaviour
         _rb.AddRelativeForce(Vector3.forward * 2f, ForceMode.Impulse);
 
         _rb.isKinematic = false;
-        _rb.interpolation = RigidbodyInterpolation.None;
+        _rb.interpolation = RigidbodyInterpolation.Interpolate;
         
         _col.enabled = true;
     }
