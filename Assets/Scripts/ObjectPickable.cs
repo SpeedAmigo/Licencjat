@@ -6,6 +6,7 @@ public class ObjectPickable : NetworkBehaviour
 {
     public Transform offset;
     public GameObject objectToChangeLayer;
+    public Collider objectCollider;
     public Sprite itemIcon;
     public bool isBig;
     
@@ -15,7 +16,15 @@ public class ObjectPickable : NetworkBehaviour
     protected virtual void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _col = GetComponent<Collider>();
+
+        if (objectCollider == null)
+        {
+            _col = GetComponent<Collider>();
+        }
+        else
+        {
+            _col = objectCollider;
+        }
     }
     
     public void Pickup(NetworkObject holder)
