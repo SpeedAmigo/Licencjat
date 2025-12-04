@@ -8,6 +8,8 @@ using FishNet.Object;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : NetworkBehaviour
 {
+    [SerializeField] private GameObject[] visuals;
+    
     [Header("Movement Settings")]
     [SerializeField] private float walkingSpeed = 5f;
     [SerializeField] private float sprintSpeed = 8f;
@@ -43,6 +45,11 @@ public class PlayerController : NetworkBehaviour
         if (!IsOwner)
         {
             _inputSystem.Disable();
+
+            foreach (var visual in  visuals)
+            {
+                visual.layer = LayerMask.NameToLayer("Player");
+            }
         }
     }
     
