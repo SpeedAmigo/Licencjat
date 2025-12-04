@@ -4292,9 +4292,11 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 919132148440601921}
   _networkObjectCache: {fileID: 0}
-  offset: {fileID: 0}
-  objectToChangeLayer: {fileID: 0}
+  useSeparateCollider: 1
   objectCollider: {fileID: 7880577546356393457}
+  changeLayerOnPickup: 0
+  objectToChangeLayer: {fileID: 0}
+  offset: {fileID: 0}
   itemIcon: {fileID: 0}
   isBig: 0
 --- !u!65 &919132148440601923

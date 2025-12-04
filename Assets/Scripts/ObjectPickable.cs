@@ -1,13 +1,31 @@
 using System;
 using FishNet.Object;
+using Sirenix.OdinInspector;
 using UnityEngine;
+
 
 public class ObjectPickable : NetworkBehaviour
 {
-    public Transform offset;
-    public GameObject objectToChangeLayer;
+    [InfoBox("if 'Separate Collider' unchecked remember to add collider at root object")]
+    public bool useSeparateCollider = false;
+    
+    [ShowIf("useSeparateCollider")]
+    [GUIColor("Yellow")]
     public Collider objectCollider;
+    
+    public bool changeLayerOnPickup = false;
+    
+    [ShowIf("changeLayerOnPickup")] 
+    [GUIColor("Yellow")]
+    public GameObject objectToChangeLayer;
+    
+    [Space]
+    
+    [GUIColor("Green")]
+    public Transform offset;
+    [GUIColor("Yellow")]
     public Sprite itemIcon;
+        
     public bool isBig;
     
     private Rigidbody _rb;
