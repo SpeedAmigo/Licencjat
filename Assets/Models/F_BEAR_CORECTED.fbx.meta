@@ -17,7 +17,25 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Armature.001|faka' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'SPINE01' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\nClip 'Armature.001|idle'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'SPINE01'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'SPINE01'
+      has scale animation that will be discarded.\n\nClip 'Armature.001|running'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'SPINE01'
+      has translation animation that will be discarded.\n\t'SPINE01' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'COLLAR.L'
+      has scale animation that will be discarded.\n\t'COLLAR.R' has scale animation
+      that will be discarded.\n\nClip 'Armature.001|walking' has import animation
+      warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'COLLAR.L' has scale animation
+      that will be discarded.\n\t'COLAR02.L' has scale animation that will be discarded.\n\t'COLLAR.R'
+      has scale animation that will be discarded.\n\t'COLAR02.R' has scale animation
+      that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -601,7 +619,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
