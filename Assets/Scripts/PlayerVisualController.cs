@@ -7,11 +7,10 @@ public class PlayerVisualController : NetworkBehaviour
     [SerializeField] private GameObject[] visuals;
 
     [SerializeField] private NetworkAnimator networkAnimator;
-    
-    [SerializeField] private GameObject cameraHolder;
-    [SerializeField] private GameObject spineBend;
+    [SerializeField] private GameObject spine;
     
     private PlayerController _playerController;
+    
 
     private void Awake()
     {
@@ -35,13 +34,5 @@ public class PlayerVisualController : NetworkBehaviour
         if (!IsOwner) return;
         
         networkAnimator.Animator.SetFloat("Velocity", _playerController.animatorVelocity);
-    }
-
-    private void LateUpdate()
-    {
-        if (!IsOwner) return;
-        
-        var negated = Quaternion.Inverse(cameraHolder.transform.localRotation);
-        spineBend.transform.localRotation = negated;
     }
 }

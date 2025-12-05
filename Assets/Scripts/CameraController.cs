@@ -9,6 +9,7 @@ public class CameraController : NetworkBehaviour
     [SerializeField] private float minPitch = -80f;
     [SerializeField] private float maxPitch = 80f;
     [SerializeField] private Transform cameraHolder;
+    [SerializeField] private Transform armatureHolder;
     
     private InputSystem_Actions _inputSystem;
     private Camera _playerCamera;
@@ -80,5 +81,6 @@ public class CameraController : NetworkBehaviour
         _pitch = Mathf.Clamp(_pitch, minPitch, maxPitch);
         
         cameraHolder.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
+        armatureHolder.localRotation = Quaternion.Euler(-_pitch, 0f, 0f);
     }
 }
