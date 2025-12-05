@@ -8,8 +8,6 @@ using FishNet.Object;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : NetworkBehaviour
 {
-    [SerializeField] private GameObject[] visuals;
-    
     [Header("Movement Settings")]
     [SerializeField] private float walkingSpeed = 5f;
     [SerializeField] private float sprintSpeed = 8f;
@@ -22,6 +20,12 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private float maxStamina;
     [SerializeField] private float staminaDrainRate;
     [SerializeField] private float staminaRegenRate;
+    
+    [Header("Animator Settings")]
+    [SerializeField] private float idleAnimValue = 0f;
+    [SerializeField] private float walkAnimValue = 0.5f;
+    [SerializeField] private float sprintAnimValue = 1f;
+    [SerializeField] private float animatorLerpSpeed = 8f;
 
     public static event Action<float> OnMaxStamina;
     public static event Action<float> OnCurrentStamina;
@@ -38,6 +42,8 @@ public class PlayerController : NetworkBehaviour
 
     private Vector3 _velocity;
     private bool isGrounded;
+
+    public float animatorVelocity;
     
     public override void OnStartClient()
     {
@@ -45,11 +51,6 @@ public class PlayerController : NetworkBehaviour
         if (!IsOwner)
         {
             _inputSystem.Disable();
-
-            foreach (var visual in  visuals)
-            {
-                visual.layer = LayerMask.NameToLayer("Player");
-            }
         }
     }
     
@@ -186,5 +187,14 @@ public class PlayerController : NetworkBehaviour
         {
             _controller.Move(_velocity * Time.deltaTime);
         }
+        
+        float targetAnim;
+        bool isMoving = _moveInput.sqrMagnitude > 0.01f;
+        
+        if (!isMoving) targetAnim = idleAnimValue;
+        else if (_isSprinting) targetAnim = sprintAnimValue;
+        else targetAnim = walkAnimValue;
+
+        animatorVelocity = Mathf.Lerp(animatorVelocity, targetAnim, animatorLerpSpeed * Time.deltaTime);
     }
 }
