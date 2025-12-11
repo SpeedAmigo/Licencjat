@@ -210,5 +210,8 @@ public class PlayerController : NetworkBehaviour
         else targetAnim = walkAnimValue;
 
         animatorVelocity = Mathf.Lerp(animatorVelocity, targetAnim, animatorLerpSpeed * Time.deltaTime);
+        
+        if (Mathf.Abs(animatorVelocity) < 0.01f)
+            animatorVelocity = 0f;
     }
 }

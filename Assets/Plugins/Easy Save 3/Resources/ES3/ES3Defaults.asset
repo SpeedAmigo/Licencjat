@@ -42,9 +42,6 @@ MonoBehaviour:
     - Drawing
     - FishNet.Demos
     - FishNet.Runtime
-    - FMODUnity
-    - FMODUnityHaptics
-    - FMODUnityResonance
     - GameKit.Dependencies
     - Heathen.Steamworks
     - PackageTools

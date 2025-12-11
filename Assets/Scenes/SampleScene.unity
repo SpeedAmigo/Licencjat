@@ -4171,7 +4171,7 @@ GameObject:
   - component: {fileID: 957654448}
   m_Layer: 0
   m_Name: F_Ground_03
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -5928,7 +5928,7 @@ GameObject:
   - component: {fileID: 957654450}
   m_Layer: 0
   m_Name: F_Ground_01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -7081,7 +7081,7 @@ GameObject:
   - component: {fileID: 957654449}
   m_Layer: 0
   m_Name: F_Ground_02
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -7284,7 +7284,7 @@ GameObject:
   - component: {fileID: 957654447}
   m_Layer: 0
   m_Name: F_Ground_04
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
