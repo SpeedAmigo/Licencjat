@@ -1,15 +1,23 @@
 using FishNet.Object;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 
 public class PlayerInteractor : NetworkBehaviour
 {
-    //[SerializeField] private ObjectPickable currentItem;
+    [Header("Hand Rigs")]
+    [GUIColor("Red")]
     [SerializeField] private GameObject rightHandRigs;
     
+    [Header("Item Holders")]
+    [GUIColor("Red")]
     [SerializeField] private NetworkObject fpItemHolder;
+    [GUIColor("Red")]
     [SerializeField] private NetworkObject tpIemHolder;
+    
+    [Header("Interaction Distance Settings")]
+    [GUIColor("Yellow")]
     [SerializeField] private float interactionDistance;
     
     private InputSystem_Actions _inputSystem;

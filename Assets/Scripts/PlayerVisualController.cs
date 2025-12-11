@@ -1,17 +1,18 @@
 using FishNet.Component.Animating;
 using FishNet.Object;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PlayerVisualController : NetworkBehaviour
 {
+    [GUIColor("Red")]
     [SerializeField] private GameObject[] visuals;
-
+    [GUIColor("Red")]
     [SerializeField] private NetworkAnimator networkAnimator;
-    [SerializeField] private GameObject spine;
+    [GUIColor("Red")]
     
     private PlayerController _playerController;
     
-
     private void Awake()
     {
         _playerController = GetComponent<PlayerController>();

@@ -1,20 +1,27 @@
 using FishNet.Object;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CameraController : NetworkBehaviour
 {
     [Header("Camera Settings")]
+    [GUIColor("Yellow")]
     [SerializeField] private float sensitivity = 15f;
+    [GUIColor("Yellow")]
     [SerializeField] private float minPitch = -80f;
+    [GUIColor("Yellow")]
     [SerializeField] private float maxPitch = 80f;
+    [GUIColor("Red")]
     [SerializeField] private Transform cameraHolder;
+    [GUIColor("Red")]
     [SerializeField] private Transform armatureHolder;
+    [GUIColor("Red")]
+    [SerializeField] private GameObject playerCameraPrefab;
     
     private InputSystem_Actions _inputSystem;
     private Camera _playerCamera;
-    [SerializeField] private GameObject playerCameraPrefab;
-
+    
     private float _pitch;
     private Vector2 _lookInput;
 

@@ -4,27 +4,41 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using FishNet.Connection;
 using FishNet.Object;
+using Sirenix.OdinInspector;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : NetworkBehaviour
 {
     [Header("Movement Settings")]
+    [GUIColor("Yellow")]
     [SerializeField] private float walkingSpeed = 5f;
+    [GUIColor("Yellow")]
     [SerializeField] private float sprintSpeed = 8f;
+    [GUIColor("Yellow")]
     [SerializeField] private float jumpForce = 5f;
+    [GUIColor("Yellow")]
     [SerializeField] private float fallMultiplier = 2f;
+    [GUIColor("Yellow")]
     [SerializeField] private float jumpMultiplier = 2f;
     
     [Header("Stamina Settings")]
+    [GUIColor("Blue")]
     [SerializeField] private float currentStamina;
+    [GUIColor("Yellow")]
     [SerializeField] private float maxStamina;
+    [GUIColor("Yellow")]
     [SerializeField] private float staminaDrainRate;
+    [GUIColor("Yellow")]
     [SerializeField] private float staminaRegenRate;
     
     [Header("Animator Settings")]
+    [GUIColor("Yellow")]
     [SerializeField] private float idleAnimValue = 0f;
+    [GUIColor("Yellow")]
     [SerializeField] private float walkAnimValue = 0.5f;
+    [GUIColor("Yellow")]
     [SerializeField] private float sprintAnimValue = 1f;
+    [GUIColor("Yellow")]
     [SerializeField] private float animatorLerpSpeed = 8f;
 
     public static event Action<float> OnMaxStamina;

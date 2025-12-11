@@ -5,18 +5,22 @@ using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using Heathen.SteamworksIntegration.API;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInventoryScript : NetworkBehaviour
 {
+    [GUIColor("Blue")]
     [AllowMutableSyncType] public SyncVar<ObjectPickable> currentItem = new();
+    [GUIColor("Blue")]
+    [SerializeField] private int currentItemIndex;
     
     public static event Action<int, Sprite> OnUIUpdateAdd;
     public static event Action<int> OnUIUpdateRemove;
     
+    [GUIColor("Yellow")]
     [SerializeField] private int inventorySize = 4;
-    [SerializeField] private int currentItemIndex;
     
     [SerializeField, AllowMutableSyncType] private SyncList<ObjectPickable> slots = new();
     
