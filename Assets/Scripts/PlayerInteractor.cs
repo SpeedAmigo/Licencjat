@@ -1,13 +1,12 @@
-using FishNet.Connection;
-using FishNet.Demo.AdditiveScenes;
 using FishNet.Object;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 
 public class PlayerInteractor : NetworkBehaviour
 {
     //[SerializeField] private ObjectPickable currentItem;
+    [SerializeField] private GameObject rightHandRigs;
     
     [SerializeField] private NetworkObject fpItemHolder;
     [SerializeField] private NetworkObject tpIemHolder;
@@ -85,6 +84,7 @@ public class PlayerInteractor : NetworkBehaviour
             else if (_playerInventory.CheckForEmptySlot() && !pickup.isBig)
             {
                 _playerInventory.AddItem(pickup, fpHolder, tpHolder);
+                RigWeightHandler(rightHandRigs, 1f);
             }
             
             //if (!_playerInventory.CheckForEmptySlot()) return;
@@ -107,12 +107,27 @@ public class PlayerInteractor : NetworkBehaviour
         else
         {
             _playerInventory.RemoveItem(_playerInventory.currentItem.Value);
+            RigWeightHandler(rightHandRigs, 0f);
         }
         
         //_playerInventory.currentItem.Value.Drop();
         
         //currentItem.Drop();
         //currentItem = null;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RigWeightHandler(GameObject rigHolder, float weight)
+    {
+        rigHolder.GetComponent<Rig>().weight = weight;
+        
+        RigWeightHandlerClient(rigHolder, weight);
+    }
+
+    [ObserversRpc]
+    private void RigWeightHandlerClient(GameObject rigHolder, float weight)
+    {
+        rigHolder.GetComponent<Rig>().weight = weight;
     }
 }
 
