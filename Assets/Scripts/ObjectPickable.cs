@@ -45,11 +45,11 @@ public class ObjectPickable : NetworkBehaviour
         }
     }
     
-    public void Pickup(NetworkObject holder)
+    public void Pickup(NetworkObject fpHolder, NetworkObject tpHolder)
     {
         if (!IsServerInitialized) return;
-        PickupLogic(holder);
-        Pickup_Client(holder);
+        PickupLogic(fpHolder);
+        Pickup_Client(fpHolder, tpHolder);
     }
 
     public void Drop()
@@ -60,10 +60,17 @@ public class ObjectPickable : NetworkBehaviour
     }
 
     [ObserversRpc]
-    private void Pickup_Client(NetworkObject holder)
+    private void Pickup_Client(NetworkObject fpHolder, NetworkObject tpHolder)
     {
-        PickupLogic(holder);
-
+        if (fpHolder.IsOwner)
+        {
+            PickupLogic(fpHolder);
+        }
+        else
+        {
+            PickupLogic(tpHolder);
+        }
+        
         if (objectToChangeLayer != null)
         {
             objectToChangeLayer.layer = LayerMask.NameToLayer("PickableLayer");

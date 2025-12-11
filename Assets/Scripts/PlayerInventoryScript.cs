@@ -149,11 +149,11 @@ public class PlayerInventoryScript : NetworkBehaviour
     }
 
     [Server]
-    public void AddBigItem(ObjectPickable bigItem, NetworkObject holder)
+    public void AddBigItem(ObjectPickable bigItem, NetworkObject fpHolder, NetworkObject tpHolder)
     {
         if (currentItem.Value == null)
         {
-            bigItem.Pickup(holder);
+            bigItem.Pickup(fpHolder, tpHolder);
             currentItem.Value = bigItem;
         }
     }
@@ -169,7 +169,7 @@ public class PlayerInventoryScript : NetworkBehaviour
     }
 
     [Server]
-    public void AddItem(ObjectPickable item, NetworkObject holder)
+    public void AddItem(ObjectPickable item, NetworkObject fpHolder, NetworkObject tpHolder)
     {
         for (int i = 0; i < slots.Count; i++)
         {
@@ -178,7 +178,7 @@ public class PlayerInventoryScript : NetworkBehaviour
                 slots[i] = item;
                 
                 UpdateUIAdd(Owner, i, item); // update UI with free slot index and icon
-                item.Pickup(holder);
+                item.Pickup(fpHolder, tpHolder);
 
                 if (i == currentItemIndex)
                 {

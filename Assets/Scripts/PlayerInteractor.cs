@@ -9,7 +9,8 @@ public class PlayerInteractor : NetworkBehaviour
 {
     //[SerializeField] private ObjectPickable currentItem;
     
-    [SerializeField] private NetworkObject itemHolder;
+    [SerializeField] private NetworkObject fpItemHolder;
+    [SerializeField] private NetworkObject tpIemHolder;
     [SerializeField] private float interactionDistance;
     
     private InputSystem_Actions _inputSystem;
@@ -59,7 +60,7 @@ public class PlayerInteractor : NetworkBehaviour
         {
             if (netObj.TryGetComponent<ObjectPickable>(out var pickup))
             {
-                Pickup_Server(netObj, itemHolder);
+                Pickup_Server(netObj, fpItemHolder, tpIemHolder);
             }
         }
     }
@@ -73,17 +74,17 @@ public class PlayerInteractor : NetworkBehaviour
     }
     
     [ServerRpc(RequireOwnership = false)]
-    private void Pickup_Server(NetworkObject obj, NetworkObject holder)
+    private void Pickup_Server(NetworkObject obj, NetworkObject fpHolder, NetworkObject tpHolder)
     {
         if (obj != null && obj.TryGetComponent<ObjectPickable>(out var pickup))
         {
             if (pickup.isBig)
             {
-                _playerInventory.AddBigItem(pickup, holder);
+                _playerInventory.AddBigItem(pickup, fpHolder, tpHolder);
             }
             else if (_playerInventory.CheckForEmptySlot() && !pickup.isBig)
             {
-                _playerInventory.AddItem(pickup, holder);
+                _playerInventory.AddItem(pickup, fpHolder, tpHolder);
             }
             
             //if (!_playerInventory.CheckForEmptySlot()) return;

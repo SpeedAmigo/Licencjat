@@ -359,6 +359,11 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 4097182591846747468}
+  useSeparateCollider: 0
+  objectCollider: {fileID: 0}
+  changeLayerOnPickup: 0
+  objectToChangeLayer: {fileID: 0}
+  offset: {fileID: 0}
   itemIcon: {fileID: 0}
   isBig: 1
   animator: {fileID: 3257361702672036978}
@@ -1472,7 +1477,7 @@ MonoBehaviour:
   triggerInteraction: 0
   detectLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   autoUpdate: 1
   colorProfile: {fileID: 0}
   gizmosUpdate: 0
