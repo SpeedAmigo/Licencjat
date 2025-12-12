@@ -69,6 +69,10 @@ public class PlayerInteractor : NetworkBehaviour
             {
                 Pickup_Server(netObj, fpItemHolder, tpIemHolder);
             }
+            else if (netObj.TryGetComponent<IInteractable>(out var interactable))
+            {
+                Interact_Server(netObj);
+            }
         }
     }
 
@@ -94,12 +98,21 @@ public class PlayerInteractor : NetworkBehaviour
                 _playerInventory.AddItem(pickup, fpHolder, tpHolder);
                 RigWeightHandler(rightHandRigs, 1f);
             }
-            
-            //if (!_playerInventory.CheckForEmptySlot()) return;
-            //_playerInventory.AddItem(pickup, holder);
-            
-            //currentItem = _playerInventory.currentItem.Value;
-            //pickup.Pickup(holder);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void Interact_Server(NetworkObject netObj)
+    {
+        Interact_Client(netObj);
+    }
+
+    [ObserversRpc]
+    private void Interact_Client(NetworkObject netObj)
+    {
+        if (netObj.TryGetComponent<IInteractable>(out var interactable))
+        {
+            interactable.Interact();
         }
     }
     
