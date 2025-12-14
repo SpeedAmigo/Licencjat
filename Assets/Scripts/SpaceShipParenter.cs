@@ -1,46 +1,53 @@
 using FishNet;
 using FishNet.Object;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpaceShipParenter : NetworkBehaviour
 {
+    [SerializeField] private NetworkObject spaceShip;
+    
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!other.CompareTag("Player")) return;
+        
+        NetworkObject playerObj = other.transform.root.GetComponent<NetworkObject>();
+        
+        if (playerObj != null)
         {
-            NetworkObject playerObj = other.transform.root.GetComponent<NetworkObject>();
-            if (playerObj != null)
-                SetParentServer(playerObj, 1);
+            SetParentServer(playerObj, 1);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            NetworkObject playerObj = other.transform.root.GetComponent<NetworkObject>();
-            if (playerObj != null)
-                SetParentServer(playerObj, 0);
+        if (!other.CompareTag("Player")) return;
+        
+        NetworkObject playerObj = other.transform.GetComponent<NetworkObject>();
+        if (playerObj != null)
+        { 
+            SetParentServer(playerObj, 0);
         }
     }
     
     [ServerRpc(RequireOwnership = false)]
-    private void SetParentServer(NetworkObject player, int parentId)
+    private void SetParentServer(NetworkObject player, int parentIndex)
     {
-        SetParentObservers(player, parentId);
+        SetParentObservers(player, parentIndex);
     }
 
-    [ObserversRpc]
-    private void SetParentObservers(NetworkObject player, int parentId)
+    [ObserversRpc(BufferLast = true)]
+    private void SetParentObservers(NetworkObject player, int parentIndex)
     {
-        Debug.Log("Parented for observers");
-        if (parentId == 0)
+        if (parentIndex == 0)
         {
-            player.transform.SetParent(null);
+            player.UnsetParent();
+            //player.transform.SetParent(null);
         }
-        else if (parentId == 1)
+        else if (parentIndex == 1)
         {
-            player.transform.SetParent(transform.parent);
+            player.SetParent(spaceShip);
+            //player.transform.SetParent(transform.parent, true);
         }
     }
 }

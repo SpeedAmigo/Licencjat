@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: -5126884908997604730}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -549,7 +549,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   _componentConfiguration: 1
-  _synchronizeParent: 0
+  _synchronizeParent: 1
   _packing:
     Position: 1
     Rotation: 1
@@ -5131,7 +5131,7 @@ GameObject:
   - component: {fileID: 5440312064051546494}
   m_Layer: 8
   m_Name: Collider
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
