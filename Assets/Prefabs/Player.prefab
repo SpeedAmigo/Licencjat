@@ -318,6 +318,7 @@ Transform:
   - {fileID: 3194816223510903235}
   - {fileID: 3720669309238938126}
   - {fileID: 5657073753042155850}
+  - {fileID: 2108184900458552645}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5494240458988316082
@@ -3606,6 +3607,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de9fde9982974cd4db411647a3268232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  surfaceCheckRaycast: {fileID: 6088145305009411016}
+  distance: 0.5
 --- !u!114 &5125728304894369119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3622,7 +3625,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 0}
   soundClips:
-  - key: Footstep
+  - key: Ground
     volume: 0.2
     audioClips:
     - {fileID: 8300000, guid: ce98fdf682e006c46a447760f2a2fad5, type: 3}
@@ -3639,6 +3642,18 @@ MonoBehaviour:
     - {fileID: 8300000, guid: d1c5017453c047e4eaa300c7e8c7c379, type: 3}
     - {fileID: 8300000, guid: d7bc2e0a29753cc4396020dd7f91ccdf, type: 3}
     - {fileID: 8300000, guid: a01ed67b96219bb4b8aafcad45ebbaac, type: 3}
+  - key: Metal
+    volume: 0.2
+    audioClips:
+    - {fileID: 8300000, guid: 4737c6a075288ab448ce1b90cf81f249, type: 3}
+    - {fileID: 8300000, guid: 878cbd3f30ae78541a21f0bcd678d72f, type: 3}
+    - {fileID: 8300000, guid: e337210ae322e6046a127d9e3d83a0f4, type: 3}
+    - {fileID: 8300000, guid: 0c8a2cff9bf801e48a3e3212cbd8abc0, type: 3}
+    - {fileID: 8300000, guid: bcfe58362ebbf214596f649ec388f918, type: 3}
+    - {fileID: 8300000, guid: 22a7dce7f8f3e9740914b2bf564e8962, type: 3}
+    - {fileID: 8300000, guid: 23d3f2b001918544bb28a420eab45250, type: 3}
+    - {fileID: 8300000, guid: da8a822097965234bb640b1cc2ddf5c6, type: 3}
+    - {fileID: 8300000, guid: e36e938784c5f194bac69d2f076e5ff9, type: 3}
   randomPitch: 1
   pitchRange: {x: 0.9, y: 1.2}
   useSoundDistance: 1
@@ -5274,6 +5289,37 @@ Transform:
   - {fileID: 7965205967512409306}
   m_Father: {fileID: 4320143948118572709}
   m_LocalEulerAnglesHint: {x: 0.00000040466185, y: 0.000005672687, z: 0.2898336}
+--- !u!1 &6088145305009411016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2108184900458552645}
+  m_Layer: 0
+  m_Name: SurfaceCheckRaycast
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2108184900458552645
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6088145305009411016}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.804, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5027504159207425052}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6139861371365363272
 GameObject:
   m_ObjectHideFlags: 0

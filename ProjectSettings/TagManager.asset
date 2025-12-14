@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pickable
   - Ground
+  - Metal
   layers:
   - Default
   - TransparentFX
