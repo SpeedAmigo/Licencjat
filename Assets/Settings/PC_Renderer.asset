@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4357060438197427333
+--- !u!114 &-2597875899659671879
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::FlatKit.ObjectOutlineRendererFeature
   m_Active: 1
   settings:
-    passTag: Flat Kit Per Object Outline
+    passTag: RenderObjectsFeature
     Event: 300
     filterSettings:
       RenderQueueType: 0
@@ -71,9 +71,9 @@ MonoBehaviour:
     probeVolumeBlendStatesCS: {fileID: 7200000, guid: b9a23f869c4fd45f19c5ada54dd82176, type: 3}
   m_RendererFeatures:
   - {fileID: 7833122117494664109}
-  - {fileID: -4357060438197427333}
   - {fileID: 8347130439360066708}
   - {fileID: 186638770908819012}
+  - {fileID: -2597875899659671879}
   m_RendererFeatureMap: ad6b866f10d7b46ce973a8f490a76f109434e8dbe8f6d67344ee5529f9129702
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}

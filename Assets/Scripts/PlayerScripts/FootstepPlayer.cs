@@ -18,7 +18,6 @@ public class FootstepPlayer : MonoBehaviour
 
         if (Physics.Raycast(surfaceCheckRaycast.transform.position, Vector3.down, out var hit, distance))
         {
-            Debug.Log($"name: {hit.collider.gameObject.name}, tag: {hit.collider.gameObject.tag}");
             switch (hit.collider.tag)
             {
                   case "Ground":
