@@ -175,12 +175,11 @@ public class PlayerController : NetworkBehaviour
     {
         isGrounded = _controller.isGrounded;
         
-        OnCurrentStamina?.Invoke(currentStamina);
-
         if (IsOwner)
         {
             MoveHandler();
             OnSprint();
+            OnCurrentStamina?.Invoke(currentStamina);
         }
         
         if (isGrounded && _velocity.y < 0)

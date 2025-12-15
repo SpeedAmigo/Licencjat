@@ -3424,9 +3424,8 @@ GameObject:
   - component: {fileID: 3011807589470362556}
   - component: {fileID: 1964948867963731355}
   - component: {fileID: 3392339747133688567}
-  - component: {fileID: 5369291558833168028}
-  - component: {fileID: 5125728304894369119}
-  - component: {fileID: 4711623288580255049}
+  - component: {fileID: 2147180540526216654}
+  - component: {fileID: 6258654626575975946}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -3595,7 +3594,7 @@ MonoBehaviour:
   - {fileID: 1646694717154524645}
   - {fileID: 4677656022153212517}
   - {fileID: 322616550439949678}
---- !u!114 &5369291558833168028
+--- !u!114 &2147180540526216654
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3607,9 +3606,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de9fde9982974cd4db411647a3268232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 5315229089820142365}
+  _networkObjectCache: {fileID: 0}
   surfaceCheckRaycast: {fileID: 6088145305009411016}
   distance: 0.5
---- !u!114 &5125728304894369119
+  emitter: {fileID: 6258654626575975946}
+--- !u!114 &6258654626575975946
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3618,143 +3621,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 4100995485678096564}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ae285a33bde23f45a78880a19986f57, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SoundPlayer
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 5315229089820142365}
-  _networkObjectCache: {fileID: 0}
-  soundClips:
-  - key: Ground
-    volume: 0.2
-    audioClips:
-    - {fileID: 8300000, guid: ce98fdf682e006c46a447760f2a2fad5, type: 3}
-    - {fileID: 8300000, guid: 82b9e738f3cd28b4dbaf110066525dd8, type: 3}
-    - {fileID: 8300000, guid: 0d315545d375a1c4e86fe9510cd7f72a, type: 3}
-    - {fileID: 8300000, guid: e9c70ec1176794942a289e0b7039bd4f, type: 3}
-    - {fileID: 8300000, guid: 755c7d7398997184bb65d472bec3d7e3, type: 3}
-    - {fileID: 8300000, guid: 3d78125445d897b468095c0e5ea14f76, type: 3}
-    - {fileID: 8300000, guid: bc3c6c61ac9d6134b882ebf4c947d04a, type: 3}
-    - {fileID: 8300000, guid: 6df6cd3f88710c14688d7eac75e87f4e, type: 3}
-    - {fileID: 8300000, guid: 5fc9504706c899745b26a0ec58f0c797, type: 3}
-    - {fileID: 8300000, guid: 13988526602876f4294c5af746d68cd0, type: 3}
-    - {fileID: 8300000, guid: 7251c3756dd79d948b2fa81918225639, type: 3}
-    - {fileID: 8300000, guid: d1c5017453c047e4eaa300c7e8c7c379, type: 3}
-    - {fileID: 8300000, guid: d7bc2e0a29753cc4396020dd7f91ccdf, type: 3}
-    - {fileID: 8300000, guid: a01ed67b96219bb4b8aafcad45ebbaac, type: 3}
-  - key: Metal
-    volume: 0.2
-    audioClips:
-    - {fileID: 8300000, guid: 4737c6a075288ab448ce1b90cf81f249, type: 3}
-    - {fileID: 8300000, guid: 878cbd3f30ae78541a21f0bcd678d72f, type: 3}
-    - {fileID: 8300000, guid: e337210ae322e6046a127d9e3d83a0f4, type: 3}
-    - {fileID: 8300000, guid: 0c8a2cff9bf801e48a3e3212cbd8abc0, type: 3}
-    - {fileID: 8300000, guid: bcfe58362ebbf214596f649ec388f918, type: 3}
-    - {fileID: 8300000, guid: 22a7dce7f8f3e9740914b2bf564e8962, type: 3}
-    - {fileID: 8300000, guid: 23d3f2b001918544bb28a420eab45250, type: 3}
-    - {fileID: 8300000, guid: da8a822097965234bb640b1cc2ddf5c6, type: 3}
-    - {fileID: 8300000, guid: e36e938784c5f194bac69d2f076e5ff9, type: 3}
-  randomPitch: 1
-  pitchRange: {x: 0.9, y: 1.2}
-  useSoundDistance: 1
-  soundDistance: {x: 1, y: 100}
---- !u!82 &4711623288580255049
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4100995485678096564}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -917547291
+      Data2: 1088609496
+      Data3: -254351449
+      Data4: 1162872046
+    Path: event:/Footsteps
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &4139789260360203191
 GameObject:
   m_ObjectHideFlags: 0
