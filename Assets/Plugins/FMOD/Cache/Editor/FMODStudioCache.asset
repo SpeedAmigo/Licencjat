@@ -72,16 +72,19 @@ MonoBehaviour:
   - {fileID: 7604561571300198704}
   EditorEvents:
   - {fileID: -7537461855086343966}
+  - {fileID: 6234986853418234504}
   EditorParameters: []
   MasterBanks:
   - {fileID: 3403838664345754919}
   StringsBanks:
   - {fileID: 1196096207332177434}
   cacheVersion: 131857
-  cacheTime: 639014749267748342
+  cacheTime: 639014767688831897
   SerializableEventsDict:
   - key: event:/Footsteps
     index: 0
+  - key: event:/MapAmbient
+    index: 1
 --- !u!114 &1196096207332177434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,10 +100,10 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639014746224063831
+  lastModified: 639014767688551854
   FileSizes:
   - Name: Desktop
-    Value: 876
+    Value: 928
   Exists: 1
 --- !u!114 &3403838664345754919
 MonoBehaviour:
@@ -117,11 +120,38 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639014746224063831
+  lastModified: 639014767688541712
   FileSizes:
   - Name: Desktop
-    Value: 1074
+    Value: 884544
   Exists: 1
+--- !u!114 &6234986853418234504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/MapAmbient
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/MapAmbient
+  Guid:
+    Data1: -1935347080
+    Data2: 1248360201
+    Data3: 1125152649
+    Data4: 2045826607
+  Banks:
+  - {fileID: 3403838664345754919}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 70000
 --- !u!114 &7604561571300198704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,7 +167,7 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639014749267748342
+  lastModified: 639014767688831897
   FileSizes:
   - Name: Desktop
     Value: 112640
