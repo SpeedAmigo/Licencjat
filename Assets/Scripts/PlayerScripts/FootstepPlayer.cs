@@ -35,11 +35,11 @@ public class FootstepPlayer : NetworkBehaviour
         PlaySoundClient(surface);
     }
 
-    [ObserversRpc]
+    [ObserversRpc(ExcludeOwner = false)]
     private void PlaySoundClient(int surface)
     {
-        emitter.SetParameter("FootstepParameter", surface);
         emitter.Play();
+        emitter.SetParameter("FootstepParameter", surface);
     }
     
     private void Update()

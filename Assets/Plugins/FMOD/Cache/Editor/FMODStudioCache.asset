@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
   Path: event:/Footsteps
   Guid:
-    Data1: -917547291
-    Data2: 1088609496
-    Data3: -254351449
-    Data4: 1162872046
+    Data1: 1556764666
+    Data2: 1160624724
+    Data3: -476022097
+    Data4: -1797186193
   Banks:
   - {fileID: 7604561571300198704}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters:
   - {fileID: -850412215751220117}
@@ -44,7 +44,7 @@ MonoBehaviour:
   StudioPath: 
   Min: 0
   Max: 1
-  Default: 0
+  Default: 1
   ID:
     data1: 1957864552
     data2: 3937731632
@@ -78,7 +78,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: 1196096207332177434}
   cacheVersion: 131857
-  cacheTime: 639014114198326781
+  cacheTime: 639014749267748342
   SerializableEventsDict:
   - key: event:/Footsteps
     index: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639014114197490235
+  lastModified: 639014746224063831
   FileSizes:
   - Name: Desktop
     Value: 876
@@ -117,7 +117,7 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639014114197475187
+  lastModified: 639014746224063831
   FileSizes:
   - Name: Desktop
     Value: 1074
@@ -137,8 +137,8 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639014114198326781
+  lastModified: 639014749267748342
   FileSizes:
   - Name: Desktop
-    Value: 112352
+    Value: 112640
   Exists: 1
