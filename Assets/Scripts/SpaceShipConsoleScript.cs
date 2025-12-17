@@ -7,6 +7,9 @@ public class SpaceShipConsoleScript : NetworkBehaviour
 {
     [AllowMutableSyncType] public SyncVar<bool> shipLanded;
     [AllowMutableSyncType] public SyncVar<bool> shipPending;
+
+    [SerializeField] private GameObject landingText;
+    [SerializeField] private GameObject takeOffText;
     
     #region ShipPendingRegion
     public void SetShipPending(bool value)
@@ -46,5 +49,4 @@ public class SpaceShipConsoleScript : NetworkBehaviour
         shipLanded.Value = value;
     }
     #endregion
-
 }
