@@ -224,7 +224,7 @@ MonoBehaviour:
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours:
   - {fileID: 3543079171174368831}
-  InitializedParentNetworkBehaviour: {fileID: -6698240878997016495}
+  InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
   RuntimeChildNetworkBehaviours: []
@@ -410,7 +410,6 @@ MonoBehaviour:
   _componentIndexCache: 3
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
-  rightHandRigs: {fileID: 4391586082569085452}
   fpItemHolder: {fileID: 5910787284978885563}
   tpIemHolder: {fileID: 3195486199607129273}
   interactionDistance: 5
@@ -429,6 +428,7 @@ MonoBehaviour:
   _componentIndexCache: 4
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
+  rightHandRigs: {fileID: 4391586082569085452}
   currentItem:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
@@ -497,7 +497,7 @@ MonoBehaviour:
   - {fileID: 3011807589470362556}
   - {fileID: 4756922230646122949}
   - {fileID: -7367988066984427513}
-  - {fileID: -6698240878997016495}
+  - {fileID: 0}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects:
   - {fileID: 4027544253422935290}
@@ -4580,7 +4580,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6917592892647070213}
-  - component: {fileID: -6698240878997016495}
   m_Layer: 0
   m_Name: IKHAND.R
   m_TagString: Untagged
@@ -4605,21 +4604,6 @@ Transform:
   - {fileID: 7917077382290269887}
   m_Father: {fileID: 8467234361855128918}
   m_LocalEulerAnglesHint: {x: 3.8198476, y: 4.8537216, z: 76.22559}
---- !u!114 &-6698240878997016495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5387894224102342799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 14
-  _addedNetworkObject: {fileID: 5315229089820142365}
-  _networkObjectCache: {fileID: 5315229089820142365}
 --- !u!1 &5412107581558678622
 GameObject:
   m_ObjectHideFlags: 0

@@ -70,7 +70,8 @@ public class ObjectPickable : NetworkBehaviour
         {
             PickupLogic(tpHolder);
         }
-        
+
+        if (!fpHolder.IsOwner) return;
         if (objectToChangeLayer != null)
         {
             objectToChangeLayer.layer = LayerMask.NameToLayer("PickableLayer");

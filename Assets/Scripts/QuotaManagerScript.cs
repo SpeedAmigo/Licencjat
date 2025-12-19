@@ -25,6 +25,8 @@ public class QuotaManagerScript : NetworkBehaviour
 
     private void Start()
     {
+        if (!IsServerInitialized) return;
+        
         OnMoneyChanged?.Invoke(currentMoney.Value);
         OnTargetQuotaChanged?.Invoke(targetQuota.Value);
     }

@@ -7,10 +7,15 @@ using FishNet.Object.Synchronizing;
 using Heathen.SteamworksIntegration.API;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 
 public class PlayerInventoryScript : NetworkBehaviour
 {
+    [Header("Hand Rigs")]
+    [GUIColor("Red")]
+    [SerializeField] private GameObject rightHandRigs;
+    
     [GUIColor("Blue")]
     [AllowMutableSyncType] public SyncVar<ObjectPickable> currentItem = new();
     [GUIColor("Blue")]
@@ -26,6 +31,7 @@ public class PlayerInventoryScript : NetworkBehaviour
     
     private InputSystem_Actions _inputSystem;
 
+    #region GeneralMethods 
     public override void OnStartServer()        
     {                                   
         base.OnStartServer();
@@ -56,14 +62,6 @@ public class PlayerInventoryScript : NetworkBehaviour
         currentItem.OnChange -= HandleCurrentItemChange;
     }
     
-    private void AddInventorySlots()
-    {
-        for (int i = 0; i < inventorySize; i++)
-        {
-            slots.Add(null);
-        }
-    }
-
     private void Awake()
     {
         _inputSystem = new InputSystem_Actions();
@@ -85,10 +83,35 @@ public class PlayerInventoryScript : NetworkBehaviour
         _inputSystem.Player.Slot3 .performed -= OnSlot3;
     }
     
+    #endregion
+    
+    #region InputBinding
     private void OnSlot1(InputAction.CallbackContext ctx) => OnDrawCurrentItem(0);
     private void OnSlot2(InputAction.CallbackContext ctx) => OnDrawCurrentItem(1);
     private void OnSlot3(InputAction.CallbackContext ctx) => OnDrawCurrentItem(2);
-
+    #endregion
+    
+    #region Helpers
+    
+    private void HandleCurrentItemChange(ObjectPickable prev, ObjectPickable next, bool asServer)
+    {
+        if (next != null && next.gameObject != null && !next.gameObject.activeSelf)
+        {
+            next.gameObject.SetActive(true);
+        }
+        
+        if (prev != null && prev != next && prev.gameObject != null && prev.gameObject.activeSelf)
+        {
+            if (slots.Contains(prev))
+            {
+                prev.gameObject.SetActive(false);   
+            }
+        }
+        
+        float targetWeight = next != null ? 1f : 0f;
+        RigWeightHandler(rightHandRigs, targetWeight);
+    }
+    
     private void OnDrawCurrentItem(int index)
     {
         if (currentItem.Value != null && currentItem.Value.isBig) return;
@@ -124,22 +147,6 @@ public class PlayerInventoryScript : NetworkBehaviour
         currentItem.Value = slots[index];
     }
     
-    private void HandleCurrentItemChange(ObjectPickable prev, ObjectPickable next, bool asServer)
-    {
-        if (next != null && next.gameObject != null && !next.gameObject.activeSelf)
-        {
-            next.gameObject.SetActive(true);
-        }
-        
-        if (prev != null && prev != next && prev.gameObject != null && prev.gameObject.activeSelf)
-        {
-            if (slots.Contains(prev))
-            {
-                prev.gameObject.SetActive(false);   
-            }
-        }
-    }
-    
     public bool CheckForEmptySlot()
     {
         foreach (var slot in slots)
@@ -151,7 +158,34 @@ public class PlayerInventoryScript : NetworkBehaviour
         }
         return false;
     }
+    
+    [Server]
+    public void RequestRemoveItem(ObjectPickable item, PlayerInventoryScript inventory)
+    {
+        if (inventory == null || item == null) return;
 
+        if (item.isBig)
+        {
+            inventory.RemoveBigItem(item);
+        }
+        else
+        {
+            inventory.RemoveItem(item);
+        }
+    }
+    
+    private void AddInventorySlots()
+    {
+        for (int i = 0; i < inventorySize; i++)
+        {
+            slots.Add(null);
+        }
+    }
+    
+    #endregion
+
+    #region BigItem
+    
     [Server]
     public void AddBigItem(ObjectPickable bigItem, NetworkObject fpHolder, NetworkObject tpHolder)
     {
@@ -171,7 +205,11 @@ public class PlayerInventoryScript : NetworkBehaviour
             currentItem.Value = null;
         }
     }
+    
+    #endregion
 
+    #region RegularItem
+    
     [Server]
     public void AddItem(ObjectPickable item, NetworkObject fpHolder, NetworkObject tpHolder)
     {
@@ -183,7 +221,7 @@ public class PlayerInventoryScript : NetworkBehaviour
                 
                 UpdateUIAdd(Owner, i, item); // update UI with free slot index and icon
                 item.Pickup(fpHolder, tpHolder);
-
+                
                 if (i == currentItemIndex)
                 {
                     currentItem.Value = item;
@@ -224,22 +262,6 @@ public class PlayerInventoryScript : NetworkBehaviour
         }
     }
     
-    [Server]
-    public void RequestRemoveItem(ObjectPickable item, PlayerInventoryScript inventory)
-    {
-        if (inventory == null || item == null) return;
-
-        if (item.isBig)
-        {
-            inventory.RemoveBigItem(item);
-        }
-        else
-        {
-            inventory.RemoveItem(item);
-        }
-    }
-    
-
     [ObserversRpc(BufferLast = true)]
     private void SetItem_Client(ObjectPickable item, bool active)
     {
@@ -248,7 +270,11 @@ public class PlayerInventoryScript : NetworkBehaviour
             item.gameObject.SetActive(active);
         }
     }
-
+    
+    #endregion
+    
+    #region UI
+    
     [TargetRpc]
     private void UpdateUIRemove(NetworkConnection conn, int index)
     {
@@ -260,4 +286,24 @@ public class PlayerInventoryScript : NetworkBehaviour
     {
         OnUIUpdateAdd?.Invoke(index, item.itemIcon); // passing free slot index and icon
     }
+    
+    #endregion
+    
+    #region RigWeight
+    
+    [ServerRpc(RequireOwnership = false)]
+    private void RigWeightHandler(GameObject rigHolder, float weight)
+    {
+        rigHolder.GetComponent<Rig>().weight = weight;
+        
+        RigWeightHandlerClient(rigHolder, weight);
+    }
+
+    [ObserversRpc]
+    private void RigWeightHandlerClient(GameObject rigHolder, float weight)
+    {
+        rigHolder.GetComponent<Rig>().weight = weight;
+    }
+    
+    #endregion
 }

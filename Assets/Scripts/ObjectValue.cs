@@ -20,6 +20,8 @@ public class ObjectValue : NetworkBehaviour
 
     private void Start()
     {
+        if (!IsServerInitialized) return;
+        
         actualBuyValue.Value = PickRandomValue(minMaxBuyValue);
         actualSellValue.Value = PickRandomValue(minMaxSellValue);
     }

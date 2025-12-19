@@ -6,10 +6,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteractor : NetworkBehaviour
 {
-    [Header("Hand Rigs")]
-    [GUIColor("Red")]
-    [SerializeField] private GameObject rightHandRigs;
-    
     [Header("Item Holders")]
     [GUIColor("Red")]
     [SerializeField] private NetworkObject fpItemHolder;
@@ -96,7 +92,6 @@ public class PlayerInteractor : NetworkBehaviour
             else if (_playerInventory.CheckForEmptySlot() && !pickup.isBig)
             {
                 _playerInventory.AddItem(pickup, fpHolder, tpHolder);
-                RigWeightHandler(rightHandRigs, 1f);
             }
         }
     }
@@ -128,27 +123,7 @@ public class PlayerInteractor : NetworkBehaviour
         else
         {
             _playerInventory.RemoveItem(_playerInventory.currentItem.Value);
-            RigWeightHandler(rightHandRigs, 0f);
         }
-        
-        //_playerInventory.currentItem.Value.Drop();
-        
-        //currentItem.Drop();
-        //currentItem = null;
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void RigWeightHandler(GameObject rigHolder, float weight)
-    {
-        rigHolder.GetComponent<Rig>().weight = weight;
-        
-        RigWeightHandlerClient(rigHolder, weight);
-    }
-
-    [ObserversRpc]
-    private void RigWeightHandlerClient(GameObject rigHolder, float weight)
-    {
-        rigHolder.GetComponent<Rig>().weight = weight;
     }
 }
 
