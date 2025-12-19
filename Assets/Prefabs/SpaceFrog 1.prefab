@@ -590,8 +590,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f77f7e8f18b370443ab7c4d97c6b3d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectValue
-  buyValue: 0
-  sellValue: 15
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 4097182591846747468}
+  _networkObjectCache: {fileID: 0}
+  minMaxBuyValue: {x: 0, y: 0}
+  minMaxSellValue: {x: 8, y: 25}
+  actualBuyValue:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
+  actualSellValue:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
 --- !u!1 &1672036666731588899
 GameObject:
   m_ObjectHideFlags: 0

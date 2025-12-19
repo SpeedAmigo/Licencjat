@@ -10,7 +10,7 @@ public class AnimalCollectorScript : NetworkBehaviour
             ObjectValue objectValue = other.GetComponent<ObjectValue>();
             NetworkObject networkObject = other.GetComponent<NetworkObject>();
             
-            QuotaManagerScript.Instance.AddMoney((uint)objectValue.sellValue);
+            QuotaManagerScript.Instance.AddMoney((uint)objectValue.actualSellValue.Value);
             
             DespawnOtherObjectServer(networkObject);
         }
