@@ -212,9 +212,10 @@ GameObject:
   - component: {fileID: 74714188588227426}
   - component: {fileID: 7856130260290600254}
   - component: {fileID: 3810328240186286207}
+  - component: {fileID: 8716587588997196050}
   m_Layer: 1
   m_Name: SpaceFrog 1
-  m_TagString: Untagged
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -577,6 +578,31 @@ MonoBehaviour:
   lookRadius: 0.001
   lookSpeed: 5
   _frogScript: {fileID: 5064801098740284251}
+--- !u!114 &8716587588997196050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655243461288019699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77f7e8f18b370443ab7c4d97c6b3d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectValue
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 4097182591846747468}
+  _networkObjectCache: {fileID: 0}
+  minMaxBuyValue: {x: 0, y: 0}
+  minMaxSellValue: {x: 8, y: 25}
+  actualBuyValue:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
+  actualSellValue:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
 --- !u!1 &1672036666731588899
 GameObject:
   m_ObjectHideFlags: 0
