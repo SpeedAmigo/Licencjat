@@ -5,7 +5,7 @@ public class AnimalCollectorScript : NetworkBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Frog"))
+        if (other.gameObject.TryGetComponent<BaseEnemyScript>(out var script))
         {
             ObjectValue objectValue = other.GetComponent<ObjectValue>();
             NetworkObject networkObject = other.GetComponent<NetworkObject>();

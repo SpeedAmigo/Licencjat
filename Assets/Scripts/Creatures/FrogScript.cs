@@ -1,21 +1,18 @@
-using System.Collections.Generic;
 using FishNet.CodeGenerating;
 using FishNet.Component.Animating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using Pathfinding;
-using RaycastPro.Detectors;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AIPath))]
-public class FrogScript : ObjectPickable
+public class FrogScript : BaseEnemyScript
 {
     #region Variables
 
     [Header("Dependencies")]
     [SerializeField] private NetworkAnimator animator;
-    [SerializeField] private RangeDetector rangeDetector;
     
     [Header("General settings")]
     public bool canWalk = true;
@@ -32,24 +29,43 @@ public class FrogScript : ObjectPickable
     [SerializeField] private float range = 10f;
     
     [Header("PickedUp settings")]
-    [AllowMutableSyncType] private SyncVar<bool> pickedUp;
-    [AllowMutableSyncType] private SyncVar<float> spitTime = new(5f);
+    [AllowMutableSyncType] public SyncVar<bool> pickedUp;
+    //[AllowMutableSyncType] private SyncVar<float> spitTime = new(5f);
     
-    [Header("Players in range list")]
-    // Server-side list of players inside range
-    public List<GameObject> playersInRange = new();
-
     private AIPath _ai;
     private bool _waitingForPath;
     private bool _running;
+
+    public bool Running
+    {
+        get => _running;
+        set => _running = value;
+    }
     
-    private PlayerInventoryScript _playerInventory;
+    public AIPath AI
+    {
+        get => _ai;
+        set => _ai = value;
+    }
+
+    /*public PlayerInventoryScript PlayerInventory
+    {
+        get => _playerInventory;
+        set => _playerInventory = value;
+    }
+    
+    private PlayerInventoryScript _playerInventory;*/
     
     #endregion
     
-    protected override void Awake()
+    /*protected override void Awake()
     {
         base.Awake();
+        _ai = GetComponent<AIPath>();
+    }*/
+
+    private void Awake()
+    {
         _ai = GetComponent<AIPath>();
     }
     
@@ -71,7 +87,7 @@ public class FrogScript : ObjectPickable
         
         bool canRun = canRunaway && playersInRange.Count > maxPlayers;
         
-        if (canSpit && pickedUp.Value)
+        /*if (canSpit && pickedUp.Value)
         {
             spitTime.Value -= Time.deltaTime;
             if (spitTime.Value <= 0f)
@@ -81,7 +97,7 @@ public class FrogScript : ObjectPickable
                 animator.Animator.Play("Spit");
                 _playerInventory.RequestRemoveItem(this, _playerInventory);
             }
-        }
+        }*/
 
         if (canRun)
         {
@@ -129,7 +145,7 @@ public class FrogScript : ObjectPickable
         }
     }
     
-    #region PickUpRegion
+    /*#region PickUpRegion
     protected override void PickupLogic(NetworkObject holder)
     {
         base.PickupLogic(holder);
@@ -158,7 +174,7 @@ public class FrogScript : ObjectPickable
         pickedUp.Value = value;
     }
     
-    #endregion
+    #endregion*/
 
     #region HelperMethods
     
@@ -184,65 +200,11 @@ public class FrogScript : ObjectPickable
         randomPoint += _ai.position;
         return randomPoint;
     }
-    
-    #endregion
-    
-    #region PlayerDetection
 
-    [ServerRpc(RequireOwnership = false)]
-    private void AddPlayerToServerList(GameObject obj)
+    public void PlaySpitAnimation()
     {
-        if (playersInRange.Contains(obj)) return;
-        
-        playersInRange.Add(obj);
-        //Debug.Log($"[SERVER] Player added to list: {obj.name}");
-    }
-    
-    [ServerRpc(RequireOwnership = false)]
-    private void RemovePlayerFromServerList(GameObject obj)
-    {
-        if (!playersInRange.Contains(obj)) return;
-        
-        playersInRange.Remove(obj);
-        //Debug.Log($"[SERVER] Player removed from list: {obj.name}");
-    }
-    
-    private void OnDetected(Collider other)
-    {
-        if (other.CompareTag("Player") && !playersInRange.Contains(other.gameObject))
-        {
-            playersInRange.Add(other.gameObject);
-            AddPlayerToServerList(other.gameObject);
-            //Debug.Log($"[SERVER] Player entered range: {other.name}");
-        }
-    }
-
-    private void OnLost(Collider other)
-    {
-        if (other.CompareTag("Player") && playersInRange.Contains(other.gameObject))
-        {
-            playersInRange.Remove(other.gameObject);
-            RemovePlayerFromServerList(other.gameObject);
-            //Debug.Log($"[SERVER] Player left range: {other.name}");
-        }
-    }
-
-    #endregion
-    
-    #region Enable/Disable
-    
-    private void OnEnable()
-    {
-        rangeDetector.onDetectCollider.AddListener(OnDetected);
-        rangeDetector.onLostCollider.AddListener(OnLost);
-    }
-
-    private void OnDisable()
-    {
-        rangeDetector.onDetectCollider.RemoveListener(OnDetected);
-        rangeDetector.onLostCollider.RemoveListener(OnLost);
+        animator.Animator.Play("Spit");
     }
     
     #endregion
-
 }

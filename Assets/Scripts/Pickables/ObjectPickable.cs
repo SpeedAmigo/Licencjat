@@ -60,7 +60,7 @@ public class ObjectPickable : NetworkBehaviour
     }
 
     [ObserversRpc]
-    private void Pickup_Client(NetworkObject fpHolder, NetworkObject tpHolder)
+    public void Pickup_Client(NetworkObject fpHolder, NetworkObject tpHolder)
     {
         if (fpHolder.IsOwner)
         {
@@ -83,7 +83,7 @@ public class ObjectPickable : NetworkBehaviour
     }
 
     [ObserversRpc]
-    private void Drop_Client()
+    public void Drop_Client()
     {
         DropLogic();
         
