@@ -1,18 +1,32 @@
 using System.Collections.Generic;
 using FishNet.CodeGenerating;
+using FishNet.Component.Animating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using Pathfinding;
 using RaycastPro.Detectors;
 using UnityEngine;
 
+[RequireComponent(typeof(AIPath))]
 public class BaseEnemyScript : NetworkBehaviour
 {
+    [Header("Dependencies")]
+    [SerializeField] protected NetworkAnimator animator;
+    [SerializeField] private RangeDetector rangeDetector;
+    
     [Header("Players in range list")]
     [AllowMutableSyncType] public SyncList<GameObject> playersInRange = new();
-    // Server-side list of players inside range
-    //public List<GameObject> playersInRange = new();
     
-    [SerializeField] private RangeDetector rangeDetector;
+    [Header("AI Movement Settings")]
+    [SerializeField] private float range = 10f;
+    
+    protected AIPath ai;
+    protected bool WaitingForPath;
+    
+    protected virtual void Awake()
+    {
+        ai = GetComponent<AIPath>();
+    }
     
     #region PlayerDetection
     private void OnDetected(Collider other)
@@ -53,17 +67,35 @@ public class BaseEnemyScript : NetworkBehaviour
     
     #region Enable/Disable
     
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         rangeDetector.onDetectCollider.AddListener(OnDetected);
         rangeDetector.onLostCollider.AddListener(OnLost);
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         rangeDetector.onDetectCollider.RemoveListener(OnDetected);
         rangeDetector.onLostCollider.RemoveListener(OnLost);
     }
     
     #endregion
+    
+    #region AI
+    
+    protected void SetNewPath()
+    {
+        ai.destination = PickRandomPoint();
+        WaitingForPath = false;
+    }
+    
+    protected Vector3 PickRandomPoint()
+    {
+        Vector3 randomPoint = Random.insideUnitSphere * range;
+        randomPoint.y = 0;
+        randomPoint += ai.position;
+        return randomPoint;
+    }
+    
+    # endregion
 }

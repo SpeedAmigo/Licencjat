@@ -79,7 +79,10 @@ public class PlayerInteractor : NetworkBehaviour
         
         DropItem_Server();
     }
+
     
+    // to get rid of so much component checking
+    // try to write network serializer because otherwise it won't work
     [ServerRpc(RequireOwnership = false)]
     private void Pickup_Server(NetworkObject obj, NetworkObject fpHolder, NetworkObject tpHolder)
     {
