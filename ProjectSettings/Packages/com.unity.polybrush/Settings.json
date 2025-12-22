@@ -44,7 +44,7 @@
             {
                 "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "Scattering.UsePivotForPlacement",
-                "value": "{\"m_Value\":false}"
+                "value": "{\"m_Value\":true}"
             },
             {
                 "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
@@ -64,7 +64,7 @@
             {
                 "type": "UnityEngine.Polybrush.MirrorCoordinateSpace, Unity.Polybrush, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "Brush.MirrorSpace",
-                "value": "{\"m_Value\":0}"
+                "value": "{\"m_Value\":1}"
             },
             {
                 "type": "UnityEngine.Polybrush.PolyDirection, Unity.Polybrush, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
@@ -104,12 +104,12 @@
             {
                 "type": "System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "ScatteringEditor.PreviewThumSize",
-                "value": "{\"m_Value\":64}"
+                "value": "{\"m_Value\":65}"
             },
             {
                 "type": "UnityEditor.Polybrush.PrefabLoadout, Unity.Polybrush.Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "ScatteringEditor.userLoadout",
-                "value": "{\"m_Value\":{\"infos\":[{\"palette\":{\"fileID\":11400000,\"guid\":\"584e9d9dcb049864b871f8e78e52067e\",\"type\":2},\"prefab\":{\"fileID\":7932546394246748940,\"guid\":\"d4617ba8aac05884dbcb608c159d69f9\",\"type\":3}},{\"palette\":{\"fileID\":11400000,\"guid\":\"584e9d9dcb049864b871f8e78e52067e\",\"type\":2},\"prefab\":{\"fileID\":5288518901095760680,\"guid\":\"0b061e58e0d4adc4993275eb78bf8bab\",\"type\":3}}]}}"
+                "value": "{\"m_Value\":{\"infos\":[{\"palette\":{\"fileID\":11400000,\"guid\":\"584e9d9dcb049864b871f8e78e52067e\",\"type\":2},\"prefab\":{\"fileID\":1324797035782376866,\"guid\":\"b3f28c1608b5967448e8090fbe80729e\",\"type\":3}},{\"palette\":{\"fileID\":11400000,\"guid\":\"584e9d9dcb049864b871f8e78e52067e\",\"type\":2},\"prefab\":{\"fileID\":5288518901095760680,\"guid\":\"0b061e58e0d4adc4993275eb78bf8bab\",\"type\":3}},{\"palette\":{\"fileID\":11400000,\"guid\":\"584e9d9dcb049864b871f8e78e52067e\",\"type\":2},\"prefab\":{\"fileID\":7932546394246748940,\"guid\":\"d4617ba8aac05884dbcb608c159d69f9\",\"type\":3}},{\"palette\":{\"fileID\":11400000,\"guid\":\"584e9d9dcb049864b871f8e78e52067e\",\"type\":2},\"prefab\":{\"fileID\":1353159500347543346,\"guid\":\"7961af9dd6319714d995f92ab5db082d\",\"type\":3}},{\"palette\":{\"fileID\":11400000,\"guid\":\"584e9d9dcb049864b871f8e78e52067e\",\"type\":2},\"prefab\":{\"fileID\":6763083121770954422,\"guid\":\"44576234269b889458d77cc1b811a685\",\"type\":3}},{\"palette\":{\"fileID\":11400000,\"guid\":\"584e9d9dcb049864b871f8e78e52067e\",\"type\":2},\"prefab\":{\"fileID\":3556782780476976027,\"guid\":\"c6e490aea69d5be4b865faeec6516791\",\"type\":3}},{\"palette\":{\"fileID\":11400000,\"guid\":\"584e9d9dcb049864b871f8e78e52067e\",\"type\":2},\"prefab\":{\"fileID\":4324786939220097263,\"guid\":\"bd3e4b423162fb24e951665bbb208325\",\"type\":3}},{\"palette\":{\"fileID\":11400000,\"guid\":\"584e9d9dcb049864b871f8e78e52067e\",\"type\":2},\"prefab\":{\"fileID\":9121275450974291874,\"guid\":\"46f4a600e2cf8a348a91b84930ec3ec3\",\"type\":3}},{\"palette\":{\"fileID\":11400000,\"guid\":\"584e9d9dcb049864b871f8e78e52067e\",\"type\":2},\"prefab\":{\"fileID\":3696467135520150134,\"guid\":\"cc510d2580bde9641b2c531748519b29\",\"type\":3}}]}}"
             }
         ]
     }
