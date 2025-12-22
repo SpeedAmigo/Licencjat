@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Pickable
+  - Ground
+  - Metal
+  - Frog
   layers:
   - Default
   - TransparentFX
@@ -13,8 +16,8 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
-  - 
+  - PickableLayer
+  - ThisPlayer
   - 
   - 
   - 
@@ -51,3 +54,5 @@ TagManager:
   - Light Layer 5
   - Light Layer 6
   - Light Layer 7
+  - EyesocketLayer
+  - Eye

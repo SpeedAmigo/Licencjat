@@ -1,0 +1,1688 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4881f9a2c4d568047b316028d20a8dca, type: 3}
+  m_Name: SampleScene Baking Set
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.ProbeVolumeBakingSet
+  singleSceneMode: 1
+  dialogNoProbeVolumeInSetShown: 1
+  settings:
+    m_Version: 1
+    dilationSettings:
+      enableDilation: 0
+      dilationDistance: 1
+      dilationValidityThreshold: 0.25
+      dilationIterations: 1
+      squaredDistWeighting: 1
+    virtualOffsetSettings:
+      useVirtualOffset: 1
+      validityThreshold: 0.25
+      outOfGeoOffset: 0.01
+      searchMultiplier: 0.2
+      rayOriginBias: -0.001
+      collisionMask:
+        serializedVersion: 2
+        m_Bits: 4294967291
+  m_SceneGUIDs:
+  - 99c9720ab356a0642a771bea13969a05
+  obsoleteScenesToNotBake: []
+  m_LightingScenarios:
+  - Day
+  - Night
+  cellDescs:
+    m_Keys: 0000000004000000020000000600000001000000050000000300000007000000
+    m_Values:
+    - position: {x: -1, y: -1, z: -1}
+      index: 0
+      probeCount: 1024
+      minSubdiv: 0
+      indexChunkCount: 91
+      shChunkCount: 1
+      bricksCount: 16
+      indirectionEntryInfo:
+      - positionInBricks: {x: -81, y: -81, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 81, z: 81}
+        maxBrickPosPlusOne: {x: 82, y: 82, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -81, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 81, z: 54}
+        maxBrickPosPlusOne: {x: 82, y: 82, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -81, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 81, z: 27}
+        maxBrickPosPlusOne: {x: 82, y: 82, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -54, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 54, z: 81}
+        maxBrickPosPlusOne: {x: 82, y: 55, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -54, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 54, z: 54}
+        maxBrickPosPlusOne: {x: 82, y: 55, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -54, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 54, z: 27}
+        maxBrickPosPlusOne: {x: 82, y: 55, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -27, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 27, z: 81}
+        maxBrickPosPlusOne: {x: 82, y: 28, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -27, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 27, z: 54}
+        maxBrickPosPlusOne: {x: 82, y: 28, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -27, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 27, z: 27}
+        maxBrickPosPlusOne: {x: 82, y: 28, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -81, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 81, z: 81}
+        maxBrickPosPlusOne: {x: 55, y: 82, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -81, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 81, z: 54}
+        maxBrickPosPlusOne: {x: 55, y: 82, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -81, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 81, z: 27}
+        maxBrickPosPlusOne: {x: 55, y: 82, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -54, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 54, z: 81}
+        maxBrickPosPlusOne: {x: 55, y: 55, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -54, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 54, z: 54}
+        maxBrickPosPlusOne: {x: 55, y: 55, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -54, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 54, z: 27}
+        maxBrickPosPlusOne: {x: 55, y: 55, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -27, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 27, z: 81}
+        maxBrickPosPlusOne: {x: 55, y: 28, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -27, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 27, z: 54}
+        maxBrickPosPlusOne: {x: 55, y: 28, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -27, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 27, z: 27}
+        maxBrickPosPlusOne: {x: 55, y: 28, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -81, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 81, z: 81}
+        maxBrickPosPlusOne: {x: 28, y: 82, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -81, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 81, z: 54}
+        maxBrickPosPlusOne: {x: 28, y: 82, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -81, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 81, z: 27}
+        maxBrickPosPlusOne: {x: 28, y: 82, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -54, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 54, z: 81}
+        maxBrickPosPlusOne: {x: 28, y: 55, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -54, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 54, z: 54}
+        maxBrickPosPlusOne: {x: 28, y: 55, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -54, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 54, z: 27}
+        maxBrickPosPlusOne: {x: 28, y: 55, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -27, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 27, z: 81}
+        maxBrickPosPlusOne: {x: 28, y: 28, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -27, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 27, z: 54}
+        maxBrickPosPlusOne: {x: 28, y: 28, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -27, z: -27}
+        minSubdiv: 0
+        minBrickPos: {x: 0, y: 0, z: 0}
+        maxBrickPosPlusOne: {x: 28, y: 28, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+    - position: {x: -1, y: -1, z: 0}
+      index: 4
+      probeCount: 1152
+      minSubdiv: 0
+      indexChunkCount: 91
+      shChunkCount: 1
+      bricksCount: 18
+      indirectionEntryInfo:
+      - positionInBricks: {x: -81, y: -81, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 81, z: 0}
+        maxBrickPosPlusOne: {x: 82, y: 82, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -81, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 81, z: -27}
+        maxBrickPosPlusOne: {x: 82, y: 82, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -81, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 81, z: -54}
+        maxBrickPosPlusOne: {x: 82, y: 82, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -54, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 54, z: 0}
+        maxBrickPosPlusOne: {x: 82, y: 55, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -54, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 54, z: -27}
+        maxBrickPosPlusOne: {x: 82, y: 55, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -54, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 54, z: -54}
+        maxBrickPosPlusOne: {x: 82, y: 55, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -27, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 27, z: 0}
+        maxBrickPosPlusOne: {x: 82, y: 28, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -27, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 27, z: -27}
+        maxBrickPosPlusOne: {x: 82, y: 28, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: -27, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 27, z: -54}
+        maxBrickPosPlusOne: {x: 82, y: 28, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -81, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 81, z: 0}
+        maxBrickPosPlusOne: {x: 55, y: 82, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -81, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 81, z: -27}
+        maxBrickPosPlusOne: {x: 55, y: 82, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -81, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 81, z: -54}
+        maxBrickPosPlusOne: {x: 55, y: 82, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -54, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 54, z: 0}
+        maxBrickPosPlusOne: {x: 55, y: 55, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -54, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 54, z: -27}
+        maxBrickPosPlusOne: {x: 55, y: 55, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -54, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 54, z: -54}
+        maxBrickPosPlusOne: {x: 55, y: 55, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -27, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 27, z: 0}
+        maxBrickPosPlusOne: {x: 55, y: 28, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -27, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 27, z: -27}
+        maxBrickPosPlusOne: {x: 55, y: 28, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: -27, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 27, z: -54}
+        maxBrickPosPlusOne: {x: 55, y: 28, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -81, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 81, z: 0}
+        maxBrickPosPlusOne: {x: 28, y: 82, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -81, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 81, z: -27}
+        maxBrickPosPlusOne: {x: 28, y: 82, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -81, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 81, z: -54}
+        maxBrickPosPlusOne: {x: 28, y: 82, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -54, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 54, z: 0}
+        maxBrickPosPlusOne: {x: 28, y: 55, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -54, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 54, z: -27}
+        maxBrickPosPlusOne: {x: 28, y: 55, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -54, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 54, z: -54}
+        maxBrickPosPlusOne: {x: 28, y: 55, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -27, z: 0}
+        minSubdiv: 0
+        minBrickPos: {x: 0, y: 0, z: 0}
+        maxBrickPosPlusOne: {x: 28, y: 28, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -27, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 27, z: -27}
+        maxBrickPosPlusOne: {x: 28, y: 28, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: -27, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 27, z: -54}
+        maxBrickPosPlusOne: {x: 28, y: 28, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+    - position: {x: -1, y: 0, z: -1}
+      index: 2
+      probeCount: 2112
+      minSubdiv: 0
+      indexChunkCount: 91
+      shChunkCount: 1
+      bricksCount: 33
+      indirectionEntryInfo:
+      - positionInBricks: {x: -81, y: 0, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 0, z: 81}
+        maxBrickPosPlusOne: {x: 82, y: 1, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 0, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 0, z: 54}
+        maxBrickPosPlusOne: {x: 82, y: 1, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 0, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 0, z: 27}
+        maxBrickPosPlusOne: {x: 82, y: 1, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 27, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: -27, z: 81}
+        maxBrickPosPlusOne: {x: 82, y: -26, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 27, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: -27, z: 54}
+        maxBrickPosPlusOne: {x: 82, y: -26, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 27, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: -27, z: 27}
+        maxBrickPosPlusOne: {x: 82, y: -26, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 54, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: -54, z: 81}
+        maxBrickPosPlusOne: {x: 82, y: -53, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 54, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: -54, z: 54}
+        maxBrickPosPlusOne: {x: 82, y: -53, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 54, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: -54, z: 27}
+        maxBrickPosPlusOne: {x: 82, y: -53, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 0, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 0, z: 81}
+        maxBrickPosPlusOne: {x: 55, y: 1, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 0, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 0, z: 54}
+        maxBrickPosPlusOne: {x: 55, y: 1, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 0, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 0, z: 27}
+        maxBrickPosPlusOne: {x: 55, y: 1, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 27, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: -27, z: 81}
+        maxBrickPosPlusOne: {x: 55, y: -26, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 27, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: -27, z: 54}
+        maxBrickPosPlusOne: {x: 55, y: -26, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 27, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: -27, z: 27}
+        maxBrickPosPlusOne: {x: 55, y: -26, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 54, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: -54, z: 81}
+        maxBrickPosPlusOne: {x: 55, y: -53, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 54, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: -54, z: 54}
+        maxBrickPosPlusOne: {x: 55, y: -53, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 54, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: -54, z: 27}
+        maxBrickPosPlusOne: {x: 55, y: -53, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 0, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 0, z: 81}
+        maxBrickPosPlusOne: {x: 28, y: 1, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 0, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 0, z: 54}
+        maxBrickPosPlusOne: {x: 28, y: 1, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 0, z: -27}
+        minSubdiv: 0
+        minBrickPos: {x: 0, y: 0, z: 0}
+        maxBrickPosPlusOne: {x: 28, y: 28, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 27, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: -27, z: 81}
+        maxBrickPosPlusOne: {x: 28, y: -26, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 27, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: -27, z: 54}
+        maxBrickPosPlusOne: {x: 28, y: -26, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 27, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: -27, z: 27}
+        maxBrickPosPlusOne: {x: 28, y: -26, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 54, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: -54, z: 81}
+        maxBrickPosPlusOne: {x: 28, y: -53, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 54, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: -54, z: 54}
+        maxBrickPosPlusOne: {x: 28, y: -53, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 54, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: -54, z: 27}
+        maxBrickPosPlusOne: {x: 28, y: -53, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+    - position: {x: -1, y: 0, z: 0}
+      index: 6
+      probeCount: 2240
+      minSubdiv: 0
+      indexChunkCount: 91
+      shChunkCount: 1
+      bricksCount: 35
+      indirectionEntryInfo:
+      - positionInBricks: {x: -81, y: 0, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 0, z: 0}
+        maxBrickPosPlusOne: {x: 82, y: 1, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 0, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 0, z: -27}
+        maxBrickPosPlusOne: {x: 82, y: 1, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 0, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: 0, z: -54}
+        maxBrickPosPlusOne: {x: 82, y: 1, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 27, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: -27, z: 0}
+        maxBrickPosPlusOne: {x: 82, y: -26, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 27, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: -27, z: -27}
+        maxBrickPosPlusOne: {x: 82, y: -26, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 27, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: -27, z: -54}
+        maxBrickPosPlusOne: {x: 82, y: -26, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 54, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: -54, z: 0}
+        maxBrickPosPlusOne: {x: 82, y: -53, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 54, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: -54, z: -27}
+        maxBrickPosPlusOne: {x: 82, y: -53, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -81, y: 54, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 81, y: -54, z: -54}
+        maxBrickPosPlusOne: {x: 82, y: -53, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 0, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 0, z: 0}
+        maxBrickPosPlusOne: {x: 55, y: 1, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 0, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 0, z: -27}
+        maxBrickPosPlusOne: {x: 55, y: 1, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 0, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: 0, z: -54}
+        maxBrickPosPlusOne: {x: 55, y: 1, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 27, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: -27, z: 0}
+        maxBrickPosPlusOne: {x: 55, y: -26, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 27, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: -27, z: -27}
+        maxBrickPosPlusOne: {x: 55, y: -26, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 27, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: -27, z: -54}
+        maxBrickPosPlusOne: {x: 55, y: -26, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 54, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: -54, z: 0}
+        maxBrickPosPlusOne: {x: 55, y: -53, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 54, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: -54, z: -27}
+        maxBrickPosPlusOne: {x: 55, y: -53, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -54, y: 54, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 54, y: -54, z: -54}
+        maxBrickPosPlusOne: {x: 55, y: -53, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 0, z: 0}
+        minSubdiv: 0
+        minBrickPos: {x: 0, y: 0, z: 0}
+        maxBrickPosPlusOne: {x: 28, y: 28, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 0, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 0, z: -27}
+        maxBrickPosPlusOne: {x: 28, y: 1, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 0, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: 0, z: -54}
+        maxBrickPosPlusOne: {x: 28, y: 1, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 27, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: -27, z: 0}
+        maxBrickPosPlusOne: {x: 28, y: -26, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 27, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: -27, z: -27}
+        maxBrickPosPlusOne: {x: 28, y: -26, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 27, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: -27, z: -54}
+        maxBrickPosPlusOne: {x: 28, y: -26, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 54, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: -54, z: 0}
+        maxBrickPosPlusOne: {x: 28, y: -53, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 54, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: -54, z: -27}
+        maxBrickPosPlusOne: {x: 28, y: -53, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: -27, y: 54, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 27, y: -54, z: -54}
+        maxBrickPosPlusOne: {x: 28, y: -53, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+    - position: {x: 0, y: -1, z: -1}
+      index: 1
+      probeCount: 9536
+      minSubdiv: 0
+      indexChunkCount: 91
+      shChunkCount: 2
+      bricksCount: 149
+      indirectionEntryInfo:
+      - positionInBricks: {x: 0, y: -81, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 81, z: 81}
+        maxBrickPosPlusOne: {x: 1, y: 82, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -81, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 81, z: 54}
+        maxBrickPosPlusOne: {x: 1, y: 82, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -81, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 81, z: 27}
+        maxBrickPosPlusOne: {x: 1, y: 82, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -54, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 54, z: 81}
+        maxBrickPosPlusOne: {x: 1, y: 55, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -54, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 54, z: 54}
+        maxBrickPosPlusOne: {x: 1, y: 55, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -54, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 54, z: 27}
+        maxBrickPosPlusOne: {x: 1, y: 55, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -27, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 27, z: 81}
+        maxBrickPosPlusOne: {x: 1, y: 28, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -27, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 27, z: 54}
+        maxBrickPosPlusOne: {x: 1, y: 28, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -27, z: -27}
+        minSubdiv: 0
+        minBrickPos: {x: 0, y: 0, z: 0}
+        maxBrickPosPlusOne: {x: 28, y: 28, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -81, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 81, z: 81}
+        maxBrickPosPlusOne: {x: -26, y: 82, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -81, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 81, z: 54}
+        maxBrickPosPlusOne: {x: -26, y: 82, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -81, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 81, z: 27}
+        maxBrickPosPlusOne: {x: -26, y: 82, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -54, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 54, z: 81}
+        maxBrickPosPlusOne: {x: -26, y: 55, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -54, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 54, z: 54}
+        maxBrickPosPlusOne: {x: -26, y: 55, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -54, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 54, z: 27}
+        maxBrickPosPlusOne: {x: -26, y: 55, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -27, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 27, z: 81}
+        maxBrickPosPlusOne: {x: -26, y: 28, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -27, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 27, z: 54}
+        maxBrickPosPlusOne: {x: -26, y: 28, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -27, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 27, z: 27}
+        maxBrickPosPlusOne: {x: -26, y: 28, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -81, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 81, z: 81}
+        maxBrickPosPlusOne: {x: -53, y: 82, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -81, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 81, z: 54}
+        maxBrickPosPlusOne: {x: -53, y: 82, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -81, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 81, z: 27}
+        maxBrickPosPlusOne: {x: -53, y: 82, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -54, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 54, z: 81}
+        maxBrickPosPlusOne: {x: -53, y: 55, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -54, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 54, z: 54}
+        maxBrickPosPlusOne: {x: -53, y: 55, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -54, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 54, z: 27}
+        maxBrickPosPlusOne: {x: -53, y: 55, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -27, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 27, z: 81}
+        maxBrickPosPlusOne: {x: -53, y: 28, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -27, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 27, z: 54}
+        maxBrickPosPlusOne: {x: -53, y: 28, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -27, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 27, z: 27}
+        maxBrickPosPlusOne: {x: -53, y: 28, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+    - position: {x: 0, y: -1, z: 0}
+      index: 5
+      probeCount: 8704
+      minSubdiv: 0
+      indexChunkCount: 91
+      shChunkCount: 2
+      bricksCount: 136
+      indirectionEntryInfo:
+      - positionInBricks: {x: 0, y: -81, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 81, z: 0}
+        maxBrickPosPlusOne: {x: 1, y: 82, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -81, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 81, z: -27}
+        maxBrickPosPlusOne: {x: 1, y: 82, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -81, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 81, z: -54}
+        maxBrickPosPlusOne: {x: 1, y: 82, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -54, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 54, z: 0}
+        maxBrickPosPlusOne: {x: 1, y: 55, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -54, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 54, z: -27}
+        maxBrickPosPlusOne: {x: 1, y: 55, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -54, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 54, z: -54}
+        maxBrickPosPlusOne: {x: 1, y: 55, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -27, z: 0}
+        minSubdiv: 0
+        minBrickPos: {x: 0, y: 0, z: 0}
+        maxBrickPosPlusOne: {x: 28, y: 28, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -27, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 27, z: -27}
+        maxBrickPosPlusOne: {x: 1, y: 28, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: -27, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 27, z: -54}
+        maxBrickPosPlusOne: {x: 1, y: 28, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -81, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 81, z: 0}
+        maxBrickPosPlusOne: {x: -26, y: 82, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -81, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 81, z: -27}
+        maxBrickPosPlusOne: {x: -26, y: 82, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -81, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 81, z: -54}
+        maxBrickPosPlusOne: {x: -26, y: 82, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -54, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 54, z: 0}
+        maxBrickPosPlusOne: {x: -26, y: 55, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -54, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 54, z: -27}
+        maxBrickPosPlusOne: {x: -26, y: 55, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -54, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 54, z: -54}
+        maxBrickPosPlusOne: {x: -26, y: 55, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -27, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 27, z: 0}
+        maxBrickPosPlusOne: {x: -26, y: 28, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -27, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 27, z: -27}
+        maxBrickPosPlusOne: {x: -26, y: 28, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: -27, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 27, z: -54}
+        maxBrickPosPlusOne: {x: -26, y: 28, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -81, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 81, z: 0}
+        maxBrickPosPlusOne: {x: -53, y: 82, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -81, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 81, z: -27}
+        maxBrickPosPlusOne: {x: -53, y: 82, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -81, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 81, z: -54}
+        maxBrickPosPlusOne: {x: -53, y: 82, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -54, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 54, z: 0}
+        maxBrickPosPlusOne: {x: -53, y: 55, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -54, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 54, z: -27}
+        maxBrickPosPlusOne: {x: -53, y: 55, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -54, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 54, z: -54}
+        maxBrickPosPlusOne: {x: -53, y: 55, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -27, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 27, z: 0}
+        maxBrickPosPlusOne: {x: -53, y: 28, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -27, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 27, z: -27}
+        maxBrickPosPlusOne: {x: -53, y: 28, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: -27, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 27, z: -54}
+        maxBrickPosPlusOne: {x: -53, y: 28, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+    - position: {x: 0, y: 0, z: -1}
+      index: 3
+      probeCount: 22848
+      minSubdiv: 0
+      indexChunkCount: 91
+      shChunkCount: 3
+      bricksCount: 357
+      indirectionEntryInfo:
+      - positionInBricks: {x: 0, y: 0, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 0, z: 81}
+        maxBrickPosPlusOne: {x: 1, y: 1, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 0, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 0, z: 54}
+        maxBrickPosPlusOne: {x: 1, y: 1, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 0, z: -27}
+        minSubdiv: 0
+        minBrickPos: {x: 0, y: 0, z: 0}
+        maxBrickPosPlusOne: {x: 28, y: 28, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 27, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: -27, z: 81}
+        maxBrickPosPlusOne: {x: 1, y: -26, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 27, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: -27, z: 54}
+        maxBrickPosPlusOne: {x: 1, y: -26, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 27, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: -27, z: 27}
+        maxBrickPosPlusOne: {x: 1, y: -26, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 54, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: -54, z: 81}
+        maxBrickPosPlusOne: {x: 1, y: -53, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 54, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: -54, z: 54}
+        maxBrickPosPlusOne: {x: 1, y: -53, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 54, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: -54, z: 27}
+        maxBrickPosPlusOne: {x: 1, y: -53, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 0, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 0, z: 81}
+        maxBrickPosPlusOne: {x: -26, y: 1, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 0, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 0, z: 54}
+        maxBrickPosPlusOne: {x: -26, y: 1, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 0, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 0, z: 27}
+        maxBrickPosPlusOne: {x: -26, y: 1, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 27, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: -27, z: 81}
+        maxBrickPosPlusOne: {x: -26, y: -26, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 27, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: -27, z: 54}
+        maxBrickPosPlusOne: {x: -26, y: -26, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 27, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: -27, z: 27}
+        maxBrickPosPlusOne: {x: -26, y: -26, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 54, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: -54, z: 81}
+        maxBrickPosPlusOne: {x: -26, y: -53, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 54, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: -54, z: 54}
+        maxBrickPosPlusOne: {x: -26, y: -53, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 54, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: -54, z: 27}
+        maxBrickPosPlusOne: {x: -26, y: -53, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 0, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 0, z: 81}
+        maxBrickPosPlusOne: {x: -53, y: 1, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 0, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 0, z: 54}
+        maxBrickPosPlusOne: {x: -53, y: 1, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 0, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 0, z: 27}
+        maxBrickPosPlusOne: {x: -53, y: 1, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 27, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: -27, z: 81}
+        maxBrickPosPlusOne: {x: -53, y: -26, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 27, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: -27, z: 54}
+        maxBrickPosPlusOne: {x: -53, y: -26, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 27, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: -27, z: 27}
+        maxBrickPosPlusOne: {x: -53, y: -26, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 54, z: -81}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: -54, z: 81}
+        maxBrickPosPlusOne: {x: -53, y: -53, z: 82}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 54, z: -54}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: -54, z: 54}
+        maxBrickPosPlusOne: {x: -53, y: -53, z: 55}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 54, z: -27}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: -54, z: 27}
+        maxBrickPosPlusOne: {x: -53, y: -53, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+    - position: {x: 0, y: 0, z: 0}
+      index: 7
+      probeCount: 22912
+      minSubdiv: 0
+      indexChunkCount: 91
+      shChunkCount: 3
+      bricksCount: 358
+      indirectionEntryInfo:
+      - positionInBricks: {x: 0, y: 0, z: 0}
+        minSubdiv: 0
+        minBrickPos: {x: 0, y: 0, z: 0}
+        maxBrickPosPlusOne: {x: 28, y: 28, z: 28}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 0, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 0, z: -27}
+        maxBrickPosPlusOne: {x: 1, y: 1, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 0, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: 0, z: -54}
+        maxBrickPosPlusOne: {x: 1, y: 1, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 27, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: -27, z: 0}
+        maxBrickPosPlusOne: {x: 1, y: -26, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 27, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: -27, z: -27}
+        maxBrickPosPlusOne: {x: 1, y: -26, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 27, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: -27, z: -54}
+        maxBrickPosPlusOne: {x: 1, y: -26, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 54, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: -54, z: 0}
+        maxBrickPosPlusOne: {x: 1, y: -53, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 54, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: -54, z: -27}
+        maxBrickPosPlusOne: {x: 1, y: -53, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 0, y: 54, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: 0, y: -54, z: -54}
+        maxBrickPosPlusOne: {x: 1, y: -53, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 0, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 0, z: 0}
+        maxBrickPosPlusOne: {x: -26, y: 1, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 0, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 0, z: -27}
+        maxBrickPosPlusOne: {x: -26, y: 1, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 0, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: 0, z: -54}
+        maxBrickPosPlusOne: {x: -26, y: 1, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 27, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: -27, z: 0}
+        maxBrickPosPlusOne: {x: -26, y: -26, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 27, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: -27, z: -27}
+        maxBrickPosPlusOne: {x: -26, y: -26, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 27, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: -27, z: -54}
+        maxBrickPosPlusOne: {x: -26, y: -26, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 54, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: -54, z: 0}
+        maxBrickPosPlusOne: {x: -26, y: -53, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 54, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: -54, z: -27}
+        maxBrickPosPlusOne: {x: -26, y: -53, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 27, y: 54, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: -27, y: -54, z: -54}
+        maxBrickPosPlusOne: {x: -26, y: -53, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 0, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 0, z: 0}
+        maxBrickPosPlusOne: {x: -53, y: 1, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 0, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 0, z: -27}
+        maxBrickPosPlusOne: {x: -53, y: 1, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 0, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: 0, z: -54}
+        maxBrickPosPlusOne: {x: -53, y: 1, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 27, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: -27, z: 0}
+        maxBrickPosPlusOne: {x: -53, y: -26, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 27, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: -27, z: -27}
+        maxBrickPosPlusOne: {x: -53, y: -26, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 27, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: -27, z: -54}
+        maxBrickPosPlusOne: {x: -53, y: -26, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 54, z: 0}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: -54, z: 0}
+        maxBrickPosPlusOne: {x: -53, y: -53, z: 1}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 54, z: 27}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: -54, z: -27}
+        maxBrickPosPlusOne: {x: -53, y: -53, z: -26}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+      - positionInBricks: {x: 54, y: 54, z: 54}
+        minSubdiv: 5
+        minBrickPos: {x: -54, y: -54, z: -54}
+        maxBrickPosPlusOne: {x: -53, y: -53, z: -53}
+        hasMinMax: 1
+        hasOnlyBiggerBricks: 0
+  m_SerializedPerSceneCellList:
+  - sceneGUID: 99c9720ab356a0642a771bea13969a05
+    cellList: 0000000004000000020000000600000001000000050000000300000007000000
+  cellSharedDataAsset:
+    m_AssetGUID: eb46d7ae56ebe1d47b1f91848e6a9128
+    m_StreamableAssetPath: APVStreamingAssets\388d2534f796c584393cbc001129ff92\eb46d7ae56ebe1d47b1f91848e6a9128.bytes
+    m_ElementSize: 8192
+    m_StreamableCellDescs:
+      m_Keys: 0000000004000000020000000600000001000000050000000300000007000000
+      m_Values:
+      - offset: 0
+        elementCount: 1
+      - offset: 8192
+        elementCount: 1
+      - offset: 16384
+        elementCount: 1
+      - offset: 24576
+        elementCount: 1
+      - offset: 32768
+        elementCount: 2
+      - offset: 49152
+        elementCount: 2
+      - offset: 65536
+        elementCount: 3
+      - offset: 90112
+        elementCount: 3
+    m_Asset: {fileID: 4900000, guid: eb46d7ae56ebe1d47b1f91848e6a9128, type: 3}
+  scenarios:
+    m_Keys:
+    - Day
+    - Night
+    m_Values:
+    - sceneHash: -843930620
+      cellDataAsset:
+        m_AssetGUID: 57ee45ac9032e0147a324744e5611b76
+        m_StreamableAssetPath: APVStreamingAssets\388d2534f796c584393cbc001129ff92\57ee45ac9032e0147a324744e5611b76.bytes
+        m_ElementSize: 131072
+        m_StreamableCellDescs:
+          m_Keys: 0000000004000000020000000600000001000000050000000300000007000000
+          m_Values:
+          - offset: 0
+            elementCount: 1
+          - offset: 131072
+            elementCount: 1
+          - offset: 262144
+            elementCount: 1
+          - offset: 393216
+            elementCount: 1
+          - offset: 524288
+            elementCount: 2
+          - offset: 786432
+            elementCount: 2
+          - offset: 1048576
+            elementCount: 3
+          - offset: 1441792
+            elementCount: 3
+        m_Asset: {fileID: 4900000, guid: 57ee45ac9032e0147a324744e5611b76, type: 3}
+      cellOptionalDataAsset:
+        m_AssetGUID: 489babd1fbc46d74798499892b38139e
+        m_StreamableAssetPath: APVStreamingAssets\388d2534f796c584393cbc001129ff92\489babd1fbc46d74798499892b38139e.bytes
+        m_ElementSize: 131072
+        m_StreamableCellDescs:
+          m_Keys: 0000000004000000020000000600000001000000050000000300000007000000
+          m_Values:
+          - offset: 0
+            elementCount: 1
+          - offset: 131072
+            elementCount: 1
+          - offset: 262144
+            elementCount: 1
+          - offset: 393216
+            elementCount: 1
+          - offset: 524288
+            elementCount: 2
+          - offset: 786432
+            elementCount: 2
+          - offset: 1048576
+            elementCount: 3
+          - offset: 1441792
+            elementCount: 3
+        m_Asset: {fileID: 4900000, guid: 489babd1fbc46d74798499892b38139e, type: 3}
+      cellProbeOcclusionDataAsset:
+        m_AssetGUID: c6c7aa367ed2a254cac3626e6fd46068
+        m_StreamableAssetPath: APVStreamingAssets\388d2534f796c584393cbc001129ff92\c6c7aa367ed2a254cac3626e6fd46068.bytes
+        m_ElementSize: 32768
+        m_StreamableCellDescs:
+          m_Keys: 0000000004000000020000000600000001000000050000000300000007000000
+          m_Values:
+          - offset: 0
+            elementCount: 1
+          - offset: 32768
+            elementCount: 1
+          - offset: 65536
+            elementCount: 1
+          - offset: 98304
+            elementCount: 1
+          - offset: 131072
+            elementCount: 2
+          - offset: 196608
+            elementCount: 2
+          - offset: 262144
+            elementCount: 3
+          - offset: 360448
+            elementCount: 3
+        m_Asset: {fileID: 4900000, guid: c6c7aa367ed2a254cac3626e6fd46068, type: 3}
+    - sceneHash: -843930620
+      cellDataAsset:
+        m_AssetGUID: 5c0e104a1a19b424c9e4dc961cb131e7
+        m_StreamableAssetPath: APVStreamingAssets\388d2534f796c584393cbc001129ff92\5c0e104a1a19b424c9e4dc961cb131e7.bytes
+        m_ElementSize: 131072
+        m_StreamableCellDescs:
+          m_Keys: 0000000004000000020000000600000001000000050000000300000007000000
+          m_Values:
+          - offset: 0
+            elementCount: 1
+          - offset: 131072
+            elementCount: 1
+          - offset: 262144
+            elementCount: 1
+          - offset: 393216
+            elementCount: 1
+          - offset: 524288
+            elementCount: 2
+          - offset: 786432
+            elementCount: 2
+          - offset: 1048576
+            elementCount: 3
+          - offset: 1441792
+            elementCount: 3
+        m_Asset: {fileID: 4900000, guid: 5c0e104a1a19b424c9e4dc961cb131e7, type: 3}
+      cellOptionalDataAsset:
+        m_AssetGUID: e1ccd66ea8af2534d840cb28b09fc424
+        m_StreamableAssetPath: APVStreamingAssets\388d2534f796c584393cbc001129ff92\e1ccd66ea8af2534d840cb28b09fc424.bytes
+        m_ElementSize: 131072
+        m_StreamableCellDescs:
+          m_Keys: 0000000004000000020000000600000001000000050000000300000007000000
+          m_Values:
+          - offset: 0
+            elementCount: 1
+          - offset: 131072
+            elementCount: 1
+          - offset: 262144
+            elementCount: 1
+          - offset: 393216
+            elementCount: 1
+          - offset: 524288
+            elementCount: 2
+          - offset: 786432
+            elementCount: 2
+          - offset: 1048576
+            elementCount: 3
+          - offset: 1441792
+            elementCount: 3
+        m_Asset: {fileID: 4900000, guid: e1ccd66ea8af2534d840cb28b09fc424, type: 3}
+      cellProbeOcclusionDataAsset:
+        m_AssetGUID: dd9454c07d92ebb45813f4b1ce6b421c
+        m_StreamableAssetPath: APVStreamingAssets\388d2534f796c584393cbc001129ff92\dd9454c07d92ebb45813f4b1ce6b421c.bytes
+        m_ElementSize: 32768
+        m_StreamableCellDescs:
+          m_Keys: 0000000004000000020000000600000001000000050000000300000007000000
+          m_Values:
+          - offset: 0
+            elementCount: 1
+          - offset: 32768
+            elementCount: 1
+          - offset: 65536
+            elementCount: 1
+          - offset: 98304
+            elementCount: 1
+          - offset: 131072
+            elementCount: 2
+          - offset: 196608
+            elementCount: 2
+          - offset: 262144
+            elementCount: 3
+          - offset: 360448
+            elementCount: 3
+        m_Asset: {fileID: 4900000, guid: dd9454c07d92ebb45813f4b1ce6b421c, type: 3}
+  cellBricksDataAsset:
+    m_AssetGUID: 6e91a6af46bdbab4eb7a23e9c6c9dc81
+    m_StreamableAssetPath: APVStreamingAssets\388d2534f796c584393cbc001129ff92\6e91a6af46bdbab4eb7a23e9c6c9dc81.bytes
+    m_ElementSize: 16
+    m_StreamableCellDescs:
+      m_Keys: 0000000004000000020000000600000001000000050000000300000007000000
+      m_Values:
+      - offset: 0
+        elementCount: 16
+      - offset: 256
+        elementCount: 18
+      - offset: 544
+        elementCount: 33
+      - offset: 1072
+        elementCount: 35
+      - offset: 1632
+        elementCount: 149
+      - offset: 4016
+        elementCount: 136
+      - offset: 6192
+        elementCount: 357
+      - offset: 11904
+        elementCount: 358
+    m_Asset: {fileID: 4900000, guid: 6e91a6af46bdbab4eb7a23e9c6c9dc81, type: 3}
+  cellSupportDataAsset:
+    m_AssetGUID: 07c2024dc5a2aa441a4194ec3ad0bb20
+    m_StreamableAssetPath: APVStreamingAssets\388d2534f796c584393cbc001129ff92\07c2024dc5a2aa441a4194ec3ad0bb20.bytes
+    m_ElementSize: 262144
+    m_StreamableCellDescs:
+      m_Keys: 0000000004000000020000000600000001000000050000000300000007000000
+      m_Values:
+      - offset: 0
+        elementCount: 1
+      - offset: 262144
+        elementCount: 1
+      - offset: 524288
+        elementCount: 1
+      - offset: 786432
+        elementCount: 1
+      - offset: 1048576
+        elementCount: 2
+      - offset: 1572864
+        elementCount: 2
+      - offset: 2097152
+        elementCount: 3
+      - offset: 2883584
+        elementCount: 3
+    m_Asset: {fileID: 4900000, guid: 07c2024dc5a2aa441a4194ec3ad0bb20, type: 3}
+  chunkSizeInBricks: 128
+  maxCellPosition: {x: 0, y: 0, z: 0}
+  minCellPosition: {x: -1, y: -1, z: -1}
+  globalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 81, y: 81, z: 81}
+  bakedSimplificationLevels: 4
+  bakedMinDistanceBetweenProbes: 1
+  bakedProbeOcclusion: 1
+  bakedSkyOcclusionValue: 0
+  bakedSkyShadingDirectionValue: 0
+  bakedProbeOffset: {x: 0, y: 0, z: 0}
+  bakedMaskCount: 1
+  bakedLayerMasks:
+    x: 4294967295
+    y: 0
+    z: 0
+    w: 0
+  maxSHChunkCount: 3
+  L0ChunkSize: 65536
+  L1ChunkSize: 32768
+  L2TextureChunkSize: 32768
+  ProbeOcclusionChunkSize: 32768
+  sharedValidityMaskChunkSize: 8192
+  sharedSkyOcclusionL0L1ChunkSize: 0
+  sharedSkyShadingDirectionIndicesChunkSize: 0
+  sharedDataChunkSize: 8192
+  supportPositionChunkSize: 98304
+  supportValidityChunkSize: 32768
+  supportTouchupChunkSize: 32768
+  supportLayerMaskChunkSize: 0
+  supportOffsetsChunkSize: 98304
+  supportDataChunkSize: 262144
+  lightingScenario: Day
+  version: 2
+  freezePlacement: 0
+  probeOffset: {x: 0, y: 0, z: 0}
+  simplificationLevels: 4
+  minDistanceBetweenProbes: 1
+  renderersLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  minRendererVolumeSize: 0.1
+  skyOcclusion: 0
+  skyOcclusionBakingSamples: 2048
+  skyOcclusionBakingBounces: 2
+  skyOcclusionAverageAlbedo: 0.6
+  skyOcclusionBackFaceCulling: 0
+  skyOcclusionShadingDirection: 0
+  useRenderingLayers: 0
+  renderingLayerMasks: []
+  m_SceneBakeData:
+    m_Keys:
+    - 99c9720ab356a0642a771bea13969a05
+    m_Values:
+    - hasProbeVolume: 1
+      bakeScene: 1
+      bounds:
+        m_Center: {x: 0, y: 0, z: 0}
+        m_Extent: {x: 81, y: 81, z: 81}

@@ -1,0 +1,309 @@
+using System;
+using System.Collections.Generic;
+using FishNet.CodeGenerating;
+using FishNet.Connection;
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
+using Heathen.SteamworksIntegration.API;
+using Sirenix.OdinInspector;
+using UnityEngine;
+using UnityEngine.Animations.Rigging;
+using UnityEngine.InputSystem;
+
+public class PlayerInventoryScript : NetworkBehaviour
+{
+    [Header("Hand Rigs")]
+    [GUIColor("Red")]
+    [SerializeField] private GameObject rightHandRigs;
+    
+    [GUIColor("Blue")]
+    [AllowMutableSyncType] public SyncVar<ObjectPickable> currentItem = new();
+    [GUIColor("Blue")]
+    [SerializeField] private int currentItemIndex;
+    
+    public static event Action<int, Sprite> OnUIUpdateAdd;
+    public static event Action<int> OnUIUpdateRemove;
+    
+    [GUIColor("Yellow")]
+    [SerializeField] private int inventorySize = 4;
+    
+    [SerializeField, AllowMutableSyncType] private SyncList<ObjectPickable> slots = new();
+    
+    private InputSystem_Actions _inputSystem;
+
+    #region GeneralMethods 
+    public override void OnStartServer()        
+    {                                   
+        base.OnStartServer();
+        AddInventorySlots();
+        currentItem.OnChange += HandleCurrentItemChange;
+    }
+
+    public override void OnStopServer()
+    {
+        base.OnStopServer();
+        currentItem.OnChange -= HandleCurrentItemChange;
+    }
+    
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        currentItem.OnChange += HandleCurrentItemChange;
+        
+        if (!IsOwner)
+        {
+            enabled = false;
+        }
+    }
+
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+        currentItem.OnChange -= HandleCurrentItemChange;
+    }
+    
+    private void Awake()
+    {
+        _inputSystem = new InputSystem_Actions();
+    }
+
+    private void OnEnable()
+    {
+        _inputSystem.Enable();
+        _inputSystem.Player.Slot1 .performed += OnSlot1;
+        _inputSystem.Player.Slot2 .performed += OnSlot2;
+        _inputSystem.Player.Slot3 .performed += OnSlot3;
+    }
+
+    private void OnDisable()
+    {
+        _inputSystem.Disable();
+        _inputSystem.Player.Slot1 .performed -= OnSlot1;
+        _inputSystem.Player.Slot2 .performed -= OnSlot2;
+        _inputSystem.Player.Slot3 .performed -= OnSlot3;
+    }
+    
+    #endregion
+    
+    #region InputBinding
+    private void OnSlot1(InputAction.CallbackContext ctx) => OnDrawCurrentItem(0);
+    private void OnSlot2(InputAction.CallbackContext ctx) => OnDrawCurrentItem(1);
+    private void OnSlot3(InputAction.CallbackContext ctx) => OnDrawCurrentItem(2);
+    #endregion
+    
+    #region Helpers
+    
+    private void HandleCurrentItemChange(ObjectPickable prev, ObjectPickable next, bool asServer)
+    {
+        if (next != null && next.gameObject != null && !next.gameObject.activeSelf)
+        {
+            next.gameObject.SetActive(true);
+        }
+        
+        if (prev != null && prev != next && prev.gameObject != null && prev.gameObject.activeSelf)
+        {
+            if (slots.Contains(prev))
+            {
+                prev.gameObject.SetActive(false);   
+            }
+        }
+        
+        float targetWeight = next != null ? 1f : 0f;
+        RigWeightHandler(rightHandRigs, targetWeight);
+    }
+    
+    private void OnDrawCurrentItem(int index)
+    {
+        if (currentItem.Value != null && currentItem.Value.isBig) return;
+        
+        OnDrawCurrentItem_Server(index);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void OnDrawCurrentItem_Server(int index)
+    {
+        if (index < 0 || index >= slots.Count) return;
+        ObjectPickable slotItem = slots[index];
+        
+        //hiding item if pressed the same button
+        if (currentItemIndex == index)
+        {
+            if (currentItem.Value != null)
+            {
+                currentItem.Value.gameObject.SetActive(false);
+                currentItem.Value = null;
+                return;
+            }
+            else
+            {
+                currentItemIndex = index;
+                currentItem.Value = slotItem;
+                return;
+            }
+        }
+        
+        // if pressed different key than the current slot index
+        currentItemIndex = index;
+        currentItem.Value = slots[index];
+    }
+    
+    public bool CheckForEmptySlot()
+    {
+        foreach (var slot in slots)
+        {
+            if (slot == null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    [Server]
+    public void RequestRemoveItem(ObjectPickable item, PlayerInventoryScript inventory)
+    {
+        if (inventory == null || item == null) return;
+
+        if (item.isBig)
+        {
+            inventory.RemoveBigItem(item);
+        }
+        else
+        {
+            inventory.RemoveItem(item);
+        }
+    }
+    
+    private void AddInventorySlots()
+    {
+        for (int i = 0; i < inventorySize; i++)
+        {
+            slots.Add(null);
+        }
+    }
+    
+    #endregion
+
+    #region BigItem
+    
+    [Server]
+    public void AddBigItem(ObjectPickable bigItem, NetworkObject fpHolder, NetworkObject tpHolder)
+    {
+        if (currentItem.Value == null)
+        {
+            bigItem.Pickup(fpHolder, tpHolder);
+            currentItem.Value = bigItem;
+        }
+    }
+
+    [Server]
+    public void RemoveBigItem(ObjectPickable bigItem)
+    {
+        if (currentItem.Value)
+        {
+            bigItem.Drop();
+            currentItem.Value = null;
+        }
+    }
+    
+    #endregion
+
+    #region RegularItem
+    
+    [Server]
+    public void AddItem(ObjectPickable item, NetworkObject fpHolder, NetworkObject tpHolder)
+    {
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i] == null)
+            {
+                slots[i] = item;
+                
+                UpdateUIAdd(Owner, i, item); // update UI with free slot index and icon
+                item.Pickup(fpHolder, tpHolder);
+                
+                if (i == currentItemIndex)
+                {
+                    currentItem.Value = item;
+                }
+                else
+                {
+                    if (item != null && item.gameObject != null)
+                    {
+                        item.gameObject.SetActive(false);
+                    }
+                    SetItem_Client(item, false);
+                }
+                break;
+            }
+        }
+    }
+
+    [Server]
+    public void RemoveItem(ObjectPickable item)
+    {
+        if (slots.Contains(item))
+        {
+            for (int i = 0; i < slots.Count; i++)
+            {
+                if (slots[i] == item)
+                {
+                    slots[i] = null;
+                    UpdateUIRemove(Owner, i); // update UI with free slot index and null icon
+                    item.Drop();
+                    
+                    if (currentItem.Value == item)
+                    {
+                        currentItem.Value = null;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    
+    [ObserversRpc(BufferLast = true)]
+    private void SetItem_Client(ObjectPickable item, bool active)
+    {
+        if (item != null && item.gameObject != null)
+        {
+            item.gameObject.SetActive(active);
+        }
+    }
+    
+    #endregion
+    
+    #region UI
+    
+    [TargetRpc]
+    private void UpdateUIRemove(NetworkConnection conn, int index)
+    {
+        OnUIUpdateRemove?.Invoke(index);
+    }
+
+    [TargetRpc]
+    private void UpdateUIAdd(NetworkConnection conn, int index, ObjectPickable item)
+    {
+        OnUIUpdateAdd?.Invoke(index, item.itemIcon); // passing free slot index and icon
+    }
+    
+    #endregion
+    
+    #region RigWeight
+    
+    [ServerRpc(RequireOwnership = false)]
+    private void RigWeightHandler(GameObject rigHolder, float weight)
+    {
+        rigHolder.GetComponent<Rig>().weight = weight;
+        
+        RigWeightHandlerClient(rigHolder, weight);
+    }
+
+    [ObserversRpc]
+    private void RigWeightHandlerClient(GameObject rigHolder, float weight)
+    {
+        rigHolder.GetComponent<Rig>().weight = weight;
+    }
+    
+    #endregion
+}
