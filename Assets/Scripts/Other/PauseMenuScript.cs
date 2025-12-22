@@ -3,7 +3,6 @@ using FishNet.Connection;
 using FishNet.Object;
 using Heathen.SteamworksIntegration;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using InputAction = UnityEngine.InputSystem.InputAction;
 
 public class PauseMenuScript : NetworkBehaviour
@@ -79,7 +78,7 @@ public class PauseMenuScript : NetworkBehaviour
 
         if (IsServerInitialized)
         {
-            DisconnectAllClients();
+            DisconnectAllClients(false);
             ConnectionManager.Instance?.StopConnection();
             networkManager.StopConnection();
             UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
@@ -100,7 +99,7 @@ public class PauseMenuScript : NetworkBehaviour
         
         if (IsServerInitialized)
         {
-            DisconnectAllClients();
+            DisconnectAllClients(true);
             ConnectionManager.Instance?.StopConnection();
             networkManager.StopConnection();
             Application.Quit();
@@ -123,7 +122,7 @@ public class PauseMenuScript : NetworkBehaviour
         }
     }
     
-    private void DisconnectAllClients()
+    private void DisconnectAllClients(bool exitGameForClient)
     {
         var networkManager = NetworkManager.ServerManager;
         if (networkManager == null) return;
@@ -133,6 +132,10 @@ public class PauseMenuScript : NetworkBehaviour
         foreach (var client in clients)
         {
             client.Disconnect(true);
+            if (exitGameForClient)
+            {
+                Application.Quit();
+            }
         }
     }
 

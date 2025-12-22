@@ -1,6 +1,3 @@
-using System;
-using FishNet.Managing;
-using FishNet.Managing.Scened;
 using Heathen.SteamworksIntegration;
 using Heathen.SteamworksIntegration.API;
 using TMPro;
@@ -135,4 +132,9 @@ public class ConnectionManager : MonoBehaviour
     {
         return Instance._lobbyData;
     }*/
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
