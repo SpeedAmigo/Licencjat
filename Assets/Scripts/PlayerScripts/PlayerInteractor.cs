@@ -19,6 +19,9 @@ public class PlayerInteractor : NetworkBehaviour
     private InputSystem_Actions _inputSystem;
     private Camera _camera;
     private PlayerInventoryScript _playerInventory;
+    
+    private bool _primaryHold;
+    private bool _secondaryHold;
 
     public override void OnStartClient()
     {
@@ -35,12 +38,20 @@ public class PlayerInteractor : NetworkBehaviour
         _camera = Camera.main;
         _playerInventory = GetComponent<PlayerInventoryScript>();
     }
-
+    
     private void OnEnable()
     {
         _inputSystem.Enable();
         _inputSystem.Player.Interact.performed += OnInteraction;
         _inputSystem.Player.Drop.performed += OnItemDrop;
+        
+        _inputSystem.Player.Primary.performed += OnPrimaryPerformed;
+        _inputSystem.Player.Primary.started += OnPrimaryStarted;
+        _inputSystem.Player.Primary.canceled += OnPrimaryCanceled;
+        
+        _inputSystem.Player.Secondary.performed += OnSecondaryPerformed;
+        _inputSystem.Player.Secondary.started += OnSecondaryStarted;
+        _inputSystem.Player.Secondary.canceled += OnSecondaryCanceled;
     }
 
     private void OnDisable()
@@ -48,8 +59,141 @@ public class PlayerInteractor : NetworkBehaviour
         _inputSystem.Disable();
         _inputSystem.Player.Interact.performed -= OnInteraction;
         _inputSystem.Player.Drop.performed -= OnItemDrop;
+        
+        _inputSystem.Player.Primary.performed -= OnPrimaryPerformed;
+        _inputSystem.Player.Primary.started -= OnPrimaryStarted;
+        _inputSystem.Player.Primary.canceled -= OnPrimaryCanceled;
+        
+        _inputSystem.Player.Secondary.performed -= OnSecondaryPerformed;
+        _inputSystem.Player.Secondary.started -= OnSecondaryStarted;
+        _inputSystem.Player.Secondary.canceled -= OnSecondaryCanceled;
     }
 
+    private void Update()
+    {
+        if (!IsOwner) return;
+
+        if (_primaryHold)
+        {
+            OnPrimaryHold();
+        }
+
+        if (_secondaryHold)
+        {
+            OnSecondaryHold();
+        }
+    }
+
+    private void OnPrimaryPerformed(InputAction.CallbackContext context)
+    {
+        if (_playerInventory == null)
+        {
+            Debug.Log("No player inventory");
+            return;
+        }
+
+        if (_playerInventory.currentItem.Value == null)
+        {
+            Debug.Log("No item in hand"); 
+            return;
+        }
+        
+        if (_playerInventory.currentItem.Value is IPrimaryClick primaryClick)
+        {
+            primaryClick.OnPrimaryClick();
+        }
+    }
+    
+    private void OnSecondaryPerformed(InputAction.CallbackContext context)
+    {
+        if (_playerInventory == null)
+        {
+            Debug.Log("No player inventory");
+            return;
+        }
+
+        if (_playerInventory.currentItem.Value == null)
+        {
+            Debug.Log("No item in hand"); 
+            return;
+        }
+        
+        if (_playerInventory.currentItem.Value is ISecondaryClick secondaryClick)
+        {
+            secondaryClick.OnSecondaryClick();
+        }
+    }
+    
+    private void OnPrimaryHold()
+    {
+        if (_playerInventory == null)
+        {
+            Debug.Log("No player inventory");
+            return;
+        }
+
+        if (_playerInventory.currentItem.Value == null)
+        {
+            Debug.Log("No item in hand"); 
+            return;
+        }
+        
+        if (_playerInventory.currentItem.Value is IPrimaryHold primaryHold)
+        {
+            primaryHold.OnPrimaryHold();
+        }
+    }
+    
+    private void OnSecondaryHold()
+    {
+        if (_playerInventory == null)
+        {
+            Debug.Log("No player inventory");
+            return;
+        }
+
+        if (_playerInventory.currentItem.Value == null)
+        {
+            Debug.Log("No item in hand"); 
+            return;
+        }
+        
+        if (_playerInventory.currentItem.Value is ISecondaryHold secondaryHold)
+        {
+            secondaryHold.OnSecondaryHold();
+        }
+    }
+
+    private void OnPrimaryStarted(InputAction.CallbackContext context)
+    {
+        _primaryHold = true;
+    }
+
+    private void OnPrimaryCanceled(InputAction.CallbackContext context)
+    {
+        _primaryHold = false;
+        
+        if (_playerInventory.currentItem.Value is IPrimaryCancel primaryCancel)
+        {
+            primaryCancel.OnPrimaryCancel();
+        }
+    }
+
+    private void OnSecondaryStarted(InputAction.CallbackContext context)
+    {
+        _secondaryHold = true;
+    }
+
+    private void OnSecondaryCanceled(InputAction.CallbackContext context)
+    {
+        _secondaryHold = false;
+        
+        if (_playerInventory.currentItem.Value is ISecondaryCancel secondaryCancel)
+        {
+            secondaryCancel.OnSecondaryCancel();
+        }
+    }
+    
     private void OnInteraction(InputAction.CallbackContext context)
     {
         if (!IsOwner) return;
