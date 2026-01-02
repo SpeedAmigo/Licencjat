@@ -52,8 +52,10 @@ public class PlayerInteractor : NetworkBehaviour
         _inputSystem.Player.Secondary.performed += OnSecondaryPerformed;
         _inputSystem.Player.Secondary.started += OnSecondaryStarted;
         _inputSystem.Player.Secondary.canceled += OnSecondaryCanceled;
-    }
 
+        OxygenScript.OnDieEvent += Die;
+    }
+    
     private void OnDisable()
     {
         _inputSystem.Disable();
@@ -67,6 +69,8 @@ public class PlayerInteractor : NetworkBehaviour
         _inputSystem.Player.Secondary.performed -= OnSecondaryPerformed;
         _inputSystem.Player.Secondary.started -= OnSecondaryStarted;
         _inputSystem.Player.Secondary.canceled -= OnSecondaryCanceled;
+
+        OxygenScript.OnDieEvent -= Die;
     }
 
     private void Update()
@@ -94,7 +98,7 @@ public class PlayerInteractor : NetworkBehaviour
 
         if (_playerInventory.currentItem.Value == null)
         {
-            Debug.Log("No item in hand"); 
+            //Debug.Log("No item in hand"); 
             return;
         }
         
@@ -134,7 +138,7 @@ public class PlayerInteractor : NetworkBehaviour
 
         if (_playerInventory.currentItem.Value == null)
         {
-            Debug.Log("No item in hand"); 
+            //Debug.Log("No item in hand"); 
             return;
         }
         
@@ -271,6 +275,11 @@ public class PlayerInteractor : NetworkBehaviour
         {
             _playerInventory.RemoveItem(_playerInventory.currentItem.Value);
         }
+    }
+    
+    private void Die()
+    {
+        enabled = false;
     }
 }
 

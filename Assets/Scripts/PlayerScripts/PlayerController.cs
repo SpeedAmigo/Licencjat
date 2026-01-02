@@ -1,8 +1,6 @@
 using System;
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using FishNet.Connection;
 using FishNet.Object;
 using Sirenix.OdinInspector;
 
@@ -109,14 +107,18 @@ public class PlayerController : NetworkBehaviour
         _inputSystem.Player.Move.performed += OnMove;
         _inputSystem.Player.Move.canceled += OnMoveCancelled;
         _inputSystem.Player.Jump.performed += OnJump;
-    }
 
+        OxygenScript.OnDieEvent += Die;
+    }
+    
     private void OnDisable()
     {
         _inputSystem.Disable();    
         _inputSystem.Player.Move.performed -= OnMove;
         _inputSystem.Player.Move.canceled -= OnMoveCancelled;
         _inputSystem.Player.Jump.performed -= OnJump;
+
+        OxygenScript.OnDieEvent -= Die;
     }
     
     private Vector3 _currentMove;
@@ -169,6 +171,11 @@ public class PlayerController : NetworkBehaviour
                 }
             }
         }
+    }
+    
+    private void Die()
+    {
+        enabled = false;
     }
     
     private void Update()

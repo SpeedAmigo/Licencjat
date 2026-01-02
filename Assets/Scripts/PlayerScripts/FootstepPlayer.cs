@@ -1,3 +1,4 @@
+using System;
 using FishNet.Object;
 using FMOD.Studio;
 using FMODUnity;
@@ -45,5 +46,21 @@ public class FootstepPlayer : NetworkBehaviour
     private void Update()
     {
         Debug.DrawRay(surfaceCheckRaycast.transform.position, Vector3.down * distance, Color.red);
+    }
+
+    private void OnEnable()
+    {
+        OxygenScript.OnDieEvent += Die;
+    }
+
+    private void OnDisable()
+    {
+        OxygenScript.OnDieEvent += Die;
+    }
+
+    private void Die()
+    {
+        emitter.Stop();
+        enabled = false;
     }
 }

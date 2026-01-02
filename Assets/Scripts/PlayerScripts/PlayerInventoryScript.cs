@@ -73,6 +73,8 @@ public class PlayerInventoryScript : NetworkBehaviour
         _inputSystem.Player.Slot1 .performed += OnSlot1;
         _inputSystem.Player.Slot2 .performed += OnSlot2;
         _inputSystem.Player.Slot3 .performed += OnSlot3;
+
+        OxygenScript.OnDieEvent += Die;
     }
 
     private void OnDisable()
@@ -81,6 +83,13 @@ public class PlayerInventoryScript : NetworkBehaviour
         _inputSystem.Player.Slot1 .performed -= OnSlot1;
         _inputSystem.Player.Slot2 .performed -= OnSlot2;
         _inputSystem.Player.Slot3 .performed -= OnSlot3;
+        
+        OxygenScript.OnDieEvent -= Die;
+    }
+
+    private void Die()
+    {
+        enabled = false;
     }
     
     #endregion
