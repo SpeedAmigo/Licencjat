@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class FootstepPlayer : NetworkBehaviour
 {
+    [SerializeField] private PlayerRoot playerRoot;
     [SerializeField] private GameObject surfaceCheckRaycast;
     [SerializeField] private float distance;
     
@@ -15,6 +16,8 @@ public class FootstepPlayer : NetworkBehaviour
     {
         if (!IsOwner) return;
         if (!surfaceCheckRaycast) return;
+
+        if (playerRoot.playerState == PlayerStateEnum.Dead) return;
 
         if (Physics.Raycast(surfaceCheckRaycast.transform.position, Vector3.down, out var hit, distance))
         {
@@ -60,7 +63,6 @@ public class FootstepPlayer : NetworkBehaviour
 
     private void Die()
     {
-        emitter.Stop();
         enabled = false;
     }
 }

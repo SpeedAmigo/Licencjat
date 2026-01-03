@@ -1,5 +1,7 @@
+using ES3Types;
 using FishNet.Object;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +16,7 @@ public class CameraController : NetworkBehaviour
     [SerializeField] private float maxPitch = 80f;
     [GUIColor("Red")]
     [SerializeField] private Transform cameraHolder;
+    [SerializeField] private NetworkObject cameraHolderNObject;
     [GUIColor("Red")]
     [SerializeField] private Transform armatureHolder;
     [GUIColor("Red")]
@@ -24,6 +27,8 @@ public class CameraController : NetworkBehaviour
     
     private float _pitch;
     private Vector2 _lookInput;
+    
+    private PlayerRoot _playerRoot;
 
     public override void OnStartClient()
     {
@@ -42,20 +47,37 @@ public class CameraController : NetworkBehaviour
         {
             enabled = false;
         }
+        
+        Invoke(nameof(RegisterCameraHolder), 2f);
     }
 
+    private void RegisterCameraHolder()
+    {
+        if (CameraHoldersManager.Instance != null)
+        {
+            CameraHoldersManager.Instance.RegisterCameraHolder(cameraHolder);
+        }
+        else
+        {
+            Debug.LogWarning("There is no camera holder manager");
+        }
+    }
+    
     private void Awake()
     {
         _inputSystem = new InputSystem_Actions();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        
+        _playerRoot = GetComponent<PlayerRoot>();
     }
-
+    
     private void OnEnable()
     {
         _inputSystem.Enable();
         _inputSystem.Player.Look.performed += OnLook;
         _inputSystem.Player.Look.canceled += OnLookCancelled;
+        _inputSystem.Player.Move.performed += HandleSwitch;
     }
 
     private void OnDisable()
@@ -63,11 +85,15 @@ public class CameraController : NetworkBehaviour
         _inputSystem.Disable();
         _inputSystem.Player.Look.performed -= OnLook;
         _inputSystem.Player.Look.canceled -= OnLookCancelled;
+        _inputSystem.Player.Move.performed -= HandleSwitch;
     }
-
+    
     private void LateUpdate()
     {
-        RotationHandler();
+        if (_playerRoot.playerState != PlayerStateEnum.Dead)
+        {
+            RotationHandler();
+        }
     }
 
     private void OnLook(InputAction.CallbackContext context)
@@ -89,5 +115,21 @@ public class CameraController : NetworkBehaviour
         
         cameraHolder.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
         armatureHolder.localRotation = Quaternion.Euler(-_pitch, 0f, 0f);
+    }
+    
+    private void HandleSwitch(InputAction.CallbackContext context)
+    {
+        if (_playerRoot.playerState != PlayerStateEnum.Dead) return;
+        
+        Vector2 input = context.ReadValue<Vector2>();
+
+        if (input.x > 0)
+        { 
+            CameraHoldersManager.Instance.SwitchUp();
+        }
+        else if (input.x < 0)
+        {
+            CameraHoldersManager.Instance.SwitchDown();
+        }
     }
 }
