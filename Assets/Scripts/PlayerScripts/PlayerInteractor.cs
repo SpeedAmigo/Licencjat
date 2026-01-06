@@ -90,19 +90,7 @@ public class PlayerInteractor : NetworkBehaviour
 
     private void OnPrimaryPerformed(InputAction.CallbackContext context)
     {
-        if (_playerInventory == null)
-        {
-            Debug.Log("No player inventory");
-            return;
-        }
-
-        if (_playerInventory.currentItem.Value == null)
-        {
-            //Debug.Log("No item in hand"); 
-            return;
-        }
-        
-        if (_playerInventory.currentItem.Value is IPrimaryClick primaryClick)
+        if (ItemIsValid() && _playerInventory.currentItem.Value is IPrimaryClick primaryClick)
         {
             primaryClick.OnPrimaryClick();
         }
@@ -110,19 +98,7 @@ public class PlayerInteractor : NetworkBehaviour
     
     private void OnSecondaryPerformed(InputAction.CallbackContext context)
     {
-        if (_playerInventory == null)
-        {
-            Debug.Log("No player inventory");
-            return;
-        }
-
-        if (_playerInventory.currentItem.Value == null)
-        {
-            Debug.Log("No item in hand"); 
-            return;
-        }
-        
-        if (_playerInventory.currentItem.Value is ISecondaryClick secondaryClick)
+        if (ItemIsValid() && _playerInventory.currentItem.Value is ISecondaryClick secondaryClick)
         {
             secondaryClick.OnSecondaryClick();
         }
@@ -130,19 +106,7 @@ public class PlayerInteractor : NetworkBehaviour
     
     private void OnPrimaryHold()
     {
-        if (_playerInventory == null)
-        {
-            Debug.Log("No player inventory");
-            return;
-        }
-
-        if (_playerInventory.currentItem.Value == null)
-        {
-            //Debug.Log("No item in hand"); 
-            return;
-        }
-        
-        if (_playerInventory.currentItem.Value is IPrimaryHold primaryHold)
+        if (ItemIsValid() && _playerInventory.currentItem.Value is IPrimaryHold primaryHold)
         {
             primaryHold.OnPrimaryHold();
         }
@@ -150,19 +114,7 @@ public class PlayerInteractor : NetworkBehaviour
     
     private void OnSecondaryHold()
     {
-        if (_playerInventory == null)
-        {
-            Debug.Log("No player inventory");
-            return;
-        }
-
-        if (_playerInventory.currentItem.Value == null)
-        {
-            Debug.Log("No item in hand"); 
-            return;
-        }
-        
-        if (_playerInventory.currentItem.Value is ISecondaryHold secondaryHold)
+        if (ItemIsValid() && _playerInventory.currentItem.Value is ISecondaryHold secondaryHold)
         {
             secondaryHold.OnSecondaryHold();
         }
@@ -275,6 +227,23 @@ public class PlayerInteractor : NetworkBehaviour
         {
             _playerInventory.RemoveItem(_playerInventory.currentItem.Value);
         }
+    }
+    
+    private bool ItemIsValid()
+    {
+        if (_playerInventory == null)
+        {
+            Debug.Log("No player inventory");
+            return false;
+        }
+
+        if (_playerInventory.currentItem.Value == null)
+        {
+            //Debug.Log("No item in hand"); 
+            return false;
+        }
+        
+        return true;
     }
     
     private void Die()

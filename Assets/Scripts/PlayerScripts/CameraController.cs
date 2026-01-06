@@ -1,4 +1,5 @@
 using ES3Types;
+using FishNet.Demo.AdditiveScenes;
 using FishNet.Object;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
@@ -16,7 +17,6 @@ public class CameraController : NetworkBehaviour
     [SerializeField] private float maxPitch = 80f;
     [GUIColor("Red")]
     [SerializeField] private Transform cameraHolder;
-    [SerializeField] private NetworkObject cameraHolderNObject;
     [GUIColor("Red")]
     [SerializeField] private Transform armatureHolder;
     [GUIColor("Red")]
@@ -55,7 +55,7 @@ public class CameraController : NetworkBehaviour
     {
         if (CameraHoldersManager.Instance != null)
         {
-            CameraHoldersManager.Instance.RegisterCameraHolder(cameraHolder);
+            CameraHoldersManager.Instance.RegisterCameraHolder(new CameraStruct(cameraHolder, gameObject.GetComponent<PlayerVisualController>()));
         }
         else
         {
@@ -86,6 +86,18 @@ public class CameraController : NetworkBehaviour
         _inputSystem.Player.Look.performed -= OnLook;
         _inputSystem.Player.Look.canceled -= OnLookCancelled;
         _inputSystem.Player.Move.performed -= HandleSwitch;
+    }
+
+    private void OnDestroy()
+    {
+        if (CameraHoldersManager.Instance != null)
+        {
+            CameraHoldersManager.Instance.UnregisterCameraHolder(new CameraStruct(cameraHolder, gameObject.GetComponent<PlayerVisualController>()));
+        }
+        else
+        {
+            Debug.LogWarning("There is no camera holder manager");
+        }
     }
     
     private void LateUpdate()
@@ -122,7 +134,7 @@ public class CameraController : NetworkBehaviour
         if (_playerRoot.playerState != PlayerStateEnum.Dead) return;
         
         Vector2 input = context.ReadValue<Vector2>();
-
+        
         if (input.x > 0)
         { 
             CameraHoldersManager.Instance.SwitchUp();

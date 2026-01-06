@@ -10,6 +10,8 @@ public class CameraHoldersManager : NetworkBehaviour
     public static CameraHoldersManager Instance;
 
     [AllowMutableSyncType] private SyncList<Transform> cameraHolders = new();
+    [AllowMutableSyncType] private SyncList<PlayerVisualController> playerVisualControllers = new();
+    [AllowMutableSyncType] private SyncList<CameraStruct> cameraStructs = new();
     
     private bool _isSpectating = false;
     private int _currentIndex = 0;
@@ -34,22 +36,33 @@ public class CameraHoldersManager : NetworkBehaviour
     }
     
     [ServerRpc(RequireOwnership = false)]
-    public void RegisterCameraHolder(Transform cameraHolder)
+    public void RegisterCameraHolder(CameraStruct cameraStruct)
     {
-        if (cameraHolders.Contains(cameraHolder)) return;
+        if (cameraStructs.Contains(cameraStruct)) return;
+        
+        cameraStructs.Add(cameraStruct);
+        
+        
+        /*if (cameraHolders.Contains(cameraHolder)) return;
         
         cameraHolders.Add(cameraHolder);
+        
+        PlayerVisualController visualController = playerGameObject.GetComponent<PlayerVisualController>();
+        
+        playerVisualControllers.Add(visualController);*/
     }
     
-    /*[ServerRpc(RequireOwnership = false)]
-    public void UnregisterCameraHolder(NetworkObject cameraHolder)
+    [ServerRpc(RequireOwnership = false)]
+    public void UnregisterCameraHolder(CameraStruct cameraStruct)
     {
-        cameraHolders.Remove(cameraHolder);
-    }*/
+        if (!cameraStructs.Contains(cameraStruct)) return;
+        
+        cameraStructs.Remove(cameraStruct);
+    }
 
     public void SwitchUp()
     {
-        if (cameraHolders.Count == 0) return;
+        if (cameraStructs.Count == 0) return;
         
         if (!_isSpectating)
         {
@@ -58,7 +71,7 @@ public class CameraHoldersManager : NetworkBehaviour
         }
         else
         {
-            _currentIndex = (_currentIndex + 1) % cameraHolders.Count;
+            _currentIndex = (_currentIndex + 1) % cameraStructs.Count;
         }
         
         AttachCamera();
@@ -85,9 +98,33 @@ public class CameraHoldersManager : NetworkBehaviour
     {
         if (_playerCamera == null) return;
         
-        _playerCamera.transform.SetParent(cameraHolders[_currentIndex].transform);
+        _playerCamera.transform.SetParent(cameraStructs[_currentIndex].CameraHolder);
         _playerCamera.transform.localPosition = Vector3.zero;
         _playerCamera.transform.localRotation = Quaternion.identity;
+
+        for (int i = 0; i < cameraStructs.Count; i++)
+        {
+            if (i == _currentIndex)
+            {
+                cameraStructs[i].VisualController.ChangeLayerOfVisual("ThisPlayer");
+            }
+            else
+            {
+                cameraStructs[i].VisualController.ChangeLayerOfVisual("Player");
+            }
+        }
     }
+}
+
+public struct CameraStruct
+{
+    public CameraStruct(Transform cameraHolder, PlayerVisualController visualController)
+    {
+        CameraHolder =  cameraHolder;
+        VisualController = visualController;
+    }
+    
+    public Transform CameraHolder;
+    public PlayerVisualController VisualController;
 }
 
