@@ -8,8 +8,8 @@ public class QuotaManagerScript : NetworkBehaviour
 {
     public static QuotaManagerScript Instance;
     
-    [AllowMutableSyncType] private SyncVar<uint> currentMoney;
-    [AllowMutableSyncType] private SyncVar<uint> targetQuota;
+    [AllowMutableSyncType] public SyncVar<uint> currentMoney;
+    [AllowMutableSyncType] public SyncVar<uint> targetQuota;
 
     [SerializeField] private uint baseIncreaseValue; //static value
     [SerializeField] private float threshold = 0.2f; //20%
