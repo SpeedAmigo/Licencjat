@@ -12,8 +12,10 @@ public class SpawnerManager : NetworkBehaviour
     [SerializeField] private int spawnersToEnable;
     [SerializeField] private List<ObjectSpawnerScript> spawners;
     
+    public int dayNumber;
+    
     [Header("Spawned Objects")]
-    [AllowMutableSyncType] private SyncList<GameObject> spawnedObjects;
+    public List<GameObject> spawnedObjects;
 
     [Header("Quota info")]
     [SerializeField, Range(0,1)] private float increasePercentage; 
@@ -21,7 +23,7 @@ public class SpawnerManager : NetworkBehaviour
     public uint targetQuota;
 
     [Header("Spawned Objects complete value")]
-    [SerializeField] private uint currentlySpawnedValue;
+    public uint currentlySpawnedValue;
     
     private void Awake()
     {
@@ -41,6 +43,7 @@ public class SpawnerManager : NetworkBehaviour
         Invoke(nameof(StartSpawning), 2f);
     }
     
+    [ContextMenu("Spawn Animals")]
     [ServerRpc(RequireOwnership = false)]
     public void StartSpawning()
     {
@@ -56,20 +59,26 @@ public class SpawnerManager : NetworkBehaviour
         }
     }
     
-    [ServerRpc(RequireOwnership = false)]
-    public void StopSpawning()
-    {
-        // tell the spawners to stop spawning
-    }
-
+    [ContextMenu("Despawn Animals")]
     [ServerRpc(RequireOwnership = false)]
     public void RemoveSpawnedObjects()
     {
-        // remove all spawned objects or animals from the map
+        for (int i = spawnedObjects.Count - 1; i >= 0; i--)
+        {
+            GameObject obj = spawnedObjects[i];
+
+            if (obj == null) continue;
+            
+            spawnedObjects.RemoveAt(i);
+            Destroy(obj);
+        }
+        
     }
 
     private List<ObjectSpawnerScript> PickSpawners()
     {
+        List<ObjectSpawnerScript> availableSpawners = new List<ObjectSpawnerScript>();
+        
         if (spawnersToEnable <= 0)
         {
             Debug.LogWarning("SpawnerManager: Spawners can not be less than zero");
@@ -81,8 +90,22 @@ public class SpawnerManager : NetworkBehaviour
             Debug.LogWarning("SpawnerManager: Not enough spawners available");
             spawnersToEnable = spawners.Count;
         }
+
+        foreach (var spawner in spawners)
+        {
+            if (spawner.enableOnDay <= dayNumber)
+            {
+                availableSpawners.Add(spawner);
+            }
+        }
+
+        if (availableSpawners.Count == 0)
+        {
+            Debug.LogWarning("SpawnerManager: No available spawners");
+            return null;
+        }
         
-        List<ObjectSpawnerScript> shuffled = new List<ObjectSpawnerScript>(spawners);
+        List<ObjectSpawnerScript> shuffled = new List<ObjectSpawnerScript>(availableSpawners);
         
         for (int i = 0; i < shuffled.Count; i++)
         {

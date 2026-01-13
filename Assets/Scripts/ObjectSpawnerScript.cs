@@ -16,13 +16,31 @@ public class ObjectSpawnerScript : NetworkBehaviour
     
     [Header("Spawnable objects list")]
     [SerializeField] private List<SpawnAbleObject> spawnAbleObjects;
+
+    private void Update()
+    {
+        if (!IsServerInitialized) return;
+
+        if (spawnedValue < valueToSpawn)
+        {
+            SpawnObject();
+        }
+    }
     
-    private void SpawnObject(GameObject obj)
+    private void SpawnObject()
     {
         var pickedObject = PickObjectToSpawn();
         var pickedValue = PickRandomValue(pickedObject.minMaxSellValue);
         
-        // spawn picked object in the world
+        var spawnedObject = Instantiate(pickedObject.prefab, transform.position, Quaternion.identity);
+        Spawn(spawnedObject);
+
+        spawnedObject.GetComponent<ObjectValue>().actualSellValue.Value = pickedValue;
+        
+        SpawnerManager.Instance.spawnedObjects.Add(spawnedObject);
+        
+        spawnedValue += pickedValue;
+        SpawnerManager.Instance.currentlySpawnedValue += (uint)pickedValue;
     }
 
     private SpawnAbleObject PickObjectToSpawn()

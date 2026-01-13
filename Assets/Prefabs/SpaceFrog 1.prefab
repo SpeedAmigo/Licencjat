@@ -363,23 +363,22 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 4097182591846747468}
   animator: {fileID: 3257361702672036978}
   rangeDetector: {fileID: 1205760852057409835}
-  canWalk: 0
-  canSpit: 0
-  canRunaway: 0
+  playersInRange:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    Collection: []
+  range: 10
+  canWalk: 1
+  canSpit: 1
+  canRunaway: 1
   walkSpeed: 2
   runSpeed: 5
   maxPlayers: 0
   runDistance: 10
-  range: 10
   pickedUp:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
     _value: 0
-  spitTime:
-    NetworkManager: {fileID: 0}
-    NetworkBehaviour: {fileID: 0}
-    _value: 5
-  playersInRange: []
 --- !u!114 &4097182591846747468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,6 +586,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 0}
+  canPickValueOnStart: 0
   minMaxBuyValue: {x: 0, y: 0}
   minMaxSellValue: {x: 8, y: 25}
   actualBuyValue:
@@ -619,6 +619,10 @@ MonoBehaviour:
   offset: {fileID: 0}
   itemIcon: {fileID: 0}
   isBig: 1
+  spitTime:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 5
   frogScript: {fileID: 5064801098740284251}
 --- !u!1 &1672036666731588899
 GameObject:
