@@ -486,7 +486,6 @@ MonoBehaviour:
   minPitch: -80
   maxPitch: 80
   cameraHolder: {fileID: 7617486500100946565}
-  cameraHolderNObject: {fileID: 3614207335981210062}
   armatureHolder: {fileID: 7079902695177220004}
   playerCameraPrefab: {fileID: 5701870856271494237, guid: 7dca9d62b6453144abb2adbf3bbe2bb4, type: 3}
 --- !u!114 &2943689781349225375
@@ -548,6 +547,10 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 0}
+  stopOxygenDrainingLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  canDrainOxygen: 1
   maxOxygen: 100
   currentOxygen: 0
   drainRate: 1
@@ -3728,7 +3731,6 @@ MonoBehaviour:
   _componentIndexCache: 8
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
-  playerRoot: {fileID: 5490220529141808098}
   pauseMenu: {fileID: 8852014480968712057}
   cameraController: {fileID: 0}
 --- !u!1 &3678688300946987754

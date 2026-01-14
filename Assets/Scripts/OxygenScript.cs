@@ -6,8 +6,11 @@ public class OxygenScript : NetworkBehaviour
 {
     public static event Action<float> OnMaxStaminaEvent;
     public static event Action<float> OnCurrentStaminaEvent;
-
     public static event Action OnDieEvent;
+
+    [SerializeField] private LayerMask stopOxygenDrainingLayers;
+
+    public bool canDrainOxygen = true;
     
     [SerializeField] private float maxOxygen;
     [SerializeField] private float currentOxygen;
@@ -33,8 +36,8 @@ public class OxygenScript : NetworkBehaviour
         if (!IsOwner) return;
         
         if (!_hasOxygen) return;
-
-        if (currentOxygen > 0)
+        
+        if (currentOxygen > 0 && canDrainOxygen)
         {
             currentOxygen -= drainRate * Time.deltaTime;
             OnCurrentStaminaEvent?.Invoke(currentOxygen);
@@ -46,5 +49,26 @@ public class OxygenScript : NetworkBehaviour
             Debug.Log("You run out of oxygen!");
             OnDieEvent?.Invoke();
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (IsLayerInMask(other.gameObject.layer, stopOxygenDrainingLayers))
+        {
+            canDrainOxygen = false;
+        }
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        if (IsLayerInMask(other.gameObject.layer, stopOxygenDrainingLayers))
+        {
+            canDrainOxygen = true;
+        }
+    }
+
+    private bool IsLayerInMask(int layer, LayerMask mask)
+    {
+        return (mask.value & (1 << layer)) != 0;
     }
 }
