@@ -591,25 +591,25 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   damageTemplates:
-  - drainRate: 2
+  - drainRate: 20
     cracksToActivate:
     - {fileID: 3698401703432347227}
-  - drainRate: 3
+  - drainRate: 30
     cracksToActivate:
     - {fileID: 3626226710395959952}
-  - drainRate: 4
+  - drainRate: 40
     cracksToActivate:
     - {fileID: 5224818306007774683}
-  - drainRate: 5
+  - drainRate: 50
     cracksToActivate:
     - {fileID: 5928835496401934168}
-  - drainRate: 6
+  - drainRate: 60
     cracksToActivate:
     - {fileID: 5201923499622053259}
   canDrainOxygen: 1
-  maxOxygen: 100
+  maxOxygen: 3000
   currentOxygen: 0
-  drainRate: 1
+  drainRate: 10
 --- !u!143 &714776938958965697
 CharacterController:
   m_ObjectHideFlags: 0
