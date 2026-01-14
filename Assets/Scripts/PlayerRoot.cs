@@ -30,6 +30,11 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
     public void Heal(float heal)
     {
         _oxygen.DrainRate -= heal;
+
+        if (_oxygen.DrainRate < 1)
+        {
+            _oxygen.DrainRate = 1;
+        }
     }
 
     private void Die()
