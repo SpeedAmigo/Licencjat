@@ -10,7 +10,8 @@ public class FrogPickScript : ObjectPickable
     
     [SerializeField] private FrogScript frogScript;
     
-    private PlayerInventoryScript _playerInventory;
+    //private PlayerInventoryScript _playerInventory;
+    private PlayerRoot _playerRoot;
     
     protected override void PickupLogic(NetworkObject holder)
     {
@@ -20,8 +21,9 @@ public class FrogPickScript : ObjectPickable
         frogScript.Running = false;
         ChangePickupValue(true);
         
+        _playerRoot = holder.transform.root.gameObject.GetComponent<PlayerRoot>();
         //frogScript.PlayerInventory = holder.transform.root.gameObject.GetComponent<PlayerInventoryScript>();
-        _playerInventory = holder.transform.root.gameObject.GetComponent<PlayerInventoryScript>();
+        //_playerInventory = holder.transform.root.gameObject.GetComponent<PlayerInventoryScript>();
     }
     
     protected override void DropLogic()
@@ -33,7 +35,8 @@ public class FrogPickScript : ObjectPickable
         ChangePickupValue(false);
         
         //frogScript.PlayerInventory = null;
-        _playerInventory = null;
+        //_playerInventory = null;
+        _playerRoot = null;
     }
     
     [ServerRpc(RequireOwnership = false)]
@@ -56,7 +59,13 @@ public class FrogPickScript : ObjectPickable
                 spitTime.Value = 5f;
                 //animator.Animator.Play("Spit");
                 frogScript.PlaySpitAnimation();
-                _playerInventory.RequestRemoveItem(this, _playerInventory);
+                
+                _playerRoot.TakeDamage(frogScript.damage);
+
+                var playerInventory = _playerRoot.PlayerInventory;
+                playerInventory.RequestRemoveItem(this, playerInventory);
+                
+                //_playerInventory.RequestRemoveItem(this, _playerInventory);
             }
         }
     }

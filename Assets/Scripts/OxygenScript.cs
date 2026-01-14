@@ -18,6 +18,12 @@ public class OxygenScript : NetworkBehaviour
 
     [SerializeField] private float drainRate;
 
+    public float DrainRate
+    {
+        get { return drainRate; }
+        set { drainRate = value; }
+    }
+
     private bool _hasOxygen;
     private int _safeZoneCount = 0;
     private float _lastDrainRate = -1f;

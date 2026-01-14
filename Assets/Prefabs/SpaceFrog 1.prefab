@@ -363,6 +363,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 4097182591846747468}
   animator: {fileID: 3257361702672036978}
   rangeDetector: {fileID: 1205760852057409835}
+  damage: 10
   playersInRange:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}

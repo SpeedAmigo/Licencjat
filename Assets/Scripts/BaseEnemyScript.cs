@@ -13,6 +13,9 @@ public class BaseEnemyScript : NetworkBehaviour
     [Header("Dependencies")]
     [SerializeField] protected NetworkAnimator animator;
     [SerializeField] private RangeDetector rangeDetector;
+
+    [Header("Damage settings")] 
+    public float damage;
     
     [Header("Players in range list")]
     [AllowMutableSyncType] public SyncList<GameObject> playersInRange = new();
