@@ -9,6 +9,7 @@ public class OxygenScript : NetworkBehaviour
     public static event Action OnDieEvent;
 
     [SerializeField] private LayerMask stopOxygenDrainingLayers;
+    [SerializeField] private DamageTemplate[] damageTemplates;
 
     public bool canDrainOxygen = true;
     
@@ -18,6 +19,8 @@ public class OxygenScript : NetworkBehaviour
     [SerializeField] private float drainRate;
 
     private bool _hasOxygen;
+    private int _safeZoneCount = 0;
+    private float _lastDrainRate = -1f;
     
     private void Awake()
     {
@@ -42,12 +45,30 @@ public class OxygenScript : NetworkBehaviour
             currentOxygen -= drainRate * Time.deltaTime;
             OnCurrentStaminaEvent?.Invoke(currentOxygen);
         }
-        else if (currentOxygen < 0)
+        else if (currentOxygen <= 0)
         {
             _hasOxygen = false;
             currentOxygen = 0;
             Debug.Log("You run out of oxygen!");
             OnDieEvent?.Invoke();
+        }
+
+        if (!Mathf.Approximately(drainRate, _lastDrainRate))
+        {
+            UpdateCracks();
+            _lastDrainRate = drainRate;
+        }
+    }
+
+    private void UpdateCracks()
+    {
+        foreach (var template in damageTemplates)
+        {
+            bool active = drainRate >= template.drainRate;
+            foreach (var crack in template.cracksToActivate)
+            {
+                crack.SetActive(active);
+            }
         }
     }
 
@@ -55,6 +76,7 @@ public class OxygenScript : NetworkBehaviour
     {
         if (IsLayerInMask(other.gameObject.layer, stopOxygenDrainingLayers))
         {
+            _safeZoneCount++;
             canDrainOxygen = false;
         }
     }
@@ -63,7 +85,8 @@ public class OxygenScript : NetworkBehaviour
     {
         if (IsLayerInMask(other.gameObject.layer, stopOxygenDrainingLayers))
         {
-            canDrainOxygen = true;
+            _safeZoneCount--;
+            canDrainOxygen = _safeZoneCount <= 0;
         }
     }
 
@@ -71,4 +94,11 @@ public class OxygenScript : NetworkBehaviour
     {
         return (mask.value & (1 << layer)) != 0;
     }
+}
+
+[Serializable]
+public class DamageTemplate
+{
+    public float drainRate;
+    public GameObject[] cracksToActivate;
 }
