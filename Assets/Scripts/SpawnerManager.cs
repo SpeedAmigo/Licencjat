@@ -40,7 +40,7 @@ public class SpawnerManager : NetworkBehaviour
     // just for now
     private void Start()
     {
-        Invoke(nameof(StartSpawning), 2f);
+        //Invoke(nameof(StartSpawning), 2f);
     }
     
     [ContextMenu("Spawn Animals")]

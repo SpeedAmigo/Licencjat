@@ -19,6 +19,7 @@ public class ShipConsoleButton : NetworkBehaviour, IInteractable
             Debug.Log($"ship status: {consoleScript.shipLanded.Value} button status: {playOnLanded}");
             playableDirector.Play();
             TimelineStart_Clients();
+            SpawnHandle(consoleScript.shipLanded.Value);
         }
         else
         {
@@ -30,5 +31,20 @@ public class ShipConsoleButton : NetworkBehaviour, IInteractable
     private void TimelineStart_Clients()
     {
         playableDirector.Play();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnHandle(bool landed)
+    {
+        if (!IsServerInitialized) return;
+        
+        if (!landed)
+        {
+            SpawnerManager.Instance.StartSpawning();
+        }
+        else
+        {
+            SpawnerManager.Instance.RemoveSpawnedObjects();
+        }
     }
 }

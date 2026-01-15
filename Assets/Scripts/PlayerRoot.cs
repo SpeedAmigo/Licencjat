@@ -25,16 +25,28 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
     public void TakeDamage(float damage)
     {
         _oxygen.DrainRate += damage;
+        TakeDamageClient(_oxygen.DrainRate);
+    }
+
+    [ObserversRpc(BufferLast = true)]
+    private void TakeDamageClient(float value)
+    {
+        _oxygen.DrainRate = value;
     }
 
     public void Heal(float heal)
     {
         _oxygen.DrainRate -= heal;
 
-        if (_oxygen.DrainRate < 1)
+        if (_oxygen.DrainRate < _oxygen.BaseDrainRate)
         {
-            _oxygen.DrainRate = 1;
+            _oxygen.DrainRate = _oxygen.BaseDrainRate;
         }
+    }
+
+    public void RequestItemDrop(ObjectPickable item)
+    {
+        _playerInventory.RequestRemoveItem(item, _playerInventory);
     }
 
     private void Die()

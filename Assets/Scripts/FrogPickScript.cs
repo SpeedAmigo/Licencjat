@@ -61,9 +61,10 @@ public class FrogPickScript : ObjectPickable
                 frogScript.PlaySpitAnimation();
                 
                 _playerRoot.TakeDamage(frogScript.damage);
+                _playerRoot.RequestItemDrop(this);
 
-                var playerInventory = _playerRoot.PlayerInventory;
-                playerInventory.RequestRemoveItem(this, playerInventory);
+                /*var playerInventory = _playerRoot.PlayerInventory;
+                playerInventory.RequestRemoveItem(this, playerInventory);*/
                 
                 //_playerInventory.RequestRemoveItem(this, _playerInventory);
             }

@@ -1,5 +1,6 @@
 using System;
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using UnityEngine;
 
 public class OxygenScript : NetworkBehaviour
@@ -15,14 +16,17 @@ public class OxygenScript : NetworkBehaviour
     
     [SerializeField] private float maxOxygen;
     [SerializeField] private float currentOxygen;
-
+    
+    [SerializeField] private float baseDrainRate;
     [SerializeField] private float drainRate;
+    
 
     public float DrainRate
     {
         get { return drainRate; }
         set { drainRate = value; }
     }
+    public float BaseDrainRate => baseDrainRate;
 
     private bool _hasOxygen;
     private int _safeZoneCount = 0;
