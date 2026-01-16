@@ -18,14 +18,6 @@ public class AnimalCollectorScript : NetworkBehaviour
             {
                 networkObject.Despawn();
             }
-            
-            //DespawnOtherObjectServer(networkObject);
         }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void DespawnOtherObjectServer(NetworkObject otherObject)
-    {
-        otherObject.Despawn();
     }
 }

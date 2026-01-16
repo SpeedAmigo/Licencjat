@@ -15,7 +15,7 @@ public class SpawnerManager : NetworkBehaviour
     public int dayNumber;
     
     [Header("Spawned Objects")]
-    public List<GameObject> spawnedObjects;
+    public List<NetworkObject> spawnedObjects;
 
     [Header("Quota info")]
     [SerializeField, Range(0,1)] private float increasePercentage; 
@@ -65,14 +65,24 @@ public class SpawnerManager : NetworkBehaviour
     {
         for (int i = spawnedObjects.Count - 1; i >= 0; i--)
         {
-            GameObject obj = spawnedObjects[i];
+            NetworkObject nob = spawnedObjects[i];
 
-            if (obj == null) continue;
+            if (nob == null) continue;
             
             spawnedObjects.RemoveAt(i);
-            Destroy(obj);
+            
+            if (!nob.IsSpawned) continue;
+            
+            Despawn(nob);
+        }
+
+        foreach (var spawner in spawners)
+        {
+            spawner.valueToSpawn = 0;
+            spawner.spawnedValue = 0;
         }
         
+        currentlySpawnedValue = 0;
     }
 
     private List<ObjectSpawnerScript> PickSpawners()

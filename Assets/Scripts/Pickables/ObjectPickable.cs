@@ -85,7 +85,10 @@ public class ObjectPickable : NetworkBehaviour
     [ObserversRpc]
     public void Drop_Client()
     {
-        DropLogic();
+        if (IsSpawned)
+        {
+            DropLogic();
+        }
         
         if (objectToChangeLayer != null)
         {

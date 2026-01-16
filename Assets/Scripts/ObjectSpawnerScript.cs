@@ -8,11 +8,10 @@ public class ObjectSpawnerScript : NetworkBehaviour
 {
     [Header("Spawner settings")]
     public int enableOnDay = 1;
-    public bool canSpawn = false;
     
     [Header("Assigned value to spawn")]
     public float valueToSpawn;
-    [SerializeField] private float spawnedValue;
+    public float spawnedValue;
     
     [Header("Spawnable objects list")]
     [SerializeField] private List<SpawnAbleObject> spawnAbleObjects;
@@ -32,12 +31,17 @@ public class ObjectSpawnerScript : NetworkBehaviour
         var pickedObject = PickObjectToSpawn();
         var pickedValue = PickRandomValue(pickedObject.minMaxSellValue);
         
-        var spawnedObject = Instantiate(pickedObject.prefab, transform.position, Quaternion.identity);
-        Spawn(spawnedObject);
-
-        spawnedObject.GetComponent<ObjectValue>().actualSellValue.Value = pickedValue;
+        var pooledObject = NetworkManager.GetPooledInstantiated(pickedObject.prefab,true);
         
-        SpawnerManager.Instance.spawnedObjects.Add(spawnedObject);
+        pooledObject.transform.position = transform.position;
+        pooledObject.transform.rotation = transform.rotation;
+        
+        //var spawnedObject = Instantiate(pickedObject.prefab, transform.position, Quaternion.identity);
+        Spawn(pooledObject);
+
+        pooledObject.GetComponent<ObjectValue>().actualSellValue.Value = pickedValue;
+        
+        SpawnerManager.Instance.spawnedObjects.Add(pooledObject);
         
         spawnedValue += pickedValue;
         SpawnerManager.Instance.currentlySpawnedValue += (uint)pickedValue;
