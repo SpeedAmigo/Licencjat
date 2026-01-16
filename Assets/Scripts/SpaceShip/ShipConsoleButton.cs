@@ -27,7 +27,7 @@ public class ShipConsoleButton : NetworkBehaviour, IInteractable
         }
     }
 
-    [ObserversRpc(BufferLast = true)]
+    [ObserversRpc]
     private void TimelineStart_Clients()
     {
         playableDirector.Play();

@@ -11,16 +11,6 @@ public class BackOxygenSlider : NetworkBehaviour
     {
         _slider = GetComponent<Slider>();
     }
-
-    /*public override void OnStartClient()
-    {
-        base.OnStartClient();
-
-        if (!IsOwner)
-        {
-            enabled = false;
-        }
-    }*/
     
     private void SetMaxOxygen(float maxOxygen)
     {

@@ -506,6 +506,7 @@ MonoBehaviour:
   - {fileID: 7494778172686066579}
   - {fileID: 2159239587032777437}
   - {fileID: 5964182035236726378}
+  - {fileID: 6317745519397052801}
   networkAnimator: {fileID: 3011807589470362556}
 --- !u!114 &7985183086078060353
 MonoBehaviour:
@@ -3941,6 +3942,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 5315229089820142365}
   pauseMenu: {fileID: 8852014480968712057}
   cameraController: {fileID: 0}
+  invitationButton: {fileID: 1692012158254464157}
 --- !u!1 &3678688300946987754
 GameObject:
   m_ObjectHideFlags: 0
@@ -6595,7 +6597,7 @@ GameObject:
   - component: {fileID: 4392371061147766275}
   - component: {fileID: 5045067517950142536}
   - component: {fileID: 7032542805483228493}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: OxygenSliderCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

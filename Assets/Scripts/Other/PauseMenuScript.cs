@@ -3,12 +3,14 @@ using FishNet.Connection;
 using FishNet.Object;
 using Heathen.SteamworksIntegration;
 using UnityEngine;
+using UnityEngine.UI;
 using InputAction = UnityEngine.InputSystem.InputAction;
 
 public class PauseMenuScript : NetworkBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private CameraController cameraController;
+    [SerializeField] private Button invitationButton;
 
     private InputSystem_Actions _inputSystem;
     
@@ -23,12 +25,19 @@ public class PauseMenuScript : NetworkBehaviour
     {
         _inputSystem.Enable();
         _inputSystem.Player.Close.performed += OnEscape;
+        SpaceShipConsoleScript.ActivateInvitationButton += EnableInvitationButton;
     }
     
     private void OnDisable()
     {
         _inputSystem.Disable();
         _inputSystem.Player.Close.performed -= OnEscape;
+        SpaceShipConsoleScript.ActivateInvitationButton += EnableInvitationButton;
+    }
+
+    private void EnableInvitationButton(bool value)
+    {
+        invitationButton.interactable = value;
     }
 
     private void OnEscape(InputAction.CallbackContext obj)

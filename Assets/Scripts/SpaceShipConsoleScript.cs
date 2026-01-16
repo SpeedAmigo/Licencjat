@@ -1,3 +1,4 @@
+using System;
 using FishNet.CodeGenerating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
@@ -5,6 +6,8 @@ using UnityEngine;
 
 public class SpaceShipConsoleScript : NetworkBehaviour
 {
+    public static event Action<bool> ActivateInvitationButton;
+    
     [AllowMutableSyncType] public SyncVar<bool> shipLanded;
     [AllowMutableSyncType] public SyncVar<bool> shipPending;
         
@@ -25,6 +28,7 @@ public class SpaceShipConsoleScript : NetworkBehaviour
     private void SetShipPendingServer(bool value)
     {
         shipPending.Value = value;
+        CheckShipStatus();
     }
     #endregion
 
@@ -44,6 +48,26 @@ public class SpaceShipConsoleScript : NetworkBehaviour
     private void SetShipLandedServer(bool value)
     {
         shipLanded.Value = value;
+        CheckShipStatus();
     }
     #endregion
+    
+    [Server]
+    private void CheckShipStatus()
+    {
+        if (shipPending.Value || shipLanded.Value)
+        {
+            SetButtonObservers(false);
+        }
+        else 
+        {
+            SetButtonObservers(true);
+        }
+    }
+
+    [ObserversRpc]
+    private void SetButtonObservers(bool value)
+    {
+        ActivateInvitationButton?.Invoke(value);
+    }
 }
