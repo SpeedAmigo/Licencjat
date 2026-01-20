@@ -51,6 +51,7 @@ public class QuotaManagerScript : NetworkBehaviour
         else
         {
             Debug.Log("You are fired!");
+            GameOverManager.Instance.GameOverServer(true);
         }
     }
 

@@ -2,15 +2,21 @@ using System.Collections.Generic;
 using FishNet.Connection;
 using FishNet.Object;
 using Heathen.SteamworksIntegration;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using InputAction = UnityEngine.InputSystem.InputAction;
 
 public class PauseMenuScript : NetworkBehaviour
 {
+    [Header("Pause Menu Screen Dependencies")]
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private CameraController cameraController;
     [SerializeField] private Button invitationButton;
+    
+    [Header("Game Over Screen Dependencies")]
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private TMP_Text gameOverText;
 
     private InputSystem_Actions _inputSystem;
     
@@ -26,6 +32,7 @@ public class PauseMenuScript : NetworkBehaviour
         _inputSystem.Enable();
         _inputSystem.Player.Close.performed += OnEscape;
         SpaceShipConsoleScript.ActivateInvitationButton += EnableInvitationButton;
+        GameOverManager.OnGameOverScreen += ShowGameOverScreen;
     }
     
     private void OnDisable()
@@ -33,6 +40,7 @@ public class PauseMenuScript : NetworkBehaviour
         _inputSystem.Disable();
         _inputSystem.Player.Close.performed -= OnEscape;
         SpaceShipConsoleScript.ActivateInvitationButton += EnableInvitationButton;
+        GameOverManager.OnGameOverScreen -= ShowGameOverScreen;
     }
 
     private void EnableInvitationButton(bool value)
@@ -145,6 +153,16 @@ public class PauseMenuScript : NetworkBehaviour
             {
                 Application.Quit();
             }
+        }
+    }
+    
+    private void ShowGameOverScreen(string msg)
+    {
+        gameOverPanel.SetActive(true);
+
+        if (gameOverText != null)
+        {
+            gameOverText.text = msg;
         }
     }
 

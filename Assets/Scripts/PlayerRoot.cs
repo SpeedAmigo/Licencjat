@@ -7,12 +7,7 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
     
     private PlayerInventoryScript _playerInventory;
     private OxygenScript _oxygen;
-
-    public PlayerInventoryScript PlayerInventory
-    {
-        get { return _playerInventory; }
-    }
-
+    
     public override void OnStartClient()
     {
         base.OnStartClient();
@@ -20,6 +15,13 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         
         _playerInventory = gameObject.GetComponent<PlayerInventoryScript>();
         _oxygen = gameObject.GetComponent<OxygenScript>();
+        
+        Invoke(nameof(RegisterPlayer), 2f);
+    }
+
+    private void RegisterPlayer()
+    {
+        GameOverManager.Instance.RegisterPlayer(this);
     }
 
     public void TakeDamage(float damage)
@@ -52,6 +54,7 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
     private void Die()
     {
         playerState = PlayerStateEnum.Dead;
+        GameOverManager.Instance.ComparePlayersState();
     }
 
     private void OnEnable()
