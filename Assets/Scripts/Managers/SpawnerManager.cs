@@ -36,11 +36,29 @@ public class SpawnerManager : NetworkBehaviour
             Destroy(gameObject);
         }
     }
-    
-    // just for now
-    private void Start()
+
+    private void OnEnable()
     {
-        //Invoke(nameof(StartSpawning), 2f);
+        ObjectSpawnerScript.OnObjectSpawned += AddSpawnedObject;
+        ObjectSpawnerScript.OnValueAdd += AddToCurrentlySpawnedValue;
+    }
+
+    private void OnDisable()
+    {
+        ObjectSpawnerScript.OnObjectSpawned -= AddSpawnedObject;
+        ObjectSpawnerScript.OnValueAdd -= AddToCurrentlySpawnedValue;
+    }
+
+    private void AddToCurrentlySpawnedValue(uint value)
+    {
+        currentlySpawnedValue += value;
+    }
+
+    private void AddSpawnedObject(NetworkObject obj)
+    {
+        if (spawnedObjects.Contains(obj)) return;
+        
+        spawnedObjects.Add(obj);
     }
     
     [ContextMenu("Spawn Animals")]

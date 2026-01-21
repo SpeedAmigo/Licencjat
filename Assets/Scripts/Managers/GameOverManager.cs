@@ -49,7 +49,6 @@ public class GameOverManager : NetworkBehaviour
             }
         }
         
-        Debug.Log("PlayersDown: " + playersDownDeathMessage);
         GameOverServer(false);
     }
 
@@ -59,6 +58,7 @@ public class GameOverManager : NetworkBehaviour
         GameOverClients(causedByQuota);
     }
 
+    [ObserversRpc]
     private void GameOverClients(bool causedByQuota)
     {
         Cursor.lockState = CursorLockMode.Locked;

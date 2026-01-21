@@ -6,6 +6,9 @@ using Random = UnityEngine.Random;
 
 public class ObjectSpawnerScript : NetworkBehaviour
 {
+    public static event Action<NetworkObject> OnObjectSpawned;
+    public static event Action<uint> OnValueAdd;
+    
     [Header("Spawner settings")]
     public int enableOnDay = 1;
     
@@ -41,10 +44,13 @@ public class ObjectSpawnerScript : NetworkBehaviour
 
         pooledObject.GetComponent<ObjectValue>().actualSellValue.Value = pickedValue;
         
-        SpawnerManager.Instance.spawnedObjects.Add(pooledObject);
+        OnObjectSpawned?.Invoke(pooledObject);
+        //SpawnerManager.Instance.spawnedObjects.Add(pooledObject);
         
         spawnedValue += pickedValue;
-        SpawnerManager.Instance.currentlySpawnedValue += (uint)pickedValue;
+        
+        OnValueAdd?.Invoke((uint)spawnedValue);
+        //SpawnerManager.Instance.currentlySpawnedValue += (uint)pickedValue;
     }
 
     private SpawnAbleObject PickObjectToSpawn()
