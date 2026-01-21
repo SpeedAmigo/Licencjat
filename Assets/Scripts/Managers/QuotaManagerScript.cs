@@ -37,19 +37,24 @@ public class QuotaManagerScript : NetworkBehaviour
         currentMoney.Value += value;
         OnMoneyChanged?.Invoke(currentMoney.Value);
     }
-
-    [ServerRpc(RequireOwnership = false)]
+    
     public void CompareQuota()
     {
+        if (!IsServerInitialized) return;
+        
         OnMoneyChanged?.Invoke(currentMoney.Value);
         
         if (currentMoney.Value >= targetQuota.Value)
         {
             Debug.Log("Quota reached!");
             IncreaseQuota();
+            GameOverManager.Instance.ReviveDeadPlayersServer();
         }
         else
         {
+            Debug.Log($"collected money: {currentMoney.Value}");
+            Debug.Log($"target quota: {targetQuota.Value}");
+            
             Debug.Log("You are fired!");
             GameOverManager.Instance.GameOverServer(true);
         }

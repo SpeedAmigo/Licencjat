@@ -454,6 +454,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 0}
   playerState: 0
+  oxygen: {fileID: 4583393769552851428}
 --- !u!114 &5494240458988316082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,6 +470,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
+  playerRoot: {fileID: 0}
   walkingSpeed: 5
   sprintSpeed: 8
   jumpForce: 1.5
@@ -544,6 +546,7 @@ MonoBehaviour:
   _componentIndexCache: 3
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
+  playerRoot: {fileID: 0}
   fpItemHolder: {fileID: 5910787284978885563}
   tpIemHolder: {fileID: 3195486199607129273}
   interactionDistance: 5
@@ -562,6 +565,7 @@ MonoBehaviour:
   _componentIndexCache: 4
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
+  playerRoot: {fileID: 0}
   rightHandRigs: {fileID: 4391586082569085452}
   currentItem:
     NetworkManager: {fileID: 0}

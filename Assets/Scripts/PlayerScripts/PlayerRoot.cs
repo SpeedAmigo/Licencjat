@@ -1,48 +1,58 @@
+using FishNet.Component.Spawning;
 using FishNet.Object;
 using UnityEngine;
 
 public class PlayerRoot : NetworkBehaviour, IPlayer
 {
+    [Header("Player State")]
     public PlayerStateEnum playerState;
+    public OxygenScript oxygen;
     
     private PlayerInventoryScript _playerInventory;
-    private OxygenScript _oxygen;
+    private Transform _initialPosition;
     
     public override void OnStartClient()
     {
         base.OnStartClient();
+
+        _initialPosition = gameObject.transform;
+        
         playerState = PlayerStateEnum.Alive;
         
         _playerInventory = gameObject.GetComponent<PlayerInventoryScript>();
-        _oxygen = gameObject.GetComponent<OxygenScript>();
+        //oxygen = gameObject.GetComponent<OxygenScript>();
+
+        oxygen.OnDieEvent += Die;
+        oxygen.OnReviveEvent += Revive;
         
         Invoke(nameof(RegisterPlayer), 2f);
     }
 
     private void RegisterPlayer()
     {
+        if (!IsOwner) return;
         GameOverManager.Instance.RegisterPlayer(this);
     }
 
     public void TakeDamage(float damage)
     {
-        _oxygen.DrainRate += damage;
-        TakeDamageClient(_oxygen.DrainRate);
+        oxygen.DrainRate += damage;
+        TakeDamageClient(oxygen.DrainRate);
     }
 
     [ObserversRpc(BufferLast = true)]
     private void TakeDamageClient(float value)
     {
-        _oxygen.DrainRate = value;
+        oxygen.DrainRate = value;
     }
 
     public void Heal(float heal)
     {
-        _oxygen.DrainRate -= heal;
+        oxygen.DrainRate -= heal;
 
-        if (_oxygen.DrainRate < _oxygen.BaseDrainRate)
+        if (oxygen.DrainRate < oxygen.BaseDrainRate)
         {
-            _oxygen.DrainRate = _oxygen.BaseDrainRate;
+            oxygen.DrainRate = oxygen.BaseDrainRate;
         }
     }
 
@@ -51,20 +61,21 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         _playerInventory.RequestRemoveItem(item, _playerInventory);
     }
 
-    private void Die()
+    public void Die()
     {
+        if (playerState == PlayerStateEnum.Dead) return;
+        
         playerState = PlayerStateEnum.Dead;
         GameOverManager.Instance.ComparePlayersState();
     }
 
-    private void OnEnable()
+    public void Revive()
     {
-        OxygenScript.OnDieEvent += Die;
+        Debug.Log("Revive");
+        playerState = PlayerStateEnum.Alive;
+        oxygen.CurrentOxygen = oxygen.MaxOxygen;
+        
+        gameObject.transform.position = _initialPosition.position;
+        gameObject.transform.rotation = _initialPosition.rotation;
     }
-
-    private void OnDisable()
-    {
-        OxygenScript.OnDieEvent -= Die;
-    }
-    
 }

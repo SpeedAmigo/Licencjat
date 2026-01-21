@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 
-public class PlayerInteractor : NetworkBehaviour
+public class PlayerInteractor : PlayerComponent
 {
     [Header("Item Holders")]
     [GUIColor("Red")]
@@ -32,15 +32,19 @@ public class PlayerInteractor : NetworkBehaviour
         }
     }
     
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         _inputSystem = new InputSystem_Actions();
         _camera = Camera.main;
         _playerInventory = GetComponent<PlayerInventoryScript>();
     }
     
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+        
         _inputSystem.Enable();
         _inputSystem.Player.Interact.performed += OnInteraction;
         _inputSystem.Player.Drop.performed += OnItemDrop;
@@ -52,12 +56,12 @@ public class PlayerInteractor : NetworkBehaviour
         _inputSystem.Player.Secondary.performed += OnSecondaryPerformed;
         _inputSystem.Player.Secondary.started += OnSecondaryStarted;
         _inputSystem.Player.Secondary.canceled += OnSecondaryCanceled;
-
-        OxygenScript.OnDieEvent += Die;
     }
     
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
+        
         _inputSystem.Disable();
         _inputSystem.Player.Interact.performed -= OnInteraction;
         _inputSystem.Player.Drop.performed -= OnItemDrop;
@@ -69,8 +73,6 @@ public class PlayerInteractor : NetworkBehaviour
         _inputSystem.Player.Secondary.performed -= OnSecondaryPerformed;
         _inputSystem.Player.Secondary.started -= OnSecondaryStarted;
         _inputSystem.Player.Secondary.canceled -= OnSecondaryCanceled;
-
-        OxygenScript.OnDieEvent -= Die;
     }
 
     private void Update()
@@ -245,10 +247,15 @@ public class PlayerInteractor : NetworkBehaviour
         
         return true;
     }
-    
-    private void Die()
+
+    protected override void DeathHandle()
     {
         enabled = false;
+    }
+
+    protected override void ReviveHandle()
+    {
+        enabled = true;
     }
 }
 

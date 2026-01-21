@@ -1,17 +1,18 @@
 using System;
-using System.Collections.Generic;
 using FishNet.CodeGenerating;
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using Heathen.SteamworksIntegration.API;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 
-public class PlayerInventoryScript : NetworkBehaviour
+public class PlayerInventoryScript : PlayerComponent
 {
+    public static event Action<int, Sprite> OnUIUpdateAdd;
+    public static event Action<int> OnUIUpdateRemove;
+    
     [Header("Hand Rigs")]
     [GUIColor("Red")]
     [SerializeField] private GameObject rightHandRigs;
@@ -20,9 +21,6 @@ public class PlayerInventoryScript : NetworkBehaviour
     [AllowMutableSyncType] public SyncVar<ObjectPickable> currentItem = new();
     [GUIColor("Blue")]
     [SerializeField] private int currentItemIndex;
-    
-    public static event Action<int, Sprite> OnUIUpdateAdd;
-    public static event Action<int> OnUIUpdateRemove;
     
     [GUIColor("Yellow")]
     [SerializeField] private int inventorySize = 4;
@@ -62,36 +60,39 @@ public class PlayerInventoryScript : NetworkBehaviour
         currentItem.OnChange -= HandleCurrentItemChange;
     }
     
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         _inputSystem = new InputSystem_Actions();
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
         _inputSystem.Enable();
         _inputSystem.Player.Slot1 .performed += OnSlot1;
         _inputSystem.Player.Slot2 .performed += OnSlot2;
         _inputSystem.Player.Slot3 .performed += OnSlot3;
-
-        OxygenScript.OnDieEvent += Die;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         _inputSystem.Disable();
         _inputSystem.Player.Slot1 .performed -= OnSlot1;
         _inputSystem.Player.Slot2 .performed -= OnSlot2;
         _inputSystem.Player.Slot3 .performed -= OnSlot3;
-        
-        OxygenScript.OnDieEvent -= Die;
     }
-
-    private void Die()
+    
+    protected override void DeathHandle()
     {
         enabled = false;
     }
-    
+
+    protected override void ReviveHandle()
+    {
+        enabled = true;
+    }
+
     #endregion
     
     #region InputBinding

@@ -44,7 +44,6 @@ public class GameOverManager : NetworkBehaviour
             
             if (player.playerState != PlayerStateEnum.Dead)
             {
-                Debug.Log("Player: " + player.name);
                 return;
             }
         }
@@ -67,5 +66,20 @@ public class GameOverManager : NetworkBehaviour
         Time.timeScale = 0;
         
         OnGameOverScreen?.Invoke(causedByQuota ? quotaDeathMessage : playersDownDeathMessage);
+    }
+
+    [Server]
+    public void ReviveDeadPlayersServer()
+    {
+        foreach (PlayerRoot player in players)
+        {
+            if (player.playerState == PlayerStateEnum.Dead)
+            {
+                player.Revive();
+                Debug.Log("Revived dead player" + player.name);
+            }
+        }
+        
+        Debug.Log($"revived players: {players.Count}");
     }
 }

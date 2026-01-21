@@ -4,9 +4,8 @@ using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
 
-public class FootstepPlayer : NetworkBehaviour
+public class FootstepPlayer : PlayerComponent
 {
-    [SerializeField] private PlayerRoot playerRoot;
     [SerializeField] private GameObject surfaceCheckRaycast;
     [SerializeField] private float distance;
     
@@ -51,18 +50,13 @@ public class FootstepPlayer : NetworkBehaviour
         Debug.DrawRay(surfaceCheckRaycast.transform.position, Vector3.down * distance, Color.red);
     }
 
-    private void OnEnable()
-    {
-        OxygenScript.OnDieEvent += Die;
-    }
-
-    private void OnDisable()
-    {
-        OxygenScript.OnDieEvent += Die;
-    }
-
-    private void Die()
+    protected override void DeathHandle()
     {
         enabled = false;
+    }
+
+    protected override void ReviveHandle()
+    {
+        enabled = true;
     }
 }

@@ -7,7 +7,8 @@ public class OxygenScript : NetworkBehaviour
 {
     public static event Action<float> OnMaxStaminaEvent;
     public static event Action<float> OnCurrentStaminaEvent;
-    public static event Action OnDieEvent;
+    public event Action OnDieEvent;
+    public event Action OnReviveEvent;
 
     [SerializeField] private LayerMask stopOxygenDrainingLayers;
     [SerializeField] private DamageTemplate[] damageTemplates;
@@ -19,12 +20,19 @@ public class OxygenScript : NetworkBehaviour
     
     [SerializeField] private float baseDrainRate;
     [SerializeField] private float drainRate;
-    
+
+    public float MaxOxygen => maxOxygen;
+
+    public float CurrentOxygen
+    {
+        get => currentOxygen;
+        set => currentOxygen = value;
+    }
 
     public float DrainRate
     {
-        get { return drainRate; }
-        set { drainRate = value; }
+        get => drainRate;
+        set => drainRate = value;
     }
     public float BaseDrainRate => baseDrainRate;
 

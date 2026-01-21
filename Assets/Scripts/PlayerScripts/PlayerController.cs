@@ -5,7 +5,7 @@ using FishNet.Object;
 using Sirenix.OdinInspector;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : NetworkBehaviour
+public class PlayerController : PlayerComponent
 {
     [Header("Movement Settings")]
     [GUIColor("Yellow")]
@@ -66,8 +66,10 @@ public class PlayerController : NetworkBehaviour
         }
     }
     
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         _inputSystem = new InputSystem_Actions();
         _controller = GetComponent<CharacterController>();
         
@@ -101,24 +103,24 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+        
         _inputSystem.Enable();
         _inputSystem.Player.Move.performed += OnMove;
         _inputSystem.Player.Move.canceled += OnMoveCancelled;
         _inputSystem.Player.Jump.performed += OnJump;
-
-        OxygenScript.OnDieEvent += Die;
     }
     
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
+        
         _inputSystem.Disable();    
         _inputSystem.Player.Move.performed -= OnMove;
         _inputSystem.Player.Move.canceled -= OnMoveCancelled;
         _inputSystem.Player.Jump.performed -= OnJump;
-
-        OxygenScript.OnDieEvent -= Die;
     }
     
     private Vector3 _currentMove;
@@ -172,12 +174,17 @@ public class PlayerController : NetworkBehaviour
             }
         }
     }
-    
-    private void Die()
+
+    protected override void DeathHandle()
     {
         enabled = false;
     }
-    
+
+    protected override void ReviveHandle()
+    {
+        enabled = true;
+    }
+
     private void Update()
     {
         isGrounded = _controller.isGrounded;
