@@ -1,4 +1,5 @@
 using System;
+using Commands;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using UnityEngine;
@@ -50,6 +51,14 @@ public class OxygenScript : NetworkBehaviour
     {
         OnMaxStaminaEvent?.Invoke(maxOxygen);
         OnCurrentStaminaEvent?.Invoke(currentOxygen);
+        
+        CommandsManager.Instance.RegisterInstance(this);
+    }
+    
+    [Command("say", "Log a message")]
+    public static void Say(string message)
+    {
+        Debug.Log(message);
     }
 
     private void Update()
@@ -111,6 +120,22 @@ public class OxygenScript : NetworkBehaviour
     private bool IsLayerInMask(int layer, LayerMask mask)
     {
         return (mask.value & (1 << layer)) != 0;
+    }
+
+    [Command("SetCurrentOxygen", "Sets the current oxygen amount of oxygen.")]
+    public void SetOxygen(float value)
+    {
+        if (value > maxOxygen)
+        {
+            currentOxygen = maxOxygen;
+        }
+        else if (value < 0)
+        {
+            currentOxygen = 0;
+        }
+        
+        currentOxygen = value;
+        OnCurrentStaminaEvent?.Invoke(currentOxygen);
     }
 }
 

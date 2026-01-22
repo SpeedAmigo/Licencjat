@@ -176,7 +176,6 @@ public class PlayerController : PlayerComponent
     private void Update()
     {
         isGrounded = _controller.isGrounded;
-        
         if (IsOwner)
         {
             if (!playerRoot.isAlive.Value) return;

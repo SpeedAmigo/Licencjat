@@ -457,7 +457,6 @@ MonoBehaviour:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
     _value: 0
-  playerState: 0
   oxygen: {fileID: 4583393769552851428}
 --- !u!114 &5494240458988316082
 MonoBehaviour:
@@ -529,6 +528,7 @@ MonoBehaviour:
   _componentIndexCache: 3
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
+  playerRoot: {fileID: 0}
   sensitivity: 0.8
   minPitch: -80
   maxPitch: 80

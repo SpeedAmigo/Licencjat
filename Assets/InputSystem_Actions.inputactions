@@ -742,6 +742,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ConsoleTrigger",
+                    "type": "Button",
+                    "id": "129d81cd-58eb-444f-bc78-7e0f2c49a7af",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1160,6 +1169,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bf653ad2-b3d5-44c9-be9d-f90919835ec0",
+                    "path": "<Keyboard>/backquote",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ConsoleTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
