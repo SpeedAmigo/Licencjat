@@ -84,6 +84,20 @@ public class CameraController : PlayerComponent
         _inputSystem.Player.Look.performed += OnLook;
         _inputSystem.Player.Look.canceled += OnLookCancelled;
         _inputSystem.Player.Move.performed += HandleSwitch;
+
+        UIConsoleScript.OnConsoleOpen += HandleInput;
+    }
+
+    private void HandleInput(bool obj)
+    {
+        if (!obj)
+        {
+            _inputSystem.Enable();
+        }
+        else
+        {
+            _inputSystem.Disable();            
+        }
     }
 
     protected override void OnDisable()

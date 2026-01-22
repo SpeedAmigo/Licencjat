@@ -7,12 +7,12 @@ namespace Commands
     {
 
         public readonly string CommandName;
-        public readonly string CommandDeescription;
+        public readonly string CommandDescription;
         
         public CommandAttribute(string commandName, string commandDescription)
         {
             CommandName = commandName;
-            CommandDeescription = commandDescription;
+            CommandDescription = commandDescription;
         }
     }
 

@@ -11,7 +11,7 @@ namespace Commands
     {
         public static CommandsManager Instance;
         [SerializeField] private TMP_InputField textField;
-
+        
         private Dictionary<string, MethodInfo> _commands = new();
         private Dictionary<Type, object> _instances = new();
         private string _input;
@@ -90,6 +90,17 @@ namespace Commands
 
             methodInfo.Invoke(instance, invocationParams.ToArray());
         }
-
+        
+        public IEnumerable<(string name, string description)> GetAllCommands()
+        {
+            foreach (var kvp in _commands)
+            {
+                var name = kvp.Key;
+                var method = kvp.Value;
+                var attr = method.GetCustomAttribute<CommandAttribute>();
+                var desc = attr != null ? attr.CommandDescription : "";
+                yield return (name, desc);
+            }
+        }
     }
 }

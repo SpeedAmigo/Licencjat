@@ -111,8 +111,22 @@ public class PlayerController : PlayerComponent
         _inputSystem.Player.Move.performed += OnMove;
         _inputSystem.Player.Move.canceled += OnMoveCancelled;
         _inputSystem.Player.Jump.performed += OnJump;
+
+        UIConsoleScript.OnConsoleOpen += HandleInput;
     }
-    
+
+    private void HandleInput(bool obj)
+    {
+        if (!obj)
+        {
+            _inputSystem.Enable();
+        }
+        else
+        {
+            _inputSystem.Disable();
+        }
+    }
+
     protected override void OnDisable()
     {
         base.OnDisable();

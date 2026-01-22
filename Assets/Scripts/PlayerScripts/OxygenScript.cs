@@ -55,12 +55,6 @@ public class OxygenScript : NetworkBehaviour
         CommandsManager.Instance.RegisterInstance(this);
     }
     
-    [Command("say", "Log a message")]
-    public static void Say(string message)
-    {
-        Debug.Log(message);
-    }
-
     private void Update()
     {
         if (!IsOwner) return;
@@ -122,7 +116,7 @@ public class OxygenScript : NetworkBehaviour
         return (mask.value & (1 << layer)) != 0;
     }
 
-    [Command("SetCurrentOxygen", "Sets the current oxygen amount of oxygen.")]
+    [Command("SetCurrentOxygen", "Sets the current amount of oxygen.")]
     public void SetOxygen(float value)
     {
         if (value > maxOxygen)
@@ -136,6 +130,18 @@ public class OxygenScript : NetworkBehaviour
         
         currentOxygen = value;
         OnCurrentStaminaEvent?.Invoke(currentOxygen);
+    }
+
+    [Command("CanDrainOxygen", "Set if oxygen can be drained.")]
+    public void CanDrainOxygen(bool value)
+    {
+        canDrainOxygen = value;
+    }
+
+    [Command("SetDrainRate", "Sets the current drain rate of oxygen.")]
+    public void SetDrainRate(float value)
+    {
+        drainRate = value;
     }
 }
 

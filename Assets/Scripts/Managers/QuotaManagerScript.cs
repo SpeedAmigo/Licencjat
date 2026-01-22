@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using Commands;
 using FishNet.CodeGenerating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
@@ -21,6 +23,8 @@ public class QuotaManagerScript : NetworkBehaviour
     private void Awake()
     {
         Instance = this;
+        
+        CommandsManager.Instance.RegisterInstance(this);
     }
 
     private void Start()
@@ -81,5 +85,11 @@ public class QuotaManagerScript : NetworkBehaviour
         
         targetQuota.Value += increaseValue;
         OnTargetQuotaChanged?.Invoke(targetQuota.Value);
+    }
+
+    [Command("SetCurrentMoney", "Sets current money")]
+    public void SetCurrentMoney(uint value)
+    {
+        AddMoney(value);
     }
 }
