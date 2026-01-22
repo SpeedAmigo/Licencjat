@@ -2,6 +2,7 @@ using FishNet.Object;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Scripting;
 
 public class CameraController : PlayerComponent
 {
@@ -24,6 +25,8 @@ public class CameraController : PlayerComponent
     
     private float _pitch;
     private Vector2 _lookInput;
+
+    private Transform _originalCameraHolder;
     
     //private PlayerRoot _playerRoot;
 
@@ -39,6 +42,8 @@ public class CameraController : PlayerComponent
                 _playerCamera.transform.localPosition = Vector3.zero;
                 _playerCamera.transform.localRotation = Quaternion.identity;
             }
+            
+            _originalCameraHolder = cameraHolder;
         }
         else
         {
@@ -52,7 +57,7 @@ public class CameraController : PlayerComponent
     {
         if (CameraHoldersManager.Instance != null)
         {
-            CameraHoldersManager.Instance.RegisterCameraHolder(new CameraStruct(cameraHolder, gameObject.GetComponent<PlayerVisualController>()));
+            CameraHoldersManager.Instance.RegisterCameraHolder(new CameraStruct(cameraHolder, gameObject.GetComponent<PlayerVisualController>(), OwnerId));
         }
         else
         {
@@ -95,7 +100,7 @@ public class CameraController : PlayerComponent
     {
         if (CameraHoldersManager.Instance != null)
         {
-            CameraHoldersManager.Instance.UnregisterCameraHolder(new CameraStruct(cameraHolder, gameObject.GetComponent<PlayerVisualController>()));
+            CameraHoldersManager.Instance.UnregisterCameraHolder(new CameraStruct(cameraHolder, gameObject.GetComponent<PlayerVisualController>(), OwnerId));
         }
         else
         {
@@ -146,5 +151,12 @@ public class CameraController : PlayerComponent
         {
             CameraHoldersManager.Instance.SwitchDown();
         }
+    }
+
+    [Preserve]
+    protected override void ReviveHandle()
+    {
+        Debug.Log("ReviveHandle");
+        CameraHoldersManager.Instance.AttachCameraToOriginalHolder(OwnerId);
     }
 }

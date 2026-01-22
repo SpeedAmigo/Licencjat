@@ -1,5 +1,6 @@
 using FishNet.Object;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 public abstract class PlayerComponent : NetworkBehaviour
 {
@@ -8,27 +9,29 @@ public abstract class PlayerComponent : NetworkBehaviour
     protected virtual void Awake()
     {
         playerRoot = gameObject.transform.root.GetComponent<PlayerRoot>();
-        //playerRoot = GetComponentInParent<PlayerRoot>();
     }
 
     protected virtual void OnEnable()
     {
-        if (playerRoot == null || playerRoot.oxygen == null) return;
-        
-        playerRoot.oxygen.OnDieEvent += DeathHandle;
-        //playerRoot.oxygen.OnReviveEvent += ReviveHandle;
+        if (playerRoot == null) return;
         playerRoot.OnReviveEvent += ReviveHandle;
+        
+        if (playerRoot.oxygen == null) return;
+        playerRoot.oxygen.OnDieEvent += DeathHandle;
     }
 
     protected virtual void OnDisable()
     {
-        if (playerRoot == null || playerRoot.oxygen == null) return;
-        
-        playerRoot.oxygen.OnDieEvent -= DeathHandle;
-        //playerRoot.oxygen.OnReviveEvent -= ReviveHandle;
+        if (playerRoot == null) return;
         playerRoot.OnReviveEvent -= ReviveHandle;
+        
+        if (playerRoot.oxygen == null) return;
+        playerRoot.oxygen.OnDieEvent -= DeathHandle;
     }
-    
+
+    [Preserve]
     protected virtual void DeathHandle() {}
+
+    [Preserve]
     protected virtual void ReviveHandle() {}
 }

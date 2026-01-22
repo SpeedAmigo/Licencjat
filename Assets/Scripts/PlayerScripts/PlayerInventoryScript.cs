@@ -82,17 +82,6 @@ public class PlayerInventoryScript : PlayerComponent
         _inputSystem.Player.Slot2 .performed -= OnSlot2;
         _inputSystem.Player.Slot3 .performed -= OnSlot3;
     }
-    
-    protected override void DeathHandle()
-    {
-        enabled = false;
-    }
-
-    protected override void ReviveHandle()
-    {
-        enabled = true;
-    }
-
     #endregion
     
     #region InputBinding
@@ -125,6 +114,7 @@ public class PlayerInventoryScript : PlayerComponent
     private void OnDrawCurrentItem(int index)
     {
         if (currentItem.Value != null && currentItem.Value.isBig) return;
+        if (!playerRoot.isAlive.Value) return;
         
         OnDrawCurrentItem_Server(index);
     }

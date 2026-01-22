@@ -49,14 +49,4 @@ public class FootstepPlayer : PlayerComponent
     {
         Debug.DrawRay(surfaceCheckRaycast.transform.position, Vector3.down * distance, Color.red);
     }
-
-    protected override void DeathHandle()
-    {
-        enabled = false;
-    }
-
-    protected override void ReviveHandle()
-    {
-        enabled = true;
-    }
 }

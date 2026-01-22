@@ -78,6 +78,7 @@ public class PlayerInteractor : PlayerComponent
     private void Update()
     {
         if (!IsOwner) return;
+        if (!playerRoot.isAlive.Value) return;
 
         if (_primaryHold)
         {
@@ -156,6 +157,7 @@ public class PlayerInteractor : PlayerComponent
     {
         if (!IsOwner) return;
         if (!context.performed) return;
+        if (!playerRoot.isAlive.Value) return;
 
         RaycastHit hit;
 
@@ -246,16 +248,6 @@ public class PlayerInteractor : PlayerComponent
         }
         
         return true;
-    }
-
-    protected override void DeathHandle()
-    {
-        enabled = false;
-    }
-
-    protected override void ReviveHandle()
-    {
-        enabled = true;
     }
 }
 
