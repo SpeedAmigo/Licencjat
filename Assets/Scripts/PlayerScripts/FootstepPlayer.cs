@@ -16,7 +16,7 @@ public class FootstepPlayer : PlayerComponent
         if (!IsOwner) return;
         if (!surfaceCheckRaycast) return;
 
-        if (playerRoot.playerState == PlayerStateEnum.Dead) return;
+        if (!playerRoot.isAlive.Value) return;
 
         if (Physics.Raycast(surfaceCheckRaycast.transform.position, Vector3.down, out var hit, distance))
         {

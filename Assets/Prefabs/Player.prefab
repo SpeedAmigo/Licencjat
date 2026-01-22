@@ -334,7 +334,7 @@ MonoBehaviour:
   <IsNested>k__BackingField: 1
   WasActiveDuringEdit: 1
   WasActiveDuringEdit_Set1: 1
-  <ComponentIndex>k__BackingField: 4
+  <ComponentIndex>k__BackingField: 5
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours:
@@ -450,9 +450,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3455e1a51dc9ed41abef5d4fdc2a2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRoot
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 5315229089820142365}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5315229089820142365}
+  isAlive:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
   playerState: 0
   oxygen: {fileID: 4583393769552851428}
 --- !u!114 &5494240458988316082
@@ -467,7 +471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3a5834e9d6258943a3b6cf115cf25fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  _componentIndexCache: 0
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   playerRoot: {fileID: 0}
@@ -499,7 +503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90cce7c4cb903704fad85b803ae7ee98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 1
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   visuals:
@@ -522,7 +526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a55e2e5dce90ccd4786dcf1e82d3bd15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 2
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   sensitivity: 0.8
@@ -543,7 +547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e3255f1fa30b849884d17fb30bf22a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 3
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   playerRoot: {fileID: 0}
@@ -562,7 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 002157e4cd0d64e4b8c38029bd1453b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 4
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   playerRoot: {fileID: 0}
@@ -589,9 +593,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae50b72b3f0b3be44b34582949be2df9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 255
+  _componentIndexCache: 6
   _addedNetworkObject: {fileID: 5315229089820142365}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5315229089820142365}
   stopOxygenDrainingLayers:
     serializedVersion: 2
     m_Bits: 512
@@ -660,13 +664,14 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours:
+  - {fileID: 5490220529141808098}
   - {fileID: 5494240458988316082}
   - {fileID: 1969253863949880374}
   - {fileID: 7985183086078060353}
   - {fileID: 2943689781349225375}
   - {fileID: -6240383476758041566}
+  - {fileID: 4583393769552851428}
   - {fileID: 6927043152948294079}
-  - {fileID: -4524563169624058738}
   - {fileID: 1048185846106536579}
   - {fileID: 925500053121600034}
   - {fileID: 2665429102452664934}
@@ -675,10 +680,11 @@ MonoBehaviour:
   - {fileID: 2147180540526216654}
   - {fileID: 4756922230646122949}
   - {fileID: 5553873934563806687}
+  - {fileID: 3557098265187180503}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects:
+  - {fileID: 3614207335981210062}
   - {fileID: 4027544253422935290}
-  - {fileID: 5910787284978885563}
   - {fileID: 2545516691710123077}
   - {fileID: 3195486199607129273}
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -724,7 +730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 5
+  _componentIndexCache: 7
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   _componentConfiguration: 1
@@ -2368,7 +2374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a469c64f4dfded94881bc0cd690b5ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VoiceChatController
-  _componentIndexCache: 10
+  _componentIndexCache: 11
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   micAudioInput: {fileID: 8081245131889440834}
@@ -2616,7 +2622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1117dd79caed3949abdf12674fe3b7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MetaVoiceChat.NetProviders.FishNet.FishNetNetProvider
-  _componentIndexCache: 9
+  _componentIndexCache: 10
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
 --- !u!114 &8081245131889440834
@@ -4116,7 +4122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39c677e1adc1cf40acc33f07b8337c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 8
+  _componentIndexCache: 9
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   pauseMenu: {fileID: 8852014480968712057}
@@ -4437,7 +4443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Animating.NetworkAnimator
-  _componentIndexCache: 11
+  _componentIndexCache: 12
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   IgnoredParameters: []
@@ -4562,7 +4568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de9fde9982974cd4db411647a3268232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 12
+  _componentIndexCache: 13
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   playerRoot: {fileID: 5490220529141808098}
@@ -4676,7 +4682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 7
+  _componentIndexCache: 8
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   _componentConfiguration: 0
@@ -4853,7 +4859,7 @@ MonoBehaviour:
   <IsNested>k__BackingField: 1
   WasActiveDuringEdit: 1
   WasActiveDuringEdit_Set1: 1
-  <ComponentIndex>k__BackingField: 3
+  <ComponentIndex>k__BackingField: 4
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours:
@@ -5797,7 +5803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 14
+  _componentIndexCache: 15
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
 --- !u!1 &5412107581558678622
@@ -6594,12 +6600,12 @@ MonoBehaviour:
   <IsNested>k__BackingField: 1
   WasActiveDuringEdit: 1
   WasActiveDuringEdit_Set1: 1
-  <ComponentIndex>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 3
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours:
   - {fileID: 5440312064051546494}
-  InitializedParentNetworkBehaviour: {fileID: 5494240458988316082}
+  InitializedParentNetworkBehaviour: {fileID: 5490220529141808098}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
   RuntimeChildNetworkBehaviours: []
@@ -8272,9 +8278,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 6
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 5315229089820142365}
-  _networkObjectCache: {fileID: 5315229089820142365}
+  _networkObjectCache: {fileID: 3614207335981210062}
 --- !u!114 &8302910594355515358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8287,9 +8293,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 255
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 5315229089820142365}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 3614207335981210062}
   _componentConfiguration: 0
   _synchronizeParent: 0
   _packing:
@@ -8333,15 +8339,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.NetworkObject
-  <IsNested>k__BackingField: 0
+  <IsNested>k__BackingField: 1
   WasActiveDuringEdit: 1
   WasActiveDuringEdit_Set1: 1
-  <ComponentIndex>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 1
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
-  NetworkBehaviours: []
-  InitializedParentNetworkBehaviour: {fileID: 0}
-  InitializedNestedNetworkObjects: []
+  NetworkBehaviours:
+  - {fileID: -4524563169624058738}
+  - {fileID: 8302910594355515358}
+  InitializedParentNetworkBehaviour: {fileID: 5490220529141808098}
+  InitializedNestedNetworkObjects:
+  - {fileID: 5910787284978885563}
   RuntimeParentNetworkBehaviour: {fileID: 0}
   RuntimeChildNetworkBehaviours: []
   _isNetworked: 1
@@ -8369,10 +8378,10 @@ MonoBehaviour:
   <AssetPathHash>k__BackingField: 0
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Scale: {x: 0, y: 0, z: 0}
-    IsValid: 0
+    Position: {x: 0, y: 0.5, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    Scale: {x: 1, y: 1, z: 1}
+    IsValid: 1
 --- !u!1 &8128949537990581383
 GameObject:
   m_ObjectHideFlags: 0
@@ -8517,7 +8526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 961338f0e28491c4294fcb062ebea57d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 13
+  _componentIndexCache: 14
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
   itemImages:
@@ -8660,9 +8669,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf146293f24cd154599f8d00c3e35410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 255
+  _componentIndexCache: 16
   _addedNetworkObject: {fileID: 5315229089820142365}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5315229089820142365}
 --- !u!1 &8621638125621574040
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FishNet.Connection;
 using FishNet.Object;
 using UnityEngine;
 
@@ -42,7 +43,7 @@ public class GameOverManager : NetworkBehaviour
         foreach (PlayerRoot player in players)
         {
             
-            if (player.playerState != PlayerStateEnum.Dead)
+            if (player.isAlive.Value)
             {
                 return;
             }
@@ -73,13 +74,11 @@ public class GameOverManager : NetworkBehaviour
     {
         foreach (PlayerRoot player in players)
         {
-            if (player.playerState == PlayerStateEnum.Dead)
+            if (!player.isAlive.Value)
             {
-                player.Revive();
-                Debug.Log("Revived dead player" + player.name);
+                NetworkObject nob = player.GetComponent<NetworkObject>();
+                player.ReviveServer(nob.Owner);
             }
         }
-        
-        Debug.Log($"revived players: {players.Count}");
     }
 }

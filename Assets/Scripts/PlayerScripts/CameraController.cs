@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CameraController : NetworkBehaviour
+public class CameraController : PlayerComponent
 {
     [Header("Camera Settings")]
     [GUIColor("Yellow")]
@@ -25,7 +25,7 @@ public class CameraController : NetworkBehaviour
     private float _pitch;
     private Vector2 _lookInput;
     
-    private PlayerRoot _playerRoot;
+    //private PlayerRoot _playerRoot;
 
     public override void OnStartClient()
     {
@@ -60,31 +60,37 @@ public class CameraController : NetworkBehaviour
         }
     }
     
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         _inputSystem = new InputSystem_Actions();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         
-        _playerRoot = GetComponent<PlayerRoot>();
+        //_playerRoot = GetComponent<PlayerRoot>();
     }
     
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+        
         _inputSystem.Enable();
         _inputSystem.Player.Look.performed += OnLook;
         _inputSystem.Player.Look.canceled += OnLookCancelled;
         _inputSystem.Player.Move.performed += HandleSwitch;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
+        
         _inputSystem.Disable();
         _inputSystem.Player.Look.performed -= OnLook;
         _inputSystem.Player.Look.canceled -= OnLookCancelled;
         _inputSystem.Player.Move.performed -= HandleSwitch;
     }
-
+    
     private void OnDestroy()
     {
         if (CameraHoldersManager.Instance != null)
@@ -99,7 +105,7 @@ public class CameraController : NetworkBehaviour
     
     private void LateUpdate()
     {
-        if (_playerRoot.playerState != PlayerStateEnum.Dead)
+        if (playerRoot.isAlive.Value)
         {
             RotationHandler();
         }
@@ -128,7 +134,7 @@ public class CameraController : NetworkBehaviour
     
     private void HandleSwitch(InputAction.CallbackContext context)
     {
-        if (_playerRoot.playerState != PlayerStateEnum.Dead) return;
+        if (playerRoot.isAlive.Value) return;
         
         Vector2 input = context.ReadValue<Vector2>();
         

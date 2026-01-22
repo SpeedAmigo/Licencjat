@@ -16,7 +16,8 @@ public abstract class PlayerComponent : NetworkBehaviour
         if (playerRoot == null || playerRoot.oxygen == null) return;
         
         playerRoot.oxygen.OnDieEvent += DeathHandle;
-        playerRoot.oxygen.OnReviveEvent += ReviveHandle;
+        //playerRoot.oxygen.OnReviveEvent += ReviveHandle;
+        playerRoot.OnReviveEvent += ReviveHandle;
     }
 
     protected virtual void OnDisable()
@@ -24,9 +25,10 @@ public abstract class PlayerComponent : NetworkBehaviour
         if (playerRoot == null || playerRoot.oxygen == null) return;
         
         playerRoot.oxygen.OnDieEvent -= DeathHandle;
-        playerRoot.oxygen.OnReviveEvent -= ReviveHandle;
+        //playerRoot.oxygen.OnReviveEvent -= ReviveHandle;
+        playerRoot.OnReviveEvent -= ReviveHandle;
     }
     
-    protected abstract void DeathHandle();
-    protected abstract void ReviveHandle();
+    protected virtual void DeathHandle() {}
+    protected virtual void ReviveHandle() {}
 }

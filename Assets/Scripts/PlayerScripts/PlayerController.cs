@@ -136,7 +136,6 @@ public class PlayerController : PlayerComponent
         
         _currentMove = new Vector3(horizontalCurrent.x, _velocity.y, horizontalCurrent.z);
         
-        //_controller.Move(move * _moveSpeed * Time.deltaTime);
         _controller.Move(_currentMove * Time.deltaTime);
     }
 
@@ -144,7 +143,6 @@ public class PlayerController : PlayerComponent
     {
         bool sprintKey = _inputSystem.Player.Sprint.IsPressed();
         bool isMoving = _moveInput.sqrMagnitude > 0.01f;
-        //_isSprinting = _inputSystem.Player.Sprint.IsPressed();
 
         if (sprintKey && isMoving && currentStamina > 0) // if key is pressed
         {
@@ -174,23 +172,14 @@ public class PlayerController : PlayerComponent
             }
         }
     }
-
-    protected override void DeathHandle()
-    {
-        enabled = false;
-    }
-
-    protected override void ReviveHandle()
-    {
-        enabled = true;
-    }
-
+    
     private void Update()
     {
         isGrounded = _controller.isGrounded;
         
         if (IsOwner)
         {
+            if (!playerRoot.isAlive.Value) return;
             MoveHandler();
             OnSprint();
             OnCurrentStamina?.Invoke(currentStamina);

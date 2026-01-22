@@ -1,31 +1,47 @@
+using System;
+using FishNet.CodeGenerating;
 using FishNet.Component.Spawning;
+using FishNet.Connection;
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using UnityEngine;
 
 public class PlayerRoot : NetworkBehaviour, IPlayer
 {
-    [Header("Player State")]
-    public PlayerStateEnum playerState;
-    public OxygenScript oxygen;
+    public event Action OnReviveEvent;
     
+    [Header("Player State")]
+    [AllowMutableSyncType] public SyncVar<bool> isAlive;
+    
+    [HideInInspector] public OxygenScript oxygen;
     private PlayerInventoryScript _playerInventory;
-    private Transform _initialPosition;
+    
+    private Vector3 _spawnPosition;
+    private Quaternion _spawnRotation;
     
     public override void OnStartClient()
     {
         base.OnStartClient();
 
-        _initialPosition = gameObject.transform;
-        
-        playerState = PlayerStateEnum.Alive;
+        _spawnPosition = transform.position;
+        _spawnRotation = transform.rotation;
+
+        if (IsOwner)
+        {
+            SetPlayerAlive(true);
+        }
         
         _playerInventory = gameObject.GetComponent<PlayerInventoryScript>();
-        //oxygen = gameObject.GetComponent<OxygenScript>();
 
         oxygen.OnDieEvent += Die;
-        oxygen.OnReviveEvent += Revive;
         
         Invoke(nameof(RegisterPlayer), 2f);
+    }
+
+    [ServerRpc(RequireOwnership = true)]
+    private void SetPlayerAlive(bool value)
+    {
+        isAlive.Value = value;
     }
 
     private void RegisterPlayer()
@@ -61,21 +77,30 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         _playerInventory.RequestRemoveItem(item, _playerInventory);
     }
 
-    public void Die()
+    private void Die()
     {
-        if (playerState == PlayerStateEnum.Dead) return;
+        if (!IsOwner || !isAlive.Value) return;
         
-        playerState = PlayerStateEnum.Dead;
+        SetPlayerAlive(false);
         GameOverManager.Instance.ComparePlayersState();
     }
-
-    public void Revive()
+    
+    [Server]
+    public void ReviveServer(NetworkConnection conn)
     {
-        Debug.Log("Revive");
-        playerState = PlayerStateEnum.Alive;
-        oxygen.CurrentOxygen = oxygen.MaxOxygen;
+        ReviveClient(conn, _spawnPosition, _spawnRotation, oxygen.MaxOxygen);
+    }
+
+    [TargetRpc]
+    private void ReviveClient(NetworkConnection conn, Vector3 pos, Quaternion rot, float maxOxygen)
+    {
+        SetPlayerAlive(true);
         
-        gameObject.transform.position = _initialPosition.position;
-        gameObject.transform.rotation = _initialPosition.rotation;
+        oxygen.CurrentOxygen = maxOxygen;
+        oxygen.DrainRate = oxygen.BaseDrainRate;
+        
+        transform.SetPositionAndRotation(pos, rot);
+        
+        OnReviveEvent?.Invoke();
     }
 }
