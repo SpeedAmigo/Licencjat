@@ -1,0 +1,234 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9026276409647729736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SpaceshipLand
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SpaceshipLand
+  Guid:
+    Data1: -299868094
+    Data2: 1075202661
+    Data3: 892327560
+    Data4: 970636567
+  Banks:
+  - {fileID: 3403838664345754919}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1545
+--- !u!114 &-7537461855086343966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Footsteps
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Footsteps
+  Guid:
+    Data1: 1556764666
+    Data2: 1160624724
+    Data3: -476022097
+    Data4: -1797186193
+  Banks:
+  - {fileID: 7604561571300198704}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -850412215751220117}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 547
+--- !u!114 &-850412215751220117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/FootstepParameter
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorParamRef
+  Name: FootstepParameter
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 1
+  ID:
+    data1: 1957864552
+    data2: 3937731632
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Dirt
+  - Metal
+  Exists: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EventCache
+  EditorBanks:
+  - {fileID: 1196096207332177434}
+  - {fileID: 3403838664345754919}
+  - {fileID: 7604561571300198704}
+  EditorEvents:
+  - {fileID: -7537461855086343966}
+  - {fileID: 6234986853418234504}
+  - {fileID: -9026276409647729736}
+  - {fileID: 2481125292775977005}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: 3403838664345754919}
+  StringsBanks:
+  - {fileID: 1196096207332177434}
+  cacheVersion: 131857
+  cacheTime: 639020440182782809
+  SerializableEventsDict:
+  - key: event:/Footsteps
+    index: 0
+  - key: event:/MapAmbient
+    index: 1
+  - key: event:/SpaceshipLand
+    index: 2
+  - key: event:/SpaceshipAmb
+    index: 3
+--- !u!114 &1196096207332177434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: LicencjatSounds/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 639020440182782809
+  FileSizes:
+  - Name: Desktop
+    Value: 1018
+  Exists: 1
+--- !u!114 &2481125292775977005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SpaceshipAmb
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SpaceshipAmb
+  Guid:
+    Data1: 2141892038
+    Data2: 1295634937
+    Data3: 91688867
+    Data4: -420724681
+  Banks:
+  - {fileID: 3403838664345754919}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5403
+--- !u!114 &3403838664345754919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: LicencjatSounds/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 639020440182782809
+  FileSizes:
+  - Name: Desktop
+    Value: 941984
+  Exists: 1
+--- !u!114 &6234986853418234504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/MapAmbient
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/MapAmbient
+  Guid:
+    Data1: -1935347080
+    Data2: 1248360201
+    Data3: 1125152649
+    Data4: 2045826607
+  Banks:
+  - {fileID: 3403838664345754919}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 70000
+--- !u!114 &7604561571300198704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/SFX.bank
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorBankRef
+  Path: LicencjatSounds/Build/Desktop/SFX.bank
+  Name: SFX
+  StudioPath: bank:/SFX
+  lastModified: 639020440182782809
+  FileSizes:
+  - Name: Desktop
+    Value: 112640
+  Exists: 1

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{fd0fcdb3-f3fb-4f43-abeb-f5ecc85b3b7b}">
+		<property name="assetPath">
+			<value>SpaceshipLand/JET_ENGINE_Afterburner_07_loop_mono.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>1.5451700680272109</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a3131740-b25f-416f-ae19-b10c75d01189}</destination>
+		</relationship>
+	</object>
+</objects>
