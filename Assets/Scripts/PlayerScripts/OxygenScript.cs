@@ -1,6 +1,7 @@
 using System;
 using Commands;
 using FishNet.CodeGenerating;
+using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using UnityEngine;
@@ -80,7 +81,7 @@ public class OxygenScript : NetworkBehaviour
         }
         
         currentOxygen.Value = value;
-        OnCurrentStaminaEvent?.Invoke(currentOxygen.Value);
+        UpdateCurrentStaminaTarget(Owner, currentOxygen.Value);
     }
 
     [Command("CanDrainOxygen", "Set if oxygen can be drained.")]
@@ -89,14 +90,15 @@ public class OxygenScript : NetworkBehaviour
     {
         canDrainOxygen.Value = value;
     }
-
+    
     [Command("SetDrainRate", "Sets the current drain rate of oxygen.")]
     [ServerRpc(RequireOwnership = false)]
     public void SetDrainRate(float value)
     {
         drainRate.Value = value;
+        UpdateDrainRate(Owner, drainRate.Value);
     }
-
+    
     #endregion
     
     public override void OnStartServer()
@@ -116,9 +118,12 @@ public class OxygenScript : NetworkBehaviour
     {
         base.OnStartClient();
         
-        //OnMaxStaminaEvent?.Invoke(maxOxygen.Value);
-        //OnCurrentStaminaEvent?.Invoke(currentOxygen.Value);
-        //CommandsManager.Instance.RegisterInstance(this);
+        InitialOxygenValues();
+    }
+
+    private void Start()
+    {
+        CommandsManager.Instance.RegisterInstance(this);
     }
 
     private void Tick()
@@ -128,21 +133,52 @@ public class OxygenScript : NetworkBehaviour
         if (!canDrainOxygen.Value) return;
         
         currentOxygen.Value -= drainRate.Value * (float)TimeManager.TickDelta;
-        //OnCurrentStaminaEvent?.Invoke(currentOxygen.Value);
-
+        UpdateCurrentStaminaTarget(Owner, currentOxygen.Value);
+        
         if (currentOxygen.Value <= 0f)
         {
             currentOxygen.Value = 0;
             _hasOxygen = false;
-            Debug.Log("You run out of oxygen!");
-            OnDieEvent?.Invoke();
+            TargetDie(Owner);
         }
         
         if (!Mathf.Approximately(drainRate.Value, _lastDrainRate))
         {
-            OnDrainRateEvent?.Invoke(drainRate.Value);
+            UpdateDrainRate(Owner, drainRate.Value);
             _lastDrainRate = drainRate.Value;
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void InitialOxygenValues()
+    {
+        UpdateMaxStaminaTarget(Owner, maxOxygen.Value);
+        UpdateCurrentStaminaTarget(Owner, currentOxygen.Value);
+    }
+
+    [TargetRpc]
+    private void UpdateCurrentStaminaTarget(NetworkConnection conn, float value)
+    {
+        OnCurrentStaminaEvent?.Invoke(value);
+    }
+
+    [TargetRpc]
+    private void UpdateDrainRate(NetworkConnection conn, float value)
+    {
+        OnDrainRateEvent?.Invoke(value);
+    }
+
+    [TargetRpc]
+    private void UpdateMaxStaminaTarget(NetworkConnection conn, float value)
+    {
+        OnMaxStaminaEvent?.Invoke(value);
+    }
+
+    [TargetRpc]
+    private void TargetDie(NetworkConnection conn)
+    {
+        Debug.Log("You run out of oxygen!");
+        OnDieEvent?.Invoke();
     }
     
     private void OnTriggerEnter(Collider other)

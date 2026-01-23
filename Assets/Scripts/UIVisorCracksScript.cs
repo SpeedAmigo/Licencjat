@@ -2,7 +2,7 @@ using System;
 using FishNet.Object;
 using UnityEngine;
 
-public class UIVisorCracksScript : NetworkBehaviour
+public class UIVisorCracksScript : MonoBehaviour
 {
     [SerializeField] private DamageTemplate[] damageTemplates;
 
@@ -18,8 +18,6 @@ public class UIVisorCracksScript : NetworkBehaviour
     
     private void UpdateCracks(float drainRate)
     {
-        if (!IsOwner) return;
-        
         foreach (var template in damageTemplates)
         {
             bool active = drainRate >= template.drainRate;

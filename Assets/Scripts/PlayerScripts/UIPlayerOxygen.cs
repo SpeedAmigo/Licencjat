@@ -2,7 +2,7 @@ using FishNet.Object;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIPlayerOxygen : NetworkBehaviour
+public class UIPlayerOxygen : MonoBehaviour
 {
     private Slider _oxygenSlider;
 
@@ -13,13 +13,11 @@ public class UIPlayerOxygen : NetworkBehaviour
 
     private void SetMaxOxygen(float maxOxygen)
     {
-        if (!IsOwner) return;
         _oxygenSlider.maxValue = maxOxygen;
     }
 
     private void SetCurrentOxygen(float currentOxygen)
     {
-        if (!IsOwner) return;
         _oxygenSlider.value = currentOxygen;
     }
 
