@@ -255,6 +255,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4262062803223249123}
+  - component: {fileID: 3704577424293614496}
   m_Layer: 0
   m_Name: VisorDamage
   m_TagString: Untagged
@@ -286,6 +287,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3704577424293614496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236535977435847240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e77cd3fdf49c8b84c805ac9537d9adc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIVisorCracksScript
+  damageTemplates:
+  - drainRate: 20
+    cracksToActivate:
+    - {fileID: 3698401703432347227}
+  - drainRate: 30
+    cracksToActivate:
+    - {fileID: 3626226710395959952}
+  - drainRate: 40
+    cracksToActivate:
+    - {fileID: 5224818306007774683}
+  - drainRate: 50
+    cracksToActivate:
+    - {fileID: 5928835496401934168}
+  - drainRate: 60
+    cracksToActivate:
+    - {fileID: 5201923499622053259}
 --- !u!1 &418265168632142412
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,26 +625,10 @@ MonoBehaviour:
   _componentIndexCache: 6
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
+  canDrainOxygen: 1
   stopOxygenDrainingLayers:
     serializedVersion: 2
     m_Bits: 512
-  damageTemplates:
-  - drainRate: 20
-    cracksToActivate:
-    - {fileID: 3698401703432347227}
-  - drainRate: 30
-    cracksToActivate:
-    - {fileID: 3626226710395959952}
-  - drainRate: 40
-    cracksToActivate:
-    - {fileID: 5224818306007774683}
-  - drainRate: 50
-    cracksToActivate:
-    - {fileID: 5928835496401934168}
-  - drainRate: 60
-    cracksToActivate:
-    - {fileID: 5201923499622053259}
-  canDrainOxygen: 1
   maxOxygen: 3000
   currentOxygen: 0
   baseDrainRate: 10

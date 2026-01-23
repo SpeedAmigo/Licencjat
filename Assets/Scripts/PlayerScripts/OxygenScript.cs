@@ -8,13 +8,12 @@ public class OxygenScript : NetworkBehaviour
 {
     public static event Action<float> OnMaxStaminaEvent;
     public static event Action<float> OnCurrentStaminaEvent;
+    public static event Action<float> OnDrainRateEvent;
     public event Action OnDieEvent;
-    //public event Action OnReviveEvent;
+    
+    public bool canDrainOxygen = true;
 
     [SerializeField] private LayerMask stopOxygenDrainingLayers;
-    [SerializeField] private DamageTemplate[] damageTemplates;
-
-    public bool canDrainOxygen = true;
     
     [SerializeField] private float maxOxygen;
     [SerializeField] private float currentOxygen;
@@ -27,13 +26,21 @@ public class OxygenScript : NetworkBehaviour
     public float CurrentOxygen
     {
         get => currentOxygen;
-        set => currentOxygen = value;
+        set
+        {
+            currentOxygen = value;
+            OnCurrentStaminaEvent?.Invoke(currentOxygen);
+        }
     }
 
     public float DrainRate
     {
         get => drainRate;
-        set => drainRate = value;
+        set
+        {
+            drainRate = value;
+            OnDrainRateEvent?.Invoke(drainRate);
+        }
     }
     public float BaseDrainRate => baseDrainRate;
 
@@ -76,23 +83,11 @@ public class OxygenScript : NetworkBehaviour
 
         if (!Mathf.Approximately(drainRate, _lastDrainRate))
         {
-            UpdateCracks();
+            OnDrainRateEvent?.Invoke(drainRate);
             _lastDrainRate = drainRate;
         }
     }
-
-    private void UpdateCracks()
-    {
-        foreach (var template in damageTemplates)
-        {
-            bool active = drainRate >= template.drainRate;
-            foreach (var crack in template.cracksToActivate)
-            {
-                crack.SetActive(active);
-            }
-        }
-    }
-
+    
     private void OnTriggerEnter(Collider other)
     {
         if (IsLayerInMask(other.gameObject.layer, stopOxygenDrainingLayers))
@@ -143,11 +138,4 @@ public class OxygenScript : NetworkBehaviour
     {
         drainRate = value;
     }
-}
-
-[Serializable]
-public class DamageTemplate
-{
-    public float drainRate;
-    public GameObject[] cracksToActivate;
 }
