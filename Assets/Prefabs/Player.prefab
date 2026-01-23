@@ -299,6 +299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77cd3fdf49c8b84c805ac9537d9adc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIVisorCracksScript
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 5315229089820142365}
+  _networkObjectCache: {fileID: 0}
   damageTemplates:
   - drainRate: 20
     cracksToActivate:
@@ -625,14 +628,29 @@ MonoBehaviour:
   _componentIndexCache: 6
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 5315229089820142365}
-  canDrainOxygen: 1
+  canDrainOxygen:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
+  maxOxygen:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 3000
+  currentOxygen:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
+  baseDrainRate:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 10
+  drainRate:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 10
   stopOxygenDrainingLayers:
     serializedVersion: 2
     m_Bits: 512
-  maxOxygen: 3000
-  currentOxygen: 0
-  baseDrainRate: 10
-  drainRate: 10
 --- !u!143 &714776938958965697
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3182,6 +3200,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c3b64cc5d3eb143b207bc26cb15a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 5315229089820142365}
+  _networkObjectCache: {fileID: 0}
 --- !u!1 &3106582124151469952
 GameObject:
   m_ObjectHideFlags: 0

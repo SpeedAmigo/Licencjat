@@ -1,3 +1,4 @@
+using FishNet.Object;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,6 @@ public class UIPlayerOxygen : MonoBehaviour
 
     private void SetMaxOxygen(float maxOxygen)
     {
-        Debug.Log("Max Oxygen: " + maxOxygen);
         _oxygenSlider.maxValue = maxOxygen;
     }
 

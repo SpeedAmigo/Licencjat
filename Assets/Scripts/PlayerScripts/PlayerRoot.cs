@@ -52,8 +52,8 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
 
     public void TakeDamage(float damage)
     {
-        oxygen.DrainRate += damage;
-        TakeDamageClient(oxygen.DrainRate);
+        oxygen.drainRate.Value += damage;
+        //TakeDamageClient(oxygen.drainRate.Value);
     }
 
     [ObserversRpc(BufferLast = true)]
