@@ -1,90 +1,147 @@
 using System;
 using Commands;
+using FishNet.CodeGenerating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using UnityEngine;
 
 public class OxygenScript : NetworkBehaviour
 {
+    #region Events
     public static event Action<float> OnMaxStaminaEvent;
     public static event Action<float> OnCurrentStaminaEvent;
     public static event Action<float> OnDrainRateEvent;
     public event Action OnDieEvent;
     
-    public bool canDrainOxygen = true;
+    #endregion
 
+    #region SyncVars
+    
+    [AllowMutableSyncType] public SyncVar<bool> canDrainOxygen;
+    
+    [AllowMutableSyncType] public SyncVar<float> maxOxygen;
+    [AllowMutableSyncType] public SyncVar<float> currentOxygen;
+    
+    [AllowMutableSyncType] public SyncVar<float> baseDrainRate;
+    [AllowMutableSyncType] public SyncVar<float> drainRate;
+    
+    #endregion
+    
+    #region Variables
+    
     [SerializeField] private LayerMask stopOxygenDrainingLayers;
     
-    [SerializeField] private float maxOxygen;
-    [SerializeField] private float currentOxygen;
+    private bool _hasOxygen;
+    private int _safeZoneCount = 0;
+    private float _lastDrainRate = -1f;
     
-    [SerializeField] private float baseDrainRate;
-    [SerializeField] private float drainRate;
-
-    public float MaxOxygen => maxOxygen;
+    #endregion
+    
+    #region Getters/Setters
+    
+    public float MaxOxygen => maxOxygen.Value;
 
     public float CurrentOxygen
     {
-        get => currentOxygen;
+        get => currentOxygen.Value;
         set
         {
-            currentOxygen = value;
-            OnCurrentStaminaEvent?.Invoke(currentOxygen);
+            currentOxygen.Value = value;
+            OnCurrentStaminaEvent?.Invoke(currentOxygen.Value);
         }
     }
 
     public float DrainRate
     {
-        get => drainRate;
+        get => drainRate.Value;
         set
         {
-            drainRate = value;
-            OnDrainRateEvent?.Invoke(drainRate);
+            drainRate.Value = value;
+            OnDrainRateEvent?.Invoke(drainRate.Value);
         }
     }
-    public float BaseDrainRate => baseDrainRate;
-
-    private bool _hasOxygen;
-    private int _safeZoneCount = 0;
-    private float _lastDrainRate = -1f;
+    public float BaseDrainRate => baseDrainRate.Value;
     
-    private void Awake()
+    #endregion
+
+    #region Commands
+
+    [Command("SetCurrentOxygen", "Sets the current amount of oxygen.")]
+    [ServerRpc(RequireOwnership = false)]
+    public void SetOxygen(float value)
     {
-        currentOxygen = maxOxygen;
+        if (value > maxOxygen.Value)
+        {
+            currentOxygen.Value = maxOxygen.Value;
+        }
+        else if (value < 0)
+        {
+            currentOxygen.Value = 0;
+        }
+        
+        currentOxygen.Value = value;
+        OnCurrentStaminaEvent?.Invoke(currentOxygen.Value);
+    }
+
+    [Command("CanDrainOxygen", "Set if oxygen can be drained.")]
+    [ServerRpc(RequireOwnership = false)]
+    public void CanDrainOxygen(bool value)
+    {
+        canDrainOxygen.Value = value;
+    }
+
+    [Command("SetDrainRate", "Sets the current drain rate of oxygen.")]
+    [ServerRpc(RequireOwnership = false)]
+    public void SetDrainRate(float value)
+    {
+        drainRate.Value = value;
+    }
+
+    #endregion
+    
+    public override void OnStartServer()
+    {
+        currentOxygen.Value = maxOxygen.Value;
         _hasOxygen = true;
+        
+        TimeManager.OnTick += Tick;
     }
 
-    private void Start()
+    public override void OnStopServer()
     {
-        OnMaxStaminaEvent?.Invoke(maxOxygen);
-        OnCurrentStaminaEvent?.Invoke(currentOxygen);
-        
-        CommandsManager.Instance.RegisterInstance(this);
+        TimeManager.OnTick -= Tick;
     }
-    
-    private void Update()
+
+    public override void OnStartClient()
     {
-        if (!IsOwner) return;
+        base.OnStartClient();
         
+        //OnMaxStaminaEvent?.Invoke(maxOxygen.Value);
+        //OnCurrentStaminaEvent?.Invoke(currentOxygen.Value);
+        //CommandsManager.Instance.RegisterInstance(this);
+    }
+
+    private void Tick()
+    {
+        //if (!IsOwner) return;
         if (!_hasOxygen) return;
+        if (!canDrainOxygen.Value) return;
         
-        if (currentOxygen > 0 && canDrainOxygen)
+        currentOxygen.Value -= drainRate.Value * (float)TimeManager.TickDelta;
+        //OnCurrentStaminaEvent?.Invoke(currentOxygen.Value);
+
+        if (currentOxygen.Value <= 0f)
         {
-            currentOxygen -= drainRate * Time.deltaTime;
-            OnCurrentStaminaEvent?.Invoke(currentOxygen);
-        }
-        else if (currentOxygen <= 0)
-        {
+            currentOxygen.Value = 0;
             _hasOxygen = false;
-            currentOxygen = 0;
             Debug.Log("You run out of oxygen!");
             OnDieEvent?.Invoke();
         }
-
-        if (!Mathf.Approximately(drainRate, _lastDrainRate))
+        
+        if (!Mathf.Approximately(drainRate.Value, _lastDrainRate))
         {
-            OnDrainRateEvent?.Invoke(drainRate);
-            _lastDrainRate = drainRate;
+            OnDrainRateEvent?.Invoke(drainRate.Value);
+            _lastDrainRate = drainRate.Value;
         }
     }
     
@@ -93,7 +150,7 @@ public class OxygenScript : NetworkBehaviour
         if (IsLayerInMask(other.gameObject.layer, stopOxygenDrainingLayers))
         {
             _safeZoneCount++;
-            canDrainOxygen = false;
+            SetCanDrainOxygen(false);
         }
     }
     
@@ -102,40 +159,18 @@ public class OxygenScript : NetworkBehaviour
         if (IsLayerInMask(other.gameObject.layer, stopOxygenDrainingLayers))
         {
             _safeZoneCount--;
-            canDrainOxygen = _safeZoneCount <= 0;
+            SetCanDrainOxygen(_safeZoneCount <= 0);
         }
+    }
+    
+    [ServerRpc(RequireOwnership = false)]
+    private void SetCanDrainOxygen(bool value)
+    {
+        canDrainOxygen.Value = value;
     }
 
     private bool IsLayerInMask(int layer, LayerMask mask)
     {
         return (mask.value & (1 << layer)) != 0;
-    }
-
-    [Command("SetCurrentOxygen", "Sets the current amount of oxygen.")]
-    public void SetOxygen(float value)
-    {
-        if (value > maxOxygen)
-        {
-            currentOxygen = maxOxygen;
-        }
-        else if (value < 0)
-        {
-            currentOxygen = 0;
-        }
-        
-        currentOxygen = value;
-        OnCurrentStaminaEvent?.Invoke(currentOxygen);
-    }
-
-    [Command("CanDrainOxygen", "Set if oxygen can be drained.")]
-    public void CanDrainOxygen(bool value)
-    {
-        canDrainOxygen = value;
-    }
-
-    [Command("SetDrainRate", "Sets the current drain rate of oxygen.")]
-    public void SetDrainRate(float value)
-    {
-        drainRate = value;
     }
 }
