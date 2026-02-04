@@ -13,6 +13,7 @@ public class PauseMenuScript : NetworkBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private CameraController cameraController;
     [SerializeField] private Button invitationButton;
+    [SerializeField] private GameObject[] uiToHide;
     
     [Header("Game Over Screen Dependencies")]
     [SerializeField] private GameObject gameOverPanel;
@@ -42,7 +43,7 @@ public class PauseMenuScript : NetworkBehaviour
         SpaceShipConsoleScript.ActivateInvitationButton += EnableInvitationButton;
         GameOverManager.OnGameOverScreen -= ShowGameOverScreen;
     }
-
+    
     private void EnableInvitationButton(bool value)
     {
         invitationButton.interactable = value;
@@ -58,6 +59,12 @@ public class PauseMenuScript : NetworkBehaviour
     private void ShowMenu(bool value)
     {
         pauseMenu.SetActive(value);
+
+        foreach (var ui in uiToHide)
+        {
+            ui.SetActive(!value);
+        }
+        
         if (value)
         {
             Cursor.lockState = CursorLockMode.None;
@@ -66,8 +73,8 @@ public class PauseMenuScript : NetworkBehaviour
         }
         else
         {
-            Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
             cameraController.enabled = true;
         }
     }
@@ -87,8 +94,10 @@ public class PauseMenuScript : NetworkBehaviour
         
         if (IsClientInitialized && !IsServerInitialized)
         {
-            ConnectionManager.Instance?.StopConnection();
-            networkManager.StopConnection();
+            /*ConnectionManager.Instance?.StopConnection();
+            networkManager.StopConnection();*/
+            
+            RequestClientExit(Owner);
             UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
             return;
         }
@@ -100,6 +109,18 @@ public class PauseMenuScript : NetworkBehaviour
             networkManager.StopConnection();
             UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RequestClientExit(NetworkConnection conn)
+    {
+        ClientExit(conn);
+    }
+    
+    [TargetRpc]
+    private void ClientExit(NetworkConnection conn)
+    {
+        conn.Disconnect(true);
     }
 
     public void OnInviteFriendsButton()
@@ -136,6 +157,7 @@ public class PauseMenuScript : NetworkBehaviour
         if (!IsOwner)
         {
             enabled = false;
+            gameObject.SetActive(false);
         }
     }
     
