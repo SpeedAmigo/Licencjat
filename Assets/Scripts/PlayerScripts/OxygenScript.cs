@@ -40,18 +40,6 @@ public class OxygenScript : NetworkBehaviour
     
     #region Getters/Setters
     
-    public float MaxOxygen => maxOxygen.Value;
-
-    public float CurrentOxygen
-    {
-        get => currentOxygen.Value;
-        set
-        {
-            currentOxygen.Value = value;
-            OnCurrentStaminaEvent?.Invoke(currentOxygen.Value);
-        }
-    }
-
     public float DrainRate
     {
         get => drainRate.Value;
@@ -157,7 +145,7 @@ public class OxygenScript : NetworkBehaviour
     }
 
     [TargetRpc]
-    private void UpdateCurrentStaminaTarget(NetworkConnection conn, float value)
+    public void UpdateCurrentStaminaTarget(NetworkConnection conn, float value)
     {
         OnCurrentStaminaEvent?.Invoke(value);
     }

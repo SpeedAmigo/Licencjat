@@ -301,6 +301,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77cd3fdf49c8b84c805ac9537d9adc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIVisorCracksScript
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 5315229089820142365}
+  _networkObjectCache: {fileID: 0}
+  playerRoot: {fileID: 5490220529141808098}
   damageTemplates:
   - drainRate: 20
     cracksToActivate:

@@ -88,19 +88,27 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
     [Server]
     public void ReviveServer(NetworkConnection conn)
     {
-        ReviveClient(conn, _spawnPosition, _spawnRotation, oxygen.MaxOxygen);
+        ReviveClient(conn, _spawnPosition, _spawnRotation);
     }
 
     [TargetRpc]
-    private void ReviveClient(NetworkConnection conn, Vector3 pos, Quaternion rot, float maxOxygen)
+    private void ReviveClient(NetworkConnection conn, Vector3 pos, Quaternion rot)
     {
         SetPlayerAlive(true);
         
-        oxygen.CurrentOxygen = maxOxygen;
-        oxygen.DrainRate = oxygen.BaseDrainRate;
+        ChangeOxygenOnRevive(oxygen.maxOxygen.Value, oxygen.baseDrainRate.Value);
         
         transform.SetPositionAndRotation(pos, rot);
         
         OnReviveEvent?.Invoke();
+    }
+
+    [ServerRpc]
+    private void ChangeOxygenOnRevive(float maxOxygen, float baseDrainRate)
+    {
+        oxygen.canDrainOxygen.Value = false;
+        oxygen.currentOxygen.Value = maxOxygen;
+        oxygen.drainRate.Value = baseDrainRate;
+        oxygen.UpdateCurrentStaminaTarget(Owner, maxOxygen);
     }
 }

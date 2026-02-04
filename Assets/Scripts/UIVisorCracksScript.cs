@@ -2,22 +2,27 @@ using System;
 using FishNet.Object;
 using UnityEngine;
 
-public class UIVisorCracksScript : MonoBehaviour
+public class UIVisorCracksScript : PlayerComponent
 {
     [SerializeField] private DamageTemplate[] damageTemplates;
-
-    private void OnEnable()
+    
+    protected override void OnEnable()
     {
+        base.OnEnable();
         OxygenScript.OnDrainRateEvent += UpdateCracks;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         OxygenScript.OnDrainRateEvent -= UpdateCracks;
     }
     
     private void UpdateCracks(float drainRate)
     {
+        if (!IsOwner) return;
+        if (!playerRoot.isAlive.Value) return;
+        
         foreach (var template in damageTemplates)
         {
             bool active = drainRate >= template.drainRate;
@@ -26,6 +31,22 @@ public class UIVisorCracksScript : MonoBehaviour
                 crack.SetActive(active);
             }
         }
+    }
+
+    protected override void DeathHandle()
+    {
+        foreach (var template in damageTemplates)
+        {
+            foreach (var crack in template.cracksToActivate)
+            {
+                crack.SetActive(false);
+            }
+        }
+    }
+
+    protected override void ReviveHandle()
+    {
+        
     }
 }
 
