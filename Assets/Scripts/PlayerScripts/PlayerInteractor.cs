@@ -1,3 +1,4 @@
+using System;
 using FishNet.Object;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -6,6 +7,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteractor : PlayerComponent
 {
+    public static event Action<int> OnObjectDetection; 
+    public static event Action OnObjectUnDetection; 
+    
     [Header("Item Holders")]
     [GUIColor("Red")]
     [SerializeField] private NetworkObject fpItemHolder;
@@ -22,6 +26,9 @@ public class PlayerInteractor : PlayerComponent
     
     private bool _primaryHold;
     private bool _secondaryHold;
+
+    private RaycastHit _hit;
+    private bool _hasValidTarget;
 
     public override void OnStartClient()
     {
@@ -79,7 +86,7 @@ public class PlayerInteractor : PlayerComponent
     {
         if (!IsOwner) return;
         if (!playerRoot.isAlive.Value) return;
-
+        
         if (_primaryHold)
         {
             OnPrimaryHold();
@@ -89,6 +96,37 @@ public class PlayerInteractor : PlayerComponent
         {
             OnSecondaryHold();
         }
+        
+        DetectTarget();
+    }
+    
+    private void DetectTarget()
+    {
+        bool found = false;
+
+        if (Physics.Raycast(
+                _camera.ScreenPointToRay(Mouse.current.position.ReadValue()),
+                out _hit,
+                interactionDistance))
+        {
+            if (_hit.collider.TryGetComponent<ObjectPickable>(out _))
+            {
+                OnObjectDetection?.Invoke(0);
+                found = true;
+            }
+            else if (_hit.collider.TryGetComponent<IInteractable>(out _))
+            {
+                OnObjectDetection?.Invoke(1);
+                found = true;
+            }
+        }
+
+        if (!found && _hasValidTarget)
+        {
+            OnObjectUnDetection?.Invoke();
+        }
+
+        _hasValidTarget = found;
     }
 
     private void OnPrimaryPerformed(InputAction.CallbackContext context)
