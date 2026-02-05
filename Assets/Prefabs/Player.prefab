@@ -9082,6 +9082,10 @@ MonoBehaviour:
   - {fileID: 584990348487275169}
   - {fileID: 7813052143221335536}
   - {fileID: 0}
+  slotFrames:
+  - {fileID: 4419611480108260138}
+  - {fileID: 8271672247508704737}
+  - {fileID: 9118462276635294064}
 --- !u!1 &8432709022365441648
 GameObject:
   m_ObjectHideFlags: 0

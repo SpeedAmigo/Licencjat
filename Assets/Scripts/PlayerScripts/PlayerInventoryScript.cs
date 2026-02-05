@@ -12,6 +12,8 @@ public class PlayerInventoryScript : PlayerComponent
 {
     public static event Action<int, Sprite> OnUIUpdateAdd;
     public static event Action<int> OnUIUpdateRemove;
+
+    public static event Action<int> OnUIFrameUpdate;
     
     [Header("Hand Rigs")]
     [GUIColor("Red")]
@@ -113,8 +115,11 @@ public class PlayerInventoryScript : PlayerComponent
     
     private void OnDrawCurrentItem(int index)
     {
-        if (currentItem.Value != null && currentItem.Value.isBig) return;
         if (!playerRoot.isAlive.Value) return;
+        
+        if (currentItem.Value != null && currentItem.Value.isBig) return;
+        
+        OnUIFrameUpdate?.Invoke(index);
         
         OnDrawCurrentItem_Server(index);
     }
