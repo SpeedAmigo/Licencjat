@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Heathen.SteamworksIntegration;
 using Heathen.SteamworksIntegration.API;
 using TMPro;
@@ -15,7 +17,7 @@ public class ConnectionManager : MonoBehaviour
     [SerializeField] private LobbyManager lobbyManager;
     [SerializeField] private LobbyManager overlayManager;
     
-    //private string _lobbyData;
+    [SerializeField] private Animator transitionAnimator;
     
     private void Awake()
     {
@@ -27,9 +29,6 @@ public class ConnectionManager : MonoBehaviour
         
         DontDestroyOnLoad(this);
         
-        //lobbyManager.evtCreated.AddListener(OnLobbyCreated);
-        //lobbyManager.evtEnterSuccess.AddListener(StartConnection);
-        
         Overlay.Client.EventGameLobbyJoinRequested.AddListener(JoinLobby);
         lobbyManager.evtEnterSuccess.AddListener(OnLobbyEntered);
     }
@@ -37,28 +36,6 @@ public class ConnectionManager : MonoBehaviour
     private void JoinLobby(LobbyData lobbyData, UserData userData)
     {
         lobbyManager.Join(lobbyData);
-
-        //var currentPlayers = lobbyManager.Lobby.MemberCount;
-        //var maxPlayers = lobbyManager.Lobby.MaxMembers;
-        
-        /*if (lobbyManager.Lobby.Full)
-        {
-            Debug.Log("Game is full");
-            lobbyManager.Leave();
-            return;
-        }*/
-        
-        
-        /*if (!userData.IsValid)
-        {
-            Debug.LogError("hostUser is not valid");
-            return;
-        }
-        
-        fishySteamworks.SetClientAddress(userData.id.ToString());
-        fishySteamworks.StartConnection(false);
-        
-        SceneManager.LoadScene(sceneName);*/
     }
 
     private void OnLobbyEntered(LobbyData lobbyData)
@@ -80,59 +57,61 @@ public class ConnectionManager : MonoBehaviour
             return;
         }
         
-        fishySteamworks.SetClientAddress(hostUser.id.ToString());
-        fishySteamworks.StartConnection(false);
+        /*fishySteamworks.SetClientAddress(hostUser.id.ToString());
+        fishySteamworks.StartConnection(false);*/
         
-        SceneManager.LoadScene(sceneName);
+        //SceneManager.LoadScene(sceneName);
+        //SceneManager.LoadSceneAsync(sceneName);
+        StartCoroutine(LoadLevel(false, hostUser.id.ToString()));
     }
-
-    /*private void OnLobbyCreated(LobbyData lobbyData)
-    {
-        _lobbyData = lobbyData.HexId;
-    }*/
     
     public void StartHost()
     {
-        fishySteamworks.StartConnection(true);
-        fishySteamworks.StartConnection(false);
-        
-        SceneManager.LoadScene(sceneName);
+        //SceneManager.LoadScene(sceneName);
+        //SceneManager.LoadSceneAsync(sceneName);
+        StartCoroutine(LoadLevel(true, null));
     }
 
-    /*public void TryJoinLobby()
+    private IEnumerator LoadLevel(bool asServer, string clientData)
     {
-        var lobbyId = inputField.text.Trim();
+        transitionAnimator.gameObject.SetActive(true);
+        transitionAnimator.SetTrigger("End");
         
-        lobbyManager.Join(lobbyId);
-    }*/
+        yield return new WaitForSeconds(1f);
+        
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+        op.allowSceneActivation = false;
 
-    /*private void StartConnection(LobbyData lobbyData) 
-    {
-        var hostHex = lobbyData.Owner.user.HexId;
-        var hostUser = UserData.Get(hostHex);
-
-        if (!hostUser.IsValid)
+        if (asServer)
         {
-            Debug.LogError("hostUser is not valid");
-            return;
+            fishySteamworks.StartConnection(true);
+            fishySteamworks.StartConnection(false);
+        }
+        else
+        {
+            fishySteamworks.SetClientAddress(clientData);
+            fishySteamworks.StartConnection(false);
         }
         
-        fishySteamworks.SetClientAddress(hostUser.id.ToString());
-        fishySteamworks.StartConnection(false);
-        
-        SceneManager.LoadScene(sceneName);
-    }*/
+        while (op.progress < 0.9f)
+            yield return null;
 
+        op.allowSceneActivation = true;
+        
+        yield return new WaitForSeconds(0.1f);
+        
+        transitionAnimator.SetTrigger("Start");
+        
+        yield return new WaitForSeconds(1f);
+        
+        transitionAnimator.gameObject.SetActive(false);
+    }
+    
     public void StopConnection()
     {
         lobbyManager.Leave();
     }
     
-    /*public static string GetHostHex()
-    {
-        return Instance._lobbyData;
-    }*/
-
     public void ExitGame()
     {
         Application.Quit();

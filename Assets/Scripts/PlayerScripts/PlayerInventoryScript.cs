@@ -50,6 +50,8 @@ public class PlayerInventoryScript : PlayerComponent
         base.OnStartClient();
         currentItem.OnChange += HandleCurrentItemChange;
         
+        OnUIFrameUpdate?.Invoke(currentItemIndex);
+        
         if (!IsOwner)
         {
             enabled = false;
