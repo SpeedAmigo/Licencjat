@@ -88,47 +88,40 @@ public class PauseMenuScript : NetworkBehaviour
     {
         if (!IsOwner) return;
         
-        var networkManager = NetworkManager.ClientManager;
-        if (networkManager == null) return;
+        var clientManager = NetworkManager.ClientManager;
+        if (clientManager == null) return;
         
         
         if (IsClientInitialized && !IsServerInitialized)
         {
             /*ConnectionManager.Instance?.StopConnection();
             networkManager.StopConnection();*/
+            Debug.Log("Client initialized");
             
-            RequestClientExit(Owner);
+            
+            clientManager.StopConnection();
             UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
             return;
         }
 
         if (IsServerInitialized)
         {
-            DisconnectAllClients(false);
-            ConnectionManager.Instance?.StopConnection();
-            networkManager.StopConnection();
+            Debug.Log("Server initialized");
+            //DisconnectAllClients(false);
+            //ConnectionManager.Instance?.StopConnection();
+            
+            NetworkManager.ServerManager.StopConnection(true);
+            clientManager.StopConnection();
             UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
         }
     }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void RequestClientExit(NetworkConnection conn)
-    {
-        ClientExit(conn);
-    }
     
-    [TargetRpc]
-    private void ClientExit(NetworkConnection conn)
-    {
-        conn.Disconnect(true);
-    }
-
     public void OnInviteFriendsButton()
     {
         Heathen.SteamworksIntegration.API.Overlay.Client.Activate(OverlayDialog.friends);
     }
 
-    public void OnExitButton()
+    /*public void OnExitButton()
     {
         if (!IsOwner) return;
         
@@ -137,7 +130,7 @@ public class PauseMenuScript : NetworkBehaviour
         
         if (IsServerInitialized)
         {
-            DisconnectAllClients(true);
+            //DisconnectAllClients(true);
             ConnectionManager.Instance?.StopConnection();
             networkManager.StopConnection();
             Application.Quit();
@@ -149,7 +142,7 @@ public class PauseMenuScript : NetworkBehaviour
             networkManager.StopConnection();
             Application.Quit();
         }
-    }
+    }*/
     
     public override void OnStartClient()
     {
@@ -161,7 +154,7 @@ public class PauseMenuScript : NetworkBehaviour
         }
     }
     
-    private void DisconnectAllClients(bool exitGameForClient)
+    /*private void DisconnectAllClients(bool exitGameForClient)
     {
         var networkManager = NetworkManager.ServerManager;
         if (networkManager == null) return;
@@ -176,7 +169,7 @@ public class PauseMenuScript : NetworkBehaviour
                 Application.Quit();
             }
         }
-    }
+    }*/
     
     private void ShowGameOverScreen(string msg)
     {
@@ -190,6 +183,8 @@ public class PauseMenuScript : NetworkBehaviour
 
     public override void OnStopClient()
     {
+        if (!IsOwner) return;
+        
         base.OnStopClient();
 
         if (!IsServerInitialized)
