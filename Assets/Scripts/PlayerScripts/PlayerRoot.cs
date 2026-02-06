@@ -91,6 +91,12 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         ReviveClient(conn, _spawnPosition, _spawnRotation);
     }
 
+    [Server]
+    public void RestorePlayerOxygen(NetworkConnection conn)
+    {
+        RestoreClient(conn);   
+    }
+
     [TargetRpc]
     private void ReviveClient(NetworkConnection conn, Vector3 pos, Quaternion rot)
     {
@@ -101,6 +107,12 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         transform.SetPositionAndRotation(pos, rot);
         
         OnReviveEvent?.Invoke();
+    }
+    
+    [TargetRpc]
+    private void RestoreClient(NetworkConnection conn)
+    {
+        ChangeOxygenOnRevive(oxygen.maxOxygen.Value, oxygen.baseDrainRate.Value);
     }
 
     [ServerRpc]

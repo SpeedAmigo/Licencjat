@@ -81,4 +81,17 @@ public class GameOverManager : NetworkBehaviour
             }
         }
     }
+
+    [Server]
+    public void RestoreOxygen()
+    {
+        foreach (PlayerRoot player in players)
+        {
+            if (player.isAlive.Value)
+            {
+                NetworkObject nob = player.GetComponent<NetworkObject>();
+                player.RestorePlayerOxygen(nob.Owner);
+            }
+        }
+    }
 }

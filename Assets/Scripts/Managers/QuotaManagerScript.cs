@@ -53,6 +53,7 @@ public class QuotaManagerScript : NetworkBehaviour
             Debug.Log("Quota reached!");
             IncreaseQuota();
             GameOverManager.Instance.ReviveDeadPlayersServer();
+            GameOverManager.Instance.RestoreOxygen();
         }
         else
         {

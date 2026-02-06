@@ -648,8 +648,11 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 4097182591846747468}
   useSeparateCollider: 0
   objectCollider: {fileID: 0}
-  changeLayerOnPickup: 0
-  objectToChangeLayer: {fileID: 0}
+  changeLayerOnPickup: 1
+  objectsToChangeLayer:
+  - {fileID: 8328519273214549513}
+  - {fileID: 1928808638965271899}
+  - {fileID: 7667691514595561379}
   offset: {fileID: 6194299684416701796}
   dropForce: 5
   itemIcon: {fileID: 0}

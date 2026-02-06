@@ -18,7 +18,7 @@ public class ObjectPickable : NetworkBehaviour
     
     [ShowIf("changeLayerOnPickup")] 
     [GUIColor("Yellow")]
-    public GameObject objectToChangeLayer;
+    public GameObject[] objectsToChangeLayer;
     
     [Space]
     
@@ -75,13 +75,21 @@ public class ObjectPickable : NetworkBehaviour
         }
 
         if (!fpHolder.IsOwner) return;
-        if (objectToChangeLayer != null)
+        if (objectsToChangeLayer != null && changeLayerOnPickup)
         {
-            objectToChangeLayer.layer = LayerMask.NameToLayer("PickableLayer");
+            foreach (var obj in objectsToChangeLayer)
+            {
+                obj.gameObject.layer = LayerMask.NameToLayer("PickableLayer");
+            }
+            //objectToChangeLayer.layer = LayerMask.NameToLayer("PickableLayer");
         }
         else
         {
-            gameObject.layer = LayerMask.NameToLayer("PickableLayer"); 
+            foreach (Transform child in gameObject.transform)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("PickableLayer");
+            }
+            //gameObject.layer = LayerMask.NameToLayer("PickableLayer"); 
         }
     }
 
@@ -93,13 +101,21 @@ public class ObjectPickable : NetworkBehaviour
             DropLogic();
         }
         
-        if (objectToChangeLayer != null)
+        if (objectsToChangeLayer != null)
         {
-            objectToChangeLayer.layer = LayerMask.NameToLayer("Default");
+            foreach (var obj in objectsToChangeLayer)
+            {
+                obj.gameObject.layer = LayerMask.NameToLayer("Default");
+            }
+            //objectToChangeLayer.layer = LayerMask.NameToLayer("Default");
         }
         else
         {
-            gameObject.layer = LayerMask.NameToLayer("Default"); 
+            foreach (Transform child in gameObject.transform)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("PickableLayer");
+            }
+            //gameObject.layer = LayerMask.NameToLayer("Default"); 
         }
     }
 
