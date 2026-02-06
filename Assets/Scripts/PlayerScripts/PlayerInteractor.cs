@@ -109,8 +109,10 @@ public class PlayerInteractor : PlayerComponent
                 out _hit,
                 interactionDistance))
         {
-            if (_hit.collider.TryGetComponent<ObjectPickable>(out _))
+            if (_hit.collider.TryGetComponent<ObjectPickable>(out var pickable))
             {
+                if (pickable == _playerInventory.currentItem.Value) return;
+                
                 OnObjectDetection?.Invoke(0);
                 found = true;
             }
@@ -201,16 +203,16 @@ public class PlayerInteractor : PlayerComponent
 
         if (!Physics.Raycast(_camera.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, interactionDistance)) return;
 
-        if (hit.collider.TryGetComponent<NetworkObject>(out var netObj))
+        if (!hit.collider.TryGetComponent<NetworkObject>(out var netObj)) return;
+        
+        if (netObj.TryGetComponent<ObjectPickable>(out var pickup))
         {
-            if (netObj.TryGetComponent<ObjectPickable>(out var pickup))
-            {
-                Pickup_Server(netObj, fpItemHolder, tpIemHolder);
-            }
-            else if (netObj.TryGetComponent<IInteractable>(out var interactable))
-            {
-                Interact_Server(netObj);
-            }
+            if (pickup == _playerInventory.currentItem.Value) return;
+            Pickup_Server(netObj, fpItemHolder, tpIemHolder);
+        }
+        else if (netObj.TryGetComponent<IInteractable>(out var interactable))
+        {
+            Interact_Server(netObj);
         }
     }
 

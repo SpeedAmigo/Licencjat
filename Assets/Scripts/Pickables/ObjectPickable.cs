@@ -1,6 +1,7 @@
 using System;
 using FishNet.Object;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -23,6 +24,8 @@ public class ObjectPickable : NetworkBehaviour
     
     [GUIColor("Green")]
     public Transform offset;
+
+    public float dropForce = 5f;
     [GUIColor("Yellow")]
     public Sprite itemIcon;
         
@@ -105,7 +108,7 @@ public class ObjectPickable : NetworkBehaviour
         transform.SetParent(holder.transform);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
-
+        
         if (offset != null)
         {
             transform.localPosition = offset.localPosition;
@@ -122,7 +125,7 @@ public class ObjectPickable : NetworkBehaviour
     {
         transform.SetParent(null);
         
-        _rb.AddRelativeForce(Vector3.forward * 2f, ForceMode.Impulse);
+        _rb.AddRelativeForce(Vector3.forward * dropForce, ForceMode.Impulse);
 
         _rb.isKinematic = false;
         _rb.interpolation = RigidbodyInterpolation.Interpolate;

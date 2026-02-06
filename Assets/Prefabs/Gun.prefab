@@ -145,7 +145,8 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
-  NetworkBehaviours: []
+  NetworkBehaviours:
+  - {fileID: 1161644614617805212}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -170,15 +171,15 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 65535
+  <PrefabId>k__BackingField: 1
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 1593971796056051821
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Scale: {x: 0, y: 0, z: 0}
-    IsValid: 0
+    Position: {x: 10.052217, y: -1, z: 3.495289}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    Scale: {x: 0.9, y: 0.9, z: 0.9}
+    IsValid: 1
 --- !u!54 &8058212412628706795
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -218,14 +219,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd30b52b63ab8144b7cb6f947997d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPickable
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 2846708731227259675}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 2846708731227259675}
   useSeparateCollider: 1
   objectCollider: {fileID: 8571049680360480380}
   changeLayerOnPickup: 0
   objectToChangeLayer: {fileID: 0}
   offset: {fileID: 0}
+  dropForce: 0
   itemIcon: {fileID: 0}
   isBig: 0
 --- !u!65 &1927173017692999911

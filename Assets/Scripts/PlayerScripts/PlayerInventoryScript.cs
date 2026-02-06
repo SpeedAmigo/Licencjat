@@ -12,7 +12,6 @@ public class PlayerInventoryScript : PlayerComponent
 {
     public static event Action<int, Sprite> OnUIUpdateAdd;
     public static event Action<int> OnUIUpdateRemove;
-
     public static event Action<int> OnUIFrameUpdate;
     
     [Header("Hand Rigs")]
