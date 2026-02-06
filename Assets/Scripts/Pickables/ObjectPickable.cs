@@ -81,7 +81,6 @@ public class ObjectPickable : NetworkBehaviour
             {
                 obj.gameObject.layer = LayerMask.NameToLayer("PickableLayer");
             }
-            //objectToChangeLayer.layer = LayerMask.NameToLayer("PickableLayer");
         }
         else
         {
@@ -89,7 +88,6 @@ public class ObjectPickable : NetworkBehaviour
             {
                 child.gameObject.layer = LayerMask.NameToLayer("PickableLayer");
             }
-            //gameObject.layer = LayerMask.NameToLayer("PickableLayer"); 
         }
     }
 
@@ -101,21 +99,19 @@ public class ObjectPickable : NetworkBehaviour
             DropLogic();
         }
         
-        if (objectsToChangeLayer != null)
+        if (objectsToChangeLayer != null && changeLayerOnPickup)
         {
             foreach (var obj in objectsToChangeLayer)
             {
                 obj.gameObject.layer = LayerMask.NameToLayer("Default");
             }
-            //objectToChangeLayer.layer = LayerMask.NameToLayer("Default");
         }
         else
         {
             foreach (Transform child in gameObject.transform)
             {
-                child.gameObject.layer = LayerMask.NameToLayer("PickableLayer");
+                child.gameObject.layer = LayerMask.NameToLayer("Default");
             }
-            //gameObject.layer = LayerMask.NameToLayer("Default"); 
         }
     }
 
