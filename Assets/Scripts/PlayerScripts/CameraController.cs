@@ -112,14 +112,21 @@ public class CameraController : PlayerComponent
     
     private void OnDestroy()
     {
-        if (CameraHoldersManager.Instance != null)
+        /*if (CameraHoldersManager.Instance != null)
         {
             CameraHoldersManager.Instance.UnregisterCameraHolder(new CameraStruct(cameraHolder, gameObject.GetComponent<PlayerVisualController>(), OwnerId));
         }
         else
         {
             Debug.LogWarning("There is no camera holder manager");
-        }
+        }*/
+    }
+
+    public override void OnStopServer()
+    {
+        base.OnStopServer();
+        
+        CameraHoldersManager.Instance.UnregisterCameraHolder(new CameraStruct(cameraHolder, gameObject.GetComponent<PlayerVisualController>(), OwnerId));
     }
     
     private void LateUpdate()
