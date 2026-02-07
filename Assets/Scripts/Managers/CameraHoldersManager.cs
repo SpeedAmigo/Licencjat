@@ -42,7 +42,7 @@ public class CameraHoldersManager : NetworkBehaviour
         cameraStructs.Add(cameraStruct);
     }
     
-    [ServerRpc(RequireOwnership = false)]
+    [Server]
     public void UnregisterCameraHolder(CameraStruct cameraStruct)
     {
         if (!cameraStructs.Contains(cameraStruct)) return;
