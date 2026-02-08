@@ -12,6 +12,7 @@ public class GameOverManager : NetworkBehaviour
 
     [SerializeField] private string quotaDeathMessage;
     [SerializeField] private string playersDownDeathMessage;
+    [SerializeField] private int playerTeleportWorldHeight;
 
     [SerializeField] private List<PlayerRoot> players;
     
@@ -70,6 +71,32 @@ public class GameOverManager : NetworkBehaviour
     }
 
     [Server]
+    public void RestoreAllPlayers()
+    {
+        foreach (PlayerRoot player in players)
+        {
+            NetworkObject nob = player.GetComponent<NetworkObject>();
+            
+            if (!player.isAlive.Value)
+            {
+                //player.ReviveServer(nob.Owner);
+                player.RestorePlayer(nob.Owner, false, true);
+                continue;
+            }
+            
+            // looking for players that was left on the planet
+            if (player.isAlive.Value && player.transform.position.y < playerTeleportWorldHeight)
+            {
+                player.RestorePlayer(nob.Owner, true, true);
+            }
+            else
+            {
+                player.RestorePlayer(nob.Owner, true, false);
+            }
+        }
+    }
+
+    [Server]
     public void ReviveDeadPlayersServer()
     {
         foreach (PlayerRoot player in players)
@@ -77,20 +104,30 @@ public class GameOverManager : NetworkBehaviour
             if (!player.isAlive.Value)
             {
                 NetworkObject nob = player.GetComponent<NetworkObject>();
-                player.ReviveServer(nob.Owner);
+                //player.ReviveServer(nob.Owner);
+                player.RestorePlayer(nob.Owner, false, true);
             }
         }
     }
 
     [Server]
-    public void RestoreOxygen()
+    public void RestoreAlivePlayersSever()
     {
         foreach (PlayerRoot player in players)
         {
-            if (player.isAlive.Value)
+            if (!player.isAlive.Value) return;
+            
+            NetworkObject nob = player.GetComponent<NetworkObject>();
+            //player.RestorePlayerOxygen(nob.Owner);
+
+            // looking for players that was left on the planet
+            if (player.transform.position.y < playerTeleportWorldHeight)
             {
-                NetworkObject nob = player.GetComponent<NetworkObject>();
-                player.RestorePlayerOxygen(nob.Owner);
+                player.RestorePlayer(nob.Owner, true, true);
+            }
+            else
+            {
+                player.RestorePlayer(nob.Owner, true, false);
             }
         }
     }

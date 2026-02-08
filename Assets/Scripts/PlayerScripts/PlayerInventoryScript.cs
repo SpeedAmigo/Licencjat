@@ -26,7 +26,7 @@ public class PlayerInventoryScript : PlayerComponent
     [GUIColor("Yellow")]
     [SerializeField] private int inventorySize = 4;
     
-    [SerializeField, AllowMutableSyncType] private SyncList<ObjectPickable> slots = new();
+    [AllowMutableSyncType] public SyncList<ObjectPickable> slots = new();
     
     private InputSystem_Actions _inputSystem;
 

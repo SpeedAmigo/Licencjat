@@ -22,13 +22,14 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
     public override void OnStartClient()
     {
         base.OnStartClient();
-
-        _spawnPosition = transform.position;
-        _spawnRotation = transform.rotation;
-
+        
         if (IsOwner)
         {
             SetPlayerAlive(true);
+            
+            _spawnPosition = transform.position;
+            _spawnRotation = transform.rotation;
+            Debug.Log(_spawnPosition);
         }
         
         _playerInventory = gameObject.GetComponent<PlayerInventoryScript>();
@@ -77,6 +78,15 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         _playerInventory.RequestRemoveItem(item, _playerInventory);
     }
 
+    public void RequestDropInventory()
+    {
+        foreach (var item in _playerInventory.slots)
+        {
+            item.gameObject.SetActive(true);
+            _playerInventory.RequestRemoveItem(item, _playerInventory);
+        }
+    }
+
     private void Die()
     {
         if (!IsOwner || !isAlive.Value) return;
@@ -84,20 +94,49 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         SetPlayerAlive(false);
         GameOverManager.Instance.ComparePlayersState();
     }
-    
-    [Server]
-    public void ReviveServer(NetworkConnection conn)
-    {
-        ReviveClient(conn, _spawnPosition, _spawnRotation);
-    }
 
     [Server]
-    public void RestorePlayerOxygen(NetworkConnection conn)
+    public void RestorePlayer(NetworkConnection conn, bool alive, bool leftOnPlanet)
     {
-        RestoreClient(conn);   
+        RestorePlayerTarget(conn, alive, leftOnPlanet);
     }
 
     [TargetRpc]
+    private void RestorePlayerTarget(NetworkConnection conn, bool alive, bool leftOnPlanet)
+    {
+        if (!alive)
+        {
+            SetPlayerAlive(true);
+            OnReviveEvent?.Invoke();
+        }
+
+        if (leftOnPlanet)
+        {
+            var playerController = GetComponent<PlayerController>();
+            if (playerController) playerController.enabled = false;
+            
+            transform.SetPositionAndRotation(_spawnPosition, _spawnRotation);
+            
+            if (playerController) playerController.enabled = true;
+        }
+        
+        ChangeOxygenOnRevive(oxygen.maxOxygen.Value, oxygen.baseDrainRate.Value);
+        
+    }
+    
+    /*[Server]
+    public void ReviveServer(NetworkConnection conn)
+    {
+        ReviveClient(conn, _spawnPosition, _spawnRotation);
+    }*/
+
+    /*[Server]
+    public void RestorePlayerOxygen(NetworkConnection conn)
+    {
+        RestoreClient(conn);   
+    }*/
+
+    /*[TargetRpc]
     private void ReviveClient(NetworkConnection conn, Vector3 pos, Quaternion rot)
     {
         SetPlayerAlive(true);
@@ -107,13 +146,13 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         transform.SetPositionAndRotation(pos, rot);
         
         OnReviveEvent?.Invoke();
-    }
+    }*/
     
-    [TargetRpc]
+    /*[TargetRpc]
     private void RestoreClient(NetworkConnection conn)
     {
         ChangeOxygenOnRevive(oxygen.maxOxygen.Value, oxygen.baseDrainRate.Value);
-    }
+    }*/
 
     [ServerRpc]
     private void ChangeOxygenOnRevive(float maxOxygen, float baseDrainRate)
