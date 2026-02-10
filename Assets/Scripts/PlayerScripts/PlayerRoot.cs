@@ -72,18 +72,18 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
             oxygen.DrainRate = oxygen.BaseDrainRate;
         }
     }
-
+    
     public void RequestItemDrop(ObjectPickable item)
     {
         _playerInventory.RequestRemoveItem(item, _playerInventory);
     }
 
+    [ServerRpc(RequireOwnership = true)]
     public void RequestDropInventory()
     {
-        foreach (var item in _playerInventory.slots)
+        for (int i = _playerInventory.slots.Count - 1; i >= 0; i--)
         {
-            item.gameObject.SetActive(true);
-            _playerInventory.RequestRemoveItem(item, _playerInventory);
+            _playerInventory.RequestRemoveItem(_playerInventory.slots[i], _playerInventory);
         }
     }
 
@@ -115,6 +115,7 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
             var playerController = GetComponent<PlayerController>();
             if (playerController) playerController.enabled = false;
             
+            //RequestDropInventory();
             transform.SetPositionAndRotation(_spawnPosition, _spawnRotation);
             
             if (playerController) playerController.enabled = true;

@@ -33,6 +33,7 @@ public class ObjectPickable : NetworkBehaviour
     
     private Rigidbody _rb;
     private Collider _col;
+    private Collider _secondCol;
     
     protected virtual void Awake()
     {
@@ -44,7 +45,8 @@ public class ObjectPickable : NetworkBehaviour
         }
         else
         {
-            _col = objectCollider;
+            _col = GetComponent<Collider>();
+            _secondCol = objectCollider;
         }
     }
     
@@ -127,10 +129,15 @@ public class ObjectPickable : NetworkBehaviour
             transform.localRotation = offset.localRotation;
         }
         
+        
         _rb.isKinematic = true;
         _rb.interpolation = RigidbodyInterpolation.None;
         
         _col.enabled = false;
+        if (_secondCol != null)
+        {
+            _secondCol.enabled = false;
+        }
     }
     
     protected virtual void DropLogic()
@@ -140,8 +147,12 @@ public class ObjectPickable : NetworkBehaviour
         _rb.AddRelativeForce(Vector3.forward * dropForce, ForceMode.Impulse);
 
         _rb.isKinematic = false;
-        _rb.interpolation = RigidbodyInterpolation.Interpolate;
+        _rb.interpolation = RigidbodyInterpolation.None;
         
         _col.enabled = true;
+        if (_secondCol != null)
+        {
+            _secondCol.enabled = true;
+        }
     }
 }

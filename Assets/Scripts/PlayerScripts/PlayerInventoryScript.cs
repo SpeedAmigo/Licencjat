@@ -205,7 +205,7 @@ public class PlayerInventoryScript : PlayerComponent
     [Server]
     public void RemoveBigItem(ObjectPickable bigItem)
     {
-        if (currentItem.Value)
+        if (currentItem.Value && bigItem.isBig)
         {
             bigItem.Drop();
             currentItem.Value = null;

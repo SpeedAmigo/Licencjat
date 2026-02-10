@@ -59,10 +59,17 @@ public class FrogPickScript : ObjectPickable
                 spitTime.Value = 5f;
                 //animator.Animator.Play("Spit");
                 frogScript.PlaySpitAnimation();
-                
-                _playerRoot.TakeDamage(frogScript.damage);
-                _playerRoot.RequestItemDrop(this);
 
+                if (_playerRoot != null)
+                {
+                    _playerRoot.TakeDamage(frogScript.damage);
+                    _playerRoot.RequestItemDrop(this);
+                }
+                else
+                {
+                    Debug.Log("Frog tried to spit on you but failed");
+                }
+                
                 /*var playerInventory = _playerRoot.PlayerInventory;
                 playerInventory.RequestRemoveItem(this, playerInventory);*/
                 

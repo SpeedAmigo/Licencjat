@@ -49,6 +49,6 @@ Material:
     m_Colors:
     - _GroundColor: {r: 0.6415094, g: 0.35346735, b: 0, a: 1}
     - _HorizonColor: {r: 0.9245283, g: 0.7697202, b: 0.49279103, a: 1}
-    - _SkyColor: {r: 0.4452207, g: 0.8207547, b: 0.8207547, a: 1}
+    - _SkyColor: {r: 0.44705883, g: 0.81960785, b: 0.81960785, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

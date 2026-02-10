@@ -1,7 +1,7 @@
 using FishNet.Object;
 using UnityEngine;
 
-public class VoiceChatController : NetworkBehaviour
+public class VoiceChatController : PlayerComponent
 {
     [SerializeField] private MetaVoiceChat.Input.Mic.VcMicAudioInput micAudioInput;
 
@@ -11,6 +11,22 @@ public class VoiceChatController : NetworkBehaviour
         if (!IsOwner)
         {
             micAudioInput.enabled = false;
+        }
+    }
+    
+    protected override void DeathHandle()
+    {
+        if (IsOwner)
+        {
+            micAudioInput.enabled = false;
+        }
+    }
+
+    protected override void ReviveHandle()
+    {
+        if (IsOwner)
+        {
+            micAudioInput.enabled = true;
         }
     }
 }
