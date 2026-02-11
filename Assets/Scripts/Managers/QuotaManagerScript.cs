@@ -86,6 +86,9 @@ public class QuotaManagerScript : NetworkBehaviour
         }
         
         targetQuota.Value += increaseValue;
+        currentMoney.Value = 0;
+        
+        OnMoneyChanged?.Invoke(currentMoney.Value);
         OnTargetQuotaChanged?.Invoke(targetQuota.Value);
     }
 

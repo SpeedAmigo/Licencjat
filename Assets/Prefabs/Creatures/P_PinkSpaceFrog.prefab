@@ -268,6 +268,7 @@ Transform:
   - {fileID: 5812642380296092663}
   - {fileID: 2645963858294506485}
   - {fileID: 6194299684416701796}
+  - {fileID: 5384437214885098155}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3274193378191308036
@@ -405,7 +406,7 @@ MonoBehaviour:
   canSpit: 1
   canRunaway: 1
   walkSpeed: 2
-  runSpeed: 5
+  runSpeed: 7
   maxPlayers: 0
   runDistance: 10
   pickedUp:
@@ -942,6 +943,8 @@ GameObject:
   - component: {fileID: 2645963858294506485}
   - component: {fileID: 6502777238923068852}
   - component: {fileID: 3257361702672036978}
+  - component: {fileID: 304611839728717182}
+  - component: {fileID: 8866423607826824121}
   m_Layer: 0
   m_Name: frogo (1)
   m_TagString: Untagged
@@ -1010,6 +1013,55 @@ MonoBehaviour:
   _interpolation: 2
   _clientAuthoritative: 1
   _sendToOwner: 0
+--- !u!114 &304611839728717182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3455257830538008911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27ad69bf32f65354fa623f60bbbe6dad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CreatureWalkSoundScript
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 4097182591846747468}
+  _networkObjectCache: {fileID: 0}
+  surfaceCheckRaycast: {fileID: 9025659989701725408}
+  distance: 0.5
+  emitter: {fileID: 8866423607826824121}
+--- !u!114 &8866423607826824121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3455257830538008911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1556764666
+      Data2: 1160624724
+      Data3: -476022097
+      Data4: -1797186193
+    Path: event:/Footsteps
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 2
+  OverrideMaxDistance: 7
 --- !u!1 &3670534136941952522
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,7 +1647,7 @@ MonoBehaviour:
   boundsSolver: 0
   boundsCenter: 0
   collectLOS: 0
-  radius: 7
+  radius: 10
   height: 0
   local: 1
   limited: 0
@@ -2398,3 +2450,34 @@ Transform:
   - {fileID: 4025722873404804790}
   m_Father: {fileID: 6343477643551265643}
   m_LocalEulerAnglesHint: {x: 89.98021, y: 0, z: 0}
+--- !u!1 &9025659989701725408
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5384437214885098155}
+  m_Layer: 0
+  m_Name: RaycastHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5384437214885098155
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9025659989701725408}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 303934322765963396}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
