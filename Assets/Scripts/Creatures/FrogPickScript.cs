@@ -1,17 +1,28 @@
 using FishNet.CodeGenerating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 
 public class FrogPickScript : ObjectPickable
 {
-    //[AllowMutableSyncType] public SyncVar<bool> pickedUp;
-    [AllowMutableSyncType] private SyncVar<float> spitTime = new(5f);
+    [AllowMutableSyncType] private SyncVar<float> spitTime = new();
     
     [SerializeField] private FrogScript frogScript;
     
-    //private PlayerInventoryScript _playerInventory;
     private PlayerRoot _playerRoot;
+    private float _pickedTime;
+    private bool _warningPlayed;
+
+    public override void OnStartServer()
+    {
+        if (IsServerInitialized)
+        {
+            _pickedTime = frogScript.GetRandomSpitTime();
+            spitTime.Value = _pickedTime;
+        } 
+    }
     
     protected override void PickupLogic(NetworkObject holder)
     {
@@ -22,8 +33,6 @@ public class FrogPickScript : ObjectPickable
         ChangePickupValue(true);
         
         _playerRoot = holder.transform.root.gameObject.GetComponent<PlayerRoot>();
-        //frogScript.PlayerInventory = holder.transform.root.gameObject.GetComponent<PlayerInventoryScript>();
-        //_playerInventory = holder.transform.root.gameObject.GetComponent<PlayerInventoryScript>();
     }
     
     protected override void DropLogic()
@@ -34,8 +43,6 @@ public class FrogPickScript : ObjectPickable
         frogScript.Running = true;
         ChangePickupValue(false);
         
-        //frogScript.PlayerInventory = null;
-        //_playerInventory = null;
         _playerRoot = null;
     }
     
@@ -43,7 +50,6 @@ public class FrogPickScript : ObjectPickable
     private void ChangePickupValue(bool value)
     {
         frogScript.pickedUp.Value = value;
-        //pickedUp.Value = value;
     }
 
     private void Update()
@@ -53,13 +59,30 @@ public class FrogPickScript : ObjectPickable
         if (frogScript.canSpit && frogScript.pickedUp.Value)
         {
             spitTime.Value -= Time.deltaTime;
+
+            if (!_warningPlayed && spitTime.Value <= _pickedTime * frogScript.spitPercentWarning)
+            {
+                _warningPlayed = true;
+                EventInstance spitSoundInstance = RuntimeManager.CreateInstance(frogScript.panicSound);
+                spitSoundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+                spitSoundInstance.start();
+                spitSoundInstance.release();
+            }
+            
             if (spitTime.Value <= 0f)
             {
-                Debug.Log("Frog Spitted on you");
-                spitTime.Value = 5f;
-                //animator.Animator.Play("Spit");
+                _warningPlayed = false;
+                _pickedTime = frogScript.GetRandomSpitTime();
+                spitTime.Value = _pickedTime;
                 frogScript.PlaySpitAnimation();
 
+                EventInstance spitSoundInstance = RuntimeManager.CreateInstance(frogScript.spitSound);
+                spitSoundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+                spitSoundInstance.start();
+                spitSoundInstance.release();
+
+                frogScript.PlayParticleServer();
+                
                 if (_playerRoot != null)
                 {
                     _playerRoot.TakeDamage(frogScript.damage);
@@ -69,11 +92,13 @@ public class FrogPickScript : ObjectPickable
                 {
                     Debug.Log("Frog tried to spit on you but failed");
                 }
-                
-                /*var playerInventory = _playerRoot.PlayerInventory;
-                playerInventory.RequestRemoveItem(this, playerInventory);*/
-                
-                //_playerInventory.RequestRemoveItem(this, _playerInventory);
+            }
+        }
+        else if (!frogScript.pickedUp.Value)
+        {
+            if (spitTime.Value < _pickedTime)
+            {
+                spitTime.Value += Time.deltaTime * frogScript.spitTimeRegen;
             }
         }
     }

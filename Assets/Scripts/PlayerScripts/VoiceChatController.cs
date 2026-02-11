@@ -1,9 +1,12 @@
 using FishNet.Object;
+using MetaVoiceChat;
 using UnityEngine;
 
 public class VoiceChatController : PlayerComponent
 {
     [SerializeField] private MetaVoiceChat.Input.Mic.VcMicAudioInput micAudioInput;
+
+    [SerializeField] private MetaVc metaVc;
 
     public override void OnStartClient()
     {
@@ -18,7 +21,9 @@ public class VoiceChatController : PlayerComponent
     {
         if (IsOwner)
         {
-            micAudioInput.enabled = false;
+            metaVc.isInputMuted.Value = true;
+            metaVc.isOutputMuted.Value = true;
+            metaVc.isDeafened.Value = true;
         }
     }
 
@@ -26,7 +31,9 @@ public class VoiceChatController : PlayerComponent
     {
         if (IsOwner)
         {
-            micAudioInput.enabled = true;
+            metaVc.isInputMuted.Value = false;
+            metaVc.isOutputMuted.Value = false;
+            metaVc.isDeafened.Value = false;
         }
     }
 }

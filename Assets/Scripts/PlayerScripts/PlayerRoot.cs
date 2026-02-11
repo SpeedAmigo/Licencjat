@@ -4,6 +4,8 @@ using FishNet.Component.Spawning;
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 
 public class PlayerRoot : NetworkBehaviour, IPlayer
@@ -13,11 +15,15 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
     [Header("Player State")]
     [AllowMutableSyncType] public SyncVar<bool> isAlive;
     
+    [Header("Sounds")]
+    [SerializeField] private EventReference getDamageSound;
+    
     [HideInInspector] public OxygenScript oxygen;
     private PlayerInventoryScript _playerInventory;
     
     private Vector3 _spawnPosition;
     private Quaternion _spawnRotation;
+    private EventInstance _getDamageInstance;
     
     public override void OnStartClient()
     {
@@ -54,6 +60,12 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
     public void TakeDamage(float damage)
     {
         oxygen.drainRate.Value += damage;
+        
+        _getDamageInstance = RuntimeManager.CreateInstance(getDamageSound);
+        _getDamageInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+        _getDamageInstance.start();
+        _getDamageInstance.release();
+
         //TakeDamageClient(oxygen.drainRate.Value);
     }
 

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteractor : PlayerComponent
 {
-    public static event Action<int> OnObjectDetection; 
+    public static event Action<string> OnObjectDetection; 
     public static event Action OnObjectUnDetection; 
     
     [Header("Item Holders")]
@@ -113,12 +113,12 @@ public class PlayerInteractor : PlayerComponent
             {
                 if (pickable == _playerInventory.currentItem.Value) return;
                 
-                OnObjectDetection?.Invoke(0);
+                OnObjectDetection?.Invoke(pickable.itemDisplayName);
                 found = true;
             }
-            else if (_hit.collider.TryGetComponent<IInteractable>(out _))
+            else if (_hit.collider.TryGetComponent<IInteractable>(out var interactable))
             {
-                OnObjectDetection?.Invoke(1);
+                OnObjectDetection?.Invoke(interactable.GetInteractText());
                 found = true;
             }
         }

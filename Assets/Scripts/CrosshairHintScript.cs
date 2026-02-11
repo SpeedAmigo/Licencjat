@@ -4,7 +4,7 @@ using UnityEngine;
 public class CrosshairHintScript : PlayerComponent
 {
     [SerializeField] private GameObject image;
-    [SerializeField] private GameObject[] textHints;
+    [SerializeField] private TMP_Text textHint;
 
     protected override void OnEnable()
     {
@@ -20,26 +20,18 @@ public class CrosshairHintScript : PlayerComponent
         PlayerInteractor.OnObjectUnDetection -= HandleHideHint;
     }
     
-    private void HandleShowHint(int pickable)
+    private void HandleShowHint(string text)
     {
-        if (pickable == 0)
-        {
-            textHints[0].gameObject.SetActive(true);
-        }
-        else if (pickable == 1)
-        {
-            textHints[1].gameObject.SetActive(true);
-        }
+        textHint.gameObject.SetActive(true);
+        textHint.text = text;
         
         image.SetActive(true);
     }
 
     private void HandleHideHint()
     {
-        foreach (var hint in textHints)
-        {
-            hint.gameObject.SetActive(false);
-        }
+        textHint.gameObject.SetActive(false);
+        
         image.SetActive(false);
     }
 }

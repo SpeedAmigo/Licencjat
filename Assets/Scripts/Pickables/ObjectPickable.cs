@@ -26,8 +26,12 @@ public class ObjectPickable : NetworkBehaviour
     public Transform offset;
 
     public float dropForce = 5f;
+    
     [GUIColor("Yellow")]
     public Sprite itemIcon;
+    
+    [GUIColor("Yellow")]
+    public string itemDisplayName = "Pickup";
         
     public bool isBig;
     
