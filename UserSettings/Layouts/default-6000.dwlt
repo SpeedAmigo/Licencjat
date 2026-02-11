@@ -957,7 +957,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 79
+    y: 24
     width: 371
     height: 844
   m_SerializedDataModeController:
@@ -2995,8 +2995,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "SkyboxShader\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 372
-    y: 79
+    x: 373
+    y: 24
     width: 1666
     height: 844
   m_SerializedDataModeController:
@@ -5031,7 +5031,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 949
+    y: 24
     width: 1320
     height: 397
   m_SerializedDataModeController:
@@ -5075,7 +5075,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 79}
     m_SelectedIDs: cc000100
     m_LastClickedID: 65740
-    m_ExpandedIDs: 00000000cc00010000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000d0fd0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -5104,7 +5104,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000cc000100
+    m_ExpandedIDs: 00000000d0fd0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -5267,8 +5267,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Console\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1321
-    y: 949
+    x: 1322
+    y: 24
     width: 717
     height: 397
   m_SerializedDataModeController:
@@ -5303,8 +5303,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 2040
-    y: 79
+    x: 2041
+    y: 24
     width: 519
     height: 1267
   m_SerializedDataModeController:
