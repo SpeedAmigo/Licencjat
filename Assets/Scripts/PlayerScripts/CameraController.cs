@@ -2,8 +2,9 @@ using FishNet.Object;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Scripting;
 
-public class CameraController : NetworkBehaviour
+public class CameraController : PlayerComponent
 {
     [Header("Camera Settings")]
     [GUIColor("Yellow")]
@@ -25,6 +26,10 @@ public class CameraController : NetworkBehaviour
     private float _pitch;
     private Vector2 _lookInput;
 
+    private Transform _originalCameraHolder;
+    
+    //private PlayerRoot _playerRoot;
+
     public override void OnStartClient()
     {
         base.OnStartClient();
@@ -37,37 +42,99 @@ public class CameraController : NetworkBehaviour
                 _playerCamera.transform.localPosition = Vector3.zero;
                 _playerCamera.transform.localRotation = Quaternion.identity;
             }
+            
+            _originalCameraHolder = cameraHolder;
         }
         else
         {
             enabled = false;
         }
+        
+        Invoke(nameof(RegisterCameraHolder), 2f);
     }
 
-    private void Awake()
+    private void RegisterCameraHolder()
     {
+        if (CameraHoldersManager.Instance != null)
+        {
+            CameraHoldersManager.Instance.RegisterCameraHolder(new CameraStruct(cameraHolder, gameObject.GetComponent<PlayerVisualController>(), OwnerId));
+        }
+        else
+        {
+            Debug.LogWarning("There is no camera holder manager");
+        }
+    }
+    
+    protected override void Awake()
+    {
+        base.Awake();
+        
         _inputSystem = new InputSystem_Actions();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        
+        //_playerRoot = GetComponent<PlayerRoot>();
     }
-
-    private void OnEnable()
+    
+    protected override void OnEnable()
     {
+        base.OnEnable();
+        
         _inputSystem.Enable();
         _inputSystem.Player.Look.performed += OnLook;
         _inputSystem.Player.Look.canceled += OnLookCancelled;
+        _inputSystem.Player.Move.performed += HandleSwitch;
+
+        UIConsoleScript.OnConsoleOpen += HandleInput;
     }
 
-    private void OnDisable()
+    private void HandleInput(bool obj)
     {
+        if (!obj)
+        {
+            _inputSystem.Enable();
+        }
+        else
+        {
+            _inputSystem.Disable();            
+        }
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        
         _inputSystem.Disable();
         _inputSystem.Player.Look.performed -= OnLook;
         _inputSystem.Player.Look.canceled -= OnLookCancelled;
+        _inputSystem.Player.Move.performed -= HandleSwitch;
+    }
+    
+    private void OnDestroy()
+    {
+        /*if (CameraHoldersManager.Instance != null)
+        {
+            CameraHoldersManager.Instance.UnregisterCameraHolder(new CameraStruct(cameraHolder, gameObject.GetComponent<PlayerVisualController>(), OwnerId));
+        }
+        else
+        {
+            Debug.LogWarning("There is no camera holder manager");
+        }*/
     }
 
+    public override void OnStopServer()
+    {
+        base.OnStopServer();
+        
+        CameraHoldersManager.Instance.UnregisterCameraHolder(new CameraStruct(cameraHolder, gameObject.GetComponent<PlayerVisualController>(), OwnerId));
+    }
+    
     private void LateUpdate()
     {
-        RotationHandler();
+        if (playerRoot.isAlive.Value)
+        {
+            RotationHandler();
+        }
     }
 
     private void OnLook(InputAction.CallbackContext context)
@@ -89,5 +156,28 @@ public class CameraController : NetworkBehaviour
         
         cameraHolder.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
         armatureHolder.localRotation = Quaternion.Euler(-_pitch, 0f, 0f);
+    }
+    
+    private void HandleSwitch(InputAction.CallbackContext context)
+    {
+        if (playerRoot.isAlive.Value) return;
+        
+        Vector2 input = context.ReadValue<Vector2>();
+        
+        if (input.x > 0)
+        { 
+            CameraHoldersManager.Instance.SwitchUp();
+        }
+        else if (input.x < 0)
+        {
+            CameraHoldersManager.Instance.SwitchDown();
+        }
+    }
+
+    [Preserve]
+    protected override void ReviveHandle()
+    {
+        Debug.Log("ReviveHandle");
+        CameraHoldersManager.Instance.AttachCameraToOriginalHolder(OwnerId);
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using FishNet.Object;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -17,19 +18,26 @@ public class ObjectPickable : NetworkBehaviour
     
     [ShowIf("changeLayerOnPickup")] 
     [GUIColor("Yellow")]
-    public GameObject objectToChangeLayer;
+    public GameObject[] objectsToChangeLayer;
     
     [Space]
     
     [GUIColor("Green")]
     public Transform offset;
+
+    public float dropForce = 5f;
+    
     [GUIColor("Yellow")]
     public Sprite itemIcon;
+    
+    [GUIColor("Yellow")]
+    public string itemDisplayName = "Pickup";
         
     public bool isBig;
     
     private Rigidbody _rb;
     private Collider _col;
+    private Collider _secondCol;
     
     protected virtual void Awake()
     {
@@ -41,7 +49,8 @@ public class ObjectPickable : NetworkBehaviour
         }
         else
         {
-            _col = objectCollider;
+            _col = GetComponent<Collider>();
+            _secondCol = objectCollider;
         }
     }
     
@@ -72,28 +81,43 @@ public class ObjectPickable : NetworkBehaviour
         }
 
         if (!fpHolder.IsOwner) return;
-        if (objectToChangeLayer != null)
+        if (objectsToChangeLayer != null && changeLayerOnPickup)
         {
-            objectToChangeLayer.layer = LayerMask.NameToLayer("PickableLayer");
+            foreach (var obj in objectsToChangeLayer)
+            {
+                obj.gameObject.layer = LayerMask.NameToLayer("PickableLayer");
+            }
         }
         else
         {
-            gameObject.layer = LayerMask.NameToLayer("PickableLayer"); 
+            foreach (Transform child in gameObject.transform)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("PickableLayer");
+            }
         }
     }
 
     [ObserversRpc]
     public void Drop_Client()
     {
-        DropLogic();
-        
-        if (objectToChangeLayer != null)
+        if (IsSpawned)
         {
-            objectToChangeLayer.layer = LayerMask.NameToLayer("Default");
+            DropLogic();
+        }
+        
+        if (objectsToChangeLayer != null && changeLayerOnPickup)
+        {
+            foreach (var obj in objectsToChangeLayer)
+            {
+                obj.gameObject.layer = LayerMask.NameToLayer("Default");
+            }
         }
         else
         {
-            gameObject.layer = LayerMask.NameToLayer("Default"); 
+            foreach (Transform child in gameObject.transform)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("Default");
+            }
         }
     }
 
@@ -102,28 +126,37 @@ public class ObjectPickable : NetworkBehaviour
         transform.SetParent(holder.transform);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
-
+        
         if (offset != null)
         {
             transform.localPosition = offset.localPosition;
             transform.localRotation = offset.localRotation;
         }
         
+        
         _rb.isKinematic = true;
         _rb.interpolation = RigidbodyInterpolation.None;
         
         _col.enabled = false;
+        if (_secondCol != null)
+        {
+            _secondCol.enabled = false;
+        }
     }
     
     protected virtual void DropLogic()
     {
         transform.SetParent(null);
         
-        _rb.AddRelativeForce(Vector3.forward * 2f, ForceMode.Impulse);
+        _rb.AddRelativeForce(Vector3.forward * dropForce, ForceMode.Impulse);
 
         _rb.isKinematic = false;
-        _rb.interpolation = RigidbodyInterpolation.Interpolate;
+        _rb.interpolation = RigidbodyInterpolation.None;
         
         _col.enabled = true;
+        if (_secondCol != null)
+        {
+            _secondCol.enabled = true;
+        }
     }
 }

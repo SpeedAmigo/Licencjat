@@ -1,6 +1,8 @@
 using FishNet.CodeGenerating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using FMOD.Studio;
+using FMODUnity;
 using Pathfinding;
 using UnityEngine;
 
@@ -13,6 +15,9 @@ public class FrogScript : BaseEnemyScript
     public bool canSpit = true;
     public bool canRunaway = true;
     
+    [Header("SpitParticle")]
+    [SerializeField] private ParticleSystem spitParticle;
+    
     [Header("Speed settings")]
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
@@ -23,7 +28,17 @@ public class FrogScript : BaseEnemyScript
     
     [Header("PickedUp settings")]
     [AllowMutableSyncType] public SyncVar<bool> pickedUp;
-    //[AllowMutableSyncType] private SyncVar<float> spitTime = new(5f);
+    
+    [Header("Spit Time Range")]
+    public Vector2 spitRange;
+    public float spitPercentWarning = .2f;
+    public float spitTimeRegen = 2f;
+
+    [Header("Sounds")] 
+    public EventReference spitSound;
+    public EventReference waringSound;
+    public EventReference panicSound;
+    public EventReference idleSound;
     
     private bool _running;
 
@@ -119,6 +134,24 @@ public class FrogScript : BaseEnemyScript
     public void PlaySpitAnimation()
     {
         animator.Animator.Play("Spit");
+    }
+
+    [Server]
+    public float GetRandomSpitTime()
+    {
+        return Random.Range(spitRange.x, spitRange.y);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void PlayParticleServer()
+    {
+        PlayParticleObservers();
+    }
+
+    [ObserversRpc]
+    private void PlayParticleObservers()
+    {
+        spitParticle.Play();
     }
     
     #endregion

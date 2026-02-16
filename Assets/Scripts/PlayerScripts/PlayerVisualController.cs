@@ -23,10 +23,20 @@ public class PlayerVisualController : NetworkBehaviour
         base.OnStartClient();
         if (!IsOwner)
         {
-            foreach (var visual in  visuals)
+            ChangeLayerOfVisual("Player");
+            
+            /*foreach (var visual in  visuals)
             {
                 visual.layer = LayerMask.NameToLayer("Player");
-            }
+            }*/
+        }
+    }
+    
+    public void ChangeLayerOfVisual(string layerName)
+    {
+        foreach (var visual in  visuals)
+        {
+            visual.layer = LayerMask.NameToLayer(layerName);
         }
     }
 

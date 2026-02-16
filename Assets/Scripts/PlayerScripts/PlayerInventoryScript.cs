@@ -1,17 +1,19 @@
 using System;
-using System.Collections.Generic;
 using FishNet.CodeGenerating;
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using Heathen.SteamworksIntegration.API;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 
-public class PlayerInventoryScript : NetworkBehaviour
+public class PlayerInventoryScript : PlayerComponent
 {
+    public static event Action<int, Sprite> OnUIUpdateAdd;
+    public static event Action<int> OnUIUpdateRemove;
+    public static event Action<int> OnUIFrameUpdate;
+    
     [Header("Hand Rigs")]
     [GUIColor("Red")]
     [SerializeField] private GameObject rightHandRigs;
@@ -21,13 +23,10 @@ public class PlayerInventoryScript : NetworkBehaviour
     [GUIColor("Blue")]
     [SerializeField] private int currentItemIndex;
     
-    public static event Action<int, Sprite> OnUIUpdateAdd;
-    public static event Action<int> OnUIUpdateRemove;
-    
     [GUIColor("Yellow")]
     [SerializeField] private int inventorySize = 4;
     
-    [SerializeField, AllowMutableSyncType] private SyncList<ObjectPickable> slots = new();
+    [AllowMutableSyncType] public SyncList<ObjectPickable> slots = new();
     
     private InputSystem_Actions _inputSystem;
 
@@ -50,6 +49,8 @@ public class PlayerInventoryScript : NetworkBehaviour
         base.OnStartClient();
         currentItem.OnChange += HandleCurrentItemChange;
         
+        OnUIFrameUpdate?.Invoke(currentItemIndex);
+        
         if (!IsOwner)
         {
             enabled = false;
@@ -62,12 +63,14 @@ public class PlayerInventoryScript : NetworkBehaviour
         currentItem.OnChange -= HandleCurrentItemChange;
     }
     
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         _inputSystem = new InputSystem_Actions();
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
         _inputSystem.Enable();
         _inputSystem.Player.Slot1 .performed += OnSlot1;
@@ -75,14 +78,13 @@ public class PlayerInventoryScript : NetworkBehaviour
         _inputSystem.Player.Slot3 .performed += OnSlot3;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         _inputSystem.Disable();
         _inputSystem.Player.Slot1 .performed -= OnSlot1;
         _inputSystem.Player.Slot2 .performed -= OnSlot2;
         _inputSystem.Player.Slot3 .performed -= OnSlot3;
     }
-    
     #endregion
     
     #region InputBinding
@@ -114,7 +116,11 @@ public class PlayerInventoryScript : NetworkBehaviour
     
     private void OnDrawCurrentItem(int index)
     {
+        if (!playerRoot.isAlive.Value) return;
+        
         if (currentItem.Value != null && currentItem.Value.isBig) return;
+        
+        OnUIFrameUpdate?.Invoke(index);
         
         OnDrawCurrentItem_Server(index);
     }
@@ -199,7 +205,7 @@ public class PlayerInventoryScript : NetworkBehaviour
     [Server]
     public void RemoveBigItem(ObjectPickable bigItem)
     {
-        if (currentItem.Value)
+        if (currentItem.Value && bigItem.isBig)
         {
             bigItem.Drop();
             currentItem.Value = null;

@@ -1,13 +1,11 @@
 using System;
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using FishNet.Connection;
 using FishNet.Object;
 using Sirenix.OdinInspector;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : NetworkBehaviour
+public class PlayerController : PlayerComponent
 {
     [Header("Movement Settings")]
     [GUIColor("Yellow")]
@@ -68,8 +66,10 @@ public class PlayerController : NetworkBehaviour
         }
     }
     
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         _inputSystem = new InputSystem_Actions();
         _controller = GetComponent<CharacterController>();
         
@@ -103,16 +103,34 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+        
         _inputSystem.Enable();
         _inputSystem.Player.Move.performed += OnMove;
         _inputSystem.Player.Move.canceled += OnMoveCancelled;
         _inputSystem.Player.Jump.performed += OnJump;
+
+        UIConsoleScript.OnConsoleOpen += HandleInput;
     }
 
-    private void OnDisable()
+    private void HandleInput(bool obj)
     {
+        if (!obj)
+        {
+            _inputSystem.Enable();
+        }
+        else
+        {
+            _inputSystem.Disable();
+        }
+    }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        
         _inputSystem.Disable();    
         _inputSystem.Player.Move.performed -= OnMove;
         _inputSystem.Player.Move.canceled -= OnMoveCancelled;
@@ -132,7 +150,6 @@ public class PlayerController : NetworkBehaviour
         
         _currentMove = new Vector3(horizontalCurrent.x, _velocity.y, horizontalCurrent.z);
         
-        //_controller.Move(move * _moveSpeed * Time.deltaTime);
         _controller.Move(_currentMove * Time.deltaTime);
     }
 
@@ -140,7 +157,6 @@ public class PlayerController : NetworkBehaviour
     {
         bool sprintKey = _inputSystem.Player.Sprint.IsPressed();
         bool isMoving = _moveInput.sqrMagnitude > 0.01f;
-        //_isSprinting = _inputSystem.Player.Sprint.IsPressed();
 
         if (sprintKey && isMoving && currentStamina > 0) // if key is pressed
         {
@@ -174,9 +190,9 @@ public class PlayerController : NetworkBehaviour
     private void Update()
     {
         isGrounded = _controller.isGrounded;
-        
         if (IsOwner)
         {
+            if (!playerRoot.isAlive.Value) return;
             MoveHandler();
             OnSprint();
             OnCurrentStamina?.Invoke(currentStamina);

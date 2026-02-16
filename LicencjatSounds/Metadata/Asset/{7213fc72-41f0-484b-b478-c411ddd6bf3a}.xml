@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="EncodableAsset" id="{7213fc72-41f0-484b-b478-c411ddd6bf3a}">
+		<property name="assetPath">
+			<value>GlassCrack/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a3131740-b25f-416f-ae19-b10c75d01189}</destination>
+		</relationship>
+	</object>
+</objects>

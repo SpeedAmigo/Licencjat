@@ -3,21 +3,21 @@ using UnityEngine.UI;
 
 public class UIPlayerStamina : MonoBehaviour
 {
-    private Slider staminaSlider;
+    private Slider _staminaSlider;
 
     private void Awake()
     {
-        staminaSlider = GetComponent<Slider>();
+        _staminaSlider = GetComponent<Slider>();
     }
 
     private void SetStaminaBar(float currentStamina)
     {
-        staminaSlider.value = currentStamina;
+        _staminaSlider.value = currentStamina;
     }
 
     private void SetMaxStaminaBar(float maxStamina)
     {
-        staminaSlider.maxValue = maxStamina;
+        _staminaSlider.maxValue = maxStamina;
     }
     
     private void OnEnable()

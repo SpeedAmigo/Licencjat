@@ -1,9 +1,10 @@
+using System;
 using FishNet.Object;
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
 
-public class FootstepPlayer : NetworkBehaviour
+public class FootstepPlayer : PlayerComponent
 {
     [SerializeField] private GameObject surfaceCheckRaycast;
     [SerializeField] private float distance;
@@ -14,6 +15,8 @@ public class FootstepPlayer : NetworkBehaviour
     {
         if (!IsOwner) return;
         if (!surfaceCheckRaycast) return;
+
+        if (!playerRoot.isAlive.Value) return;
 
         if (Physics.Raycast(surfaceCheckRaycast.transform.position, Vector3.down, out var hit, distance))
         {

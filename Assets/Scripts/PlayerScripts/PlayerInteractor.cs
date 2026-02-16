@@ -1,11 +1,15 @@
+using System;
 using FishNet.Object;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 
-public class PlayerInteractor : NetworkBehaviour
+public class PlayerInteractor : PlayerComponent
 {
+    public static event Action<string> OnObjectDetection; 
+    public static event Action OnObjectUnDetection; 
+    
     [Header("Item Holders")]
     [GUIColor("Red")]
     [SerializeField] private NetworkObject fpItemHolder;
@@ -19,6 +23,12 @@ public class PlayerInteractor : NetworkBehaviour
     private InputSystem_Actions _inputSystem;
     private Camera _camera;
     private PlayerInventoryScript _playerInventory;
+    
+    private bool _primaryHold;
+    private bool _secondaryHold;
+
+    private RaycastHit _hit;
+    private bool _hasValidTarget;
 
     public override void OnStartClient()
     {
@@ -29,46 +39,180 @@ public class PlayerInteractor : NetworkBehaviour
         }
     }
     
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         _inputSystem = new InputSystem_Actions();
         _camera = Camera.main;
         _playerInventory = GetComponent<PlayerInventoryScript>();
     }
-
-    private void OnEnable()
+    
+    protected override void OnEnable()
     {
+        base.OnEnable();
+        
         _inputSystem.Enable();
         _inputSystem.Player.Interact.performed += OnInteraction;
         _inputSystem.Player.Drop.performed += OnItemDrop;
+        
+        _inputSystem.Player.Primary.performed += OnPrimaryPerformed;
+        _inputSystem.Player.Primary.started += OnPrimaryStarted;
+        _inputSystem.Player.Primary.canceled += OnPrimaryCanceled;
+        
+        _inputSystem.Player.Secondary.performed += OnSecondaryPerformed;
+        _inputSystem.Player.Secondary.started += OnSecondaryStarted;
+        _inputSystem.Player.Secondary.canceled += OnSecondaryCanceled;
     }
-
-    private void OnDisable()
+    
+    protected override void OnDisable()
     {
+        base.OnDisable();
+        
         _inputSystem.Disable();
         _inputSystem.Player.Interact.performed -= OnInteraction;
         _inputSystem.Player.Drop.performed -= OnItemDrop;
+        
+        _inputSystem.Player.Primary.performed -= OnPrimaryPerformed;
+        _inputSystem.Player.Primary.started -= OnPrimaryStarted;
+        _inputSystem.Player.Primary.canceled -= OnPrimaryCanceled;
+        
+        _inputSystem.Player.Secondary.performed -= OnSecondaryPerformed;
+        _inputSystem.Player.Secondary.started -= OnSecondaryStarted;
+        _inputSystem.Player.Secondary.canceled -= OnSecondaryCanceled;
     }
 
+    private void Update()
+    {
+        if (!IsOwner) return;
+        if (!playerRoot.isAlive.Value) return;
+        
+        if (_primaryHold)
+        {
+            OnPrimaryHold();
+        }
+
+        if (_secondaryHold)
+        {
+            OnSecondaryHold();
+        }
+        
+        DetectTarget();
+    }
+    
+    private void DetectTarget()
+    {
+        bool found = false;
+
+        if (Physics.Raycast(
+                _camera.ScreenPointToRay(Mouse.current.position.ReadValue()),
+                out _hit,
+                interactionDistance))
+        {
+            if (_hit.collider.TryGetComponent<ObjectPickable>(out var pickable))
+            {
+                if (pickable == _playerInventory.currentItem.Value) return;
+                
+                OnObjectDetection?.Invoke(pickable.itemDisplayName);
+                found = true;
+            }
+            else if (_hit.collider.TryGetComponent<IInteractable>(out var interactable))
+            {
+                OnObjectDetection?.Invoke(interactable.GetInteractText());
+                found = true;
+            }
+        }
+
+        if (!found && _hasValidTarget)
+        {
+            OnObjectUnDetection?.Invoke();
+        }
+
+        _hasValidTarget = found;
+    }
+
+    private void OnPrimaryPerformed(InputAction.CallbackContext context)
+    {
+        if (ItemIsValid() && _playerInventory.currentItem.Value is IPrimaryClick primaryClick)
+        {
+            primaryClick.OnPrimaryClick();
+        }
+    }
+    
+    private void OnSecondaryPerformed(InputAction.CallbackContext context)
+    {
+        if (ItemIsValid() && _playerInventory.currentItem.Value is ISecondaryClick secondaryClick)
+        {
+            secondaryClick.OnSecondaryClick();
+        }
+    }
+    
+    private void OnPrimaryHold()
+    {
+        if (ItemIsValid() && _playerInventory.currentItem.Value is IPrimaryHold primaryHold)
+        {
+            primaryHold.OnPrimaryHold();
+        }
+    }
+    
+    private void OnSecondaryHold()
+    {
+        if (ItemIsValid() && _playerInventory.currentItem.Value is ISecondaryHold secondaryHold)
+        {
+            secondaryHold.OnSecondaryHold();
+        }
+    }
+
+    private void OnPrimaryStarted(InputAction.CallbackContext context)
+    {
+        _primaryHold = true;
+    }
+
+    private void OnPrimaryCanceled(InputAction.CallbackContext context)
+    {
+        _primaryHold = false;
+        
+        if (_playerInventory.currentItem.Value is IPrimaryCancel primaryCancel)
+        {
+            primaryCancel.OnPrimaryCancel();
+        }
+    }
+
+    private void OnSecondaryStarted(InputAction.CallbackContext context)
+    {
+        _secondaryHold = true;
+    }
+
+    private void OnSecondaryCanceled(InputAction.CallbackContext context)
+    {
+        _secondaryHold = false;
+        
+        if (_playerInventory.currentItem.Value is ISecondaryCancel secondaryCancel)
+        {
+            secondaryCancel.OnSecondaryCancel();
+        }
+    }
+    
     private void OnInteraction(InputAction.CallbackContext context)
     {
         if (!IsOwner) return;
         if (!context.performed) return;
+        if (!playerRoot.isAlive.Value) return;
 
         RaycastHit hit;
 
         if (!Physics.Raycast(_camera.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, interactionDistance)) return;
 
-        if (hit.collider.TryGetComponent<NetworkObject>(out var netObj))
+        if (!hit.collider.TryGetComponent<NetworkObject>(out var netObj)) return;
+        
+        if (netObj.TryGetComponent<ObjectPickable>(out var pickup))
         {
-            if (netObj.TryGetComponent<ObjectPickable>(out var pickup))
-            {
-                Pickup_Server(netObj, fpItemHolder, tpIemHolder);
-            }
-            else if (netObj.TryGetComponent<IInteractable>(out var interactable))
-            {
-                Interact_Server(netObj);
-            }
+            if (pickup == _playerInventory.currentItem.Value) return;
+            Pickup_Server(netObj, fpItemHolder, tpIemHolder);
+        }
+        else if (netObj.TryGetComponent<IInteractable>(out var interactable))
+        {
+            Interact_Server(netObj);
         }
     }
 
@@ -127,6 +271,23 @@ public class PlayerInteractor : NetworkBehaviour
         {
             _playerInventory.RemoveItem(_playerInventory.currentItem.Value);
         }
+    }
+    
+    private bool ItemIsValid()
+    {
+        if (_playerInventory == null)
+        {
+            Debug.Log("No player inventory");
+            return false;
+        }
+
+        if (_playerInventory.currentItem.Value == null)
+        {
+            //Debug.Log("No item in hand"); 
+            return false;
+        }
+        
+        return true;
     }
 }
 

@@ -9,16 +9,10 @@ public class SpaceShipParenter : NetworkBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
-        
-        NetworkObject playerObj = other.transform.root.GetComponent<NetworkObject>();
-        
-        if (playerObj != null)
-        {
-            SetParentServer(playerObj, 1);
-        }
+        CompareForPlayer(other, 1);
+        CompareForItems(other, 1);
     }
-
+    
     private void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Player")) return;
@@ -29,6 +23,44 @@ public class SpaceShipParenter : NetworkBehaviour
             SetParentServer(playerObj, 0);
         }
     }
+
+    private void CompareForPlayer(Collider other, int value)
+    {
+        if (!other.CompareTag("Player")) return;
+        
+        NetworkObject playerObj = other.transform.root.GetComponent<NetworkObject>();
+        
+        if (playerObj != null)
+        {
+            RemoveFrogFromInventory(playerObj);
+            SetParentServer(playerObj, value);
+        }
+    }
+
+    private void CompareForItems(Collider other, int value)
+    {
+        if (other.TryGetComponent(out ObjectPickable item))
+        {
+            SetParentServer(item, value);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RemoveFrogFromInventory(NetworkObject obj)
+    {
+        if (!obj.TryGetComponent(out PlayerInventoryScript player))
+            return;
+
+        if (player.currentItem.Value == null)
+            return;
+
+        if (player.currentItem.Value.TryGetComponent(out FrogScript frog))
+        {
+            // You can use `frog` here if needed
+            player.RemoveBigItem(player.currentItem.Value);
+        }
+    }
+
     
     [ServerRpc(RequireOwnership = false)]
     private void SetParentServer(NetworkObject player, int parentIndex)

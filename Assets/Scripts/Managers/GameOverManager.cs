@@ -1,0 +1,134 @@
+using System;
+using System.Collections.Generic;
+using FishNet.Connection;
+using FishNet.Object;
+using UnityEngine;
+
+public class GameOverManager : NetworkBehaviour
+{
+    public static GameOverManager Instance;
+
+    public static event Action<string> OnGameOverScreen;
+
+    [SerializeField] private string quotaDeathMessage;
+    [SerializeField] private string playersDownDeathMessage;
+    [SerializeField] private int playerTeleportWorldHeight;
+
+    [SerializeField] private List<PlayerRoot> players;
+    
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        } 
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void RegisterPlayer(NetworkObject player)
+    {
+        player.TryGetComponent(out PlayerRoot playerRoot);
+        if (playerRoot != null)
+        {
+            players.Add(playerRoot);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void ComparePlayersState()
+    {
+        foreach (PlayerRoot player in players)
+        {
+            
+            if (player.isAlive.Value)
+            {
+                return;
+            }
+        }
+        
+        GameOverServer(false);
+    }
+
+    [Server]
+    public void GameOverServer(bool causedByQuota)
+    {
+        GameOverClients(causedByQuota);
+    }
+
+    [ObserversRpc]
+    private void GameOverClients(bool causedByQuota)
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
+        
+        Time.timeScale = 0;
+        
+        OnGameOverScreen?.Invoke(causedByQuota ? quotaDeathMessage : playersDownDeathMessage);
+    }
+
+    [Server]
+    public void RestoreAllPlayers()
+    {
+        foreach (PlayerRoot player in players)
+        {
+            NetworkObject nob = player.GetComponent<NetworkObject>();
+            
+            if (!player.isAlive.Value)
+            {
+                //player.ReviveServer(nob.Owner);
+                player.RestorePlayer(nob.Owner, false, true);
+                continue;
+            }
+            
+            // looking for players that was left on the planet
+            if (player.isAlive.Value && player.transform.position.y < playerTeleportWorldHeight)
+            {
+                player.RestorePlayer(nob.Owner, true, true);
+            }
+            else
+            {
+                player.RestorePlayer(nob.Owner, true, false);
+            }
+        }
+    }
+
+    [Server]
+    public void ReviveDeadPlayersServer()
+    {
+        foreach (PlayerRoot player in players)
+        {
+            if (!player.isAlive.Value)
+            {
+                NetworkObject nob = player.GetComponent<NetworkObject>();
+                //player.ReviveServer(nob.Owner);
+                player.RestorePlayer(nob.Owner, false, true);
+            }
+        }
+    }
+
+    [Server]
+    public void RestoreAlivePlayersSever()
+    {
+        foreach (PlayerRoot player in players)
+        {
+            if (!player.isAlive.Value) return;
+            
+            NetworkObject nob = player.GetComponent<NetworkObject>();
+            //player.RestorePlayerOxygen(nob.Owner);
+
+            // looking for players that was left on the planet
+            if (player.transform.position.y < playerTeleportWorldHeight)
+            {
+                player.RestorePlayer(nob.Owner, true, true);
+            }
+            else
+            {
+                player.RestorePlayer(nob.Owner, true, false);
+            }
+        }
+    }
+}
