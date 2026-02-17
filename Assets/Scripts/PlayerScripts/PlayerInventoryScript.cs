@@ -3,6 +3,7 @@ using FishNet.CodeGenerating;
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -19,14 +20,14 @@ public class PlayerInventoryScript : PlayerComponent
     [SerializeField] private GameObject rightHandRigs;
     
     [GUIColor("Blue")]
-    [AllowMutableSyncType] public SyncVar<ObjectPickable> currentItem = new();
+    [AllowMutableSyncType] public SyncVar<Item> currentItem = new();
     [GUIColor("Blue")]
     [SerializeField] private int currentItemIndex;
     
     [GUIColor("Yellow")]
     [SerializeField] private int inventorySize = 4;
     
-    [AllowMutableSyncType] public SyncList<ObjectPickable> slots = new();
+    [AllowMutableSyncType] public SyncList<Item> slots = new();
     
     private InputSystem_Actions _inputSystem;
 
@@ -95,7 +96,7 @@ public class PlayerInventoryScript : PlayerComponent
     
     #region Helpers
     
-    private void HandleCurrentItemChange(ObjectPickable prev, ObjectPickable next, bool asServer)
+    private void HandleCurrentItemChange(Item prev, Item next, bool asServer)
     {
         if (next != null && next.gameObject != null && !next.gameObject.activeSelf)
         {
@@ -129,7 +130,7 @@ public class PlayerInventoryScript : PlayerComponent
     private void OnDrawCurrentItem_Server(int index)
     {
         if (index < 0 || index >= slots.Count) return;
-        ObjectPickable slotItem = slots[index];
+        Item slotItem = slots[index];
         
         //hiding item if pressed the same button
         if (currentItemIndex == index)
@@ -166,7 +167,7 @@ public class PlayerInventoryScript : PlayerComponent
     }
     
     [Server]
-    public void RequestRemoveItem(ObjectPickable item, PlayerInventoryScript inventory)
+    public void RequestRemoveItem(Item item, PlayerInventoryScript inventory)
     {
         if (inventory == null || item == null) return;
 
@@ -193,7 +194,7 @@ public class PlayerInventoryScript : PlayerComponent
     #region BigItem
     
     [Server]
-    public void AddBigItem(ObjectPickable bigItem, NetworkObject fpHolder, NetworkObject tpHolder)
+    public void AddBigItem(Item bigItem, NetworkObject fpHolder, NetworkObject tpHolder)
     {
         if (currentItem.Value == null)
         {
@@ -217,7 +218,7 @@ public class PlayerInventoryScript : PlayerComponent
     #region RegularItem
     
     [Server]
-    public void AddItem(ObjectPickable item, NetworkObject fpHolder, NetworkObject tpHolder)
+    public void AddItem(Item item, NetworkObject fpHolder, NetworkObject tpHolder)
     {
         for (int i = 0; i < slots.Count; i++)
         {
@@ -246,7 +247,7 @@ public class PlayerInventoryScript : PlayerComponent
     }
 
     [Server]
-    public void RemoveItem(ObjectPickable item)
+    public void RemoveItem(Item item)
     {
         if (slots.Contains(item))
         {
@@ -288,7 +289,7 @@ public class PlayerInventoryScript : PlayerComponent
     }
 
     [TargetRpc]
-    private void UpdateUIAdd(NetworkConnection conn, int index, ObjectPickable item)
+    private void UpdateUIAdd(NetworkConnection conn, int index, Item item)
     {
         OnUIUpdateAdd?.Invoke(index, item.itemIcon); // passing free slot index and icon
     }

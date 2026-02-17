@@ -1,5 +1,6 @@
 using System;
 using FishNet.Object;
+using Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -109,7 +110,7 @@ public class PlayerInteractor : PlayerComponent
                 out _hit,
                 interactionDistance))
         {
-            if (_hit.collider.TryGetComponent<ObjectPickable>(out var pickable))
+            if (_hit.collider.TryGetComponent<Item>(out var pickable))
             {
                 if (pickable == _playerInventory.currentItem.Value) return;
                 
@@ -230,7 +231,7 @@ public class PlayerInteractor : PlayerComponent
     [ServerRpc(RequireOwnership = false)]
     private void Pickup_Server(NetworkObject obj, NetworkObject fpHolder, NetworkObject tpHolder)
     {
-        if (obj != null && obj.TryGetComponent<ObjectPickable>(out var pickup))
+        if (obj != null && obj.TryGetComponent<Item>(out var pickup))
         {
             if (pickup.isBig)
             {

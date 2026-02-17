@@ -3,9 +3,10 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FMOD.Studio;
 using FMODUnity;
+using Items;
 using UnityEngine;
 
-public class FrogPickScript : ObjectPickable
+public class FrogPickScript : Item
 {
     [AllowMutableSyncType] private SyncVar<float> spitTime = new();
     

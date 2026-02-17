@@ -6,7 +6,7 @@ using FMODUnity;
 using Pathfinding;
 using UnityEngine;
 
-public class FrogScript : BaseEnemyScript
+public class FrogScript : BaseEnemyScript, IStunable
 {
     #region Variables
     
@@ -155,4 +155,25 @@ public class FrogScript : BaseEnemyScript
     }
     
     #endregion
+    
+    public void SetStunned(bool stunned)
+    {
+        if (stunned)
+        {
+            Debug.Log("Stunned");
+            canWalk = false;
+            walkSpeed = 0;
+            canRunaway = false;
+            canSpit = false;
+        }
+        else
+        {
+            Debug.Log("Not Stunned");
+            
+            canWalk = true;
+            walkSpeed = 2f;
+            canRunaway = true;
+            canSpit = true;
+        }
+    }
 }

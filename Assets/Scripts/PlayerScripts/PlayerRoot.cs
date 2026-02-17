@@ -6,6 +6,7 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FMOD.Studio;
 using FMODUnity;
+using Items;
 using UnityEngine;
 
 public class PlayerRoot : NetworkBehaviour, IPlayer
@@ -85,7 +86,7 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         }
     }
     
-    public void RequestItemDrop(ObjectPickable item)
+    public void RequestItemDrop(Item item)
     {
         _playerInventory.RequestRemoveItem(item, _playerInventory);
     }
@@ -137,36 +138,6 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         
     }
     
-    /*[Server]
-    public void ReviveServer(NetworkConnection conn)
-    {
-        ReviveClient(conn, _spawnPosition, _spawnRotation);
-    }*/
-
-    /*[Server]
-    public void RestorePlayerOxygen(NetworkConnection conn)
-    {
-        RestoreClient(conn);   
-    }*/
-
-    /*[TargetRpc]
-    private void ReviveClient(NetworkConnection conn, Vector3 pos, Quaternion rot)
-    {
-        SetPlayerAlive(true);
-        
-        ChangeOxygenOnRevive(oxygen.maxOxygen.Value, oxygen.baseDrainRate.Value);
-        
-        transform.SetPositionAndRotation(pos, rot);
-        
-        OnReviveEvent?.Invoke();
-    }*/
-    
-    /*[TargetRpc]
-    private void RestoreClient(NetworkConnection conn)
-    {
-        ChangeOxygenOnRevive(oxygen.maxOxygen.Value, oxygen.baseDrainRate.Value);
-    }*/
-
     [ServerRpc]
     private void ChangeOxygenOnRevive(float maxOxygen, float baseDrainRate)
     {
