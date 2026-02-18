@@ -1,18 +1,22 @@
 using System.Collections.Generic;
+using FishNet.CodeGenerating;
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using UnityEngine;
 
 public class StatusEffectHandler : NetworkBehaviour
 {
-    private List<StatusEffectInstance> activeEffects = new();
+    public List<StatusEffectInstance> activeEffects;
+    //[AllowMutableSyncType] private SyncList<StatusEffectInstance> activeEffects = new();
     
+    [ServerRpc(RequireOwnership = false)]
     public void ApplyEffect(StatusEffect effect)
     {
         StatusEffectInstance instance = new StatusEffectInstance(effect, this);
         activeEffects.Add(instance);
         instance.OnApply();
     }
-
+    
     private void Update()
     {
         if (!IsServerInitialized) return;

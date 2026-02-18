@@ -1,6 +1,7 @@
 using FishNet.Object;
 using UnityEngine;
 
+[System.Serializable]
 public class StatusEffectInstance
 {
     public StatusEffect effect;
