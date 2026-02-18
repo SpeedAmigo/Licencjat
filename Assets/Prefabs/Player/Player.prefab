@@ -518,6 +518,7 @@ GameObject:
   - component: {fileID: 6927043152948294079}
   - component: {fileID: 1264572649960622153}
   - component: {fileID: -5126884908997604730}
+  - component: {fileID: 3889376035610438353}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -914,6 +915,25 @@ MonoBehaviour:
   uniqueID: 3146827650870088627
   updateError: 1
   checkTime: 0.2
+--- !u!114 &3889376035610438353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418864778330149249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26cd3588aff200a4cbe80d6eb188d27f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusEffectHandler
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 5315229089820142365}
+  _networkObjectCache: {fileID: 0}
+  activeEffects:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    Collection: []
 --- !u!1 &442534167821363181
 GameObject:
   m_ObjectHideFlags: 0

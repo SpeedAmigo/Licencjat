@@ -9,7 +9,7 @@ using FMODUnity;
 using Items;
 using UnityEngine;
 
-public class PlayerRoot : NetworkBehaviour, IPlayer
+public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
 {
     public event Action OnReviveEvent;
     
@@ -66,6 +66,9 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         _getDamageInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
         _getDamageInstance.start();
         _getDamageInstance.release();
+        
+        Debug.Log("dziala");
+        Debug.Log(damage);
 
         //TakeDamageClient(oxygen.drainRate.Value);
     }

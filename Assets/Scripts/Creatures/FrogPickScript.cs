@@ -13,6 +13,7 @@ public class FrogPickScript : Item
     [SerializeField] private FrogScript frogScript;
     
     private PlayerRoot _playerRoot;
+    private StatusEffectHandler _playerEffectHandler;
     private float _pickedTime;
     private bool _warningPlayed;
 
@@ -34,6 +35,8 @@ public class FrogPickScript : Item
         ChangePickupValue(true);
         
         _playerRoot = holder.transform.root.gameObject.GetComponent<PlayerRoot>();
+        _playerEffectHandler = holder.transform.root.gameObject.GetComponent<StatusEffectHandler>();
+        
     }
     
     protected override void DropLogic()
@@ -45,6 +48,7 @@ public class FrogPickScript : Item
         ChangePickupValue(false);
         
         _playerRoot = null;
+        _playerEffectHandler = null;
     }
     
     [ServerRpc(RequireOwnership = false)]
@@ -84,9 +88,9 @@ public class FrogPickScript : Item
 
                 frogScript.PlayParticleServer();
                 
-                if (_playerRoot != null)
+                if (_playerRoot && _playerEffectHandler)
                 {
-                    _playerRoot.TakeDamage(frogScript.damage);
+                    _playerEffectHandler.ApplyEffect(frogScript.damageEffect);
                     _playerRoot.RequestItemDrop(this);
                 }
                 else

@@ -16,6 +16,7 @@ public class BaseEnemyScript : NetworkBehaviour
 
     [Header("Damage settings")] 
     public float damage;
+    public StatusEffect damageEffect;
     
     [Header("Players in range list")]
     [AllowMutableSyncType] public SyncList<GameObject> playersInRange = new();
