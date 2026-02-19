@@ -6,65 +6,60 @@ using UnityEngine;
 
 public class StatusEffectHandler : NetworkBehaviour
 {
-    [AllowMutableSyncType] private SyncList<StatusEffectData> activeEffects = new();
+    public List<StatusEffectInstance> activeEffects = new();
     
-    private List<StatusEffectInstance> _serverInstances = new();
-
     private float _timer = 0f;
     private float _interval = 0.2f;
     
-    
-    [ServerRpc(RequireOwnership = false)]
     public void ApplyEffect(StatusEffect effect)
     {
-        var data = StatusEffectData.FromEffect(effect);
-        activeEffects.Add(data);
+        if (!IsServerInitialized) return;
         
-        var instance = new StatusEffectInstance(effect, this);
+        StatusEffectInstance instance = new StatusEffectInstance(effect, this);
+        activeEffects.Add(instance);
         instance.OnApply();
+    }
+
+    public void ApplyEffects(StatusEffect[] effects)
+    {
+        if (!IsServerInitialized) return;
         
-        _serverInstances.Add(instance);
+        if (effects.Length == 0) return;
+
+        foreach (var effect in effects)
+        {
+            StatusEffectInstance instance = new StatusEffectInstance(effect, this);
+            activeEffects.Add(instance);
+            instance.OnApply();
+        }
     }
     
     private void Update()
     {
         if (!IsServerInitialized) return;
+        if (activeEffects.Count == 0) return;
         
         _timer += Time.deltaTime;
 
         if (_timer >= _interval)
         {
             _timer -= _interval;
+            HandleEffects();
         }
-        
-        HandleEffects();
     }
 
     private void HandleEffects()
     {
-        for (int i = _serverInstances.Count - 1; i >= 0; i--)
-        {
-            var inst = _serverInstances[i];
-            inst.Tick(Time.deltaTime);
-
-            if (inst.IsFinished)
-            {
-                inst.OnExpire();
-                _serverInstances.RemoveAt(i);
-                RemoveMatchingData(inst.effect);
-            }
-        }
-    }
-    
-    private void RemoveMatchingData(StatusEffect effect)
-    {
-        var tn = effect.GetType().AssemblyQualifiedName;
+        if (activeEffects.Count == 0) return;
+        
         for (int i = activeEffects.Count - 1; i >= 0; i--)
         {
-            if (activeEffects[i].typeName == tn)
+            activeEffects[i].Tick(Time.deltaTime);
+
+            if (activeEffects[i].IsFinished)
             {
+                activeEffects[i].OnExpire();
                 activeEffects.RemoveAt(i);
-                break;
             }
         }
     }

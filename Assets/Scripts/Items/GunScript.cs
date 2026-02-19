@@ -1,3 +1,4 @@
+using FishNet.Object;
 using UnityEngine;
 
 public class GunScript : Weapon, IPrimaryClick
@@ -18,20 +19,17 @@ public class GunScript : Weapon, IPrimaryClick
 
         if (Physics.Raycast(ray, out RaycastHit hit, shootDistance))
         {
-            if (hit.collider.TryGetComponent<StatusEffectHandler>(out var handler))
+            if (hit.collider.TryGetComponent<NetworkObject>(out var nob))
             {
-                ApplyEffect(handler);
+                TryApplyEffect(nob);
             }
         }
     }
-
-    private void ApplyEffect(StatusEffectHandler handler)
+    
+    [ServerRpc(RequireOwnership = false)]
+    private void TryApplyEffect(NetworkObject target)
     {
-        if (effects == null) return;
-        
-        foreach (var effect in effects)
-        {
-            handler.ApplyEffect(effect);
-        }
+       var handler = target.GetComponent<StatusEffectHandler>();
+       handler.ApplyEffects(effects);
     }
 }

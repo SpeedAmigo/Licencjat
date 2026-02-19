@@ -930,10 +930,7 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 5315229089820142365}
   _networkObjectCache: {fileID: 0}
-  activeEffects:
-    NetworkManager: {fileID: 0}
-    NetworkBehaviour: {fileID: 0}
-    Collection: []
+  activeEffects: []
 --- !u!1 &442534167821363181
 GameObject:
   m_ObjectHideFlags: 0

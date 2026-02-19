@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: FrogDamage
   m_EditorClassIdentifier: Assembly-CSharp::InstantDamage
   duration: 0
-  _damage: 0
+  damage: 10

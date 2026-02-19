@@ -4,14 +4,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "StatusEffects/InstantDamage")]
 public class InstantDamage : StatusEffect
 {
-    private float _damage = 10;
+    [SerializeField] private float damage;
     
     [Server]
     public override void OnApply(StatusEffectInstance instance)
     {
         if (instance.TryGetComponent<IDamageable>(out var damageable))
         {
-            damageable.TakeDamage(_damage);
+            damageable.TakeDamage(damage);
+            Debug.Log($"Instant damage value: {damage}");
         }
     }
     public override void OnTick(StatusEffectInstance instance, float deltaTime)
