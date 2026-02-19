@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "StatusEffects/InstantDamage")]
 public class InstantDamage : StatusEffect
 {
-    [SerializeField] private float _damage = 10;
+    private float _damage = 10;
     
     [Server]
     public override void OnApply(StatusEffectInstance instance)

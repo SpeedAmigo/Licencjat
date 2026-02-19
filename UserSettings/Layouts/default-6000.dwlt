@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1349
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 50
+  controlID: 48
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 51
+  controlID: 49
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 52
+  controlID: 50
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -255,7 +255,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 114
+  controlID: 60
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -847,9 +847,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 7.1258535, y: -0.9500583, z: -1.0277966}
+    m_Target: {x: 9.509777, y: -2.191125, z: 3.1321163}
     speed: 2
-    m_Value: {x: -11.430401, y: 301.1557, z: 28.749924}
+    m_Value: {x: 9.509777, y: -2.191125, z: 3.1321163}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -895,13 +895,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.03469033, y: 0.9572751, z: -0.13492344, w: 0.25208566}
+    m_Target: {x: 0.19383243, y: 0.69056815, z: -0.20195585, w: 0.6664011}
     speed: 2
-    m_Value: {x: -0.1510083, y: -0.23554714, z: 0.03764033, w: -0.95900756}
+    m_Value: {x: 0.19383243, y: 0.69056815, z: -0.20195585, w: 0.666401}
   m_Size:
     m_Target: 3.919724
     speed: 2
-    m_Value: 0.84367883
+    m_Value: 3.919724
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -5056,7 +5056,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Interfaces
+    - Assets/ScriptableObjects
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -5066,16 +5066,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/Interfaces
+  - Assets/ScriptableObjects
   m_LastFoldersGridSize: -1
   m_LastProjectPath: E:\Github\Licencjat
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 87}
-    m_SelectedIDs: d6ff0000
-    m_LastClickedID: 65494
-    m_ExpandedIDs: 00000000befe0000
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: 82ff0000
+    m_LastClickedID: 65410
+    m_ExpandedIDs: 00000000c0fe0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -5104,7 +5104,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000befe0000
+    m_ExpandedIDs: 00000000c0fe0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
