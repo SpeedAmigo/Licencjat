@@ -29,7 +29,9 @@ public class ShopManagerScript : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void BuyItem(string itemId)
     {
-        var pickedItem = GetItemById(itemId);      
+        var pickedItem = GetItemById(itemId);
+        Debug.Log(pickedItem);
+        
         if (!CanBuyItem(pickedItem.itemPrice)) return;
         
         SpawnItem(pickedItem.itemPrefab, spawnLocation);
@@ -39,8 +41,8 @@ public class ShopManagerScript : NetworkBehaviour
     [Server]
     private void SpawnItem(NetworkObject prefab, Transform location)
     {
-        Instantiate(prefab, location.position, location.rotation);
-        Spawn(prefab);
+        var createdItem = Instantiate(prefab, location.position, location.rotation);
+        Spawn(createdItem);
     }
 
     [Server]
