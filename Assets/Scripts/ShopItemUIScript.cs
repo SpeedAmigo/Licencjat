@@ -27,8 +27,10 @@ public class ShopItemUIScript : NetworkBehaviour, IInteractable
     {
         if (ShopManagerScript.Instance)
         {
-            Debug.Log(_itemId);
-            ShopManagerScript.Instance.BuyItem(_itemId);
+            if (IsController)
+            {
+                ShopManagerScript.Instance.BuyItem(_itemId); 
+            }
         }
     }
 

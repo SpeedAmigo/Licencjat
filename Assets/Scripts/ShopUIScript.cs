@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShopUIScript : NetworkBehaviour
 {
-    [SerializeField] private Transform verticalGroup;
+    [SerializeField] private NetworkObject verticalGroup;
     [SerializeField] private TMP_Text moneyText;
     [SerializeField] private ShopItemUIScript itemTemplatePrefab;
 
@@ -18,9 +18,17 @@ public class ShopUIScript : NetworkBehaviour
         ShopManagerScript.MoneyChanged -= OnMoneyChanged;
     }
     
-    public override void OnStartServer()
+    private void Start()
     {
-        if (!IsServerInitialized || !itemTemplatePrefab) return;
+        if (IsServerInitialized)
+        {
+            SpawnTemplate();
+        }
+    }
+
+    private void SpawnTemplate()
+    {
+        if (!itemTemplatePrefab) return;
         
         if (ShopManagerScript.Instance == null)
         {
@@ -32,17 +40,36 @@ public class ShopUIScript : NetworkBehaviour
             Debug.LogWarning("The ShopManagerScript items are empty.");
         } 
         
-        foreach (var item in ShopManagerScript.Instance.shopItems)
+        /*foreach (var item in ShopManagerScript.Instance.shopItems)
         {
-            var spawnedTemplate = Instantiate(itemTemplatePrefab, verticalGroup);
+            var spawnedTemplate = Instantiate(itemTemplatePrefab, verticalGroup.transform);
+            Spawn(spawnedTemplate.gameObject);
             
+            spawnedTemplate.NetworkObject.SetParent(verticalGroup);
             spawnedTemplate.CardSetup(item.itemIcon, item.itemName, item.itemDescription, item.itemPrice, item.ItemID);
-            spawnedTemplate.gameObject.transform.SetParent(verticalGroup);
+            SetupCardClient(spawnedTemplate);
+        }*/
+
+        for (int i = 0; i < ShopManagerScript.Instance.shopItems.Count; i++)
+        {
+            var item = ShopManagerScript.Instance.shopItems[i];
             
-            Spawn(spawnedTemplate);
+            var spawnedTemplate = Instantiate(itemTemplatePrefab, verticalGroup.transform);
+            Spawn(spawnedTemplate.gameObject);
             
-            Debug.Log(spawnedTemplate.name);
+            spawnedTemplate.NetworkObject.SetParent(verticalGroup);
+            spawnedTemplate.CardSetup(item.itemIcon, item.itemName, item.itemDescription, item.itemPrice, item.ItemID);
+            SetupCardClient(spawnedTemplate, i);
         }
+    }
+
+    [ObserversRpc(BufferLast = true)]
+    private void SetupCardClient(NetworkObject nob, int index)
+    {
+        var itemScript = nob.GetComponent<ShopItemUIScript>();
+        var currentIndex = ShopManagerScript.Instance.shopItems[index];
+        
+        itemScript.CardSetup(currentIndex.itemIcon, currentIndex.itemName, currentIndex.itemDescription, currentIndex.itemPrice, currentIndex.ItemID);
     }
     
     private void OnMoneyChanged(uint moneyValue)

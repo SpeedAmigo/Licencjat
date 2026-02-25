@@ -111,6 +111,12 @@ public class OxygenScript : NetworkBehaviour
 
     private void Start()
     {
+        RegisterCommand();
+    }
+
+    private void RegisterCommand()
+    {
+        if (!IsOwner) return;
         CommandsManager.Instance.RegisterInstance(this);
     }
 

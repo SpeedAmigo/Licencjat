@@ -29,11 +29,6 @@ public class ShopManagerScript : NetworkBehaviour
             Destroy(gameObject);
         }
     }
-
-    public override void OnStartServer()
-    {
-        MoneyChanged?.Invoke(currentMoney.Value);
-    }
     
     [ServerRpc(RequireOwnership = false)]
     public void BuyItem(string itemId)
@@ -58,7 +53,7 @@ public class ShopManagerScript : NetworkBehaviour
     public void UpdateMoney(uint money)
     {
         currentMoney.Value += money;
-        MoneyChanged?.Invoke(currentMoney.Value);
+        UpdateMoneyUIClient(currentMoney.Value);
     }
 
     [Server]
@@ -71,7 +66,14 @@ public class ShopManagerScript : NetworkBehaviour
     private void TakeMoney(uint money)
     {
         currentMoney.Value -= money;
-        MoneyChanged?.Invoke(currentMoney.Value);
+        UpdateMoneyUIClient(currentMoney.Value);
+        //MoneyChanged?.Invoke(currentMoney.Value);
+    }
+
+    [ObserversRpc]
+    private void UpdateMoneyUIClient(uint money)
+    {
+        MoneyChanged?.Invoke(money);
     }
 
     private ShopItemData GetItemById(string id)

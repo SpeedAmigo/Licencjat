@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1349
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -847,9 +847,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -7.3867598, y: 299.7451, z: 31.09887}
+    m_Target: {x: -13.833347, y: 300.58243, z: 25.366632}
     speed: 2
-    m_Value: {x: -7.3867598, y: 299.7451, z: 31.09887}
+    m_Value: {x: -13.833347, y: 300.58243, z: 25.366632}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -895,9 +895,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.2132689, y: -0.40844873, z: 0.09866431, w: -0.88152224}
+    m_Target: {x: 0.0062454883, y: -0.8572341, z: 0.010600947, w: 0.5139323}
     speed: 2
-    m_Value: {x: 0.2132689, y: 0.40844873, z: -0.09866431, w: 0.88152224}
+    m_Value: {x: -0.006248211, y: 0.8576081, z: -0.010605564, w: -0.5141565}
   m_Size:
     m_Target: 0.8096242
     speed: 2
@@ -919,7 +919,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: 0.019798812, y: -0.015532404, z: 0.00030176097, w: 0.99924886}
+  m_LastSceneViewRotation: {x: 0.16698073, y: 0.05291135, z: -0.0089755785, w: 0.9845004}
   m_LastSceneViewOrtho: 0
   m_Viewpoint:
     m_SceneView: {fileID: 14}
@@ -973,10 +973,10 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 25}
+      scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: c888ffff08fbfffff0e80000
+      m_ExpandedIDs: d6dcffff08fbfffff4ffffff10e40000f0e80000ecec0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -5056,7 +5056,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/Items
+    - Assets
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -5066,16 +5066,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs/Items
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: E:\Github\Licencjat
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 6c000100
-    m_LastClickedID: 65644
-    m_ExpandedIDs: 0000000034ff0000
+    m_SelectedIDs: 34ff0000
+    m_LastClickedID: 65332
+    m_ExpandedIDs: 0000000046ff0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -5104,7 +5104,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000034ff0000
+    m_ExpandedIDs: 0000000046ff0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -5200,7 +5200,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 59764
+  m_LastSelectedObjectID: -12410
 --- !u!114 &24
 MonoBehaviour:
   m_ObjectHideFlags: 52
