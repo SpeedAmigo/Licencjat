@@ -51,6 +51,7 @@ public class QuotaManagerScript : NetworkBehaviour
         if (currentMoney.Value >= targetQuota.Value)
         {
             Debug.Log("Quota reached!");
+            ShopManagerScript.Instance?.UpdateMoney(currentMoney.Value);
             IncreaseQuota();
             GameOverManager.Instance.RestoreAllPlayers();
             //GameOverManager.Instance.ReviveDeadPlayersServer();

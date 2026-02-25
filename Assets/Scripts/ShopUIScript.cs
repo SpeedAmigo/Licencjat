@@ -1,11 +1,23 @@
 using FishNet.Object;
+using TMPro;
 using UnityEngine;
 
 public class ShopUIScript : NetworkBehaviour
 {
     [SerializeField] private Transform verticalGroup;
+    [SerializeField] private TMP_Text moneyText;
     [SerializeField] private ShopItemUIScript itemTemplatePrefab;
 
+    private void OnEnable()
+    {
+        ShopManagerScript.MoneyChanged += OnMoneyChanged;
+    }
+
+    private void OnDisable()
+    {
+        ShopManagerScript.MoneyChanged -= OnMoneyChanged;
+    }
+    
     public override void OnStartServer()
     {
         if (!IsServerInitialized || !itemTemplatePrefab) return;
@@ -31,5 +43,10 @@ public class ShopUIScript : NetworkBehaviour
             
             Debug.Log(spawnedTemplate.name);
         }
+    }
+    
+    private void OnMoneyChanged(uint moneyValue)
+    {
+        moneyText.text = moneyValue.ToString();
     }
 }

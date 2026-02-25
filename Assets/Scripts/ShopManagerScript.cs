@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FishNet.CodeGenerating;
 using FishNet.Object;
@@ -8,6 +9,9 @@ using UnityEngine;
 public class ShopManagerScript : NetworkBehaviour
 {
     public static ShopManagerScript Instance;
+
+    public static event Action<uint> MoneyChanged;
+    
     [AllowMutableSyncType] public SyncVar<uint> currentMoney;
     
     public List<ShopItemData> shopItems;
@@ -24,6 +28,11 @@ public class ShopManagerScript : NetworkBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public override void OnStartServer()
+    {
+        MoneyChanged?.Invoke(currentMoney.Value);
     }
     
     [ServerRpc(RequireOwnership = false)]
@@ -46,6 +55,13 @@ public class ShopManagerScript : NetworkBehaviour
     }
 
     [Server]
+    public void UpdateMoney(uint money)
+    {
+        currentMoney.Value += money;
+        MoneyChanged?.Invoke(currentMoney.Value);
+    }
+
+    [Server]
     private bool CanBuyItem(int itemPrice)
     {
         return currentMoney.Value >= itemPrice;
@@ -55,6 +71,7 @@ public class ShopManagerScript : NetworkBehaviour
     private void TakeMoney(uint money)
     {
         currentMoney.Value -= money;
+        MoneyChanged?.Invoke(currentMoney.Value);
     }
 
     private ShopItemData GetItemById(string id)
