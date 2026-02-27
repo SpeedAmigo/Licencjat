@@ -575,6 +575,13 @@ MonoBehaviour:
       Data3: 100156564
       Data4: -1562368871
     Path: event:/GlassCrack
+  getHealSound:
+    Guid:
+      Data1: 1441944087
+      Data2: 1170255537
+      Data3: 100156564
+      Data4: -1562368871
+    Path: event:/GlassCrack
   oxygen: {fileID: 4583393769552851428}
 --- !u!114 &5494240458988316082
 MonoBehaviour:
@@ -7097,7 +7104,7 @@ GameObject:
   - component: {fileID: 4027544253422935290}
   - component: {fileID: 5440312064051546494}
   m_Layer: 8
-  m_Name: Collider
+  m_Name: PlayerCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -103,28 +103,35 @@ public class PlayerInteractor : PlayerComponent
     
     private void DetectTarget()
     {
-        bool found = false;
+        var ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (Physics.Raycast(
-                _camera.ScreenPointToRay(Mouse.current.position.ReadValue()),
-                out _hit,
-                interactionDistance))
+        bool found = false;
+        string interactText = null;
+
+        if (Physics.Raycast(ray, out _hit, interactionDistance))
         {
-            if (_hit.collider.TryGetComponent<Item>(out var pickable))
+            var collider = _hit.collider;
+
+            if (collider.TryGetComponent(out Item pickable))
             {
-                if (pickable == _playerInventory.currentItem.Value) return;
-                
-                OnObjectDetection?.Invoke(pickable.itemDisplayName);
-                found = true;
+                if (pickable != _playerInventory.currentItem.Value)
+                {
+                    interactText = pickable.itemDisplayName;
+                    found = true;
+                }
             }
-            else if (_hit.collider.TryGetComponent<IInteractable>(out var interactable))
+            else if (collider.TryGetComponent(out IInteractable interactable))
             {
-                OnObjectDetection?.Invoke(interactable.GetInteractText());
+                interactText = interactable.GetInteractText();
                 found = true;
             }
         }
-
-        if (!found && _hasValidTarget)
+        
+        if (found)
+        {
+            OnObjectDetection?.Invoke(interactText);
+        }
+        else if (_hasValidTarget)
         {
             OnObjectUnDetection?.Invoke();
         }
@@ -132,6 +139,8 @@ public class PlayerInteractor : PlayerComponent
         _hasValidTarget = found;
     }
 
+    #region  Mouse Left/Right actions
+        
     private void OnPrimaryPerformed(InputAction.CallbackContext context)
     {
         if (ItemIsValid() && _playerInventory.currentItem.Value is IPrimaryClick primaryClick)
@@ -194,19 +203,19 @@ public class PlayerInteractor : PlayerComponent
         }
     }
     
+    #endregion
+    
     private void OnInteraction(InputAction.CallbackContext context)
     {
         if (!IsOwner) return;
         if (!context.performed) return;
         if (!playerRoot.isAlive.Value) return;
 
-        RaycastHit hit;
-
-        if (!Physics.Raycast(_camera.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, interactionDistance)) return;
-
+        if (!Physics.Raycast(_camera.ScreenPointToRay(Mouse.current.position.ReadValue()), out var hit, interactionDistance)) return;
+        
         if (!hit.collider.TryGetComponent<NetworkObject>(out var netObj)) return;
         
-        if (netObj.TryGetComponent<ObjectPickable>(out var pickup))
+        if (netObj.TryGetComponent<Item>(out var pickup))
         {
             if (pickup == _playerInventory.currentItem.Value) return;
             Pickup_Server(netObj, fpItemHolder, tpIemHolder);

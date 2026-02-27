@@ -12,7 +12,6 @@ public class InstantDamage : StatusEffect
         if (instance.TryGetComponent<IDamageable>(out var damageable))
         {
             damageable.TakeDamage(damage);
-            Debug.Log($"Instant damage value: {damage}");
         }
     }
     public override void OnTick(StatusEffectInstance instance, float deltaTime)

@@ -18,6 +18,7 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
     
     [Header("Sounds")]
     [SerializeField] private EventReference getDamageSound;
+    [SerializeField] private EventReference getHealSound;
     
     [HideInInspector] public OxygenScript oxygen;
     private PlayerInventoryScript _playerInventory;
@@ -25,6 +26,7 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
     private Vector3 _spawnPosition;
     private Quaternion _spawnRotation;
     private EventInstance _getDamageInstance;
+    private EventInstance _getHealInstance;
     
     public override void OnStartClient()
     {
@@ -62,24 +64,28 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
     {
         oxygen.drainRate.Value += damage;
         
-        _getDamageInstance = RuntimeManager.CreateInstance(getDamageSound);
-        _getDamageInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
-        _getDamageInstance.start();
-        _getDamageInstance.release();
-        
-        Debug.Log("dziala");
-        Debug.Log(damage);
+        if (oxygen.drainRate.Value < oxygen.baseDrainRate.Value)
+        {
+            oxygen.drainRate.Value = oxygen.baseDrainRate.Value;
+        }
 
-        //TakeDamageClient(oxygen.drainRate.Value);
+        if (damage > 0)
+        {
+            _getDamageInstance = RuntimeManager.CreateInstance(getDamageSound);
+            _getDamageInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            _getDamageInstance.start();
+            _getDamageInstance.release();
+        }
+        else if (damage < 0)
+        {
+            _getHealInstance = RuntimeManager.CreateInstance(getHealSound);
+            _getHealInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            _getHealInstance.start();
+            _getHealInstance.release();
+        }
     }
-
-    [ObserversRpc(BufferLast = true)]
-    private void TakeDamageClient(float value)
-    {
-        oxygen.DrainRate = value;
-    }
-
-    public void Heal(float heal)
+    
+    /*public void Heal(float heal)
     {
         oxygen.DrainRate -= heal;
 
@@ -87,7 +93,7 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
         {
             oxygen.DrainRate = oxygen.BaseDrainRate;
         }
-    }
+    }*/
     
     public void RequestItemDrop(Item item)
     {
@@ -131,7 +137,6 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
             var playerController = GetComponent<PlayerController>();
             if (playerController) playerController.enabled = false;
             
-            //RequestDropInventory();
             transform.SetPositionAndRotation(_spawnPosition, _spawnRotation);
             
             if (playerController) playerController.enabled = true;
