@@ -18,10 +18,6 @@ public class FrogScript : BaseEnemyScript, IStunable
     [Header("SpitParticle")]
     [SerializeField] private ParticleSystem spitParticle;
     
-    [Header("Speed settings")]
-    [SerializeField] private float walkSpeed;
-    [SerializeField] private float runSpeed;
-    
     [Header("Run away setting")]
     [SerializeField] private int maxPlayers;
     [SerializeField] private float runDistance = 10f;
@@ -39,14 +35,6 @@ public class FrogScript : BaseEnemyScript, IStunable
     public EventReference waringSound;
     public EventReference panicSound;
     public EventReference idleSound;
-    
-    private bool _running;
-
-    public bool Running
-    {
-        get => _running;
-        set => _running = value;
-    }
     
     public AIPath AI
     {
@@ -70,7 +58,7 @@ public class FrogScript : BaseEnemyScript, IStunable
     {
         if (!IsServerInitialized) return; // only server runs logic
 
-        ai.maxSpeed = _running ? runSpeed : walkSpeed;
+        ai.maxSpeed = running ? runSpeed : walkSpeed;
         
         bool canRun = canRunaway && playersInRange.Count > maxPlayers;
         
@@ -84,7 +72,7 @@ public class FrogScript : BaseEnemyScript, IStunable
         }
         
         animator.Animator.SetFloat("Speed", ai.velocity.magnitude);
-        animator.Animator.SetBool("Running", _running);
+        animator.Animator.SetBool("Running", running);
     }
     
     [Server]
@@ -92,7 +80,7 @@ public class FrogScript : BaseEnemyScript, IStunable
     {
         if (pickedUp.Value) return;
         
-        _running = true;
+        running = true;
         CancelInvoke(nameof(SetNewPath));
 
         var target = playersInRange[0];
@@ -109,7 +97,7 @@ public class FrogScript : BaseEnemyScript, IStunable
     {
         if (pickedUp.Value) return;
         
-        _running = false;
+        running = false;
             
         if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath) && !WaitingForPath)
         {

@@ -126,7 +126,6 @@ public abstract class ObjectPickable : NetworkBehaviour
             transform.localRotation = offset.localRotation;
         }
         
-        
         _rb.isKinematic = true;
         _rb.interpolation = RigidbodyInterpolation.None;
         
