@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DogItemOfInterest : Item
 {
+    public event Action<NetworkObject> HoldingPlayer;
+    
     public event Action ItemPickedUp;
     public event Action ItemDropped;
 
@@ -12,6 +14,7 @@ public class DogItemOfInterest : Item
     {
         base.PickupLogic(holder);
         ItemPickedUp?.Invoke();
+        HoldingPlayer?.Invoke(holder);
     }
 
     protected override void DropLogic()

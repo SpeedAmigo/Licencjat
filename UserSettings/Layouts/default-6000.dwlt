@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1349
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -190,7 +190,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 366
+    width: 365
     height: 870
   m_MinSize: {x: 201, y: 226}
   m_MaxSize: {x: 4001, y: 4026}
@@ -214,9 +214,9 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 366
+    x: 365
     y: 0
-    width: 1674
+    width: 1675
     height: 870
   m_MinSize: {x: 202, y: 226}
   m_MaxSize: {x: 4002, y: 4026}
@@ -255,7 +255,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 63
+  controlID: 119
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -359,9 +359,9 @@ MonoBehaviour:
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 367
+    x: 366
     y: 24
-    width: 1672
+    width: 1673
     height: 844
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -847,9 +847,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 5.6568365, y: 0.031266294, z: 2.1741598}
+    m_Target: {x: 5.292652, y: -0.057637632, z: 1.8568283}
     speed: 2
-    m_Value: {x: 5.6568365, y: 0.031266294, z: 2.1741598}
+    m_Value: {x: 5.292652, y: -0.057637632, z: 1.8568283}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -895,9 +895,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.06401736, y: 0.88921666, z: -0.12869997, w: 0.43322018}
+    m_Target: {x: 0.05425724, y: 0.9344988, z: -0.15840283, w: 0.31260857}
     speed: 2
-    m_Value: {x: 0.06401736, y: 0.88921666, z: -0.12869996, w: 0.43322018}
+    m_Value: {x: 0.054257244, y: 0.9344988, z: -0.15840283, w: 0.31260857}
   m_Size:
     m_Target: 0.97427857
     speed: 2
@@ -958,7 +958,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 24
-    width: 365
+    width: 364
     height: 844
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -1022,9 +1022,9 @@ MonoBehaviour:
     m_TextWithWhitespace: "Game\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 366
+    x: 365
     y: 79
-    width: 1672
+    width: 1673
     height: 844
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -1079,23 +1079,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 1672
+      width: 1673
       height: 823
     m_Scale: {x: 0.5715278, y: 0.5715278}
-    m_Translation: {x: 836, y: 411.5}
+    m_Translation: {x: 836.5, y: 411.5}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -1462.7461
+      x: -1463.6208
       y: -720
-      width: 2925.4922
+      width: 2927.2417
       height: 1440
     m_MinimalGUI: 1
   m_defaultScale: 0.5715278
-  m_LastWindowPixelSize: {x: 1672, y: 844}
+  m_LastWindowPixelSize: {x: 1673, y: 844}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -5073,9 +5073,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 72000100
-    m_LastClickedID: 65650
-    m_ExpandedIDs: 000000009cff0000
+    m_SelectedIDs: 74000100
+    m_LastClickedID: 65652
+    m_ExpandedIDs: 00000000b6ff0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -5104,7 +5104,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000009cff0000
+    m_ExpandedIDs: 00000000b6ff0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -5325,7 +5325,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 1602
+  m_LastVerticalScrollValue: 324
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
