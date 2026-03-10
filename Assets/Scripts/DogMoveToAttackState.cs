@@ -24,6 +24,7 @@ public class DogMoveToAttackState : State
     {
         if (_dogScript.targetPlayer == null)
         {
+            _dogScript.ai.SetPath(null);
             _dogScript.dogState = DogState.Roam;
             stateMachine.ChangeState(new DogRoamState(stateMachine, _dogScript));
             return;

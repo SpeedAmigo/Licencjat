@@ -27,8 +27,7 @@ public class DogRoamState : State
             return;
         }
         
-        
-        if (_dogScript.playersInRange.Count > 0 && !_dogScript.itemOfInterestIsHeld)
+        if (_dogScript.playersInRange.Count > 0 && !_dogScript.itemOfInterestIsHeld && Vector3.Distance(_dogScript.transform.position, _dogScript.itemOfInterest.transform.position) <= _maxDistance)
         {
             foreach (var player in _dogScript.playersInRange)
             {
