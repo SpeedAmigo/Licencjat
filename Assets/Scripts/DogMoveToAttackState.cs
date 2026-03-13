@@ -17,18 +17,35 @@ public class DogMoveToAttackState : State
     public override void Enter()
     {
         _dogScript.targetPlayer = _target;
+        
+        _dogScript.agroTimer = _dogScript.agroTime;
+        
         Debug.Log("Entering DogFollowTargetState");
     }
 
     public override void Tick()
     {
-        if (_dogScript.targetPlayer == null)
+        if (_dogScript.startAgroTimer)
         {
-            _dogScript.ai.SetPath(null);
-            _dogScript.dogState = DogState.Roam;
-            stateMachine.ChangeState(new DogRoamState(stateMachine, _dogScript));
-            return;
+            _dogScript.agroTimer -= Time.deltaTime;
+
+            Debug.Log($"AgroTimer; {_dogScript.agroTimer}");
+            
+            if (_dogScript.agroTimer <= 0)
+            {
+                _dogScript.startAgroTimer = false;
+                _dogScript.targetPlayer = null;
+                _dogScript.ai.SetPath(null);
+                _dogScript.dogState = DogState.Roam;
+                stateMachine.ChangeState(new DogRoamState(stateMachine, _dogScript));
+                return;
+            }
         }
+        
+        /*if (_dogScript.targetPlayer == null)
+        {
+
+        }*/
         
         if (_dogScript.itemOfInterest && _dogScript.itemOfInterestIsHeld)
         {

@@ -32,6 +32,8 @@ public class DogScript : BaseEnemyScript
     [HideInInspector] public DogItemOfInterest itemOfInterest;
     
     public NetworkObject holdingPlayer;
+
+    [HideInInspector] public bool startAgroTimer;
     
     public override void OnStartServer()
     {
@@ -250,8 +252,10 @@ public class DogScript : BaseEnemyScript
     protected override void OnLost(Collider other)
     {
         base.OnLost(other);
-        
-        targetPlayer = null;
+
+        startAgroTimer = true;
+
+        //targetPlayer = null;
     }
     
     [ServerRpc(RequireOwnership = false)]

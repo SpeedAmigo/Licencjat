@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1349
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Console
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -5073,8 +5073,8 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 74000100
-    m_LastClickedID: 65652
+    m_SelectedIDs: 82000100
+    m_LastClickedID: 65666
     m_ExpandedIDs: 00000000b6ff0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -5132,7 +5132,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000000000007c7500006ed70000e4c20100daed0000be3101007c380100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -5200,7 +5200,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 60558
+  m_LastSelectedObjectID: 60582
 --- !u!114 &24
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -5325,7 +5325,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 324
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
