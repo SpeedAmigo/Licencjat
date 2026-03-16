@@ -6,24 +6,34 @@ using UnityEngine;
 
 public class DogScript : BaseEnemyScript
 {
-    [SerializeField] private DogState dogState;
+    [Header("State")]
+    public DogState dogState;
     
-    [Header("Players in range list")]
-    [AllowMutableSyncType] public SyncList<GameObject> itemOfInterestInRange = new();
+    [Header("Dependencies")]
+    [SerializeField] private StateMachine dogStateMachine;
+    
+    [Header("Items in range list")]
+    [AllowMutableSyncType] private readonly SyncVar<GameObject> _itemOfInterestInRange = new();
     
     [Header("General settings")]
     public bool canWalk = true;
-
-    [SerializeField] private float stopDistance = 1.5f;
+    public GameObject targetPlayer;
+    public float agroTime = 5f;
+    public float agroTimer;
+    public float attackTimer;
     
-    private DogItemOfInterest _itemOfInterest;
-    [SerializeField] private bool _itemOfInterestIsHeld;
+    [Header("Distance Settings")]
+    public float stopDistance = 1.5f;
+    public float agroDistance = 10f;
+    public float attackDistance;
+    public float maxAwareDistance;
+    
+    [HideInInspector] public bool itemOfInterestIsHeld;
+    [HideInInspector] public DogItemOfInterest itemOfInterest;
+    
+    public NetworkObject holdingPlayer;
 
-    [SerializeField] private GameObject targetPlayer;
-    [SerializeField] private float agroDistance = 10f;
-    [SerializeField] private float agroTime = 5f;
-    [SerializeField] private float agroTimer;
-    [SerializeField] private float attackDistance;
+    [HideInInspector] public bool startAgroTimer;
     
     public override void OnStartServer()
     {
@@ -33,7 +43,10 @@ public class DogScript : BaseEnemyScript
         
         if (canWalk)
         {
-            ai.destination = PickRandomPoint();
+            dogStateMachine.ChangeState(new DogRoamState(dogStateMachine, this));
+            
+            
+            //ai.destination = PickRandomPoint();
         }
     }
 
@@ -43,7 +56,7 @@ public class DogScript : BaseEnemyScript
 
         ai.maxSpeed = running ? runSpeed : walkSpeed;
         
-        switch (dogState)
+        /*switch (dogState)
         {
             case DogState.Idle:
                 HandleIdle();
@@ -64,17 +77,17 @@ public class DogScript : BaseEnemyScript
             case DogState.Attack:
                 HandleAttack();
                 break;
-        }
+        }*/
     }
 
-    private void HandleAttack()
+    /*private void HandleAttack()
     {
         Attack();
 
         dogState = DogState.Roam;
-    }
+    }*/
 
-    private void HandleMoveToAttack()
+    /*private void HandleMoveToAttack()
     {
         if (targetPlayer == null)
         {
@@ -82,16 +95,16 @@ public class DogScript : BaseEnemyScript
             return;
         }
         
-        if (itemOfInterestInRange.Count > 0 && _itemOfInterestIsHeld)
+        if (itemOfInterestInRange.Count > 0 && itemOfInterestIsHeld)
         {
             dogState = DogState.FollowTarget;
             return;
         }
         
         MoveToAttack();
-    }
+    }*/
     
-    private void HandleFollow()
+    /*private void HandleFollow()
     {
         if (itemOfInterestInRange.Count == 0)
         {
@@ -99,21 +112,21 @@ public class DogScript : BaseEnemyScript
             return;
         }
 
-        if (!_itemOfInterestIsHeld && playersInRange.Count > 0 && Vector3.Distance(itemOfInterestInRange[0].transform.position,
+        if (!itemOfInterestIsHeld && playersInRange.Count > 0 && Vector3.Distance(itemOfInterestInRange[0].transform.position,
                 playersInRange[0].transform.position) <= agroDistance)
         {
             dogState = DogState.MoveToAttack;
             return;
         }
         
-        if (!_itemOfInterestIsHeld && playersInRange.Count > 0 && Vector3.Distance(itemOfInterestInRange[0].transform.position,
+        if (!itemOfInterestIsHeld && playersInRange.Count > 0 && Vector3.Distance(itemOfInterestInRange[0].transform.position,
                 playersInRange[0].transform.position) >= agroDistance)
         {
             dogState = DogState.Roam;
             return;
         }
 
-        if (!_itemOfInterestIsHeld && playersInRange.Count <= 0)
+        if (!itemOfInterestIsHeld && playersInRange.Count <= 0)
         {
             dogState = DogState.Roam;
             return;
@@ -126,13 +139,13 @@ public class DogScript : BaseEnemyScript
         }
 
         FollowTarget(itemOfInterestInRange[0].transform.position);
-    }
+    }*/
 
-    private void HandleRoam()
+    /*private void HandleRoam()
     {
         running = false;
 
-        if (playersInRange.Count > 0 && itemOfInterestInRange.Count > 0 && !_itemOfInterestIsHeld)
+        if (playersInRange.Count > 0 && itemOfInterestInRange.Count > 0 && !itemOfInterestIsHeld)
         {
             foreach (var player in playersInRange)
             {
@@ -145,27 +158,22 @@ public class DogScript : BaseEnemyScript
             }
         }
 
-        if (itemOfInterestInRange.Count > 0 && _itemOfInterestIsHeld)
+        if (itemOfInterestInRange.Count > 0 && itemOfInterestIsHeld)
         {
             dogState = DogState.FollowTarget;
             return;
         }
         
-        if (itemOfInterestInRange.Count > 0 && !_itemOfInterestIsHeld)
+        if (itemOfInterestInRange.Count > 0 && !itemOfInterestIsHeld)
         {
             Roam(true);
             return;
         }
 
         Roam(false);
-    }
-
-    private void HandleIdle()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    private void Roam(bool hasTarget)
+    }*/
+    
+    /*private void Roam(bool hasTarget)
     {
         Debug.Log("Roam");
         
@@ -177,9 +185,9 @@ public class DogScript : BaseEnemyScript
 
             Invoke(hasTarget ? nameof(NewPathWrapper) : nameof(SetNewPath), 3f);
         }
-    }
+    }*/
 
-    private void FollowTarget(Vector3 target)
+    /*private void FollowTarget(Vector3 target)
     {
         Debug.Log("FollowTarget");
         
@@ -191,9 +199,9 @@ public class DogScript : BaseEnemyScript
         offsetPosition.y = transform.position.y;
         
         ai.destination = offsetPosition;
-    }
+    }*/
     
-    private void MoveToAttack()
+    /*private void MoveToAttack()
     {
         var target = targetPlayer.transform.position;
 
@@ -211,20 +219,20 @@ public class DogScript : BaseEnemyScript
             Debug.Log("Attack");
             dogState = DogState.Attack;
         }
-    }
+    }*/
     
-    private void Attack()
+    /*private void Attack()
     {
         if (playersInRange.Count <= 0) return;
         
         Debug.Log("Dog has attacked!");
-    }
+    }*/
 
     #region HelperMethods
 
-    private void NewPathWrapper()
+    public void NewPathWrapper()
     {
-        SetNewPath(itemOfInterestInRange[0].transform.position);
+        SetNewPath(_itemOfInterestInRange.Value.transform.position);
     }
 
     #endregion
@@ -235,7 +243,7 @@ public class DogScript : BaseEnemyScript
     {
         base.OnDetected(other);
         
-        if (other.CompareTag("ItemOfInterest") && !itemOfInterestInRange.Contains(other.gameObject))
+        if (other.CompareTag("ItemOfInterest") && _itemOfInterestInRange.Value == null)
         {
             AddItemToServerList(other.gameObject);
         }
@@ -244,38 +252,48 @@ public class DogScript : BaseEnemyScript
     protected override void OnLost(Collider other)
     {
         base.OnLost(other);
-        
-        targetPlayer = null;
+
+        startAgroTimer = true;
+
+        //targetPlayer = null;
     }
     
     [ServerRpc(RequireOwnership = false)]
     private void AddItemToServerList(GameObject obj)
     {
-        if (itemOfInterestInRange.Contains(obj)) return;
-        
-        itemOfInterestInRange.Add(obj);
-        _itemOfInterest = obj.GetComponent<DogItemOfInterest>();
-        _itemOfInterest.ItemPickedUp += OnItemOfInterestPickedUp;
-        _itemOfInterest.ItemDropped += OnItemOfInterestDropped;
+        if (_itemOfInterestInRange.Value != null) return;
+
+        _itemOfInterestInRange.Value = obj;
+        itemOfInterest = obj.GetComponent<DogItemOfInterest>();
+        itemOfInterest.HoldingPlayer += OnHoldingPlayer;
+        itemOfInterest.ItemPickedUp += OnItemOfInterestPickedUp;
+        itemOfInterest.ItemDropped += OnItemOfInterestDropped;
     }
-    
-    protected override void OnDisable()
+
+    private void OnHoldingPlayer(NetworkObject obj)
     {
-        if (_itemOfInterest)
+        holdingPlayer = obj;
+    }
+
+    public override void OnDisable()
+    {
+        if (itemOfInterest)
         {
-            _itemOfInterest.ItemPickedUp -= OnItemOfInterestPickedUp;
-            _itemOfInterest.ItemDropped -= OnItemOfInterestDropped;
+            itemOfInterest.ItemPickedUp -= OnItemOfInterestPickedUp;
+            itemOfInterest.ItemDropped -= OnItemOfInterestDropped;
+            itemOfInterest.HoldingPlayer -= OnHoldingPlayer;
         }
     }
     
     private void OnItemOfInterestPickedUp()
     {
-        _itemOfInterestIsHeld = true;
+        itemOfInterestIsHeld = true;
     }
 
     private void OnItemOfInterestDropped()
     {
-        _itemOfInterestIsHeld = false;
+        itemOfInterestIsHeld = false;
+        holdingPlayer = null;
     }
 
     #endregion
@@ -283,7 +301,6 @@ public class DogScript : BaseEnemyScript
 
 public enum DogState
 {
-    Idle,
     Roam,
     FollowTarget,
     MoveToAttack,

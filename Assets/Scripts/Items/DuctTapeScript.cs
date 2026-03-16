@@ -1,3 +1,4 @@
+using System;
 using FishNet.Object;
 using Items;
 using UnityEngine;
@@ -64,11 +65,13 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
         
         _timer = useTime;
         _currentlyUsed = true;
+        PlayerUsageManager.Instance.StartFillUsage(useTime);
     }
 
     private void CancelHandler()
     {
         _currentlyUsed = false;
+        PlayerUsageManager.Instance.StopFillUsage();
     }
     
     private void RaycastShoot()

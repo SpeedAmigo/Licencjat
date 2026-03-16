@@ -32,6 +32,8 @@ public abstract class ObjectPickable : NetworkBehaviour
     private Collider _col;
     private Collider _secondCol;
     
+    private Transform _tpTransform;
+    
     protected virtual void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -57,6 +59,7 @@ public abstract class ObjectPickable : NetworkBehaviour
     public void Drop()
     {
         if (!IsServerInitialized) return;
+        
         DropLogic();
         Drop_Client();
     }
@@ -64,6 +67,9 @@ public abstract class ObjectPickable : NetworkBehaviour
     [ObserversRpc]
     public void Pickup_Client(NetworkObject fpHolder, NetworkObject tpHolder)
     {
+        // this was added
+        _tpTransform = tpHolder.transform;
+        
         if (fpHolder.IsOwner)
         {
             PickupLogic(fpHolder);
@@ -96,6 +102,7 @@ public abstract class ObjectPickable : NetworkBehaviour
         if (IsSpawned)
         {
             DropLogic();
+            _rb.AddRelativeForce(Vector3.forward * dropForce, ForceMode.Impulse);
         }
         
         if (objectsToChangeLayer != null && changeLayerOnPickup)
@@ -140,10 +147,13 @@ public abstract class ObjectPickable : NetworkBehaviour
     {
         transform.SetParent(null);
         
-        _rb.AddRelativeForce(Vector3.forward * dropForce, ForceMode.Impulse);
-
+        //_rb.AddRelativeForce(Vector3.forward * dropForce, ForceMode.Impulse);
+        
         _rb.isKinematic = false;
         _rb.interpolation = RigidbodyInterpolation.None;
+        
+        // this was added
+        transform.position = _tpTransform.position;
         
         _col.enabled = true;
         if (_secondCol != null)

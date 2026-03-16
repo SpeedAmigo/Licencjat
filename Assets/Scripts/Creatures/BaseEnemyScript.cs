@@ -18,8 +18,8 @@ public class BaseEnemyScript : NetworkBehaviour
     public StatusEffect damageEffect;
     
     [Header("Speed settings")]
-    [SerializeField] protected float walkSpeed;
-    [SerializeField] protected float runSpeed;
+    public float walkSpeed;
+    public float runSpeed;
     
     [Header("Players in range list")]
     [AllowMutableSyncType] public SyncList<GameObject> playersInRange = new();
@@ -27,10 +27,10 @@ public class BaseEnemyScript : NetworkBehaviour
     [Header("AI Movement Settings")]
     [SerializeField] private float radius = 10f;
     
-    protected AIPath ai;
-    protected bool WaitingForPath;
+    [HideInInspector] public AIPath ai;
+    [HideInInspector] public bool WaitingForPath;
     
-    protected bool running;
+    [HideInInspector] public bool running;
 
     public bool Running
     {
@@ -80,13 +80,13 @@ public class BaseEnemyScript : NetworkBehaviour
     
     #region Enable/Disable
     
-    protected virtual void OnEnable()
+    public virtual void OnEnable()
     {
         rangeDetector.onDetectCollider.AddListener(OnDetected);
         rangeDetector.onLostCollider.AddListener(OnLost);
     }
 
-    protected virtual void OnDisable()
+    public virtual void OnDisable()
     {
         rangeDetector.onDetectCollider.RemoveListener(OnDetected);
         rangeDetector.onLostCollider.RemoveListener(OnLost);
@@ -96,19 +96,19 @@ public class BaseEnemyScript : NetworkBehaviour
     
     #region AI
     
-    protected void SetNewPath()
+    public void SetNewPath()
     {
         ai.destination = PickRandomPoint();
         WaitingForPath = false;
     }
     
-    protected void SetNewPath(Vector3 target)
+    public void SetNewPath(Vector3 target)
     {
         ai.destination = PickRandomPoint(target);
         WaitingForPath = false;
     }
     
-    protected Vector3 PickRandomPoint()
+    public Vector3 PickRandomPoint()
     {
         Vector3 randomPoint = Random.insideUnitSphere * radius;
         randomPoint.y = 0;
@@ -116,7 +116,7 @@ public class BaseEnemyScript : NetworkBehaviour
         return randomPoint;
     }
     
-    protected Vector3 PickRandomPoint(Vector3 target)
+    public Vector3 PickRandomPoint(Vector3 target)
     {
         Vector3 randomPoint = Random.insideUnitSphere * radius;
         randomPoint.y = 0;

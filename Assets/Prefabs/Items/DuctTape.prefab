@@ -307,7 +307,7 @@ MonoBehaviour:
   itemDisplayName: Pickup
   raycastStartPoint: {fileID: 2682355678119663154}
   shootDistance: 10
-  useTime: 0.1
+  useTime: 5
   effects:
   - {fileID: 11400000, guid: 4ff6cdc36e5f7cf47b4413076e14fa23, type: 2}
   _timer: 0
