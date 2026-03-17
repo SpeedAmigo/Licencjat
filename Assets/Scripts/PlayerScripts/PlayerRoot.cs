@@ -94,6 +94,18 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
             oxygen.DrainRate = oxygen.BaseDrainRate;
         }
     }*/
+
+    [TargetRpc]
+    public void StartDurationFill(NetworkConnection conn, float duration)
+    {
+        PlayerUsageManager.Instance.StartFillUsage(duration);
+    }
+
+    [TargetRpc]
+    public void StopDurationFill(NetworkConnection conn)
+    {
+        PlayerUsageManager.Instance.StopFillUsage();
+    }
     
     public void RequestItemDrop(Item item)
     {

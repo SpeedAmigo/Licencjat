@@ -16,6 +16,8 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
     private bool _primaryClicked;
     [SerializeField] private float _timer;
     
+    private PlayerRoot _currentPlayer;
+    
     private void Update()
     {
         if (!_currentlyUsed) return;
@@ -26,7 +28,8 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
         {
             if (_primaryClicked)
             { 
-                RaycastShoot(); 
+                var nob = RaycastShoot();
+                TryApplyEffect(nob);
             }
             else
             {
@@ -40,11 +43,39 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
     public void OnPrimaryClick()
     {
         ClickHandler(true);
+        
+        var nob = RaycastShoot();
+        if (!nob) return;
+        
+        TryGetOtherPlayer(nob);
+        HandleDurationFill(true);
     }
-
+    
     public void OnPrimaryCancel()
     {
         CancelHandler();
+        
+        HandleDurationFill(false);
+    }
+    
+    [ServerRpc(RequireOwnership = false)]
+    private void HandleDurationFill(bool startFill)
+    {
+        if (_currentPlayer == null)
+        {
+            Debug.Log("Handle duration fill doesn't have player");
+            return;
+        }
+        
+        if (startFill)
+        {
+            _currentPlayer.StartDurationFill(_currentPlayer.Owner, useTime);
+        }
+        else
+        {
+            _currentPlayer.StopDurationFill(_currentPlayer.Owner);
+            _currentPlayer = null;
+        }
     }
     
     public void OnSecondaryClick()
@@ -74,7 +105,7 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
         PlayerUsageManager.Instance.StopFillUsage();
     }
     
-    private void RaycastShoot()
+    private NetworkObject RaycastShoot()
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
 
@@ -84,9 +115,25 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
             
             if (hit.collider.transform.parent.TryGetComponent<NetworkObject>(out var nob))
             {
-                TryApplyEffect(nob);
+               return nob;
             }
         }
+        
+        return null;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void TryGetOtherPlayer(NetworkObject target)
+    {
+        var player = target.GetComponent<PlayerRoot>();
+
+        if (!player)
+        {
+            Debug.Log($"{target.name} does not have playerRoot component");
+            return;
+        }
+        
+        _currentPlayer = player;
     }
     
     [ServerRpc(RequireOwnership = false)]
