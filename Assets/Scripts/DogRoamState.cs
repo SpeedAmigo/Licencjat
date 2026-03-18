@@ -16,6 +16,9 @@ public class DogRoamState : State
         _dogScript.running = false;
         _maxDistance = _dogScript.maxAwareDistance;
         
+        //_dogScript.ai.maxSpeed = _dogScript.walkSpeed;
+        _dogScript.ChangeSpeed(_dogScript.walkSpeed, 0.5f);
+        
         Debug.Log("Entered DogRoamState");
     }
 

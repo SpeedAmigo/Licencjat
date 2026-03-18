@@ -19,8 +19,11 @@ public class DogMoveToAttackState : State
         _dogScript.targetPlayer = _target;
         
         _dogScript.agroTimer = _dogScript.agroTime;
+
+        //_dogScript.ai.maxSpeed = _dogScript.runSpeed;
+        _dogScript.ChangeSpeed(_dogScript.runSpeed, 0.3f);
         
-        Debug.Log("Entering DogFollowTargetState");
+        Debug.Log("Entering DogMoveToAttackState");
     }
 
     public override void Tick()
@@ -41,11 +44,6 @@ public class DogMoveToAttackState : State
                 return;
             }
         }
-        
-        /*if (_dogScript.targetPlayer == null)
-        {
-
-        }*/
         
         if (_dogScript.itemOfInterest && _dogScript.itemOfInterestIsHeld)
         {

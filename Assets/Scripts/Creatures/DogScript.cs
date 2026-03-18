@@ -1,7 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using FishNet.CodeGenerating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using Items;
+using Pathfinding;
 using UnityEngine;
 
 public class DogScript : BaseEnemyScript
@@ -35,199 +38,27 @@ public class DogScript : BaseEnemyScript
 
     [HideInInspector] public bool startAgroTimer;
     
+    private Coroutine _speedCoroutine;
+    
     public override void OnStartServer()
     {
         base.OnStartServer();
 
-        ai.repathRate = 0.2f;
+        //ai.repathRate = 0.2f;
         
         if (canWalk)
         {
             dogStateMachine.ChangeState(new DogRoamState(dogStateMachine, this));
-            
-            
-            //ai.destination = PickRandomPoint();
         }
     }
 
     private void Update()
     {
         if (!IsServerInitialized) return;
-
-        ai.maxSpeed = running ? runSpeed : walkSpeed;
         
-        /*switch (dogState)
-        {
-            case DogState.Idle:
-                HandleIdle();
-                break;
-
-            case DogState.Roam:
-                HandleRoam();
-                break;
-
-            case DogState.FollowTarget:
-                HandleFollow();
-                break;
-
-            case DogState.MoveToAttack:
-                HandleMoveToAttack();
-                break;
-
-            case DogState.Attack:
-                HandleAttack();
-                break;
-        }*/
+        animator.Animator.SetFloat("Speed", ai.velocity.magnitude);
     }
-
-    /*private void HandleAttack()
-    {
-        Attack();
-
-        dogState = DogState.Roam;
-    }*/
-
-    /*private void HandleMoveToAttack()
-    {
-        if (targetPlayer == null)
-        {
-            dogState = DogState.Roam;
-            return;
-        }
-        
-        if (itemOfInterestInRange.Count > 0 && itemOfInterestIsHeld)
-        {
-            dogState = DogState.FollowTarget;
-            return;
-        }
-        
-        MoveToAttack();
-    }*/
     
-    /*private void HandleFollow()
-    {
-        if (itemOfInterestInRange.Count == 0)
-        {
-            dogState = DogState.Roam;
-            return;
-        }
-
-        if (!itemOfInterestIsHeld && playersInRange.Count > 0 && Vector3.Distance(itemOfInterestInRange[0].transform.position,
-                playersInRange[0].transform.position) <= agroDistance)
-        {
-            dogState = DogState.MoveToAttack;
-            return;
-        }
-        
-        if (!itemOfInterestIsHeld && playersInRange.Count > 0 && Vector3.Distance(itemOfInterestInRange[0].transform.position,
-                playersInRange[0].transform.position) >= agroDistance)
-        {
-            dogState = DogState.Roam;
-            return;
-        }
-
-        if (!itemOfInterestIsHeld && playersInRange.Count <= 0)
-        {
-            dogState = DogState.Roam;
-            return;
-        }
-
-        if (ai.reachedEndOfPath)
-        {
-            dogState = DogState.Roam;
-            return;
-        }
-
-        FollowTarget(itemOfInterestInRange[0].transform.position);
-    }*/
-
-    /*private void HandleRoam()
-    {
-        running = false;
-
-        if (playersInRange.Count > 0 && itemOfInterestInRange.Count > 0 && !itemOfInterestIsHeld)
-        {
-            foreach (var player in playersInRange)
-            {
-                if (Vector3.Distance(_itemOfInterest.transform.position, player.transform.position) <= agroDistance)
-                {
-                    targetPlayer = player.gameObject;
-                    dogState = DogState.MoveToAttack;
-                    return;
-                }
-            }
-        }
-
-        if (itemOfInterestInRange.Count > 0 && itemOfInterestIsHeld)
-        {
-            dogState = DogState.FollowTarget;
-            return;
-        }
-        
-        if (itemOfInterestInRange.Count > 0 && !itemOfInterestIsHeld)
-        {
-            Roam(true);
-            return;
-        }
-
-        Roam(false);
-    }*/
-    
-    /*private void Roam(bool hasTarget)
-    {
-        Debug.Log("Roam");
-        
-        if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath) && !WaitingForPath)
-        {
-            if (!canWalk) return;
-            
-            WaitingForPath = true;
-
-            Invoke(hasTarget ? nameof(NewPathWrapper) : nameof(SetNewPath), 3f);
-        }
-    }*/
-
-    /*private void FollowTarget(Vector3 target)
-    {
-        Debug.Log("FollowTarget");
-        
-        Vector3 direction = transform.position - target;
-        direction.y = 0f;
-        direction.Normalize();
-
-        Vector3 offsetPosition = target + direction * stopDistance;
-        offsetPosition.y = transform.position.y;
-        
-        ai.destination = offsetPosition;
-    }*/
-    
-    /*private void MoveToAttack()
-    {
-        var target = targetPlayer.transform.position;
-
-        Vector3 direction = transform.position - target;
-        direction.y = 0f;
-        direction.Normalize();
-
-        Vector3 offsetPosition = target + direction * (attackDistance - 1f);
-        offsetPosition.y = transform.position.y;
-
-        ai.destination = offsetPosition;
-        
-        if (Vector3.Distance(transform.position, target) <= attackDistance)
-        {
-            Debug.Log("Attack");
-            dogState = DogState.Attack;
-        }
-    }*/
-    
-    /*private void Attack()
-    {
-        if (playersInRange.Count <= 0) return;
-        
-        Debug.Log("Dog has attacked!");
-    }*/
-
     #region HelperMethods
 
     public void NewPathWrapper()
@@ -235,6 +66,31 @@ public class DogScript : BaseEnemyScript
         SetNewPath(_itemOfInterestInRange.Value.transform.position);
     }
 
+    public void ChangeSpeed(float newSpeed, float duration)
+    {
+        if (_speedCoroutine != null)
+        {
+            StopCoroutine(_speedCoroutine);
+        }
+        
+        StartCoroutine(ChangeSpeedCoroutine(newSpeed, duration));
+    }
+
+    private IEnumerator ChangeSpeedCoroutine(float newSpeed, float duration)
+    {
+        float startSpeed = ai.maxSpeed;
+        float time = 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            ai.maxSpeed = Mathf.Lerp(startSpeed, newSpeed, time / duration);
+            yield return null;
+        }
+
+        ai.maxSpeed = newSpeed;
+    }
+    
     #endregion
     
     #region itemOfIntrestRegion
@@ -254,8 +110,6 @@ public class DogScript : BaseEnemyScript
         base.OnLost(other);
 
         startAgroTimer = true;
-
-        //targetPlayer = null;
     }
     
     [ServerRpc(RequireOwnership = false)]

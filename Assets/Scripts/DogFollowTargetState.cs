@@ -11,6 +11,9 @@ public class DogFollowTargetState : State
 
     public override void Enter()
     {
+        //_dogScript.ai.maxSpeed = _dogScript.walkSpeed;
+        _dogScript.ChangeSpeed(_dogScript.walkSpeed, 0.5f);
+        
         Debug.Log("Entering DogFollowTargetState");
     }
 
