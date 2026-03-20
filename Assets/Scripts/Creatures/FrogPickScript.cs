@@ -39,9 +39,9 @@ public class FrogPickScript : Item
         
     }
     
-    protected override void DropLogic()
+    protected override void DropLogic(Vector3 forward)
     {
-        base.DropLogic();
+        base.DropLogic(forward);
         
         frogScript.AI.enabled = true;
         frogScript.Running = true;

@@ -101,7 +101,10 @@ public class DogScript : BaseEnemyScript
         
         if (other.CompareTag("ItemOfInterest") && _itemOfInterestInRange.Value == null)
         {
-            AddItemToServerList(other.gameObject);
+            if (IsClientInitialized && IsSpawned)
+            {
+                AddItemToServerList(other.gameObject);
+            }
         }
     }
 

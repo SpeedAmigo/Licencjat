@@ -496,7 +496,7 @@ MonoBehaviour:
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours:
   - {fileID: 1073358350119417874}
-  InitializedParentNetworkBehaviour: {fileID: -7551011414111571862}
+  InitializedParentNetworkBehaviour: {fileID: -5598106766271115427}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
   RuntimeChildNetworkBehaviours: []
@@ -525,9 +525,9 @@ MonoBehaviour:
   <AssetPathHash>k__BackingField: 0
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
-    Position: {x: 0, y: 0.0025125192, z: 0}
-    Rotation: {x: 0.10689431, y: -0.015902229, z: -0.04002678, w: 0.99333715}
-    Scale: {x: 0.011111111, y: 0.0111111095, z: 0.01111112}
+    Position: {x: 0.00051, y: 0.00369, z: 0.00078}
+    Rotation: {x: -0.019055735, y: 0.7160714, z: 0.6936926, w: 0.0752938}
+    Scale: {x: 0.011111107, y: 0.011111109, z: 0.01111112}
     IsValid: 1
 --- !u!114 &1073358350119417874
 MonoBehaviour:
@@ -1575,7 +1575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 20
+  _componentIndexCache: 21
   _addedNetworkObject: {fileID: 6870339716418846082}
   _networkObjectCache: {fileID: 6870339716418846082}
 --- !u!1 &1303226120767053462
@@ -2888,8 +2888,8 @@ MonoBehaviour:
   - {fileID: 3939245681674023233}
   - {fileID: 8429421932735200481}
   - {fileID: 5228548836506645157}
-  - {fileID: -5598106766271115427}
   - {fileID: -7551011414111571862}
+  - {fileID: -5598106766271115427}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects:
   - {fileID: 7523015856620644424}
@@ -2949,7 +2949,7 @@ MonoBehaviour:
     Rotation: 1
     Scale: 0
   _useScaledTime: 1
-  _interpolation: 12
+  _interpolation: 3
   _extrapolation: 0
   _enableTeleport: 0
   _teleportThreshold: 1
@@ -4878,7 +4878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 21
+  _componentIndexCache: 20
   _addedNetworkObject: {fileID: 6870339716418846082}
   _networkObjectCache: {fileID: 6870339716418846082}
 --- !u!1 &3894121112800410361

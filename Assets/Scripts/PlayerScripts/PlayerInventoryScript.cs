@@ -173,11 +173,11 @@ public class PlayerInventoryScript : PlayerComponent
 
         if (item.isBig)
         {
-            inventory.RemoveBigItem(item);
+            inventory.RemoveBigItem(item, Vector3.forward);
         }
         else
         {
-            inventory.RemoveItem(item);
+            inventory.RemoveItem(item, Vector3.forward);
         }
     }
     
@@ -204,11 +204,11 @@ public class PlayerInventoryScript : PlayerComponent
     }
 
     [Server]
-    public void RemoveBigItem(ObjectPickable bigItem)
+    public void RemoveBigItem(ObjectPickable bigItem, Vector3 rotation)
     {
         if (currentItem.Value && bigItem.isBig)
         {
-            bigItem.Drop();
+            bigItem.Drop(rotation);
             currentItem.Value = null;
         }
     }
@@ -247,7 +247,7 @@ public class PlayerInventoryScript : PlayerComponent
     }
 
     [Server]
-    public void RemoveItem(Item item)
+    public void RemoveItem(Item item, Vector3 rotation)
     {
         if (slots.Contains(item))
         {
@@ -257,7 +257,8 @@ public class PlayerInventoryScript : PlayerComponent
                 {
                     slots[i] = null;
                     UpdateUIRemove(Owner, i); // update UI with free slot index and null icon
-                    item.Drop();
+                    
+                    item.Drop(rotation);
                     
                     if (currentItem.Value == item)
                     {

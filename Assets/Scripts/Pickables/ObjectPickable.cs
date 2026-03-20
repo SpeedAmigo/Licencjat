@@ -56,20 +56,17 @@ public abstract class ObjectPickable : NetworkBehaviour
         Pickup_Client(fpHolder, tpHolder);
     }
 
-    public void Drop()
+    public void Drop(Vector3 forward)
     {
         if (!IsServerInitialized) return;
         
-        DropLogic();
-        Drop_Client();
+        //DropLogic(forward);
+        Drop_Client(forward);
     }
 
     [ObserversRpc]
     public void Pickup_Client(NetworkObject fpHolder, NetworkObject tpHolder)
     {
-        // this was added
-        _tpTransform = tpHolder.transform;
-        
         if (fpHolder.IsOwner)
         {
             PickupLogic(fpHolder);
@@ -97,12 +94,11 @@ public abstract class ObjectPickable : NetworkBehaviour
     }
 
     [ObserversRpc]
-    public void Drop_Client()
+    public void Drop_Client(Vector3 forward)
     {
         if (IsSpawned)
         {
-            DropLogic();
-            _rb.AddRelativeForce(Vector3.forward * dropForce, ForceMode.Impulse);
+            DropLogic(forward);
         }
         
         if (objectsToChangeLayer != null && changeLayerOnPickup)
@@ -120,7 +116,7 @@ public abstract class ObjectPickable : NetworkBehaviour
             }
         }
     }
-
+    
     protected virtual void PickupLogic(NetworkObject holder)
     {
         transform.SetParent(holder.transform);
@@ -143,7 +139,7 @@ public abstract class ObjectPickable : NetworkBehaviour
         }
     }
     
-    protected virtual void DropLogic()
+    protected virtual void DropLogic(Vector3 forward)
     {
         transform.SetParent(null);
         
@@ -152,8 +148,8 @@ public abstract class ObjectPickable : NetworkBehaviour
         _rb.isKinematic = false;
         _rb.interpolation = RigidbodyInterpolation.None;
         
-        // this was added
-        transform.position = _tpTransform.position;
+        _rb.linearVelocity = Vector3.zero;
+        _rb.AddForce(forward * dropForce, ForceMode.Impulse);
         
         _col.enabled = true;
         if (_secondCol != null)

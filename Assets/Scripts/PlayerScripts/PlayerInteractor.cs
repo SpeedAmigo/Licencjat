@@ -231,7 +231,9 @@ public class PlayerInteractor : PlayerComponent
         if (!IsOwner) return;
         if (!context.performed) return;
         
-        DropItem_Server();
+        Vector3 direction = transform.forward;
+        
+        DropItem_Server(direction);
     }
 
     
@@ -269,17 +271,17 @@ public class PlayerInteractor : PlayerComponent
     }
     
     [ServerRpc(RequireOwnership = true)]
-    private void DropItem_Server()
+    private void DropItem_Server(Vector3 rotation)
     {
         if (_playerInventory.currentItem.Value == null) return;
 
         if (_playerInventory.currentItem.Value.isBig)
         {
-            _playerInventory.RemoveBigItem(_playerInventory.currentItem.Value);
+            _playerInventory.RemoveBigItem(_playerInventory.currentItem.Value, rotation);
         }
         else
         {
-            _playerInventory.RemoveItem(_playerInventory.currentItem.Value);
+            _playerInventory.RemoveItem(_playerInventory.currentItem.Value, rotation);
         }
     }
     

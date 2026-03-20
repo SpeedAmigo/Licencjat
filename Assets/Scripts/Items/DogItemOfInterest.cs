@@ -17,9 +17,9 @@ public class DogItemOfInterest : Item
         HoldingPlayer?.Invoke(holder);
     }
 
-    protected override void DropLogic()
+    protected override void DropLogic(Vector3 forward)
     {
-        base.DropLogic();
+        base.DropLogic(forward);
         ItemDropped?.Invoke();
     }
 }
