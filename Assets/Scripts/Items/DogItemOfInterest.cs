@@ -1,4 +1,5 @@
 using System;
+using FishNet.Connection;
 using FishNet.Object;
 using Items;
 using UnityEngine;
@@ -10,9 +11,9 @@ public class DogItemOfInterest : Item
     public event Action ItemPickedUp;
     public event Action ItemDropped;
 
-    protected override void PickupLogic(NetworkObject holder)
+    protected override void PickupLogic(NetworkObject holder, NetworkConnection conn)
     {
-        base.PickupLogic(holder);
+        base.PickupLogic(holder, conn);
         ItemPickedUp?.Invoke();
         HoldingPlayer?.Invoke(holder);
     }

@@ -194,11 +194,11 @@ public class PlayerInventoryScript : PlayerComponent
     #region BigItem
     
     [Server]
-    public void AddBigItem(Item bigItem, NetworkObject fpHolder, NetworkObject tpHolder)
+    public void AddBigItem(Item bigItem, NetworkObject fpHolder, NetworkObject tpHolder, NetworkConnection conn)
     {
         if (currentItem.Value == null)
         {
-            bigItem.Pickup(fpHolder, tpHolder);
+            bigItem.Pickup(fpHolder, tpHolder, conn);
             currentItem.Value = bigItem;
         }
     }
@@ -218,7 +218,7 @@ public class PlayerInventoryScript : PlayerComponent
     #region RegularItem
     
     [Server]
-    public void AddItem(Item item, NetworkObject fpHolder, NetworkObject tpHolder)
+    public void AddItem(Item item, NetworkObject fpHolder, NetworkObject tpHolder, NetworkConnection conn)
     {
         for (int i = 0; i < slots.Count; i++)
         {
@@ -227,7 +227,7 @@ public class PlayerInventoryScript : PlayerComponent
                 slots[i] = item;
                 
                 UpdateUIAdd(Owner, i, item); // update UI with free slot index and icon
-                item.Pickup(fpHolder, tpHolder);
+                item.Pickup(fpHolder, tpHolder, conn);
                 
                 if (i == currentItemIndex)
                 {

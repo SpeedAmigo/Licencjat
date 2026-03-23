@@ -1,4 +1,5 @@
 using System;
+using FishNet.Connection;
 using FishNet.Object;
 using Items;
 using Sirenix.OdinInspector;
@@ -218,7 +219,7 @@ public class PlayerInteractor : PlayerComponent
         if (netObj.TryGetComponent<Item>(out var pickup))
         {
             if (pickup == _playerInventory.currentItem.Value) return;
-            Pickup_Server(netObj, fpItemHolder, tpIemHolder);
+            Pickup_Server(netObj, fpItemHolder, tpIemHolder, Owner);
         }
         else if (netObj.TryGetComponent<IInteractable>(out var interactable))
         {
@@ -240,17 +241,17 @@ public class PlayerInteractor : PlayerComponent
     // to get rid of so much component checking
     // try to write network serializer because otherwise it won't work
     [ServerRpc(RequireOwnership = false)]
-    private void Pickup_Server(NetworkObject obj, NetworkObject fpHolder, NetworkObject tpHolder)
+    private void Pickup_Server(NetworkObject obj, NetworkObject fpHolder, NetworkObject tpHolder, NetworkConnection conn)
     {
         if (obj != null && obj.TryGetComponent<Item>(out var pickup))
         {
             if (pickup.isBig)
             {
-                _playerInventory.AddBigItem(pickup, fpHolder, tpHolder);
+                _playerInventory.AddBigItem(pickup, fpHolder, tpHolder, conn);
             }
             else if (_playerInventory.CheckForEmptySlot() && !pickup.isBig)
             {
-                _playerInventory.AddItem(pickup, fpHolder, tpHolder);
+                _playerInventory.AddItem(pickup, fpHolder, tpHolder, conn);
             }
         }
     }

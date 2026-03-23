@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FishNet.Object;
 using TMPro;
 using UnityEngine;
@@ -38,18 +39,10 @@ public class ShopUIScript : NetworkBehaviour
         if (ShopManagerScript.Instance.shopItems.Count < 1)
         {
             Debug.LogWarning("The ShopManagerScript items are empty.");
-        } 
-        
-        /*foreach (var item in ShopManagerScript.Instance.shopItems)
-        {
-            var spawnedTemplate = Instantiate(itemTemplatePrefab, verticalGroup.transform);
-            Spawn(spawnedTemplate.gameObject);
-            
-            spawnedTemplate.NetworkObject.SetParent(verticalGroup);
-            spawnedTemplate.CardSetup(item.itemIcon, item.itemName, item.itemDescription, item.itemPrice, item.ItemID);
-            SetupCardClient(spawnedTemplate);
-        }*/
+        }
 
+        List<NetworkObject> spawnedTemplates = new List<NetworkObject>();   
+        
         for (int i = 0; i < ShopManagerScript.Instance.shopItems.Count; i++)
         {
             var item = ShopManagerScript.Instance.shopItems[i];
@@ -59,17 +52,35 @@ public class ShopUIScript : NetworkBehaviour
             
             spawnedTemplate.NetworkObject.SetParent(verticalGroup);
             spawnedTemplate.CardSetup(item.itemIcon, item.itemName, item.itemDescription, item.itemPrice, item.ItemID);
-            SetupCardClient(spawnedTemplate, i);
+            spawnedTemplates.Add(spawnedTemplate);
+            
+            //SetupCardClient(spawnedTemplate, i);
         }
+        
+        SetupCardClient(spawnedTemplates);
     }
 
     [ObserversRpc(BufferLast = true)]
     private void SetupCardClient(NetworkObject nob, int index)
     {
+        Debug.Log($"SetupCardClient({index})");
+        
         var itemScript = nob.GetComponent<ShopItemUIScript>();
         var currentIndex = ShopManagerScript.Instance.shopItems[index];
         
         itemScript.CardSetup(currentIndex.itemIcon, currentIndex.itemName, currentIndex.itemDescription, currentIndex.itemPrice, currentIndex.ItemID);
+    }
+    
+    [ObserversRpc(BufferLast = true)]
+    private void SetupCardClient(List<NetworkObject> nobs)
+    {
+        for (int i = 0; i < nobs.Count; i++)
+        {
+            var itemScript = nobs[i].GetComponent<ShopItemUIScript>();
+            
+            var currentIndex = ShopManagerScript.Instance.shopItems[i];
+            itemScript.CardSetup(currentIndex.itemIcon, currentIndex.itemName, currentIndex.itemDescription, currentIndex.itemPrice, currentIndex.ItemID);
+        }
     }
     
     private void OnMoneyChanged(uint moneyValue)

@@ -933,14 +933,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Animating.NetworkAnimator
-  _componentIndexCache: 255
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 212815399066512759}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 212815399066512759}
   IgnoredParameters: []
   _animator: {fileID: 6260362350457244743}
   _synchronizeWhenDisabled: 0
   _smoothFloats: 1
-  _interpolation: 2
+  _interpolation: 5
   _clientAuthoritative: 1
   _sendToOwner: 0
 --- !u!1 &3067328311915449580
@@ -1675,9 +1675,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd24934d2422fff4892691a511cc486f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DogScript
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 212815399066512759}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 212815399066512759}
   animator: {fileID: 5674129475612504630}
   rangeDetector: {fileID: 4738830213669662014}
   damageEffect: {fileID: 11400000, guid: 8ea60735f1ab5c94c8947905b009d0f6, type: 2}
@@ -1724,7 +1724,12 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
-  NetworkBehaviours: []
+  NetworkBehaviours:
+  - {fileID: 5929488010126425258}
+  - {fileID: 4966746038532422062}
+  - {fileID: 7159004457110991321}
+  - {fileID: 1642481043445705925}
+  - {fileID: 5674129475612504630}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -1749,15 +1754,15 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 65535
+  <PrefabId>k__BackingField: 8
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 8610003364383592321
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Scale: {x: 0, y: 0, z: 0}
-    IsValid: 0
+    Position: {x: 6.34, y: -1.251, z: -0.47}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    Scale: {x: 1, y: 1, z: 1}
+    IsValid: 1
 --- !u!114 &4966746038532422062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1770,9 +1775,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f77f7e8f18b370443ab7c4d97c6b3d84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectValue
-  _componentIndexCache: 255
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 212815399066512759}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 212815399066512759}
   canPickValueOnStart: 0
   minMaxBuyValue: {x: 0, y: 0}
   minMaxSellValue: {x: 8, y: 25}
@@ -1844,9 +1849,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 255
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 212815399066512759}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 212815399066512759}
   _componentConfiguration: 2
   _synchronizeParent: 0
   _packing:
@@ -1890,9 +1895,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 079be42d8f604d645a890d9a32c69555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateMachine
-  _componentIndexCache: 255
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 212815399066512759}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 212815399066512759}
 --- !u!1 &4456569866390850308
 GameObject:
   m_ObjectHideFlags: 0

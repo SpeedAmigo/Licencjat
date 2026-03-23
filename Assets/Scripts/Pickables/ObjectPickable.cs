@@ -1,4 +1,6 @@
 using System;
+using FishNet.Component.Transforming;
+using FishNet.Connection;
 using FishNet.Object;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
@@ -28,6 +30,8 @@ public abstract class ObjectPickable : NetworkBehaviour
     public float dropForce = 5f;
     public bool isBig;
     
+    
+    private NetworkTransform _nt;
     private Rigidbody _rb;
     private Collider _col;
     private Collider _secondCol;
@@ -37,6 +41,7 @@ public abstract class ObjectPickable : NetworkBehaviour
     protected virtual void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        _nt = GetComponent<NetworkTransform>();
 
         if (objectCollider == null)
         {
@@ -49,31 +54,33 @@ public abstract class ObjectPickable : NetworkBehaviour
         }
     }
     
-    public void Pickup(NetworkObject fpHolder, NetworkObject tpHolder)
+    public void Pickup(NetworkObject fpHolder, NetworkObject tpHolder, NetworkConnection conn)
     {
         if (!IsServerInitialized) return;
-        PickupLogic(fpHolder);
-        Pickup_Client(fpHolder, tpHolder);
+        NetworkObject.GiveOwnership(conn);
+        PickupLogic(fpHolder, conn);
+        Pickup_Client(fpHolder, tpHolder, conn);
     }
 
     public void Drop(Vector3 forward)
     {
         if (!IsServerInitialized) return;
         
+        NetworkObject.RemoveOwnership();
         //DropLogic(forward);
         Drop_Client(forward);
     }
 
     [ObserversRpc]
-    public void Pickup_Client(NetworkObject fpHolder, NetworkObject tpHolder)
+    private void Pickup_Client(NetworkObject fpHolder, NetworkObject tpHolder, NetworkConnection conn)
     {
         if (fpHolder.IsOwner)
         {
-            PickupLogic(fpHolder);
+            PickupLogic(fpHolder, conn);
         }
         else
         {
-            PickupLogic(tpHolder);
+            PickupLogic(tpHolder, conn);
         }
 
         if (!fpHolder.IsOwner) return;
@@ -94,7 +101,7 @@ public abstract class ObjectPickable : NetworkBehaviour
     }
 
     [ObserversRpc]
-    public void Drop_Client(Vector3 forward)
+    private void Drop_Client(Vector3 forward)
     {
         if (IsSpawned)
         {
@@ -117,8 +124,11 @@ public abstract class ObjectPickable : NetworkBehaviour
         }
     }
     
-    protected virtual void PickupLogic(NetworkObject holder)
+    protected virtual void PickupLogic(NetworkObject holder, NetworkConnection conn)
     {
+        // this was added
+        _nt.enabled = false;
+        
         transform.SetParent(holder.transform);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
@@ -141,6 +151,10 @@ public abstract class ObjectPickable : NetworkBehaviour
     
     protected virtual void DropLogic(Vector3 forward)
     {
+        // this was added
+        _nt.enabled = true;
+        _nt.Teleport();
+        
         transform.SetParent(null);
         
         //_rb.AddRelativeForce(Vector3.forward * dropForce, ForceMode.Impulse);

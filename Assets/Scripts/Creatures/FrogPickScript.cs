@@ -1,4 +1,5 @@
 using FishNet.CodeGenerating;
+using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FMOD.Studio;
@@ -26,9 +27,9 @@ public class FrogPickScript : Item
         } 
     }
     
-    protected override void PickupLogic(NetworkObject holder)
+    protected override void PickupLogic(NetworkObject holder , NetworkConnection conn)
     {
-        base.PickupLogic(holder);
+        base.PickupLogic(holder, conn);
 
         frogScript.AI.enabled = false;
         frogScript.Running = false;
