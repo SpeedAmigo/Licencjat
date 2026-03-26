@@ -10,6 +10,8 @@ public class FrogScript : BaseEnemyScript, IStunable
 {
     #region Variables
     
+    [SerializeField] private CreatureStatusVisualizer statusVisualizer;
+    
     [Header("General settings")]
     public bool canWalk = true;
     public bool canSpit = true;
@@ -162,6 +164,16 @@ public class FrogScript : BaseEnemyScript, IStunable
             walkSpeed = 2f;
             canRunaway = true;
             canSpit = true;
+        }
+    }
+
+    protected override void OnDetected(Collider other)
+    {
+        base.OnDetected(other);
+        
+        if (other.CompareTag("Player") && !playersInRange.Contains(other.gameObject) && statusVisualizer != null)
+        {
+            statusVisualizer.ShowStatusSign(CreatureStatus.Exclamation, 2f);
         }
     }
 }
