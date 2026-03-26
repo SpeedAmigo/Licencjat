@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1349
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Project
   m_RootView: {fileID: 3}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -874,7 +874,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: 19.66991, y: 4.8082824, z: -5.61208}
     speed: 2
-    m_Value: {x: 16.217648, y: 3.5222795, z: -4.8362617}
+    m_Value: {x: 19.66991, y: 4.8082824, z: -5.61208}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -922,7 +922,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.14685374, y: 0.55175704, z: -0.10014005, w: -0.8140926}
     speed: 2
-    m_Value: {x: -0.11474021, y: 0.7098065, z: -0.1198688, w: -0.68367934}
+    m_Value: {x: -0.14685374, y: 0.55175704, z: -0.10014005, w: -0.8140926}
   m_Size:
     m_Target: 0.8046729
     speed: 2
@@ -1001,7 +1001,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 2293f8ff3e93f8ff08fbffff42e40000a2e600005ce9000028ed000026ee0000
+      m_ExpandedIDs: 38faffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -5151,7 +5151,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/Creatures
+    - Assets
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -5161,16 +5161,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefabs/Creatures
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: E:\Github\Licencjat
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: dc6b0200
-    m_LastClickedID: 158684
-    m_ExpandedIDs: 00000000340d0100
+    m_SelectedIDs: 340d0100
+    m_LastClickedID: 68916
+    m_ExpandedIDs: 000000003c050100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -5199,7 +5199,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000340d0100
+    m_ExpandedIDs: 000000003c050100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -5420,7 +5420,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 2203
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:

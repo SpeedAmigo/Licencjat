@@ -13,6 +13,8 @@ public class BaseEnemyScript : NetworkBehaviour
     [Header("Dependencies")]
     [SerializeField] protected NetworkAnimator animator;
     [SerializeField] private RangeDetector rangeDetector;
+    
+    public NetworkAnimator Animator => animator;
 
     [Header("Damage settings")] 
     public StatusEffect damageEffect;
