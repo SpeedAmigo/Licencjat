@@ -30,6 +30,8 @@ public class FrogPickScript : Item
     protected override void PickupLogic(NetworkObject holder , NetworkConnection conn)
     {
         base.PickupLogic(holder, conn);
+        
+        frogScript.statusVisualizer.ShowStatusSign(CreatureStatus.Questionmark, 1.5f);
 
         frogScript.AI.enabled = false;
         frogScript.Running = false;

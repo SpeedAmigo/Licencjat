@@ -10,7 +10,7 @@ public class FrogScript : BaseEnemyScript, IStunable
 {
     #region Variables
     
-    [SerializeField] private CreatureStatusVisualizer statusVisualizer;
+    public CreatureStatusVisualizer statusVisualizer;
     
     [Header("General settings")]
     public bool canWalk = true;
@@ -150,6 +150,7 @@ public class FrogScript : BaseEnemyScript, IStunable
     {
         if (stunned)
         {
+            statusVisualizer.ShowStatusSign(CreatureStatus.Questionmark, 1.5f);
             Debug.Log("Stunned");
             canWalk = false;
             walkSpeed = 0;
