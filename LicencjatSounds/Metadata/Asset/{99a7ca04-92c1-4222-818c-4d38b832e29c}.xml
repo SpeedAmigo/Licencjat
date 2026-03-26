@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="EncodableAsset" id="{99a7ca04-92c1-4222-818c-4d38b832e29c}">
 		<property name="assetPath">
-			<value>SpaceshipLand/</value>
+			<value>Spaceship/SpaceshipLand/</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{a3131740-b25f-416f-ae19-b10c75d01189}</destination>

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{fd0fcdb3-f3fb-4f43-abeb-f5ecc85b3b7b}">
 		<property name="assetPath">
-			<value>SpaceshipLand/JET_ENGINE_Afterburner_07_loop_mono.wav</value>
+			<value>Spaceship/SpaceshipLand/JET_ENGINE_Afterburner_07_loop_mono.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

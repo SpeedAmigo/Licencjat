@@ -1,49 +1,63 @@
 using FishNet.CodeGenerating;
+using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using FMOD.Studio;
+using FMODUnity;
+using Items;
 using UnityEngine;
 
-public class FrogPickScript : ObjectPickable
+public class FrogPickScript : Item
 {
-    //[AllowMutableSyncType] public SyncVar<bool> pickedUp;
-    [AllowMutableSyncType] private SyncVar<float> spitTime = new(5f);
+    [AllowMutableSyncType] private SyncVar<float> spitTime = new();
     
     [SerializeField] private FrogScript frogScript;
     
-    //private PlayerInventoryScript _playerInventory;
     private PlayerRoot _playerRoot;
-    
-    protected override void PickupLogic(NetworkObject holder)
+    private StatusEffectHandler _playerEffectHandler;
+    private float _pickedTime;
+    private bool _warningPlayed;
+
+    public override void OnStartServer()
     {
-        base.PickupLogic(holder);
+        if (IsServerInitialized)
+        {
+            _pickedTime = frogScript.GetRandomSpitTime();
+            spitTime.Value = _pickedTime;
+        } 
+    }
+    
+    protected override void PickupLogic(NetworkObject holder , NetworkConnection conn)
+    {
+        base.PickupLogic(holder, conn);
+        
+        frogScript.statusVisualizer.ShowStatusSign(CreatureStatus.Questionmark, 1.5f);
 
         frogScript.AI.enabled = false;
         frogScript.Running = false;
         ChangePickupValue(true);
         
         _playerRoot = holder.transform.root.gameObject.GetComponent<PlayerRoot>();
-        //frogScript.PlayerInventory = holder.transform.root.gameObject.GetComponent<PlayerInventoryScript>();
-        //_playerInventory = holder.transform.root.gameObject.GetComponent<PlayerInventoryScript>();
+        _playerEffectHandler = holder.transform.root.gameObject.GetComponent<StatusEffectHandler>();
+        
     }
     
-    protected override void DropLogic()
+    protected override void DropLogic(Vector3 forward)
     {
-        base.DropLogic();
+        base.DropLogic(forward);
         
         frogScript.AI.enabled = true;
         frogScript.Running = true;
         ChangePickupValue(false);
         
-        //frogScript.PlayerInventory = null;
-        //_playerInventory = null;
         _playerRoot = null;
+        _playerEffectHandler = null;
     }
     
     [ServerRpc(RequireOwnership = false)]
     private void ChangePickupValue(bool value)
     {
         frogScript.pickedUp.Value = value;
-        //pickedUp.Value = value;
     }
 
     private void Update()
@@ -53,20 +67,46 @@ public class FrogPickScript : ObjectPickable
         if (frogScript.canSpit && frogScript.pickedUp.Value)
         {
             spitTime.Value -= Time.deltaTime;
+
+            if (!_warningPlayed && spitTime.Value <= _pickedTime * frogScript.spitPercentWarning)
+            {
+                _warningPlayed = true;
+                EventInstance spitSoundInstance = RuntimeManager.CreateInstance(frogScript.panicSound);
+                spitSoundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+                spitSoundInstance.start();
+                spitSoundInstance.release();
+            }
+            
             if (spitTime.Value <= 0f)
             {
-                Debug.Log("Frog Spitted on you");
-                spitTime.Value = 5f;
-                //animator.Animator.Play("Spit");
+                _warningPlayed = false;
+                _pickedTime = frogScript.GetRandomSpitTime();
+                spitTime.Value = _pickedTime;
                 frogScript.PlaySpitAnimation();
-                
-                _playerRoot.TakeDamage(frogScript.damage);
-                _playerRoot.RequestItemDrop(this);
 
-                /*var playerInventory = _playerRoot.PlayerInventory;
-                playerInventory.RequestRemoveItem(this, playerInventory);*/
+                EventInstance spitSoundInstance = RuntimeManager.CreateInstance(frogScript.spitSound);
+                spitSoundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+                spitSoundInstance.start();
+                spitSoundInstance.release();
+
+                frogScript.PlayParticleServer();
                 
-                //_playerInventory.RequestRemoveItem(this, _playerInventory);
+                if (_playerRoot && _playerEffectHandler)
+                {
+                    _playerEffectHandler.ApplyEffect(frogScript.damageEffect);
+                    _playerRoot.RequestItemDrop(this);
+                }
+                else
+                {
+                    Debug.Log("Frog tried to spit on you but failed");
+                }
+            }
+        }
+        else if (!frogScript.pickedUp.Value)
+        {
+            if (spitTime.Value < _pickedTime)
+            {
+                spitTime.Value += Time.deltaTime * frogScript.spitTimeRegen;
             }
         }
     }

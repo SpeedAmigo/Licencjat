@@ -55,6 +55,87 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 547
+--- !u!114 &-6662975049996282524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/FrogScared
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/FrogScared
+  Guid:
+    Data1: 901911213
+    Data2: 1206543526
+    Data3: -1279322493
+    Data4: -1076767727
+  Banks:
+  - {fileID: 7604561571300198704}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 121
+--- !u!114 &-6466596741188219921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/ButtonHover
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/ButtonHover
+  Guid:
+    Data1: 814656486
+    Data2: 1339886401
+    Data3: -831829108
+    Data4: 1529585103
+  Banks:
+  - {fileID: 7604561571300198704}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 117
+--- !u!114 &-5612194068630288406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Collector
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/Collector
+  Guid:
+    Data1: 117491130
+    Data2: 1331903650
+    Data3: -64805742
+    Data4: 866370567
+  Banks:
+  - {fileID: 7604561571300198704}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 800
 --- !u!114 &-850412215751220117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,13 +183,21 @@ MonoBehaviour:
   - {fileID: 6234986853418234504}
   - {fileID: -9026276409647729736}
   - {fileID: 2481125292775977005}
+  - {fileID: 4949725669521289708}
+  - {fileID: 8296852334587753695}
+  - {fileID: 5884995654562214570}
+  - {fileID: -6466596741188219921}
+  - {fileID: 216120728065239244}
+  - {fileID: -6662975049996282524}
+  - {fileID: -5612194068630288406}
+  - {fileID: 5435682059511828097}
   EditorParameters: []
   MasterBanks:
   - {fileID: 3403838664345754919}
   StringsBanks:
   - {fileID: 1196096207332177434}
   cacheVersion: 131857
-  cacheTime: 639047786077731051
+  cacheTime: 639068405665589902
   SerializableEventsDict:
   - key: event:/Footsteps
     index: 0
@@ -118,6 +207,49 @@ MonoBehaviour:
     index: 2
   - key: event:/SpaceshipAmb
     index: 3
+  - key: event:/ButtonPress
+    index: 4
+  - key: event:/FrogSound
+    index: 5
+  - key: event:/FrogSpit
+    index: 6
+  - key: event:/ButtonHover
+    index: 7
+  - key: event:/GlassCrack
+    index: 8
+  - key: event:/FrogScared
+    index: 9
+  - key: event:/Collector
+    index: 10
+  - key: event:/SpaceshipButton
+    index: 11
+--- !u!114 &216120728065239244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/GlassCrack
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/GlassCrack
+  Guid:
+    Data1: 1441944087
+    Data2: 1170255537
+    Data3: 100156564
+    Data4: -1562368871
+  Banks:
+  - {fileID: 7604561571300198704}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 240
 --- !u!114 &1196096207332177434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,10 +265,10 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639047786077731051
+  lastModified: 639068405665579895
   FileSizes:
   - Name: Desktop
-    Value: 1018
+    Value: 1360
   Exists: 1
 --- !u!114 &2481125292775977005
 MonoBehaviour:
@@ -180,11 +312,92 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639047786077711024
+  lastModified: 639068405665579895
   FileSizes:
   - Name: Desktop
     Value: 941984
   Exists: 1
+--- !u!114 &4949725669521289708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/ButtonPress
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/ButtonPress
+  Guid:
+    Data1: -181516965
+    Data2: 1247663677
+    Data3: 1690038957
+    Data4: -274446806
+  Banks:
+  - {fileID: 7604561571300198704}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 135
+--- !u!114 &5435682059511828097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SpaceshipButton
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/SpaceshipButton
+  Guid:
+    Data1: 1650548944
+    Data2: 1300550073
+    Data3: -754490484
+    Data4: 1755638706
+  Banks:
+  - {fileID: 7604561571300198704}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 297
+--- !u!114 &5884995654562214570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/FrogSpit
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/FrogSpit
+  Guid:
+    Data1: -1277136235
+    Data2: 1267747008
+    Data3: 1248087740
+    Data4: -1097234305
+  Banks:
+  - {fileID: 7604561571300198704}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 544
 --- !u!114 &6234986853418234504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,8 +440,35 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639047786077731051
+  lastModified: 639068405665589902
   FileSizes:
   - Name: Desktop
-    Value: 112640
+    Value: 212896
   Exists: 1
+--- !u!114 &8296852334587753695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/FrogSound
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/FrogSound
+  Guid:
+    Data1: 1776261995
+    Data2: 1077873369
+    Data3: -1825527403
+    Data4: 1175306894
+  Banks:
+  - {fileID: 7604561571300198704}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 754

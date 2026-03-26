@@ -13,18 +13,32 @@ public class BaseEnemyScript : NetworkBehaviour
     [Header("Dependencies")]
     [SerializeField] protected NetworkAnimator animator;
     [SerializeField] private RangeDetector rangeDetector;
+    
+    public NetworkAnimator Animator => animator;
 
     [Header("Damage settings")] 
-    public float damage;
+    public StatusEffect damageEffect;
+    
+    [Header("Speed settings")]
+    public float walkSpeed;
+    public float runSpeed;
     
     [Header("Players in range list")]
     [AllowMutableSyncType] public SyncList<GameObject> playersInRange = new();
     
     [Header("AI Movement Settings")]
-    [SerializeField] private float range = 10f;
+    [SerializeField] private float radius = 10f;
     
-    protected AIPath ai;
-    protected bool WaitingForPath;
+    [HideInInspector] public AIPath ai;
+    [HideInInspector] public bool WaitingForPath;
+    
+    [HideInInspector] public bool running;
+
+    public bool Running
+    {
+        get => running;
+        set => running = value;
+    }
     
     protected virtual void Awake()
     {
@@ -32,20 +46,18 @@ public class BaseEnemyScript : NetworkBehaviour
     }
     
     #region PlayerDetection
-    private void OnDetected(Collider other)
+    protected virtual void OnDetected(Collider other)
     {
         if (other.CompareTag("Player") && !playersInRange.Contains(other.gameObject))
         {
-            //playersInRange.Add(other.gameObject);
             AddPlayerToServerList(other.gameObject);
         }
     }
 
-    private void OnLost(Collider other)
+    protected virtual void OnLost(Collider other)
     {
         if (other.CompareTag("Player") && playersInRange.Contains(other.gameObject))
         {
-            //playersInRange.Remove(other.gameObject);
             RemovePlayerFromServerList(other.gameObject);
         }
     }
@@ -70,13 +82,13 @@ public class BaseEnemyScript : NetworkBehaviour
     
     #region Enable/Disable
     
-    protected virtual void OnEnable()
+    public virtual void OnEnable()
     {
         rangeDetector.onDetectCollider.AddListener(OnDetected);
         rangeDetector.onLostCollider.AddListener(OnLost);
     }
 
-    protected virtual void OnDisable()
+    public virtual void OnDisable()
     {
         rangeDetector.onDetectCollider.RemoveListener(OnDetected);
         rangeDetector.onLostCollider.RemoveListener(OnLost);
@@ -86,17 +98,31 @@ public class BaseEnemyScript : NetworkBehaviour
     
     #region AI
     
-    protected void SetNewPath()
+    public void SetNewPath()
     {
         ai.destination = PickRandomPoint();
         WaitingForPath = false;
     }
     
-    protected Vector3 PickRandomPoint()
+    public void SetNewPath(Vector3 target)
     {
-        Vector3 randomPoint = Random.insideUnitSphere * range;
+        ai.destination = PickRandomPoint(target);
+        WaitingForPath = false;
+    }
+    
+    public Vector3 PickRandomPoint()
+    {
+        Vector3 randomPoint = Random.insideUnitSphere * radius;
         randomPoint.y = 0;
         randomPoint += ai.position;
+        return randomPoint;
+    }
+    
+    public Vector3 PickRandomPoint(Vector3 target)
+    {
+        Vector3 randomPoint = Random.insideUnitSphere * radius;
+        randomPoint.y = 0;
+        randomPoint += target;
         return randomPoint;
     }
     

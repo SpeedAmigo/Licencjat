@@ -1,4 +1,7 @@
+using System;
+using FishNet.Connection;
 using FishNet.Object;
+using Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -6,6 +9,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerInteractor : PlayerComponent
 {
+    public static event Action<string> OnObjectDetection; 
+    public static event Action OnObjectUnDetection; 
+    
     [Header("Item Holders")]
     [GUIColor("Red")]
     [SerializeField] private NetworkObject fpItemHolder;
@@ -22,6 +28,9 @@ public class PlayerInteractor : PlayerComponent
     
     private bool _primaryHold;
     private bool _secondaryHold;
+
+    private RaycastHit _hit;
+    private bool _hasValidTarget;
 
     public override void OnStartClient()
     {
@@ -79,7 +88,7 @@ public class PlayerInteractor : PlayerComponent
     {
         if (!IsOwner) return;
         if (!playerRoot.isAlive.Value) return;
-
+        
         if (_primaryHold)
         {
             OnPrimaryHold();
@@ -89,8 +98,50 @@ public class PlayerInteractor : PlayerComponent
         {
             OnSecondaryHold();
         }
+        
+        DetectTarget();
+    }
+    
+    private void DetectTarget()
+    {
+        var ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+        bool found = false;
+        string interactText = null;
+
+        if (Physics.Raycast(ray, out _hit, interactionDistance))
+        {
+            var collider = _hit.collider;
+
+            if (collider.TryGetComponent(out Item pickable))
+            {
+                if (pickable != _playerInventory.currentItem.Value)
+                {
+                    interactText = pickable.itemDisplayName;
+                    found = true;
+                }
+            }
+            else if (collider.TryGetComponent(out IInteractable interactable))
+            {
+                interactText = interactable.GetInteractText();
+                found = true;
+            }
+        }
+        
+        if (found)
+        {
+            OnObjectDetection?.Invoke(interactText);
+        }
+        else if (_hasValidTarget)
+        {
+            OnObjectUnDetection?.Invoke();
+        }
+
+        _hasValidTarget = found;
     }
 
+    #region  Mouse Left/Right actions
+        
     private void OnPrimaryPerformed(InputAction.CallbackContext context)
     {
         if (ItemIsValid() && _playerInventory.currentItem.Value is IPrimaryClick primaryClick)
@@ -153,26 +204,26 @@ public class PlayerInteractor : PlayerComponent
         }
     }
     
+    #endregion
+    
     private void OnInteraction(InputAction.CallbackContext context)
     {
         if (!IsOwner) return;
         if (!context.performed) return;
         if (!playerRoot.isAlive.Value) return;
 
-        RaycastHit hit;
-
-        if (!Physics.Raycast(_camera.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, interactionDistance)) return;
-
-        if (hit.collider.TryGetComponent<NetworkObject>(out var netObj))
+        if (!Physics.Raycast(_camera.ScreenPointToRay(Mouse.current.position.ReadValue()), out var hit, interactionDistance)) return;
+        
+        if (!hit.collider.TryGetComponent<NetworkObject>(out var netObj)) return;
+        
+        if (netObj.TryGetComponent<Item>(out var pickup))
         {
-            if (netObj.TryGetComponent<ObjectPickable>(out var pickup))
-            {
-                Pickup_Server(netObj, fpItemHolder, tpIemHolder);
-            }
-            else if (netObj.TryGetComponent<IInteractable>(out var interactable))
-            {
-                Interact_Server(netObj);
-            }
+            if (pickup == _playerInventory.currentItem.Value) return;
+            Pickup_Server(netObj, fpItemHolder, tpIemHolder, Owner);
+        }
+        else if (netObj.TryGetComponent<IInteractable>(out var interactable))
+        {
+            Interact_Server(netObj);
         }
     }
 
@@ -181,24 +232,26 @@ public class PlayerInteractor : PlayerComponent
         if (!IsOwner) return;
         if (!context.performed) return;
         
-        DropItem_Server();
+        Vector3 direction = transform.forward;
+        
+        DropItem_Server(direction);
     }
 
     
     // to get rid of so much component checking
     // try to write network serializer because otherwise it won't work
     [ServerRpc(RequireOwnership = false)]
-    private void Pickup_Server(NetworkObject obj, NetworkObject fpHolder, NetworkObject tpHolder)
+    private void Pickup_Server(NetworkObject obj, NetworkObject fpHolder, NetworkObject tpHolder, NetworkConnection conn)
     {
-        if (obj != null && obj.TryGetComponent<ObjectPickable>(out var pickup))
+        if (obj != null && obj.TryGetComponent<Item>(out var pickup))
         {
             if (pickup.isBig)
             {
-                _playerInventory.AddBigItem(pickup, fpHolder, tpHolder);
+                _playerInventory.AddBigItem(pickup, fpHolder, tpHolder, conn);
             }
             else if (_playerInventory.CheckForEmptySlot() && !pickup.isBig)
             {
-                _playerInventory.AddItem(pickup, fpHolder, tpHolder);
+                _playerInventory.AddItem(pickup, fpHolder, tpHolder, conn);
             }
         }
     }
@@ -219,17 +272,17 @@ public class PlayerInteractor : PlayerComponent
     }
     
     [ServerRpc(RequireOwnership = true)]
-    private void DropItem_Server()
+    private void DropItem_Server(Vector3 rotation)
     {
         if (_playerInventory.currentItem.Value == null) return;
 
         if (_playerInventory.currentItem.Value.isBig)
         {
-            _playerInventory.RemoveBigItem(_playerInventory.currentItem.Value);
+            _playerInventory.RemoveBigItem(_playerInventory.currentItem.Value, rotation);
         }
         else
         {
-            _playerInventory.RemoveItem(_playerInventory.currentItem.Value);
+            _playerInventory.RemoveItem(_playerInventory.currentItem.Value, rotation);
         }
     }
     

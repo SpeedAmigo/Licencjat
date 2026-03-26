@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baf2cc5d71f6ac74ebea8ef208ede21a, type: 3}
+  m_Name: DuctTape
+  m_EditorClassIdentifier: Assembly-CSharp::ShopItemData
+  itemId: 6b9d08df-b549-47ee-a469-a65c11737a1e
+  itemPrefab: {fileID: 2846708731227259675, guid: ec40f23a9961913499408c9299ad5d83, type: 3}
+  itemPrice: 10
+  itemName: Duct Tape
+  itemDescription: Use it to  help other players
+  itemIcon: {fileID: 21300000, guid: 9ac05b3c2ceeddd40a6a5883c496a442, type: 3}

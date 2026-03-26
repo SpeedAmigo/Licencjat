@@ -4,31 +4,41 @@ using FishNet.Component.Spawning;
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using FMOD.Studio;
+using FMODUnity;
+using Items;
 using UnityEngine;
 
-public class PlayerRoot : NetworkBehaviour, IPlayer
+public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
 {
     public event Action OnReviveEvent;
     
     [Header("Player State")]
     [AllowMutableSyncType] public SyncVar<bool> isAlive;
     
+    [Header("Sounds")]
+    [SerializeField] private EventReference getDamageSound;
+    [SerializeField] private EventReference getHealSound;
+    
     [HideInInspector] public OxygenScript oxygen;
     private PlayerInventoryScript _playerInventory;
     
     private Vector3 _spawnPosition;
     private Quaternion _spawnRotation;
+    private EventInstance _getDamageInstance;
+    private EventInstance _getHealInstance;
     
     public override void OnStartClient()
     {
         base.OnStartClient();
-
-        _spawnPosition = transform.position;
-        _spawnRotation = transform.rotation;
-
+        
         if (IsOwner)
         {
             SetPlayerAlive(true);
+            
+            _spawnPosition = transform.position;
+            _spawnRotation = transform.rotation;
+            Debug.Log(_spawnPosition);
         }
         
         _playerInventory = gameObject.GetComponent<PlayerInventoryScript>();
@@ -53,16 +63,29 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
     public void TakeDamage(float damage)
     {
         oxygen.drainRate.Value += damage;
-        //TakeDamageClient(oxygen.drainRate.Value);
-    }
+        
+        if (oxygen.drainRate.Value < oxygen.baseDrainRate.Value)
+        {
+            oxygen.drainRate.Value = oxygen.baseDrainRate.Value;
+        }
 
-    [ObserversRpc(BufferLast = true)]
-    private void TakeDamageClient(float value)
-    {
-        oxygen.DrainRate = value;
+        if (damage > 0)
+        {
+            _getDamageInstance = RuntimeManager.CreateInstance(getDamageSound);
+            _getDamageInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            _getDamageInstance.start();
+            _getDamageInstance.release();
+        }
+        else if (damage < 0)
+        {
+            _getHealInstance = RuntimeManager.CreateInstance(getHealSound);
+            _getHealInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            _getHealInstance.start();
+            _getHealInstance.release();
+        }
     }
-
-    public void Heal(float heal)
+    
+    /*public void Heal(float heal)
     {
         oxygen.DrainRate -= heal;
 
@@ -70,11 +93,32 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         {
             oxygen.DrainRate = oxygen.BaseDrainRate;
         }
+    }*/
+
+    [TargetRpc]
+    public void StartDurationFill(NetworkConnection conn, float duration)
+    {
+        PlayerUsageManager.Instance.StartFillUsage(duration);
     }
 
-    public void RequestItemDrop(ObjectPickable item)
+    [TargetRpc]
+    public void StopDurationFill(NetworkConnection conn)
+    {
+        PlayerUsageManager.Instance.StopFillUsage();
+    }
+    
+    public void RequestItemDrop(Item item)
     {
         _playerInventory.RequestRemoveItem(item, _playerInventory);
+    }
+
+    [ServerRpc(RequireOwnership = true)]
+    public void RequestDropInventory()
+    {
+        for (int i = _playerInventory.slots.Count - 1; i >= 0; i--)
+        {
+            _playerInventory.RequestRemoveItem(_playerInventory.slots[i], _playerInventory);
+        }
     }
 
     private void Die()
@@ -84,23 +128,42 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         SetPlayerAlive(false);
         GameOverManager.Instance.ComparePlayersState();
     }
-    
+
     [Server]
-    public void ReviveServer(NetworkConnection conn)
+    public void RestorePlayer(NetworkConnection conn, bool alive, bool leftOnPlanet)
     {
-        ReviveClient(conn, _spawnPosition, _spawnRotation, oxygen.MaxOxygen);
+        RestorePlayerTarget(conn, alive, leftOnPlanet);
     }
 
     [TargetRpc]
-    private void ReviveClient(NetworkConnection conn, Vector3 pos, Quaternion rot, float maxOxygen)
+    private void RestorePlayerTarget(NetworkConnection conn, bool alive, bool leftOnPlanet)
     {
-        SetPlayerAlive(true);
+        if (!alive)
+        {
+            SetPlayerAlive(true);
+            OnReviveEvent?.Invoke();
+        }
+
+        if (leftOnPlanet)
+        {
+            var playerController = GetComponent<PlayerController>();
+            if (playerController) playerController.enabled = false;
+            
+            transform.SetPositionAndRotation(_spawnPosition, _spawnRotation);
+            
+            if (playerController) playerController.enabled = true;
+        }
         
-        oxygen.CurrentOxygen = maxOxygen;
-        oxygen.DrainRate = oxygen.BaseDrainRate;
+        ChangeOxygenOnRevive(oxygen.maxOxygen.Value, oxygen.baseDrainRate.Value);
         
-        transform.SetPositionAndRotation(pos, rot);
-        
-        OnReviveEvent?.Invoke();
+    }
+    
+    [ServerRpc]
+    private void ChangeOxygenOnRevive(float maxOxygen, float baseDrainRate)
+    {
+        oxygen.canDrainOxygen.Value = false;
+        oxygen.currentOxygen.Value = maxOxygen;
+        oxygen.drainRate.Value = baseDrainRate;
+        oxygen.UpdateCurrentStaminaTarget(Owner, maxOxygen);
     }
 }

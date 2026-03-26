@@ -1,21 +1,24 @@
 using FishNet.CodeGenerating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using FMOD.Studio;
+using FMODUnity;
 using Pathfinding;
 using UnityEngine;
 
-public class FrogScript : BaseEnemyScript
+public class FrogScript : BaseEnemyScript, IStunable
 {
     #region Variables
+    
+    public CreatureStatusVisualizer statusVisualizer;
     
     [Header("General settings")]
     public bool canWalk = true;
     public bool canSpit = true;
     public bool canRunaway = true;
     
-    [Header("Speed settings")]
-    [SerializeField] private float walkSpeed;
-    [SerializeField] private float runSpeed;
+    [Header("SpitParticle")]
+    [SerializeField] private ParticleSystem spitParticle;
     
     [Header("Run away setting")]
     [SerializeField] private int maxPlayers;
@@ -23,15 +26,17 @@ public class FrogScript : BaseEnemyScript
     
     [Header("PickedUp settings")]
     [AllowMutableSyncType] public SyncVar<bool> pickedUp;
-    //[AllowMutableSyncType] private SyncVar<float> spitTime = new(5f);
     
-    private bool _running;
+    [Header("Spit Time Range")]
+    public Vector2 spitRange;
+    public float spitPercentWarning = .2f;
+    public float spitTimeRegen = 2f;
 
-    public bool Running
-    {
-        get => _running;
-        set => _running = value;
-    }
+    [Header("Sounds")] 
+    public EventReference spitSound;
+    public EventReference waringSound;
+    public EventReference panicSound;
+    public EventReference idleSound;
     
     public AIPath AI
     {
@@ -55,7 +60,7 @@ public class FrogScript : BaseEnemyScript
     {
         if (!IsServerInitialized) return; // only server runs logic
 
-        ai.maxSpeed = _running ? runSpeed : walkSpeed;
+        ai.maxSpeed = running ? runSpeed : walkSpeed;
         
         bool canRun = canRunaway && playersInRange.Count > maxPlayers;
         
@@ -69,7 +74,7 @@ public class FrogScript : BaseEnemyScript
         }
         
         animator.Animator.SetFloat("Speed", ai.velocity.magnitude);
-        animator.Animator.SetBool("Running", _running);
+        animator.Animator.SetBool("Running", running);
     }
     
     [Server]
@@ -77,7 +82,7 @@ public class FrogScript : BaseEnemyScript
     {
         if (pickedUp.Value) return;
         
-        _running = true;
+        running = true;
         CancelInvoke(nameof(SetNewPath));
 
         var target = playersInRange[0];
@@ -94,7 +99,7 @@ public class FrogScript : BaseEnemyScript
     {
         if (pickedUp.Value) return;
         
-        _running = false;
+        running = false;
             
         if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath) && !WaitingForPath)
         {
@@ -120,6 +125,56 @@ public class FrogScript : BaseEnemyScript
     {
         animator.Animator.Play("Spit");
     }
+
+    [Server]
+    public float GetRandomSpitTime()
+    {
+        return Random.Range(spitRange.x, spitRange.y);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void PlayParticleServer()
+    {
+        PlayParticleObservers();
+    }
+
+    [ObserversRpc]
+    private void PlayParticleObservers()
+    {
+        spitParticle.Play();
+    }
     
     #endregion
+    
+    public void SetStunned(bool stunned)
+    {
+        if (stunned)
+        {
+            statusVisualizer.ShowStatusSign(CreatureStatus.Questionmark, 1.5f);
+            Debug.Log("Stunned");
+            canWalk = false;
+            walkSpeed = 0;
+            canRunaway = false;
+            canSpit = false;
+        }
+        else
+        {
+            Debug.Log("Not Stunned");
+            
+            canWalk = true;
+            walkSpeed = 2f;
+            canRunaway = true;
+            canSpit = true;
+        }
+    }
+
+    protected override void OnDetected(Collider other)
+    {
+        base.OnDetected(other);
+        
+        if (other.CompareTag("Player") && !playersInRange.Contains(other.gameObject) && statusVisualizer != null)
+        {
+            statusVisualizer.ShowStatusSign(CreatureStatus.Exclamation, 2f);
+        }
+    }
 }

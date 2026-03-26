@@ -1,10 +1,13 @@
 using System;
+using FishNet.Component.Transforming;
+using FishNet.Connection;
 using FishNet.Object;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
-public class ObjectPickable : NetworkBehaviour
+public abstract class ObjectPickable : NetworkBehaviour
 {
     [InfoBox("if 'Separate Collider' unchecked remember to add collider at root object")]
     public bool useSeparateCollider = false;
@@ -17,23 +20,28 @@ public class ObjectPickable : NetworkBehaviour
     
     [ShowIf("changeLayerOnPickup")] 
     [GUIColor("Yellow")]
-    public GameObject objectToChangeLayer;
+    public GameObject[] objectsToChangeLayer;
     
     [Space]
     
     [GUIColor("Green")]
     public Transform offset;
-    [GUIColor("Yellow")]
-    public Sprite itemIcon;
-        
+
+    public float dropForce = 5f;
     public bool isBig;
     
+    
+    private NetworkTransform _nt;
     private Rigidbody _rb;
     private Collider _col;
+    private Collider _secondCol;
+    
+    private Transform _tpTransform;
     
     protected virtual void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        _nt = GetComponent<NetworkTransform>();
 
         if (objectCollider == null)
         {
@@ -41,71 +49,90 @@ public class ObjectPickable : NetworkBehaviour
         }
         else
         {
-            _col = objectCollider;
+            _col = GetComponent<Collider>();
+            _secondCol = objectCollider;
         }
     }
     
-    public void Pickup(NetworkObject fpHolder, NetworkObject tpHolder)
+    public void Pickup(NetworkObject fpHolder, NetworkObject tpHolder, NetworkConnection conn)
     {
         if (!IsServerInitialized) return;
-        PickupLogic(fpHolder);
-        Pickup_Client(fpHolder, tpHolder);
+        NetworkObject.GiveOwnership(conn);
+        PickupLogic(fpHolder, conn);
+        Pickup_Client(fpHolder, tpHolder, conn);
     }
 
-    public void Drop()
+    public void Drop(Vector3 forward)
     {
         if (!IsServerInitialized) return;
-        DropLogic();
-        Drop_Client();
+        
+        NetworkObject.RemoveOwnership();
+        //DropLogic(forward);
+        Drop_Client(forward);
     }
 
     [ObserversRpc]
-    public void Pickup_Client(NetworkObject fpHolder, NetworkObject tpHolder)
+    private void Pickup_Client(NetworkObject fpHolder, NetworkObject tpHolder, NetworkConnection conn)
     {
         if (fpHolder.IsOwner)
         {
-            PickupLogic(fpHolder);
+            PickupLogic(fpHolder, conn);
         }
         else
         {
-            PickupLogic(tpHolder);
+            PickupLogic(tpHolder, conn);
         }
 
         if (!fpHolder.IsOwner) return;
-        if (objectToChangeLayer != null)
+        if (objectsToChangeLayer != null && changeLayerOnPickup)
         {
-            objectToChangeLayer.layer = LayerMask.NameToLayer("PickableLayer");
+            foreach (var obj in objectsToChangeLayer)
+            {
+                obj.gameObject.layer = LayerMask.NameToLayer("PickableLayer");
+            }
         }
         else
         {
-            gameObject.layer = LayerMask.NameToLayer("PickableLayer"); 
+            foreach (Transform child in gameObject.transform)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("PickableLayer");
+            }
         }
     }
 
     [ObserversRpc]
-    public void Drop_Client()
+    private void Drop_Client(Vector3 forward)
     {
         if (IsSpawned)
         {
-            DropLogic();
+            DropLogic(forward);
         }
         
-        if (objectToChangeLayer != null)
+        if (objectsToChangeLayer != null && changeLayerOnPickup)
         {
-            objectToChangeLayer.layer = LayerMask.NameToLayer("Default");
+            foreach (var obj in objectsToChangeLayer)
+            {
+                obj.gameObject.layer = LayerMask.NameToLayer("Default");
+            }
         }
         else
         {
-            gameObject.layer = LayerMask.NameToLayer("Default"); 
+            foreach (Transform child in gameObject.transform)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("Default");
+            }
         }
     }
-
-    protected virtual void PickupLogic(NetworkObject holder)
+    
+    protected virtual void PickupLogic(NetworkObject holder, NetworkConnection conn)
     {
+        // this was added
+        _nt.enabled = false;
+        
         transform.SetParent(holder.transform);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
-
+        
         if (offset != null)
         {
             transform.localPosition = offset.localPosition;
@@ -116,17 +143,32 @@ public class ObjectPickable : NetworkBehaviour
         _rb.interpolation = RigidbodyInterpolation.None;
         
         _col.enabled = false;
+        if (_secondCol != null)
+        {
+            _secondCol.enabled = false;
+        }
     }
     
-    protected virtual void DropLogic()
+    protected virtual void DropLogic(Vector3 forward)
     {
+        // this was added
+        _nt.enabled = true;
+        _nt.Teleport();
+        
         transform.SetParent(null);
         
-        _rb.AddRelativeForce(Vector3.forward * 2f, ForceMode.Impulse);
-
+        //_rb.AddRelativeForce(Vector3.forward * dropForce, ForceMode.Impulse);
+        
         _rb.isKinematic = false;
-        _rb.interpolation = RigidbodyInterpolation.Interpolate;
+        _rb.interpolation = RigidbodyInterpolation.None;
+        
+        _rb.linearVelocity = Vector3.zero;
+        _rb.AddForce(forward * dropForce, ForceMode.Impulse);
         
         _col.enabled = true;
+        if (_secondCol != null)
+        {
+            _secondCol.enabled = true;
+        }
     }
 }

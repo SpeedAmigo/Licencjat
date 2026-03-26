@@ -31,7 +31,7 @@ public class PlayerVisualController : NetworkBehaviour
             }*/
         }
     }
-
+    
     public void ChangeLayerOfVisual(string layerName)
     {
         foreach (var visual in  visuals)
