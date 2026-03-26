@@ -2626,9 +2626,17 @@ PrefabInstance:
       propertyPath: WasActiveDuringEdit
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1222018587805790651, guid: 41589846f652cd04db3b298101f707f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3283784451100251437, guid: 41589846f652cd04db3b298101f707f0, type: 3}
       propertyPath: m_Name
       value: StatusVisualizer
+      objectReference: {fileID: 0}
+    - target: {fileID: 3379239861401033553, guid: 41589846f652cd04db3b298101f707f0, type: 3}
+      propertyPath: lookAtPlayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5198466388041388592, guid: 41589846f652cd04db3b298101f707f0, type: 3}
       propertyPath: _addedNetworkObject

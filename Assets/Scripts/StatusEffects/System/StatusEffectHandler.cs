@@ -54,7 +54,7 @@ public class StatusEffectHandler : NetworkBehaviour
         
         for (int i = activeEffects.Count - 1; i >= 0; i--)
         {
-            activeEffects[i].Tick(Time.deltaTime);
+            activeEffects[i].Tick(_interval);
 
             if (activeEffects[i].IsFinished)
             {

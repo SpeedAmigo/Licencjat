@@ -2559,6 +2559,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StatusVisualizer
       objectReference: {fileID: 0}
+    - target: {fileID: 3379239861401033553, guid: 41589846f652cd04db3b298101f707f0, type: 3}
+      propertyPath: lookAtPlayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8807011003335680966, guid: 41589846f652cd04db3b298101f707f0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

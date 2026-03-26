@@ -25,6 +25,7 @@ public class StatusEffectInstance
     public void Tick(float deltaTime)
     {
         _timer += deltaTime;
+        Debug.Log(_timer);
         effect.OnTick(this, deltaTime);
     }
     
