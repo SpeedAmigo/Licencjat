@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7971207465236708452}
   - component: {fileID: 1836878427995250955}
   - component: {fileID: 6234786580045688730}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cactus_3.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,8 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
-  NetworkBehaviours: []
+  NetworkBehaviours:
+  - {fileID: 1836878427995250955}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -158,15 +159,15 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 65535
+  <PrefabId>k__BackingField: 3
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 3179074404303027673
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Scale: {x: 0, y: 0, z: 0}
-    IsValid: 0
+    Position: {x: 0.0028070288, y: -0.009523931, z: -3.1174493}
+    Rotation: {x: -0.7071068, y: 0.000000015454312, z: 0.000000015454312, w: 0.7071068}
+    Scale: {x: 100, y: 100, z: 100}
+    IsValid: 1
 --- !u!114 &1836878427995250955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,9 +180,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fc6b0c3bd890f248bd9b527d5faa322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CactusScript
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 7971207465236708452}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 7971207465236708452}
   damageEffect:
   - {fileID: 11400000, guid: d380360631cde0c4aa05ce37df84537b, type: 2}
 --- !u!54 &6234786580045688730

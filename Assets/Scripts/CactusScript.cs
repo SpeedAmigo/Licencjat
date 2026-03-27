@@ -10,7 +10,6 @@ public class CactusScript : NetworkBehaviour
         if (collision.collider.TryGetComponent<NetworkObject>(out var nob))
         {
             TryApplyEffect(nob);
-            Debug.Log(nob.name);
         }
     }
     
@@ -18,9 +17,6 @@ public class CactusScript : NetworkBehaviour
     private void TryApplyEffect(NetworkObject nob)
     {
         var handler = nob.GetComponent<StatusEffectHandler>();
-        Debug.Log(handler);
-        
-        
         handler.ApplyEffects(damageEffect);
     }
 }
