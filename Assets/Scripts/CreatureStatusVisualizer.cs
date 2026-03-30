@@ -4,36 +4,42 @@ using UnityEngine.UI;
 
 public class CreatureStatusVisualizer : MonoBehaviour
 {
-    [SerializeField] private bool lookAtPlayer = true;
-    [Space]
-    
     [SerializeField] private Animator questionmarkAnimator;
     [SerializeField] private Animator exclamationAnimator;
     [SerializeField] private Animator angerAnimator;
     
     public bool isEnabled;
+
+    private Animator _pickedAnimator;
     
     public void ShowStatusSign(CreatureStatus status, float duration)
     {
+        if (_pickedAnimator != null)
+        {
+            _pickedAnimator.gameObject.SetActive(false);
+            _pickedAnimator = null;
+            
+            StopAllCoroutines();
+        }
+        
         isEnabled = true;
-        Animator animator = null;
         
         switch (status)
         {
             case CreatureStatus.Questionmark :
-                animator = questionmarkAnimator;
+                _pickedAnimator = questionmarkAnimator;
                 break;
             case CreatureStatus.Exclamation :
-                animator = exclamationAnimator;
+                _pickedAnimator = exclamationAnimator;
                 break;
             case CreatureStatus.Anger :
-                animator = angerAnimator;
+                _pickedAnimator = angerAnimator;
                 break;
         }
 
-        if (animator != null)
+        if (_pickedAnimator != null)
         {
-            StartCoroutine(ShowStatusCoroutine(animator, duration));
+            StartCoroutine(ShowStatusCoroutine(_pickedAnimator, duration));
         }
     }
 
@@ -53,8 +59,6 @@ public class CreatureStatusVisualizer : MonoBehaviour
     
     private void Update()
     {
-        if (!lookAtPlayer) return;
-
         if (isEnabled)
         {
             gameObject.transform.LookAt(Camera.main.transform.position, Vector3.up);
