@@ -92,7 +92,7 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
     {
         if (_currentlyUsed) return;
         
-        _primaryClicked  = primaryClick;
+        _primaryClicked = primaryClick;
         
         _timer = useTime;
         _currentlyUsed = true;
@@ -111,9 +111,9 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
 
         if (Physics.Raycast(ray, out RaycastHit hit, shootDistance))
         {
-            Debug.Log(hit.collider.transform.parent.gameObject.name);
+            Debug.Log(hit.collider.transform.gameObject.name);
             
-            if (hit.collider.transform.parent.TryGetComponent<NetworkObject>(out var nob))
+            if (hit.collider.transform.TryGetComponent<NetworkObject>(out var nob))
             {
                return nob;
             }

@@ -19,6 +19,8 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
     [Header("Sounds")]
     [SerializeField] private EventReference getDamageSound;
     [SerializeField] private EventReference getHealSound;
+
+    [SerializeField] private Animator animator;
     
     [HideInInspector] public OxygenScript oxygen;
     private PlayerInventoryScript _playerInventory;
@@ -85,16 +87,6 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
         }
     }
     
-    /*public void Heal(float heal)
-    {
-        oxygen.DrainRate -= heal;
-
-        if (oxygen.DrainRate < oxygen.BaseDrainRate)
-        {
-            oxygen.DrainRate = oxygen.BaseDrainRate;
-        }
-    }*/
-
     [TargetRpc]
     public void StartDurationFill(NetworkConnection conn, float duration)
     {
