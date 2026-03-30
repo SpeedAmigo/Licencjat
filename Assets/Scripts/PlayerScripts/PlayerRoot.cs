@@ -7,6 +7,7 @@ using FishNet.Object.Synchronizing;
 using FMOD.Studio;
 using FMODUnity;
 using Items;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
@@ -103,21 +104,22 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
     {
         _playerInventory.RequestRemoveItem(item, _playerInventory);
     }
-
-    [ServerRpc(RequireOwnership = true)]
+    
+    /*[ServerRpc(RequireOwnership = true)]
     public void RequestDropInventory()
     {
         for (int i = _playerInventory.slots.Count - 1; i >= 0; i--)
         {
-            _playerInventory.RequestRemoveItem(_playerInventory.slots[i], _playerInventory);
+            _playerInventory.RequestRemoveItem(_playerInventory.slots[i], _playerInventory, true);
         }
-    }
+    }*/
 
     private void Die()
     {
         if (!IsOwner || !isAlive.Value) return;
         
         SetPlayerAlive(false);
+        //RequestDropInventory();
         GameOverManager.Instance.ComparePlayersState();
     }
 

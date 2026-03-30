@@ -9,6 +9,7 @@ public class PlayerVisualController : PlayerComponent
     [SerializeField] private GameObject[] visuals;
     [GUIColor("Red")]
     [SerializeField] private NetworkAnimator networkAnimator;
+    [GUIColor("Red")]
     [SerializeField] private Animator animator;
     [GUIColor("Red")]
     

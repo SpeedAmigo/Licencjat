@@ -181,6 +181,23 @@ public class PlayerInventoryScript : PlayerComponent
         }
     }
     
+    /*[Server]
+    public void RequestRemoveItem(Item item, PlayerInventoryScript inventory, bool setActiveOnDrop)
+    {
+        if (inventory == null || item == null) return;
+
+        item.gameObject.SetActive(setActiveOnDrop);
+        
+        if (item.isBig)
+        {
+            inventory.RemoveBigItem(item, Vector3.forward);
+        }
+        else
+        {
+            inventory.RemoveItem(item, Vector3.forward);
+        }
+    }*/
+    
     private void AddInventorySlots()
     {
         for (int i = 0; i < inventorySize; i++)
