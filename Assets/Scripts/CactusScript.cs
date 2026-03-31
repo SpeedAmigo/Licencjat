@@ -7,7 +7,7 @@ public class CactusScript : NetworkBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.TryGetComponent<NetworkObject>(out var nob))
+        if (collision.transform.parent.TryGetComponent<NetworkObject>(out var nob))
         {
             TryApplyEffect(nob);
         }
