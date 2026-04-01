@@ -16,7 +16,7 @@ public class DogMoveToAttackState : State
 
     public override void Enter()
     {
-        _dogScript.targetPlayer = _target;
+        _dogScript.targetPlayer = _dogScript.playersInRange[0];
         
         _dogScript.agroTimer = _dogScript.agroTime;
 
@@ -32,7 +32,7 @@ public class DogMoveToAttackState : State
         {
             _dogScript.agroTimer -= Time.deltaTime;
 
-            Debug.Log($"AgroTimer; {_dogScript.agroTimer}");
+            //Debug.Log($"AgroTimer; {_dogScript.agroTimer}");
             
             if (_dogScript.agroTimer <= 0)
             {

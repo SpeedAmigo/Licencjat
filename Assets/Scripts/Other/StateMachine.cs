@@ -9,6 +9,8 @@ public class StateMachine : NetworkBehaviour
     {
         if (!IsServerInitialized) return;
         
+        if (_currentState == newState) return;
+        
         if (_currentState != null)
         {
             _currentState.Exit();
