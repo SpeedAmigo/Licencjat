@@ -833,9 +833,9 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 4071742acc22ba04caaa52fe28da5d39, type: 3}
   m_Controller: {fileID: 9100000, guid: 8f83a6b6075dcf447800b28e7df24b88, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -3149,7 +3149,7 @@ MonoBehaviour:
     Rotation: 1
     Scale: 0
   _useScaledTime: 1
-  _interpolation: 3
+  _interpolation: 10
   _extrapolation: 0
   _enableTeleport: 0
   _teleportThreshold: 1
