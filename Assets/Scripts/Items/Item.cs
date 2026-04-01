@@ -11,14 +11,17 @@ namespace Items
     
         [GUIColor("Yellow")]
         public string itemDisplayName = "Pickup";
-
-        private float _sleepThreshold = 0.05f;
         
-        private void Update()
+        protected virtual void Update()
         {
             if (!IsServerInitialized) return;
             
-            if (_rb.IsSleeping())
+            /*if (_rb.IsSleeping())
+            {
+                SleepNotifyObservers();
+            }*/
+
+            if (rbPrediction.Rigidbody.IsSleeping())
             {
                 SleepNotifyObservers();
             }
@@ -27,7 +30,8 @@ namespace Items
         [ObserversRpc]
         private void SleepNotifyObservers()
         {
-            _rb.isKinematic = true;
+            //_rb.isKinematic = true;
+            rbPrediction.Rigidbody.isKinematic = true;
         }
     }
 }
