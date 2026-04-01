@@ -30,9 +30,8 @@ public abstract class ObjectPickable : NetworkBehaviour
     public float dropForce = 5f;
     public bool isBig;
     
-    
     private NetworkTransform _nt;
-    private Rigidbody _rb;
+    protected Rigidbody _rb;
     private Collider _col;
     private Collider _secondCol;
     
