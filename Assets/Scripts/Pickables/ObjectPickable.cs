@@ -162,9 +162,11 @@ public abstract class ObjectPickable : NetworkBehaviour
     {
         // this was added
         _nt.enabled = true;
-        _nt.Teleport();
+        
         
         transform.SetParent(null);
+        
+        _nt.Teleport();
         
         //_rb.AddRelativeForce(Vector3.forward * dropForce, ForceMode.Impulse);
         
