@@ -480,8 +480,8 @@ MonoBehaviour:
   - {fileID: 3257361702672036978}
   - {fileID: 304611839728717182}
   - {fileID: -4719679054856163804}
-  - {fileID: 5038303520280364520}
   - {fileID: 5228390467975250495}
+  - {fileID: 5038303520280364520}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects:
   - {fileID: 7498068800071744240}
@@ -495,9 +495,9 @@ MonoBehaviour:
   _preventDespawnOnDisconnect: 0
   _defaultDespawnType: 1
   NetworkObserver: {fileID: 0}
-  _enablePrediction: 0
-  _predictionType: 0
-  _graphicalObject: {fileID: 0}
+  _enablePrediction: 1
+  _predictionType: 1
+  _graphicalObject: {fileID: 2645963858294506485}
   _detachGraphicalObject: 0
   _enableStateForwarding: 1
   _networkTransform: {fileID: 0}
@@ -508,7 +508,7 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 23
+  <PrefabId>k__BackingField: 27
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 18261881456035343965
   <SceneId>k__BackingField: 0
@@ -566,7 +566,7 @@ MonoBehaviour:
     Rotation: 1
     Scale: 0
   _useScaledTime: 1
-  _interpolation: 15
+  _interpolation: 5
   _extrapolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
@@ -863,7 +863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 9
+  _componentIndexCache: 10
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 4097182591846747468}
 --- !u!1 &2110657887717763425
@@ -2542,7 +2542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 10
+  _componentIndexCache: 9
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 4097182591846747468}
 --- !u!1 &9025659989701725408
@@ -2662,6 +2662,10 @@ PrefabInstance:
     - target: {fileID: 1135657003824933385, guid: 41589846f652cd04db3b298101f707f0, type: 3}
       propertyPath: <IsNested>k__BackingField
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135657003824933385, guid: 41589846f652cd04db3b298101f707f0, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1135657003824933385, guid: 41589846f652cd04db3b298101f707f0, type: 3}
       propertyPath: <ComponentIndex>k__BackingField
@@ -2870,6 +2874,10 @@ PrefabInstance:
     - target: {fileID: 1244259089383504643, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
       propertyPath: <IsNested>k__BackingField
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244259089383504643, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1244259089383504643, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
       propertyPath: <ComponentIndex>k__BackingField

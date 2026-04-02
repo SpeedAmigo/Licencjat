@@ -1,7 +1,10 @@
 using System;
 using FishNet.Component.Transforming;
 using FishNet.Connection;
+using FishNet.Demo.Prediction.Rigidbodies;
 using FishNet.Object;
+using FishNet.Object.Prediction;
+using GameKit.Dependencies.Utilities;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -31,16 +34,21 @@ public abstract class ObjectPickable : NetworkBehaviour
     public bool isBig;
     
     private NetworkTransform _nt;
-    protected Rigidbody _rb;
+    //protected Rigidbody _rb;
     private Collider _col;
     private Collider _secondCol;
+
+    protected PredictionRigidbody rbPrediction;
     
     private Transform _tpTransform;
     
     protected virtual void Awake()
     {
-        _rb = GetComponent<Rigidbody>();
+        //_rb = GetComponent<Rigidbody>();
         _nt = GetComponent<NetworkTransform>();
+        
+        rbPrediction = ObjectCaches<PredictionRigidbody>.Retrieve();
+        rbPrediction.Initialize(GetComponent<Rigidbody>());
 
         if (objectCollider == null)
         {
@@ -138,8 +146,10 @@ public abstract class ObjectPickable : NetworkBehaviour
             transform.localRotation = offset.localRotation;
         }
         
-        _rb.isKinematic = true;
-        _rb.interpolation = RigidbodyInterpolation.None;
+        //_rb.isKinematic = true;
+        rbPrediction.Rigidbody.isKinematic = true;
+        //_rb.interpolation = RigidbodyInterpolation.None;
+        rbPrediction.Rigidbody.interpolation = RigidbodyInterpolation.None;
         
         _col.enabled = false;
         if (_secondCol != null)
@@ -152,17 +162,23 @@ public abstract class ObjectPickable : NetworkBehaviour
     {
         // this was added
         _nt.enabled = true;
-        _nt.Teleport();
+        
         
         transform.SetParent(null);
         
+        _nt.Teleport();
+        
         //_rb.AddRelativeForce(Vector3.forward * dropForce, ForceMode.Impulse);
         
-        _rb.isKinematic = false;
-        _rb.interpolation = RigidbodyInterpolation.None;
+        //_rb.isKinematic = false;
+        rbPrediction.Rigidbody.isKinematic = false;
+        //_rb.interpolation = RigidbodyInterpolation.None;
+        rbPrediction.Rigidbody.interpolation = RigidbodyInterpolation.None;
         
-        _rb.linearVelocity = Vector3.zero;
-        _rb.AddForce(forward * dropForce, ForceMode.Impulse);
+        //_rb.linearVelocity = Vector3.zero;
+        rbPrediction.Rigidbody.linearVelocity = Vector3.zero;
+        //_rb.AddForce(forward * dropForce, ForceMode.Impulse);
+        rbPrediction.Rigidbody.AddForce(forward * dropForce, ForceMode.Impulse);
         
         _col.enabled = true;
         if (_secondCol != null)
