@@ -9,7 +9,10 @@ public class CactusScript : NetworkBehaviour
     {
         if (collision.transform.parent.TryGetComponent<NetworkObject>(out var nob))
         {
-            TryApplyEffect(nob);
+            if (nob.IsOwner)
+            {
+                TryApplyEffect(nob);
+            }
         }
     }
     

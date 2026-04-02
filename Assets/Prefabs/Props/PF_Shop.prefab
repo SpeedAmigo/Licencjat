@@ -433,7 +433,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7068557151251612747}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9999932, z: -0, w: 0.0036969187}
+  m_LocalRotation: {x: 0, y: -0.99999315, z: 0, w: 0.0037001208}
   m_LocalPosition: {x: -4.7479, y: -2.8250122, z: -3.0998306}
   m_LocalScale: {x: 1.2499996, y: 1.25, z: 1.2499996}
   m_ConstrainProportionsScale: 0
@@ -447,7 +447,7 @@ Transform:
   - {fileID: 1686338827427544691}
   - {fileID: 9046299202126784389}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -39.354, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -179.576, z: 0}
 --- !u!1 &7735131118735659841
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +459,6 @@ GameObject:
   - component: {fileID: 1686338827427544691}
   - component: {fileID: 3824698831940278186}
   - component: {fileID: 9065692177136357676}
-  - component: {fileID: 5781487539961757283}
   m_Layer: 0
   m_Name: DarkMass
   m_TagString: Untagged
@@ -538,28 +537,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5781487539961757283
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7735131118735659841}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &8470830778242190238
 GameObject:
   m_ObjectHideFlags: 0
