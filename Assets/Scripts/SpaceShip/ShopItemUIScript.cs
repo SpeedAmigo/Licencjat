@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopItemUIScript : NetworkBehaviour, IInteractable
+public class ShopItemUIScript : NetworkBehaviour
 {
     [SerializeField] private string interactText = "Buy";
     
@@ -14,6 +14,8 @@ public class ShopItemUIScript : NetworkBehaviour, IInteractable
     
     [SerializeField] private string _itemId;
     
+    public string ItemId {get{return _itemId;}}
+    
     public void CardSetup(Sprite itemIcon, string itemName, string itemDesc, int itemPrice, string itemId)
     {
         itemImage.sprite = itemIcon;
@@ -23,7 +25,7 @@ public class ShopItemUIScript : NetworkBehaviour, IInteractable
         _itemId = itemId;
     }
     
-    public void Interact()
+    /*public void Interact()
     {
         if (ShopManagerScript.Instance)
         {
@@ -37,5 +39,5 @@ public class ShopItemUIScript : NetworkBehaviour, IInteractable
     public string GetInteractText()
     {
         return interactText;
-    }
+    }*/
 }

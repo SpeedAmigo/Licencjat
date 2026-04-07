@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using FishNet.CodeGenerating;
 using FishNet.Object;
@@ -17,6 +18,13 @@ public class ShopManagerScript : NetworkBehaviour
     public List<ShopItemData> shopItems;
     
     [SerializeField] private Transform spawnLocation;
+
+    [SerializeField] private float spawnRate = 1f;
+    
+    private Dictionary<string, uint> basketItems = new();
+    private int basketValue = 0;
+    
+    private Coroutine basketCoroutine;
 
     private void Awake()
     {
@@ -40,6 +48,85 @@ public class ShopManagerScript : NetworkBehaviour
         
         SpawnItem(pickedItem.itemPrefab, spawnLocation);
         TakeMoney((uint)pickedItem.itemPrice);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void BuyItems()
+    {
+        if (basketCoroutine != null) return;
+         
+        if (basketItems.Count < 1) return;
+
+        if (!CanBuyItem(basketValue)) return;
+
+        TakeMoney((uint)basketValue);
+        basketCoroutine = StartCoroutine(ItemSpawnCoroutine(basketItems));
+    }
+
+    private IEnumerator ItemSpawnCoroutine(Dictionary<string, uint> basket)
+    {
+        foreach (var item in basket)
+        {
+            var pickedItem = GetItemById(item.Key);
+
+            if (pickedItem == null)
+            {
+                Debug.LogWarning($"Couldn't find item with id {item.Key}");
+                continue;
+            }
+
+            for (int i = 0; i < item.Value; i++)
+            {
+                Debug.Log($"item quantity {item.Value}");
+                yield return new WaitForSeconds(spawnRate);
+                SpawnItem(pickedItem.itemPrefab, spawnLocation);
+            }
+        }
+        
+        basketItems.Clear();
+        basketValue = 0;
+        basketCoroutine = null;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void AddItemToBasket(string itemId)
+    {
+        var pickedItem = GetItemById(itemId);
+
+        if (pickedItem == null)
+        {
+            Debug.LogWarning($"Couldn't find item with id {itemId}");
+            return;
+        }
+
+        if (!basketItems.ContainsKey(itemId))
+        {
+            basketItems[itemId] = 0;
+        }
+        
+        basketItems[itemId]++;
+        basketValue += pickedItem.itemPrice;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void RemoveItemFromBasket(string itemId)
+    {
+        var pickedItem = GetItemById(itemId);
+
+        if (basketItems.ContainsKey(itemId))
+        {
+            basketItems.TryGetValue(itemId, out var value);
+            if (value > 1)
+            {
+                value--;
+                basketValue -= pickedItem.itemPrice;
+            }
+            else
+            {
+                basketItems.Remove(itemId);
+                basketValue -= pickedItem.itemPrice;
+            }
+        } 
     }
 
     [Server]
