@@ -212,6 +212,7 @@ MonoBehaviour:
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours:
   - {fileID: 5648929843813666573}
+  - {fileID: 4208594995643567265}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -236,7 +237,7 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 7
+  <PrefabId>k__BackingField: 21
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 15854395541547138035
   <SceneId>k__BackingField: 0
@@ -317,6 +318,14 @@ MonoBehaviour:
   isBig: 0
   itemIcon: {fileID: 21300000, guid: 12aa55852fe5547478c6b29b198b334b, type: 3}
   itemDisplayName: Pickup
+  useDurability:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 1
+  durability:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 15
   raycastStartPoint: {fileID: 2682355678119663154}
   shootDistance: 10
   effects:
@@ -333,9 +342,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 255
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 2846708731227259675}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 2846708731227259675}
   _componentConfiguration: 2
   _synchronizeParent: 0
   _packing:

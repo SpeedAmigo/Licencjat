@@ -10,6 +10,13 @@ public class GunScript : Weapon, IPrimaryClick
     
     public void OnPrimaryClick()
     {
+        if (!CheckDurability())
+        {
+            Debug.Log("No more power!");
+            return;
+        }
+        
+        DecreaseDurability();
         Shoot();
     }
 

@@ -1,4 +1,6 @@
+using FishNet.CodeGenerating;
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -11,16 +13,14 @@ namespace Items
     
         [GUIColor("Yellow")]
         public string itemDisplayName = "Pickup";
+
+        [AllowMutableSyncType] protected SyncVar<bool> useDurability = new(true); 
+        [AllowMutableSyncType] protected SyncVar<uint> durability = new();
         
         protected virtual void Update()
         {
             if (!IsServerInitialized) return;
             
-            /*if (_rb.IsSleeping())
-            {
-                SleepNotifyObservers();
-            }*/
-
             if (rbPrediction.Rigidbody.IsSleeping())
             {
                 SleepNotifyObservers();
@@ -30,8 +30,25 @@ namespace Items
         [ObserversRpc]
         private void SleepNotifyObservers()
         {
-            //_rb.isKinematic = true;
             rbPrediction.Rigidbody.isKinematic = true;
+        }
+        
+        protected virtual bool CheckDurability()
+        {
+            if (durability.Value <= 0)
+            {
+                return false;
+            }   
+            
+            return true;
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        protected void DecreaseDurability()
+        {
+            if (!useDurability.Value) return;
+            
+            durability.Value--;
         }
     }
 }

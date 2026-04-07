@@ -38,12 +38,19 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
                 TryApplyEffect(GetPlayerNetworkObject());
             }
             
+            DecreaseDurability();
             _currentlyUsed = false;
         }
     }
     
     public void OnPrimaryClick()
     {
+        if (!CheckDurability())
+        {
+            Debug.Log("No more durability!");
+            return;
+        }
+        
         ClickHandler(true);
         
         var nob = RaycastShoot();
