@@ -12,6 +12,7 @@ public class ShopManagerScript : NetworkBehaviour
     public static ShopManagerScript Instance;
 
     public static event Action<uint> MoneyChanged;
+    public static event Action<Dictionary<string, uint>> BasketChanged;
     
     [AllowMutableSyncType] public SyncVar<uint> currentMoney;
     
@@ -19,6 +20,7 @@ public class ShopManagerScript : NetworkBehaviour
     
     [SerializeField] private Transform spawnLocation;
 
+    [SerializeField] private int maxBasketItems = 4;
     [SerializeField] private float spawnRate = 1f;
     
     private Dictionary<string, uint> basketItems = new();
@@ -86,11 +88,14 @@ public class ShopManagerScript : NetworkBehaviour
         basketItems.Clear();
         basketValue = 0;
         basketCoroutine = null;
+        BasketChanged?.Invoke(basketItems);
     }
 
     [ServerRpc(RequireOwnership = false)]
     public void AddItemToBasket(string itemId)
     {
+        if (GetTotalBasketItemCount() >= maxBasketItems) return;
+        
         var pickedItem = GetItemById(itemId);
 
         if (pickedItem == null)
@@ -106,6 +111,8 @@ public class ShopManagerScript : NetworkBehaviour
         
         basketItems[itemId]++;
         basketValue += pickedItem.itemPrice;
+        
+        BasketChanged?.Invoke(basketItems);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -118,7 +125,7 @@ public class ShopManagerScript : NetworkBehaviour
             basketItems.TryGetValue(itemId, out var value);
             if (value > 1)
             {
-                value--;
+                basketItems[itemId]--;
                 basketValue -= pickedItem.itemPrice;
             }
             else
@@ -127,6 +134,8 @@ public class ShopManagerScript : NetworkBehaviour
                 basketValue -= pickedItem.itemPrice;
             }
         } 
+        
+        BasketChanged?.Invoke(basketItems);
     }
 
     [Server]
@@ -163,8 +172,20 @@ public class ShopManagerScript : NetworkBehaviour
         MoneyChanged?.Invoke(money);
     }
 
-    private ShopItemData GetItemById(string id)
+    public ShopItemData GetItemById(string id)
     {
         return shopItems.Find(item => item.ItemID == id);
+    }
+
+    private int GetTotalBasketItemCount()
+    {
+        int total = 0;
+
+        foreach (var item in basketItems)
+        {
+            total += (int)item.Value;
+        }
+        
+        return total;
     }
 }

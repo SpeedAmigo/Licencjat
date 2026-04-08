@@ -2,21 +2,25 @@ using System.Collections.Generic;
 using FishNet.Object;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopUIScript : NetworkBehaviour
 {
     [SerializeField] private NetworkObject verticalGroup;
     [SerializeField] private TMP_Text moneyText;
     [SerializeField] private ShopItemUIScript itemTemplatePrefab;
+    [SerializeField] private BasketItemUIScript[] basketTemplates;
 
     private void OnEnable()
     {
         ShopManagerScript.MoneyChanged += OnMoneyChanged;
+        ShopManagerScript.BasketChanged += OnUpdateBasketUI;
     }
 
     private void OnDisable()
     {
         ShopManagerScript.MoneyChanged -= OnMoneyChanged;
+        ShopManagerScript.BasketChanged -= OnUpdateBasketUI;
     }
     
     private void Start()
@@ -60,7 +64,7 @@ public class ShopUIScript : NetworkBehaviour
         SetupCardClient(spawnedTemplates);
     }
 
-    [ObserversRpc(BufferLast = true)]
+    /*[ObserversRpc(BufferLast = true)]
     private void SetupCardClient(NetworkObject nob, int index)
     {
         Debug.Log($"SetupCardClient({index})");
@@ -69,7 +73,7 @@ public class ShopUIScript : NetworkBehaviour
         var currentIndex = ShopManagerScript.Instance.shopItems[index];
         
         itemScript.CardSetup(currentIndex.itemIcon, currentIndex.itemName, currentIndex.itemDescription, currentIndex.itemPrice, currentIndex.ItemID);
-    }
+    }*/
     
     [ObserversRpc(BufferLast = true)]
     private void SetupCardClient(List<NetworkObject> nobs)
@@ -87,4 +91,41 @@ public class ShopUIScript : NetworkBehaviour
     {
         moneyText.text = moneyValue.ToString();
     }
+
+    private void OnUpdateBasketUI(Dictionary<string, uint> basketItems)
+    {
+        OnUpdateBasketUIObservers(basketItems);
+    }
+    
+    [ObserversRpc(BufferLast = true)]
+    private void OnUpdateBasketUIObservers(Dictionary<string, uint> basketItems)
+    {
+        foreach (var basketTemplate in basketTemplates)
+        {
+            basketTemplate.gameObject.SetActive(false);
+        }
+        
+        int i = 0;
+
+        foreach (var basketItem in basketItems)
+        {
+            if (i >= basketTemplates.Length) break;
+
+            var itemData = ShopManagerScript.Instance.GetItemById(basketItem.Key);
+            
+            if (itemData == null)
+            {
+                Debug.LogWarning($"Missing item for id {basketItem.Key}");
+                continue;
+            }
+            
+            string amount = basketItem.Value.ToString();
+            
+            basketTemplates[i].gameObject.SetActive(true);
+            basketTemplates[i].CardSetup(itemData, amount);
+
+            i++;
+        }
+    }
 }
+    
