@@ -311,6 +311,7 @@ MonoBehaviour:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
     _value: 1
+  maxDurability: 4
   durability:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}

@@ -237,7 +237,7 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 21
+  <PrefabId>k__BackingField: 22
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 15854395541547138035
   <SceneId>k__BackingField: 0
@@ -322,6 +322,7 @@ MonoBehaviour:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
     _value: 1
+  maxDurability: 15
   durability:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}

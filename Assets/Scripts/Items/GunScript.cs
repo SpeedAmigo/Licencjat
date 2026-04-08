@@ -1,7 +1,7 @@
 using FishNet.Object;
 using UnityEngine;
 
-public class GunScript : Weapon, IPrimaryClick
+public class GunScript : Weapon, IPrimaryClick, IRechargeable
 {
     [SerializeField] private Transform raycastStartPoint;
     [SerializeField] private float shootDistance;
@@ -37,6 +37,20 @@ public class GunScript : Weapon, IPrimaryClick
     private void TryApplyEffect(NetworkObject target)
     {
        var handler = target.GetComponent<StatusEffectHandler>();
+
+       if (handler == null)
+       {
+           Debug.Log("No status effect handler");
+           return;
+       }
+       
        handler.ApplyEffects(effects);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void Recharge()
+    {
+        Debug.Log("Recharge");
+        SetToMaxDurability();
     }
 }

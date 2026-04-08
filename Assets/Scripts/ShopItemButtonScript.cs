@@ -8,7 +8,7 @@ public class ShopItemButtonScript : NetworkBehaviour, IInteractable
     [SerializeField] private bool addToBasket; 
     [SerializeField] private ShopItemUIScript shopItemUIScript;
     
-    public void Interact()
+    public void Interact(PlayerRoot playerRoot)
     {
         if (!ShopManagerScript.Instance || !IsController) return;
         

@@ -13,7 +13,7 @@ public class ShopJoyStickScript : NetworkBehaviour, IInteractable
         _animator = GetComponent<NetworkAnimator>();
     }
     
-    public void Interact()
+    public void Interact(PlayerRoot playerRoot)
     {
         if (ShopManagerScript.Instance)
         {

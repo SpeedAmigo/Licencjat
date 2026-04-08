@@ -267,7 +267,7 @@ public class PlayerInteractor : PlayerComponent
     {
         if (netObj.TryGetComponent<IInteractable>(out var interactable))
         {
-            interactable.Interact();
+            interactable.Interact(playerRoot);
         }
     }
     

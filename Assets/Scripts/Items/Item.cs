@@ -15,7 +15,14 @@ namespace Items
         public string itemDisplayName = "Pickup";
 
         [AllowMutableSyncType] protected SyncVar<bool> useDurability = new(true); 
+        
+        [SerializeField] protected uint maxDurability;
         [AllowMutableSyncType] protected SyncVar<uint> durability = new();
+
+        protected virtual void Start()
+        {
+            SetToMaxDurability();
+        }
         
         protected virtual void Update()
         {
@@ -31,6 +38,12 @@ namespace Items
         private void SleepNotifyObservers()
         {
             rbPrediction.Rigidbody.isKinematic = true;
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        protected void SetToMaxDurability()
+        {
+            durability.Value = maxDurability;
         }
         
         protected virtual bool CheckDurability()
