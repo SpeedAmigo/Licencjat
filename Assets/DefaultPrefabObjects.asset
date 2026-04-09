@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Managing.Object.DefaultPrefabObjects
   _prefabs:
   - {fileID: 4641020678009326621, guid: c7d4f9dadfe5419459bfb51ddac4839b, type: 3}
-  - {fileID: 2728572776336246488, guid: 8b7620213dd7225429cd4c257f5ed591, type: 3}
   - {fileID: 212815399066512759, guid: e3d0f05bfbe633d4fabedbba45dd673b, type: 3}
   - {fileID: 212815399066512759, guid: 5ce17c6c68a17cd4b83e249b65c96459, type: 3}
   - {fileID: 201277550, guid: 5b712878ecece354ba4ffb026c0a221c, type: 3}
@@ -32,13 +31,16 @@ MonoBehaviour:
   - {fileID: 2279258812022469519, guid: da585da6c9ef1654e93bfbefa843aa9a, type: 3}
   - {fileID: 611616139817875448, guid: bf5f023b4017a5e41a9815ec5745df3d, type: 3}
   - {fileID: 5315229089820142365, guid: d41fee3b878c8bf4ab0d7dcb8aa1a6dc, type: 3}
+  - {fileID: 5905603321266583037, guid: a46b52baf6080f047a5d11f45211fa72, type: 3}
   - {fileID: 4097182591846747468, guid: 480050121a3bec346b70d80b83c9bc45, type: 3}
   - {fileID: 4512293259955182956, guid: 0d6d0f48b03b17f49a6340103cd9b9d0, type: 3}
   - {fileID: 4512293259955182956, guid: fe2b65b02f0484b41aa8cfa9fbbb0e1d, type: 3}
   - {fileID: 201277550, guid: 26a567abbe21227428f5c3d309d1d73c, type: 3}
   - {fileID: 7971207465236708452, guid: 0c80cb761cf64144faac40596620673b, type: 3}
+  - {fileID: 676141956041103041, guid: c27a3e2263f04154197a7ee6b91a3aa7, type: 3}
   - {fileID: 1820102992940521454, guid: 234a23ce30e8ba6488faca2321250fff, type: 3}
   - {fileID: 4097182591846747468, guid: cd2bd6eb84191e947b74ab1aa54eeb42, type: 3}
+  - {fileID: 2728572776336246488, guid: 8b7620213dd7225429cd4c257f5ed591, type: 3}
   - {fileID: 2846708731227259675, guid: 6313f94929f6e5f499cf3ef5e479f025, type: 3}
   - {fileID: 8192566354860284824, guid: 6331b3542e64a564c81bc39cedf70c8d, type: 3}
   - {fileID: 4512293259955182956, guid: f32d4c19de900e64cb73cedcb8ba6f70, type: 3}
@@ -47,5 +49,3 @@ MonoBehaviour:
   - {fileID: 4512293259955182956, guid: 44611030e61220d42ab7c37ba3c0ea92, type: 3}
   - {fileID: 4097182591846747468, guid: 42e9a4b623305184e85d29f6ea720117, type: 3}
   - {fileID: 1126517091071331415, guid: e50eac4ccccd57a449f6f8cea2301eb9, type: 3}
-  - {fileID: 676141956041103041, guid: c27a3e2263f04154197a7ee6b91a3aa7, type: 3}
-  - {fileID: 5905603321266583037, guid: a46b52baf6080f047a5d11f45211fa72, type: 3}
