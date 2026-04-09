@@ -160,7 +160,7 @@ MonoBehaviour:
   offset: {fileID: 0}
   dropForce: 5
   isBig: 0
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 899422a1f8a3aaf429e05d8eee29dbb2, type: 3}
   itemDisplayName: Pickup
   useDurability:
     NetworkManager: {fileID: 0}
