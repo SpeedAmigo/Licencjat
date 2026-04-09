@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{87d74004-2b9f-4cb0-9332-d2b2316e8eda}">
+		<property name="assetPath">
+			<value>EnemyFreaze/ICE_Cracking_17_mono.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>3.6494557823129252</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a3131740-b25f-416f-ae19-b10c75d01189}</destination>
+		</relationship>
+	</object>
+</objects>

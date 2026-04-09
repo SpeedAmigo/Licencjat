@@ -360,7 +360,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 16c87842d7ec82d4aa7a004d89cfa356, type: 2}
+  - {fileID: 2100000, guid: 494a18051ade90949b223c7ea1eb3a73, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1538,7 +1538,7 @@ GameObject:
   - component: {fileID: 7159004457110991321}
   - component: {fileID: 1642481043445705925}
   m_Layer: 0
-  m_Name: PF_Dogo
+  m_Name: PF_PurpleDogo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1762,7 +1762,7 @@ MonoBehaviour:
   _teleportThreshold: 1
   <PrefabId>k__BackingField: 8
   <SpawnableCollectionId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 18342778524882919813
+  <AssetPathHash>k__BackingField: 6902448536350930549
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
     Position: {x: 6.34, y: -1.251, z: -0.47}

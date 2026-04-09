@@ -19,8 +19,14 @@ namespace Items
         [SerializeField] protected uint maxDurability;
         [AllowMutableSyncType] protected SyncVar<uint> durability = new();
 
-        protected virtual void Start()
+        /*protected virtual void Start()
         {
+            SetToMaxDurability();
+        }*/
+
+        public override void OnStartServer()
+        {
+            base.OnStartServer();
             SetToMaxDurability();
         }
         
@@ -40,7 +46,7 @@ namespace Items
             rbPrediction.Rigidbody.isKinematic = true;
         }
         
-        [ServerRpc(RequireOwnership = false)]
+        //[ServerRpc(RequireOwnership = false)]
         protected void SetToMaxDurability()
         {
             durability.Value = maxDurability;
