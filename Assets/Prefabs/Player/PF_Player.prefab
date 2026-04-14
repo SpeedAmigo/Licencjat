@@ -5010,6 +5010,7 @@ MonoBehaviour:
   isSineOverrideEnabled: 0
   maxCodecMilliseconds: 50
   allowMultipleCodecWarningsPerFrame: 0
+  showVoiceDetectionLogs: 0
   isDeafened:
     value: 0
   isInputMuted:
@@ -5018,6 +5019,8 @@ MonoBehaviour:
     value: 0
   isSpeaking:
     value: 0
+  volumeDetection: 1
+  speakingThreshold: 0.01
 --- !u!114 &2347253015572970425
 MonoBehaviour:
   m_ObjectHideFlags: 0

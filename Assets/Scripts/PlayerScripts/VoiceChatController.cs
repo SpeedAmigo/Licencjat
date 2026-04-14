@@ -6,8 +6,8 @@ public class VoiceChatController : PlayerComponent
 {
     [SerializeField] private MetaVoiceChat.Input.Mic.VcMicAudioInput micAudioInput;
 
-    [SerializeField] private MetaVc metaVc;
-
+    public MetaVc metaVc;
+    
     public override void OnStartClient()
     {
         base.OnStartClient();
