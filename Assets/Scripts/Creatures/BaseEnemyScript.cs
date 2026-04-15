@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using FishNet.CodeGenerating;
 using FishNet.Component.Animating;
@@ -30,9 +31,10 @@ public class BaseEnemyScript : NetworkBehaviour
     [SerializeField] private float radius = 10f;
     
     [HideInInspector] public AIPath ai;
-    [HideInInspector] public bool WaitingForPath;
+    [HideInInspector] public bool waitingForPath;
     
     [HideInInspector] public bool running;
+    private IEnumerator _speedCoroutine;
 
     public bool Running
     {
@@ -101,13 +103,13 @@ public class BaseEnemyScript : NetworkBehaviour
     public void SetNewPath()
     {
         ai.destination = PickRandomPoint();
-        WaitingForPath = false;
+        waitingForPath = false;
     }
     
     public void SetNewPath(Vector3 target)
     {
         ai.destination = PickRandomPoint(target);
-        WaitingForPath = false;
+        waitingForPath = false;
     }
     
     public Vector3 PickRandomPoint()
@@ -124,6 +126,31 @@ public class BaseEnemyScript : NetworkBehaviour
         randomPoint.y = 0;
         randomPoint += target;
         return randomPoint;
+    }
+    
+    public void ChangeSpeed(float newSpeed, float duration)
+    {
+        if (_speedCoroutine != null)
+        {
+            StopCoroutine(_speedCoroutine);
+        }
+        
+        StartCoroutine(ChangeSpeedCoroutine(newSpeed, duration));
+    }
+
+    private IEnumerator ChangeSpeedCoroutine(float newSpeed, float duration)
+    {
+        float startSpeed = ai.maxSpeed;
+        float time = 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            ai.maxSpeed = Mathf.Lerp(startSpeed, newSpeed, time / duration);
+            yield return null;
+        }
+
+        ai.maxSpeed = newSpeed;
     }
     
     # endregion

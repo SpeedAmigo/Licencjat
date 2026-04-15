@@ -16,7 +16,6 @@ public class DogRoamState : State
         _dogScript.running = false;
         _maxDistance = _dogScript.maxAwareDistance;
         
-        //_dogScript.ai.maxSpeed = _dogScript.walkSpeed;
         _dogScript.ChangeSpeed(_dogScript.walkSpeed, 0.5f);
         
         Debug.Log("Entered DogRoamState");
@@ -64,11 +63,20 @@ public class DogRoamState : State
     
     private void Roam(bool hasTarget)
     {
-        if (!_dogScript.ai.pathPending && (_dogScript.ai.reachedEndOfPath || !_dogScript.ai.hasPath) && !_dogScript.WaitingForPath)
+        /*if (!_dogScript.ai.pathPending && (_dogScript.ai.reachedEndOfPath || !_dogScript.ai.hasPath) && !_dogScript.waitingForPath)
         {
             if (!_dogScript.canWalk) return;
             
-            _dogScript.WaitingForPath = true;
+            _dogScript.waitingForPath = true;
+            
+            _dogScript.Invoke(hasTarget ? nameof(_dogScript.NewPathWrapper) : nameof(_dogScript.SetNewPath), 3f);
+        }*/
+        
+        if (_dogScript.ai.reachedDestination && _dogScript.ai.reachedEndOfPath && !_dogScript.waitingForPath)
+        {
+            if (!_dogScript.canWalk) return;
+            
+            _dogScript.waitingForPath = true;
             
             _dogScript.Invoke(hasTarget ? nameof(_dogScript.NewPathWrapper) : nameof(_dogScript.SetNewPath), 3f);
         }

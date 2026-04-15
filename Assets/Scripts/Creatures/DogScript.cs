@@ -65,31 +65,6 @@ public class DogScript : BaseEnemyScript
     {
         SetNewPath(_itemOfInterestInRange.Value.transform.position);
     }
-
-    public void ChangeSpeed(float newSpeed, float duration)
-    {
-        if (_speedCoroutine != null)
-        {
-            StopCoroutine(_speedCoroutine);
-        }
-        
-        StartCoroutine(ChangeSpeedCoroutine(newSpeed, duration));
-    }
-
-    private IEnumerator ChangeSpeedCoroutine(float newSpeed, float duration)
-    {
-        float startSpeed = ai.maxSpeed;
-        float time = 0f;
-
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            ai.maxSpeed = Mathf.Lerp(startSpeed, newSpeed, time / duration);
-            yield return null;
-        }
-
-        ai.maxSpeed = newSpeed;
-    }
     
     #endregion
     

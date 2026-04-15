@@ -3,20 +3,36 @@ using System.Collections.Generic;
 using MetaVoiceChat;
 using UnityEngine;
 
-public class LizzardScript : BaseEnemyScript
+public class LizardScript : BaseEnemyScript
 {
+    [Header("Dependencies")]
+    [SerializeField] private StateMachine lizardStateMachine;
+    
+    [SerializeField] private float noiseThreshold = 0.01f;
+    
     [SerializeField] private List<MetaVc> VcInRange;
+    
+    
 
-    private void Update()
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        
+        lizardStateMachine.ChangeState(new LizardRoamState(lizardStateMachine, this));
+    }
+
+    /*private void Update()
     {
         if (!IsServerInitialized) return;
 
-        if (VcInRange.Count != 0 && VcInRange[0].Volume > VcInRange[0].speakingThreshold)
+        if (VcInRange.Count != 0 && VcInRange[0].Volume > noiseThreshold)
         {
             Debug.Log("Running!");
         }
-    }
+    }*/
 
+    #region Detection Region
+    
     protected override void OnDetected(Collider other)
     {
         base.OnDetected(other);
@@ -46,4 +62,5 @@ public class LizzardScript : BaseEnemyScript
             }
         }
     }
+    #endregion
 }

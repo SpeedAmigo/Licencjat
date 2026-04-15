@@ -91,7 +91,7 @@ public class FrogScript : BaseEnemyScript, IStunable
             SetRunningPath(target.transform, runDistance);
         }
 
-        WaitingForPath = false;
+        waitingForPath = false;
     }
 
     [Server]
@@ -101,11 +101,11 @@ public class FrogScript : BaseEnemyScript, IStunable
         
         running = false;
             
-        if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath) && !WaitingForPath)
+        if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath) && !waitingForPath)
         {
             if (!canWalk) return;
                 
-            WaitingForPath = true;
+            waitingForPath = true;
             Invoke(nameof(SetNewPath), 3f);
         }
     }
