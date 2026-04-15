@@ -138,6 +138,11 @@ public class BaseEnemyScript : NetworkBehaviour
         StartCoroutine(ChangeSpeedCoroutine(newSpeed, duration));
     }
 
+    public bool ReachedDestination()
+    {
+        return ai.reachedDestination && ai.reachedEndOfPath && !waitingForPath;
+    }
+
     private IEnumerator ChangeSpeedCoroutine(float newSpeed, float duration)
     {
         float startSpeed = ai.maxSpeed;

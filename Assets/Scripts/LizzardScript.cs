@@ -8,10 +8,10 @@ public class LizardScript : BaseEnemyScript
     [Header("Dependencies")]
     [SerializeField] private StateMachine lizardStateMachine;
     
-    [SerializeField] private float noiseThreshold = 0.01f;
-    
-    [SerializeField] private List<MetaVc> VcInRange;
-    
+    public float noiseThreshold = 0.01f;
+    public List<MetaVc> VcInRange;
+
+    public float runDistance;
     
 
     public override void OnStartServer()

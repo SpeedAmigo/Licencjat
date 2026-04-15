@@ -1419,6 +1419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6397467869447420613}
   - component: {fileID: 6090501128476534258}
+  - component: {fileID: 6004200384278597203}
   m_Layer: 0
   m_Name: MouthDecal
   m_TagString: Untagged
@@ -1469,6 +1470,24 @@ MonoBehaviour:
   m_FadeFactor: 1
   version: 1
   m_DecalLayerMask: 1
+--- !u!114 &6004200384278597203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910443575617052636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d9ada2d9eaff26469776b94063a98ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 6870339716418846082}
+  _networkObjectCache: {fileID: 0}
+  playerRoot: {fileID: 168651848691203663}
+  idleMouthMaterial: {fileID: 2100000, guid: cb1673a09eb95354292425015e6d0aaa, type: 2}
+  speakingMouthMaterial: {fileID: 2100000, guid: d47c61add6677c44ca77d66949127ae7, type: 2}
 --- !u!1 &1041414571320730364
 GameObject:
   m_ObjectHideFlags: 0

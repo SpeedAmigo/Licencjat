@@ -12,23 +12,29 @@ public class LizardRoamState : State
 
     public override void Enter()
     {
+        Debug.Log("Entered lizard roam state");
         _lizardScript.ChangeSpeed(_lizardScript.walkSpeed, 0.5f);
         _lizardScript.SetNewPath();
     }
 
     public override void Tick()
     {
+        if (_lizardScript.VcInRange.Count != 0 && _lizardScript.VcInRange[0].Volume > _lizardScript.noiseThreshold)
+        {
+            stateMachine.ChangeState(new LizardRunAwayState(stateMachine, _lizardScript));
+        }
+        
         Roam();
     }
 
     public override void Exit()
     {
-        
+        Debug.Log("Exiting lizard roam state");
     }
 
     private void Roam()
     {
-        if (_lizardScript.ai.reachedDestination && _lizardScript.ai.reachedEndOfPath && !_lizardScript.waitingForPath)
+        if (_lizardScript.ReachedDestination())
         {
             _lizardScript.waitingForPath = true;
             _lizardScript.Invoke(nameof(_lizardScript.SetNewPath), 3f);

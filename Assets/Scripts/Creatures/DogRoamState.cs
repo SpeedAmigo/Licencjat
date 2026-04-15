@@ -72,7 +72,7 @@ public class DogRoamState : State
             _dogScript.Invoke(hasTarget ? nameof(_dogScript.NewPathWrapper) : nameof(_dogScript.SetNewPath), 3f);
         }*/
         
-        if (_dogScript.ai.reachedDestination && _dogScript.ai.reachedEndOfPath && !_dogScript.waitingForPath)
+        if (_dogScript.ReachedDestination())
         {
             if (!_dogScript.canWalk) return;
             
