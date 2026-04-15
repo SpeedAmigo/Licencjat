@@ -9,7 +9,7 @@ public class StunEffect : StatusEffect
     {
         if (instance.TryGetComponent<IStunable>(out var stunnable))
         {
-            stunnable.SetStunned(true);
+            stunnable.SetStunned(true, duration);
         }
     }
 
@@ -21,7 +21,7 @@ public class StunEffect : StatusEffect
     {
         if (instance.TryGetComponent<IStunable>(out var stunnable))
         {
-            stunnable.SetStunned(false);
+            stunnable.SetStunned(false, duration);
         }
     }
 }

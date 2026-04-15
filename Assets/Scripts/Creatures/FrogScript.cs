@@ -146,11 +146,11 @@ public class FrogScript : BaseEnemyScript, IStunable
     
     #endregion
     
-    public void SetStunned(bool stunned)
+    public void SetStunned(bool stunned, float duration)
     {
         if (stunned)
         {
-            statusVisualizer.ShowStatusSign(CreatureStatus.Questionmark, 1.5f);
+            statusVisualizer.ShowStatusSign(CreatureStatus.Star, duration);
             Debug.Log("Stunned");
             canWalk = false;
             walkSpeed = 0;

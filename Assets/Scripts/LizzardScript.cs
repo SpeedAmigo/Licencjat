@@ -20,17 +20,7 @@ public class LizardScript : BaseEnemyScript
         
         lizardStateMachine.ChangeState(new LizardRoamState(lizardStateMachine, this));
     }
-
-    /*private void Update()
-    {
-        if (!IsServerInitialized) return;
-
-        if (VcInRange.Count != 0 && VcInRange[0].Volume > noiseThreshold)
-        {
-            Debug.Log("Running!");
-        }
-    }*/
-
+    
     #region Detection Region
     
     protected override void OnDetected(Collider other)

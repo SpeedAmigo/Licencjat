@@ -7,6 +7,7 @@ public class CreatureStatusVisualizer : MonoBehaviour
     [SerializeField] private Animator questionmarkAnimator;
     [SerializeField] private Animator exclamationAnimator;
     [SerializeField] private Animator angerAnimator;
+    [SerializeField] private Animator starAnimator;
     
     public bool isEnabled;
 
@@ -34,6 +35,9 @@ public class CreatureStatusVisualizer : MonoBehaviour
                 break;
             case CreatureStatus.Anger :
                 _pickedAnimator = angerAnimator;
+                break;
+            case CreatureStatus.Star :
+                _pickedAnimator = starAnimator;
                 break;
         }
 
@@ -70,5 +74,6 @@ public enum CreatureStatus
 {
     Questionmark = 0,
     Exclamation = 1,
-    Anger = 2
+    Anger = 2,
+    Star = 3
 }
