@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Animating.NetworkAnimator
-  _componentIndexCache: 4
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 212815399066512759}
   _networkObjectCache: {fileID: 212815399066512759}
   IgnoredParameters: []
@@ -1247,7 +1247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 5
+  _componentIndexCache: 6
   _addedNetworkObject: {fileID: 212815399066512759}
   _networkObjectCache: {fileID: 212815399066512759}
 --- !u!1 &3516326517931083226
@@ -1662,7 +1662,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  endReachedDistance: 0.2
+  endReachedDistance: 1
   whenCloseToDestination: 0
   rvoDensityBehavior:
     enabled: 1
@@ -1755,6 +1755,7 @@ MonoBehaviour:
   - {fileID: 4966746038532422062}
   - {fileID: 7159004457110991321}
   - {fileID: 1642481043445705925}
+  - {fileID: 7027498801529460525}
   - {fileID: 4784140771492813495}
   - {fileID: 115002381470105486}
   InitializedParentNetworkBehaviour: {fileID: 0}
@@ -1939,9 +1940,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cd3588aff200a4cbe80d6eb188d27f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectHandler
-  _componentIndexCache: 255
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 212815399066512759}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 212815399066512759}
   activeEffects: []
 --- !u!1 &4477773232979579293
 GameObject:

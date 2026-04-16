@@ -117,7 +117,11 @@ public class BaseEnemyScript : NetworkBehaviour
         Vector3 randomPoint = Random.insideUnitSphere * radius;
         randomPoint.y = 0;
         randomPoint += ai.position;
-        return randomPoint;
+        
+        NearestNodeConstraint constraint = NearestNodeConstraint.Walkable;
+        var nearest = AstarPath.active.GetNearest(randomPoint, constraint);
+        
+        return nearest.position;
     }
     
     public Vector3 PickRandomPoint(Vector3 target)
@@ -125,7 +129,11 @@ public class BaseEnemyScript : NetworkBehaviour
         Vector3 randomPoint = Random.insideUnitSphere * radius;
         randomPoint.y = 0;
         randomPoint += target;
-        return randomPoint;
+        
+        NearestNodeConstraint constraint = NearestNodeConstraint.Walkable;
+        var nearest = AstarPath.active.GetNearest(randomPoint, constraint);
+        
+        return nearest.position;
     }
     
     public void ChangeSpeed(float newSpeed, float duration)

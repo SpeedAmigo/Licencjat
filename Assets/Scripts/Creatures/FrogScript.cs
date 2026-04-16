@@ -58,7 +58,7 @@ public class FrogScript : BaseEnemyScript, IStunable
 
     private void Update()
     {
-        if (!IsServerInitialized) return; // only server runs logic
+        if (!IsServerInitialized) return;
 
         ai.maxSpeed = running ? runSpeed : walkSpeed;
         

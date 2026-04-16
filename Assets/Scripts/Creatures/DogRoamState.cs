@@ -18,6 +18,9 @@ public class DogRoamState : State
         
         _dogScript.ChangeSpeed(_dogScript.walkSpeed, 0.5f);
         
+        _dogScript.waitingForPath = true;
+        _dogScript.Invoke(nameof(_dogScript.SetNewPath), 0.1f);
+        
         Debug.Log("Entered DogRoamState");
     }
 

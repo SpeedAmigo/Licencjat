@@ -19,6 +19,8 @@ public class DogMoveToAttackState : State
         _dogScript.targetPlayer = _dogScript.playersInRange[0];
         
         _dogScript.agroTimer = _dogScript.agroTime;
+        
+        _dogScript.dogVisualizer.ShowStatusSign(CreatureStatus.Anger, 1.5f);
 
         //_dogScript.ai.maxSpeed = _dogScript.runSpeed;
         _dogScript.ChangeSpeed(_dogScript.runSpeed, 0.3f);
