@@ -14,6 +14,7 @@ public class LizardRunAwayState : State
     public override void Enter()
     {
         Debug.Log("Entered LizardRunAwayState");
+        _lizardScript.lizardState = LizardState.RunningAway;
         _lizardScript.ChangeSpeed(_lizardScript.runSpeed, 0.5f);
         RunMethod();
     }
@@ -40,7 +41,7 @@ public class LizardRunAwayState : State
     
     private void RunMethod()
     {
-        var target = _lizardScript.VcInRange[0];
+        var target = _lizardScript.GetLoudestVoiceAround();
         if (target != null)
         {
             SetRunningPath(target.transform, _lizardScript.runDistance);

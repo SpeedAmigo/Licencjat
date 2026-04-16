@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class LizardScript : BaseEnemyScript
 {
+    [Header("State")]
+    public LizardState lizardState;
+    
     [Header("Dependencies")]
     [SerializeField] private StateMachine lizardStateMachine;
     
@@ -12,15 +15,32 @@ public class LizardScript : BaseEnemyScript
     public List<MetaVc> VcInRange;
 
     public float runDistance;
-    
 
+    public float attackDistance;
+    
     public override void OnStartServer()
     {
         base.OnStartServer();
         
         lizardStateMachine.ChangeState(new LizardRoamState(lizardStateMachine, this));
     }
-    
+
+    public MetaVc GetLoudestVoiceAround()
+    {
+        MetaVc loudestVoice = null;
+        float maxVolume = 0;
+        
+        foreach (var voice in VcInRange)
+        {
+            if (voice.Volume > maxVolume)
+            {
+                maxVolume = voice.Volume;
+                loudestVoice = voice;
+            }
+        }
+
+        return loudestVoice;
+    }
     #region Detection Region
     
     protected override void OnDetected(Collider other)
@@ -53,4 +73,12 @@ public class LizardScript : BaseEnemyScript
         }
     }
     #endregion
+}
+
+public enum LizardState
+{
+    Roam,
+    RunningAway,
+    MoveToAttack,
+    Attack
 }
