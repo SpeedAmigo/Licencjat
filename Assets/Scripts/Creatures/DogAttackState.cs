@@ -84,7 +84,11 @@ public class DogAttackState : State
         if (_dogScript.playersInRange.Count <= 0) return;
         
         _dogScript.Animator.Animator.SetTrigger("Attack");
-        
+
+        if (_target.TryGetComponent<StatusEffectHandler>(out var effectHandler))
+        {
+            effectHandler.ApplyEffect(_dogScript.damageEffect);
+        }
         Debug.Log("Dog has attacked!");
     }
 }

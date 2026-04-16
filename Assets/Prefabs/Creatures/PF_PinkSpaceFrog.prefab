@@ -408,7 +408,7 @@ MonoBehaviour:
     Collection: []
   radius: 10
   ai: {fileID: 0}
-  WaitingForPath: 0
+  waitingForPath: 0
   running: 0
   statusVisualizer: {fileID: 5271937666600553384}
   canWalk: 1
@@ -704,6 +704,15 @@ MonoBehaviour:
   isBig: 1
   itemIcon: {fileID: 0}
   itemDisplayName: Pickup
+  useDurability:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 1
+  maxDurability: 0
+  durability:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
   spitTime:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
@@ -2692,6 +2701,10 @@ PrefabInstance:
       value: StatusVisualizer
       objectReference: {fileID: 0}
     - target: {fileID: 3379239861401033553, guid: 41589846f652cd04db3b298101f707f0, type: 3}
+      propertyPath: starAnimator
+      value: 
+      objectReference: {fileID: 6980736837203469398}
+    - target: {fileID: 3379239861401033553, guid: 41589846f652cd04db3b298101f707f0, type: 3}
       propertyPath: angerAnimator
       value: 
       objectReference: {fileID: 2995306666199863738}
@@ -2834,6 +2847,10 @@ PrefabInstance:
     - target: {fileID: 426450984527418220, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 539635749006507717, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 893498575154687388, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
       propertyPath: m_LocalScale.y
@@ -3013,6 +3030,11 @@ Animator:
 --- !u!95 &3952136007637413862 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6642851997310252481, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
+  m_PrefabInstance: {fileID: 7703662731633220135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6980736837203469398 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 722941379517808241, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
   m_PrefabInstance: {fileID: 7703662731633220135}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &7390037862231603131 stripped

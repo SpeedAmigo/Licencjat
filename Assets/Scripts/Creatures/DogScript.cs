@@ -7,13 +7,14 @@ using Items;
 using Pathfinding;
 using UnityEngine;
 
-public class DogScript : BaseEnemyScript
+public class DogScript : BaseEnemyScript, IStunable
 {
     [Header("State")]
     public DogState dogState;
     
     [Header("Dependencies")]
     [SerializeField] private StateMachine dogStateMachine;
+    public CreatureStatusVisualizer dogVisualizer;
     
     [Header("Items in range list")]
     [AllowMutableSyncType] private readonly SyncVar<GameObject> _itemOfInterestInRange = new();
@@ -129,6 +130,14 @@ public class DogScript : BaseEnemyScript
     }
 
     #endregion
+
+    public void SetStunned(bool stunned, float duration)
+    {
+        if (stunned)
+        {
+            dogStateMachine.ChangeState(new DogStunState(dogStateMachine, this, duration));
+        }
+    }
 }
 
 public enum DogState
