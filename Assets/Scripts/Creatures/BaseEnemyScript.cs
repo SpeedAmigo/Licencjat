@@ -114,9 +114,13 @@ public class BaseEnemyScript : NetworkBehaviour
     
     public Vector3 PickRandomPoint()
     {
-        Vector3 randomPoint = Random.insideUnitSphere * radius;
-        randomPoint.y = 0;
-        randomPoint += ai.position;
+        /*Vector3 randomPoint = Random.insideUnitSphere * radius;
+        randomPoint.y = 0;*/
+        
+        //randomPoint += ai.position;
+        
+        Vector2 random2D = Random.insideUnitCircle * radius;
+        Vector3 randomPoint = new Vector3(random2D.x, 0, random2D.y) + ai.position;
         
         NearestNodeConstraint constraint = NearestNodeConstraint.Walkable;
         var nearest = AstarPath.active.GetNearest(randomPoint, constraint);
@@ -126,9 +130,13 @@ public class BaseEnemyScript : NetworkBehaviour
     
     public Vector3 PickRandomPoint(Vector3 target)
     {
-        Vector3 randomPoint = Random.insideUnitSphere * radius;
-        randomPoint.y = 0;
-        randomPoint += target;
+        /*Vector3 randomPoint = Random.insideUnitSphere * radius;
+        randomPoint.y = 0;*/
+        
+        //randomPoint += target;
+        
+        Vector2 random2D = Random.insideUnitCircle * radius;
+        Vector3 randomPoint = new Vector3(random2D.x, 0, random2D.y) + target;
         
         NearestNodeConstraint constraint = NearestNodeConstraint.Walkable;
         var nearest = AstarPath.active.GetNearest(randomPoint, constraint);
