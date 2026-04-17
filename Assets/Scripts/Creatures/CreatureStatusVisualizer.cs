@@ -1,8 +1,9 @@
 using System.Collections;
+using FishNet.Object;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CreatureStatusVisualizer : MonoBehaviour
+public class CreatureStatusVisualizer : NetworkBehaviour
 {
     [SerializeField] private Animator questionmarkAnimator;
     [SerializeField] private Animator exclamationAnimator;
@@ -14,6 +15,30 @@ public class CreatureStatusVisualizer : MonoBehaviour
     private Animator _pickedAnimator;
     
     public void ShowStatusSign(CreatureStatus status, float duration)
+    {
+        if (IsServerInitialized)
+        {
+            ShowStatusObservers(status, duration);
+        }
+        else
+        {
+            ShowStatusServer(status, duration);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ShowStatusServer(CreatureStatus status, float duration)
+    {
+        ShowStatusObservers(status, duration);
+    }
+
+    [ObserversRpc]
+    private void ShowStatusObservers(CreatureStatus status, float duration)
+    {
+        PlayStatusLocally(status, duration);
+    }
+    
+    private void PlayStatusLocally(CreatureStatus status, float duration)
     {
         if (_pickedAnimator != null)
         {
@@ -46,7 +71,7 @@ public class CreatureStatusVisualizer : MonoBehaviour
             StartCoroutine(ShowStatusCoroutine(_pickedAnimator, duration));
         }
     }
-
+    
     private IEnumerator ShowStatusCoroutine(Animator animator, float duration)
     {
         animator.gameObject.SetActive(true);
