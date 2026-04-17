@@ -33,7 +33,11 @@ public class PlayerMouthScript : PlayerComponent
         base.OnStartClient();
         
         _decalProjector = GetComponent<DecalProjector>();
-        _playerMetaVc = playerRoot.GetComponentInChildren<MetaVc>();
+
+        if (IsOwner)
+        {
+            _playerMetaVc = playerRoot.GetComponentInChildren<MetaVc>();
+        }
     }
 
     private void Update()

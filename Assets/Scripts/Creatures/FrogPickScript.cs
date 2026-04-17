@@ -9,21 +9,21 @@ using UnityEngine;
 
 public class FrogPickScript : Item
 {
-    [AllowMutableSyncType] private SyncVar<float> spitTime = new();
+    [AllowMutableSyncType] public SyncVar<float> spitTime = new();
     
     [SerializeField] private FrogScript frogScript;
     
-    private PlayerRoot _playerRoot;
-    private StatusEffectHandler _playerEffectHandler;
-    private float _pickedTime;
+    public PlayerRoot playerRoot;
+    public StatusEffectHandler playerEffectHandler;
+    public float pickedTime;
     private bool _warningPlayed;
 
     public override void OnStartServer()
     {
         if (IsServerInitialized)
         {
-            _pickedTime = frogScript.GetRandomSpitTime();
-            spitTime.Value = _pickedTime;
+            pickedTime = frogScript.GetRandomSpitTime();
+            spitTime.Value = pickedTime;
         } 
     }
     
@@ -31,27 +31,30 @@ public class FrogPickScript : Item
     {
         base.PickupLogic(holder, conn);
         
-        frogScript.statusVisualizer.ShowStatusSign(CreatureStatus.Questionmark, 1.5f);
+        //frogScript.statusVisualizer.ShowStatusSign(CreatureStatus.Questionmark, 1.5f);
 
-        frogScript.AI.enabled = false;
-        frogScript.Running = false;
+        //frogScript.AI.enabled = false;
+        //frogScript.Running = false;
         ChangePickupValue(true);
         
-        _playerRoot = holder.transform.root.gameObject.GetComponent<PlayerRoot>();
-        _playerEffectHandler = holder.transform.root.gameObject.GetComponent<StatusEffectHandler>();
+        playerRoot = holder.transform.root.gameObject.GetComponent<PlayerRoot>();
+        playerEffectHandler = holder.transform.root.gameObject.GetComponent<StatusEffectHandler>();
         
+        frogScript.frogStateMachine.ChangeState(new FrogPickedUpState(frogScript.frogStateMachine, frogScript, this));
     }
     
     protected override void DropLogic(Vector3 forward)
     {
         base.DropLogic(forward);
         
-        frogScript.AI.enabled = true;
-        frogScript.Running = true;
+        //frogScript.AI.enabled = true;
+        //frogScript.Running = true;
         ChangePickupValue(false);
         
-        _playerRoot = null;
-        _playerEffectHandler = null;
+        playerRoot = null;
+        playerEffectHandler = null;
+        
+        frogScript.frogStateMachine.ChangeState(new FrogRoamState(frogScript.frogStateMachine, frogScript));
     }
     
     [ServerRpc(RequireOwnership = false)]
@@ -64,7 +67,7 @@ public class FrogPickScript : Item
     {
         if (!IsServerInitialized) return;
         
-        if (frogScript.canSpit && frogScript.pickedUp.Value)
+        /*if (frogScript.canSpit && frogScript.pickedUp.Value)
         {
             spitTime.Value -= Time.deltaTime;
 
@@ -91,10 +94,10 @@ public class FrogPickScript : Item
 
                 frogScript.PlayParticleServer();
                 
-                if (_playerRoot && _playerEffectHandler)
+                if (playerRoot && playerEffectHandler)
                 {
-                    _playerEffectHandler.ApplyEffect(frogScript.damageEffect);
-                    _playerRoot.RequestItemDrop(this);
+                    playerEffectHandler.ApplyEffect(frogScript.damageEffect);
+                    playerRoot.RequestItemDrop(this);
                 }
                 else
                 {
@@ -105,6 +108,14 @@ public class FrogPickScript : Item
         else if (!frogScript.pickedUp.Value)
         {
             if (spitTime.Value < _pickedTime)
+            {
+                spitTime.Value += Time.deltaTime * frogScript.spitTimeRegen;
+            }
+        }*/
+        
+        if (!frogScript.pickedUp.Value)
+        {
+            if (spitTime.Value < pickedTime)
             {
                 spitTime.Value += Time.deltaTime * frogScript.spitTimeRegen;
             }
