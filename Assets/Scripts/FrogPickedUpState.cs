@@ -21,9 +21,8 @@ public class FrogPickedUpState : State
         Debug.Log("FrogPickedUpState Enter");
         _frogScript.frogState = FrogState.PickedUp;
         _frogScript.statusVisualizer.ShowStatusSign(CreatureStatus.Questionmark, 1.5f);
-
-        _frogScript.ai.enabled = false;
-        _frogScript.running = false;
+        
+        _frogPickScript.HandleNavAgent(false);
     }
 
     public override void Tick()
@@ -73,7 +72,6 @@ public class FrogPickedUpState : State
     {
         Debug.Log("FrogPickedUpState Exit");
         
-        _frogScript.ai.enabled = true;
-        _frogScript.running = true;
+        _frogPickScript.HandleNavAgent(true);
     }
 }

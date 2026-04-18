@@ -57,7 +57,6 @@ public class FrogScript : BaseEnemyScript, IStunable
         
         if (canWalk)
         {
-            //ai.destination = PickRandomPoint();
             frogStateMachine.ChangeState(new FrogRoamState(frogStateMachine, this));
         }
     }
@@ -67,17 +66,6 @@ public class FrogScript : BaseEnemyScript, IStunable
         if (!IsServerInitialized) return;
 
         ai.maxSpeed = running ? runSpeed : walkSpeed;
-        
-        //bool canRun = canRunaway && playersInRange.Count > maxPlayers;
-        
-        /*if (canRun)
-        {
-            RunMethod();
-        }
-        else
-        {
-            //WalkMethod();
-        }*/
         
         animator.Animator.SetFloat("Speed", ai.velocity.magnitude);
         animator.Animator.SetBool("Running", running);
@@ -112,40 +100,11 @@ public class FrogScript : BaseEnemyScript, IStunable
     
     public void SetStunned(bool stunned, float duration)
     {
-        /*if (stunned)
-        {
-            statusVisualizer.ShowStatusSign(CreatureStatus.Star, duration);
-            Debug.Log("Stunned");
-            canWalk = false;
-            walkSpeed = 0;
-            canRunaway = false;
-            canSpit = false;
-        }
-        else
-        {
-            Debug.Log("Not Stunned");
-            
-            canWalk = true;
-            walkSpeed = 2f;
-            canRunaway = true;
-            canSpit = true;
-        }*/
-
         if (stunned)
         {
             frogStateMachine.ChangeState(new FrogStunState(frogStateMachine, this, duration));
         }
     }
-
-    /*protected override void OnDetected(Collider other)
-    {
-        base.OnDetected(other);
-        
-        if (other.CompareTag("Player") && !playersInRange.Contains(other.gameObject) && statusVisualizer != null)
-        {
-            statusVisualizer.ShowStatusSign(CreatureStatus.Exclamation, 2f);
-        }
-    }*/
 }
 
 public enum FrogState

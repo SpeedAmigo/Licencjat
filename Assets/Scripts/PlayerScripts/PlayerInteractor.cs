@@ -231,6 +231,7 @@ public class PlayerInteractor : PlayerComponent
     {
         if (!IsOwner) return;
         if (!context.performed) return;
+        if (!GlobalDropRule.CanDropItems) return;
         
         Vector3 direction = transform.forward;
         

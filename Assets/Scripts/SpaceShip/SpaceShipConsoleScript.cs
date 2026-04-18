@@ -20,6 +20,8 @@ public class SpaceShipConsoleScript : NetworkBehaviour
             return;
         }
         
+        GlobalDropRule.CanDropItems = !value;
+        
         Debug.Log($"shipPending set to: {value}");
         SetShipPendingServer(value);
     }

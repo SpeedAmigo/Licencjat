@@ -61,7 +61,7 @@ public abstract class ObjectPickable : NetworkBehaviour
         }
     }
     
-    public void Pickup(NetworkObject fpHolder, NetworkObject tpHolder, NetworkConnection conn)
+    public virtual void Pickup(NetworkObject fpHolder, NetworkObject tpHolder, NetworkConnection conn)
     {
         if (!IsServerInitialized) return;
         NetworkObject.GiveOwnership(conn);
