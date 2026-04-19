@@ -158,6 +158,9 @@
         },
         {
             "m_Id": "7d15b7c2728845649a3d9c66f47e1336"
+        },
+        {
+            "m_Id": "4f275895140a4aa9a766c1d9369523d5"
         }
     ],
     "m_GroupDatas": [
@@ -340,6 +343,20 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "3acc9aa4ce0d4766a1de6c77be2eb678"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "6cb63568cb164d03974f60e9bc5d06a2"
+                },
+                "m_SlotId": 2
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "eca9ae2f204141e484663f29bac8f545"
                 },
                 "m_SlotId": 0
             }
@@ -696,6 +713,9 @@
             },
             {
                 "m_Id": "a8301b0abf4a4e8ba56f63e7e261b3dc"
+            },
+            {
+                "m_Id": "4f275895140a4aa9a766c1d9369523d5"
             }
         ]
     },
@@ -864,7 +884,7 @@
     "m_ObjectId": "0824de503ca24ba6b75b2f62e16577e5",
     "m_Title": "Diection",
     "m_Position": {
-        "x": -3690.999755859375,
+        "x": -3690.99951171875,
         "y": 739.9999389648438
     }
 }
@@ -876,7 +896,7 @@
     "m_Title": "Mask",
     "m_Position": {
         "x": -4648.99951171875,
-        "y": 1375.9998779296875
+        "y": 1376.0
     }
 }
 
@@ -1514,7 +1534,7 @@
     "m_Title": "Wind",
     "m_Position": {
         "x": -5252.99951171875,
-        "y": 746.0000610351563
+        "y": 745.9999389648438
     }
 }
 
@@ -1885,6 +1905,40 @@
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BlockNode",
+    "m_ObjectId": "4f275895140a4aa9a766c1d9369523d5",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "SurfaceDescription.AlphaClipThreshold",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 0.0,
+            "height": 0.0
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "a3b20a8c15c24216a96e423fddba9af2"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_SerializedDescriptor": "SurfaceDescription.AlphaClipThreshold"
 }
 
 {
@@ -3010,7 +3064,7 @@
     "m_ZWriteControl": 0,
     "m_AlphaMode": 2,
     "m_RenderFace": 0,
-    "m_AlphaClip": false,
+    "m_AlphaClip": true,
     "m_CastShadows": true,
     "m_ReceiveShadows": true,
     "m_DisableTint": false,
@@ -3473,6 +3527,21 @@
     "m_StageCapability": 2,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "a3b20a8c15c24216a96e423fddba9af2",
+    "m_Id": 0,
+    "m_DisplayName": "Alpha Clip Threshold",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "AlphaClipThreshold",
+    "m_StageCapability": 2,
+    "m_Value": 0.5,
+    "m_DefaultValue": 0.5,
     "m_Labels": []
 }
 
@@ -5055,7 +5124,7 @@
     "m_Title": "Final Mask",
     "m_Position": {
         "x": -5354.99951171875,
-        "y": 1808.999755859375
+        "y": 1808.9998779296875
     }
 }
 
