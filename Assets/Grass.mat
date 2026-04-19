@@ -47,11 +47,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _HeightMult: 0.23
+    - _NoiseScale: 5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _WindScale: 36.8
-    - _WindSpeed: 7.53
-    - _WindStrength: 0.145
+    - _WindSpeed: 0.17
+    - _WindStrength: 0.5
     m_Colors:
     - _WindDirection: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _WindDirection3: {r: 0.5, g: 0.5, b: 0, a: 0}
