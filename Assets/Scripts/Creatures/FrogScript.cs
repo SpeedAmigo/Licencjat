@@ -60,7 +60,7 @@ public class FrogScript : BaseEnemyScript, IStunable
             frogStateMachine.ChangeState(new FrogRoamState(frogStateMachine, this));
         }
     }
-
+    
     private void Update()
     {
         if (!IsServerInitialized) return;

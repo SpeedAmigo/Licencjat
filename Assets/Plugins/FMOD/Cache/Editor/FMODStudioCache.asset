@@ -197,7 +197,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: 1196096207332177434}
   cacheVersion: 131857
-  cacheTime: 639113420244212005
+  cacheTime: 639122892126794239
   SerializableEventsDict:
   - key: event:/Footsteps
     index: 0
@@ -440,7 +440,7 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639113420244212005
+  lastModified: 639122892126794239
   FileSizes:
   - Name: Desktop
     Value: 212896

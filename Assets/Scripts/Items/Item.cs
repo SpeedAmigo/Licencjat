@@ -18,12 +18,7 @@ namespace Items
         
         [SerializeField] protected uint maxDurability;
         [AllowMutableSyncType] protected SyncVar<uint> durability = new();
-
-        /*protected virtual void Start()
-        {
-            SetToMaxDurability();
-        }*/
-
+        
         public override void OnStartServer()
         {
             base.OnStartServer();
@@ -34,7 +29,7 @@ namespace Items
         {
             if (!IsServerInitialized) return;
             
-            if (rbPrediction.Rigidbody.IsSleeping())
+            if (_rb.IsSleeping())
             {
                 SleepNotifyObservers();
             }
@@ -43,7 +38,7 @@ namespace Items
         [ObserversRpc]
         private void SleepNotifyObservers()
         {
-            rbPrediction.Rigidbody.isKinematic = true;
+            _rb.isKinematic = true;
         }
         
         //[ServerRpc(RequireOwnership = false)]

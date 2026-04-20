@@ -353,7 +353,7 @@ MonoBehaviour:
   height: 1
   simulateMovement: 1
   maxSpeed: 2
-  gravity: {x: NaN, y: NaN, z: NaN}
+  gravity: {x: 0, y: -20, z: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -480,6 +480,7 @@ MonoBehaviour:
   - {fileID: 8716587588997196050}
   - {fileID: 2043522235105447884}
   - {fileID: -2829840261764649907}
+  - {fileID: -7598224577378663673}
   - {fileID: 3257361702672036978}
   - {fileID: 2249050270623899737}
   - {fileID: 8474207353430128782}
@@ -543,7 +544,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -752,9 +753,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 079be42d8f604d645a890d9a32c69555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateMachine
-  _componentIndexCache: 255
+  _componentIndexCache: 6
   _addedNetworkObject: {fileID: 4097182591846747468}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 4097182591846747468}
 --- !u!1 &1672036666731588899
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,7 +925,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 10
+  _componentIndexCache: 11
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 4097182591846747468}
 --- !u!1 &2110657887717763425
@@ -1126,7 +1127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Animating.NetworkAnimator
-  _componentIndexCache: 6
+  _componentIndexCache: 7
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 4097182591846747468}
   IgnoredParameters: []
@@ -1148,7 +1149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ad69bf32f65354fa623f60bbbe6dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 7
+  _componentIndexCache: 8
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 4097182591846747468}
   surfaceCheckRaycast: {fileID: 1732661268151687251}
@@ -1577,7 +1578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 8
+  _componentIndexCache: 9
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 4097182591846747468}
 --- !u!1 &4904499755740006443
@@ -2603,7 +2604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 9
+  _componentIndexCache: 10
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 4097182591846747468}
 --- !u!1001 &3870340311821717226

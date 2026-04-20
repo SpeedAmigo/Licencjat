@@ -1,10 +1,7 @@
 using FishNet.CodeGenerating;
 using FishNet.Connection;
-using FishNet.Demo.AdditiveScenes;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using FMOD.Studio;
-using FMODUnity;
 using Items;
 using UnityEngine;
 
@@ -28,6 +25,11 @@ public class FrogPickScript : Item
         } 
     }
 
+    private void Start()
+    {
+        _rb.isKinematic = true;
+    }
+    
     public override void Pickup(NetworkObject fpHolder, NetworkObject tpHolder, NetworkConnection conn)
     {
         base.Pickup(fpHolder, tpHolder, conn);
@@ -36,13 +38,23 @@ public class FrogPickScript : Item
         
         playerRoot = fpHolder.transform.root.gameObject.GetComponent<PlayerRoot>();
         playerEffectHandler = fpHolder.transform.root.gameObject.GetComponent<StatusEffectHandler>();
-
+        
         if (IsServerInitialized)
         {
             frogScript.frogStateMachine.ChangeState(new FrogPickedUpState(frogScript.frogStateMachine, frogScript, this));
         }
     }
 
+    protected override void PickupLogic(NetworkObject holder, NetworkConnection conn)
+    {
+        base.PickupLogic(holder, conn);
+
+        if (IsClientInitialized)
+        {
+            frogScript.Animator.Animator.SetBool("IsHeld", true);
+        }
+    }
+    
     [ObserversRpc]
     public void HandleNavAgent(bool enable)
     {
@@ -58,6 +70,9 @@ public class FrogPickScript : Item
         
         playerRoot = null;
         playerEffectHandler = null;
+        _rb.isKinematic = true;
+        
+        frogScript.Animator.Animator.SetBool("IsHeld", false);
 
         if (IsServerInitialized)
         {
