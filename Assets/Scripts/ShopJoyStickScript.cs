@@ -15,7 +15,7 @@ public class ShopJoyStickScript : NetworkBehaviour, IInteractable
     
     public void Interact(PlayerRoot playerRoot)
     {
-        if (ShopManagerScript.Instance)
+        if (ShopManagerScript.Instance && GlobalDropRule.CanDropItems)
         {
             if (IsController)
             {
