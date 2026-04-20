@@ -114,12 +114,11 @@ MonoBehaviour:
     probeVolumeBlendStatesCS: {fileID: 7200000, guid: b9a23f869c4fd45f19c5ada54dd82176, type: 3}
   m_RendererFeatures:
   - {fileID: 7833122117494664109}
-  - {fileID: 8347130439360066708}
   - {fileID: 186638770908819012}
   - {fileID: -2597875899659671879}
   - {fileID: 4149369257118350777}
   - {fileID: -4019023997119226912}
-  m_RendererFeatureMap: ad6b866f10d7b46ce973a8f490a76f109434e8dbe8f6d67344ee5529f9129702b93d77e45a859539e01bf0e3f78e39c8
+  m_RendererFeatureMap: ad6b866f10d7b46c9434e8dbe8f6d67344ee5529f9129702b93d77e45a859539e01bf0e3f78e39c8
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -237,17 +236,3 @@ MonoBehaviour:
     BlurQuality: 0
     Falloff: 100
     SampleCount: -1
---- !u!114 &8347130439360066708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 770acbaed70db4ad696458511aa3f084, type: 3}
-  m_Name: FlatKitFog
-  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::FlatKit.FlatKitFog
-  m_Active: 0
-  settings: {fileID: 11400000, guid: 6551b7c11b144314190123fb05f9c400, type: 2}
