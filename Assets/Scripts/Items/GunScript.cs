@@ -1,3 +1,4 @@
+using DG.Tweening;
 using FishNet.Object;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ public class GunScript : Weapon, IPrimaryClick, IRechargeable
             Debug.Log("No more power!");
             return;
         }
+
+        Camera.main.DOShakePosition(0.3f, 0.03f, 10, 90f, true);
         
         DecreaseDurability();
         Shoot();

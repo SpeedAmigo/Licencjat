@@ -23,7 +23,7 @@ public class VoiceChatController : PlayerComponent
         {
             metaVc.isInputMuted.Value = true;
             metaVc.isOutputMuted.Value = true;
-            metaVc.isDeafened.Value = true;
+            //metaVc.isDeafened.Value = true; /// testing if this correctly mute the player
         }
     }
 
@@ -33,7 +33,7 @@ public class VoiceChatController : PlayerComponent
         {
             metaVc.isInputMuted.Value = false;
             metaVc.isOutputMuted.Value = false;
-            metaVc.isDeafened.Value = false;
+            //metaVc.isDeafened.Value = false;
         }
     }
 }
