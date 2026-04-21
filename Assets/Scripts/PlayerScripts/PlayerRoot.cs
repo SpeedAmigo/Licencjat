@@ -92,7 +92,7 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
     
     public Vector3 DropPosition()
     {
-        return _playerInteractor.itemDropTransform.transform.position;
+        return _playerInteractor.TryGetDropPosition(out Vector3 dropPosition) ? dropPosition : transform.position;
     }
     
     [TargetRpc]
@@ -112,21 +112,21 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
         _playerInventory.RequestRemoveItem(item, _playerInventory, DropPosition());
     }
     
-    /*[ServerRpc(RequireOwnership = true)]
-    public void RequestDropInventory()
+    [ServerRpc(RequireOwnership = true)]
+    private void RequestDropInventory()
     {
         for (int i = _playerInventory.slots.Count - 1; i >= 0; i--)
         {
-            _playerInventory.RequestRemoveItem(_playerInventory.slots[i], _playerInventory, true);
+            _playerInventory.RequestRemoveItem(_playerInventory.slots[i], _playerInventory, DropPosition(), true);
         }
-    }*/
+    }
 
     private void Die()
     {
         if (!IsOwner || !isAlive.Value) return;
         
         SetPlayerAlive(false);
-        //RequestDropInventory();
+        RequestDropInventory();
         GameOverManager.Instance.ComparePlayersState();
     }
 

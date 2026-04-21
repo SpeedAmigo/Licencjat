@@ -253,7 +253,7 @@ public class PlayerInteractor : PlayerComponent
         DropItem_Server(dropPos, direction);
     }
     
-    private bool TryGetDropPosition(out Vector3 dropPosition)
+    public bool TryGetDropPosition(out Vector3 dropPosition)
     {
         Vector3 origin = itemDropTransform.transform.position;
         Vector3 direction = itemDropTransform.transform.forward;

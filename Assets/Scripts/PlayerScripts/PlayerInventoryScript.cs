@@ -165,6 +165,23 @@ public class PlayerInventoryScript : PlayerComponent
         }
         return false;
     }
+
+    [Server]
+    public void RequestRemoveItem(Item item, PlayerInventoryScript inventory, Vector3 position, bool setActiveOnDrop)
+    {
+        if (inventory == null || item == null) return;
+        
+        item.gameObject.SetActive(setActiveOnDrop);
+        
+        if (item.isBig)
+        {
+            inventory.RemoveBigItem(item, position, Vector3.forward);
+        }
+        else
+        {
+            inventory.RemoveItem(item, position, Vector3.forward);
+        }
+    }
     
     [Server]
     public void RequestRemoveItem(Item item, PlayerInventoryScript inventory, Vector3 position)
