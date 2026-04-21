@@ -1,10 +1,12 @@
 using FishNet.Component.Animating;
 using FishNet.Object;
+using FMODUnity;
 using UnityEngine;
 
 public class ShopJoyStickScript : NetworkBehaviour, IInteractable
 {
     [SerializeField] private string interactText;
+    [SerializeField] private EventReference joyStickSound;
     
     private NetworkAnimator _animator;
 
@@ -20,6 +22,7 @@ public class ShopJoyStickScript : NetworkBehaviour, IInteractable
             if (IsController)
             {
                 ShopManagerScript.Instance.BuyItems();
+                SoundCreator.PlaySoundOneShot(joyStickSound, transform.position);
                 PlayAnimServer();
             }
         }

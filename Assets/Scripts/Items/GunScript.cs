@@ -1,5 +1,6 @@
 using DG.Tweening;
 using FishNet.Object;
+using FMODUnity;
 using UnityEngine;
 
 public class GunScript : Weapon, IPrimaryClick, IRechargeable
@@ -8,6 +9,9 @@ public class GunScript : Weapon, IPrimaryClick, IRechargeable
     [SerializeField] private float shootDistance;
     
     [SerializeField] private StatusEffect[] effects;
+    
+    [Space]
+    [SerializeField] EventReference shotSound;
     
     public void OnPrimaryClick()
     {
@@ -18,6 +22,7 @@ public class GunScript : Weapon, IPrimaryClick, IRechargeable
         }
 
         Camera.main.DOShakePosition(0.3f, 0.03f, 10, 90f, true);
+        SoundCreator.PlaySoundOneShot(shotSound, transform.position);
         
         DecreaseDurability();
         Shoot();

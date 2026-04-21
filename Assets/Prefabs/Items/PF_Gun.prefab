@@ -333,6 +333,13 @@ MonoBehaviour:
   shootDistance: 10
   effects:
   - {fileID: 11400000, guid: 221990e43b4f7594f83405f4b53da4c4, type: 2}
+  shotSound:
+    Guid:
+      Data1: 452729279
+      Data2: 1140634870
+      Data3: -1558232906
+      Data4: 526660700
+    Path: event:/GunShot
 --- !u!114 &4208594995643567265
 MonoBehaviour:
   m_ObjectHideFlags: 0

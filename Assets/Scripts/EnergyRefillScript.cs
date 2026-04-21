@@ -2,11 +2,15 @@ using System.Collections.Generic;
 using FishNet.CodeGenerating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using FMODUnity;
 using UnityEngine;
 
 public class EnergyRefillScript : NetworkBehaviour, IInteractable
 {
     [SerializeField] private string interactText;
+    [SerializeField] private Transform soundPosition;
+
+    [SerializeField] private EventReference rechargeSound;
     
     [AllowMutableSyncType] private List<IRechargeable> rechargables;
     
@@ -20,11 +24,10 @@ public class EnergyRefillScript : NetworkBehaviour, IInteractable
             return;
         }
         
-        Debug.Log(inventoryScript.currentItem.GetType());
-
         if (inventoryScript.currentItem.Value is IRechargeable rechargeable)
         {
             rechargeable.Recharge();
+            SoundCreator.PlaySoundOneShot(rechargeSound, soundPosition.position);
         }
     }
 

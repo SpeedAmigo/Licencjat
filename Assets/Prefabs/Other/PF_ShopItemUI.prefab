@@ -1020,6 +1020,20 @@ MonoBehaviour:
   interactText: Add
   addToBasket: 1
   shopItemUIScript: {fileID: 6410096408574718481}
+  addToBasketSound:
+    Guid:
+      Data1: -1304244738
+      Data2: 1257943069
+      Data3: -826756187
+      Data4: -1529588470
+    Path: event:/ShopItemAdd
+  removeFromBasketSound:
+    Guid:
+      Data1: 442911885
+      Data2: 1120291262
+      Data3: -1806188359
+      Data4: 96783234
+    Path: event:/ShopItemRemove
 --- !u!65 &4110645943607275295
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1235,6 +1249,20 @@ MonoBehaviour:
   interactText: Remove
   addToBasket: 0
   shopItemUIScript: {fileID: 6410096408574718481}
+  addToBasketSound:
+    Guid:
+      Data1: -1304244738
+      Data2: 1257943069
+      Data3: -826756187
+      Data4: -1529588470
+    Path: event:/ShopItemAdd
+  removeFromBasketSound:
+    Guid:
+      Data1: 442911885
+      Data2: 1120291262
+      Data3: -1806188359
+      Data4: 96783234
+    Path: event:/ShopItemRemove
 --- !u!65 &3104405348079206614
 BoxCollider:
   m_ObjectHideFlags: 0
