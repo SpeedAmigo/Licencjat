@@ -7,8 +7,13 @@ public class CactusScript : NetworkBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
+        if (!collision.collider.CompareTag("PlayerCollider")) return;
+        
         if (collision.transform.parent.TryGetComponent<NetworkObject>(out var nob))
         {
+            Debug.Log(collision.transform.name);
+            Debug.Log(collision.transform.parent.name);
+            
             if (nob.IsOwner)
             {
                 TryApplyEffect(nob);

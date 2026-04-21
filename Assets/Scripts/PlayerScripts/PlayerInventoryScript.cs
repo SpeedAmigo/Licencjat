@@ -167,36 +167,19 @@ public class PlayerInventoryScript : PlayerComponent
     }
     
     [Server]
-    public void RequestRemoveItem(Item item, PlayerInventoryScript inventory)
+    public void RequestRemoveItem(Item item, PlayerInventoryScript inventory, Vector3 position)
     {
         if (inventory == null || item == null) return;
 
         if (item.isBig)
         {
-            inventory.RemoveBigItem(item, Vector3.forward);
+            inventory.RemoveBigItem(item, position,  Vector3.forward);
         }
         else
         {
-            inventory.RemoveItem(item, Vector3.forward);
+            inventory.RemoveItem(item, position,  Vector3.forward);
         }
     }
-    
-    /*[Server]
-    public void RequestRemoveItem(Item item, PlayerInventoryScript inventory, bool setActiveOnDrop)
-    {
-        if (inventory == null || item == null) return;
-
-        item.gameObject.SetActive(setActiveOnDrop);
-        
-        if (item.isBig)
-        {
-            inventory.RemoveBigItem(item, Vector3.forward);
-        }
-        else
-        {
-            inventory.RemoveItem(item, Vector3.forward);
-        }
-    }*/
     
     private void AddInventorySlots()
     {
@@ -221,11 +204,11 @@ public class PlayerInventoryScript : PlayerComponent
     }
 
     [Server]
-    public void RemoveBigItem(ObjectPickable bigItem, Vector3 rotation)
+    public void RemoveBigItem(ObjectPickable bigItem, Vector3 position, Vector3 rotation)
     {
         if (currentItem.Value && bigItem.isBig)
         {
-            bigItem.Drop(rotation);
+            bigItem.Drop(position, rotation);
             currentItem.Value = null;
         }
     }
@@ -264,7 +247,7 @@ public class PlayerInventoryScript : PlayerComponent
     }
 
     [Server]
-    public void RemoveItem(Item item, Vector3 rotation)
+    public void RemoveItem(Item item, Vector3 position, Vector3 rotation)
     {
         if (slots.Contains(item))
         {
@@ -275,7 +258,7 @@ public class PlayerInventoryScript : PlayerComponent
                     slots[i] = null;
                     UpdateUIRemove(Owner, i); // update UI with free slot index and null icon
                     
-                    item.Drop(rotation);
+                    item.Drop(position, rotation);
                     
                     if (currentItem.Value == item)
                     {

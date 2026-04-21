@@ -62,9 +62,9 @@ public class FrogPickScript : Item
         frogScript.running = enable;
     }
     
-    protected override void DropLogic(Vector3 forward)
+    protected override void DropLogic(Vector3 position, Vector3 forward)
     {
-        base.DropLogic(forward);
+        base.DropLogic(position, forward);
         
         ChangePickupValue(false);
         

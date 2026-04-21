@@ -64,13 +64,13 @@ public abstract class ObjectPickable : NetworkBehaviour
         Pickup_Client(fpHolder, tpHolder, conn);
     }
 
-    public void Drop(Vector3 forward)
+    public void Drop(Vector3 position, Vector3 forward)
     {
         if (!IsServerInitialized) return;
         
         NetworkObject.RemoveOwnership();
         //DropLogic(forward);
-        Drop_Client(forward);
+        Drop_Client(position, forward);
     }
 
     [ObserversRpc]
@@ -103,11 +103,11 @@ public abstract class ObjectPickable : NetworkBehaviour
     }
 
     [ObserversRpc]
-    private void Drop_Client(Vector3 forward)
+    private void Drop_Client(Vector3 position, Vector3 forward)
     {
         if (IsSpawned)
         {
-            DropLogic(forward);
+            DropLogic(position, forward);
         }
         
         if (objectsToChangeLayer != null && changeLayerOnPickup)
@@ -151,13 +151,14 @@ public abstract class ObjectPickable : NetworkBehaviour
         }
     }
     
-    protected virtual void DropLogic(Vector3 forward)
+    protected virtual void DropLogic(Vector3 position, Vector3 forward)
     {
         // this was added
         _nt.enabled = true;
         
         transform.SetParent(null);
         
+        transform.position = position;
         _nt.Teleport();
         
         _rb.isKinematic = false;

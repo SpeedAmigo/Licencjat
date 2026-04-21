@@ -25,6 +25,7 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
     
     [HideInInspector] public OxygenScript oxygen;
     private PlayerInventoryScript _playerInventory;
+    private PlayerInteractor _playerInteractor;
     
     private Vector3 _spawnPosition;
     private Quaternion _spawnRotation;
@@ -45,6 +46,7 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
         }
         
         _playerInventory = gameObject.GetComponent<PlayerInventoryScript>();
+        _playerInteractor = gameObject.GetComponent<PlayerInteractor>();
 
         oxygen.OnDieEvent += Die;
         
@@ -88,6 +90,11 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
         }
     }
     
+    public Vector3 DropPosition()
+    {
+        return _playerInteractor.itemDropTransform.transform.position;
+    }
+    
     [TargetRpc]
     public void StartDurationFill(NetworkConnection conn, float duration)
     {
@@ -102,7 +109,7 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
     
     public void RequestItemDrop(Item item)
     {
-        _playerInventory.RequestRemoveItem(item, _playerInventory);
+        _playerInventory.RequestRemoveItem(item, _playerInventory, DropPosition());
     }
     
     /*[ServerRpc(RequireOwnership = true)]

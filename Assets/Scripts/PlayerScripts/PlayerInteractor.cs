@@ -4,7 +4,6 @@ using FishNet.Object;
 using Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 
 public class PlayerInteractor : PlayerComponent
@@ -17,6 +16,12 @@ public class PlayerInteractor : PlayerComponent
     [SerializeField] private NetworkObject fpItemHolder;
     [GUIColor("Red")]
     [SerializeField] private NetworkObject tpIemHolder;
+
+    [HideInInspector] public NetworkObject itemDropTransform;
+    
+    [SerializeField] private float dropRadius = 0.25f;
+    [SerializeField] private float dropDistance = 1f;
+    [SerializeField] private float lookDownThreshold = 0.8f;
     
     [Header("Interaction Distance Settings")]
     [GUIColor("Yellow")]
@@ -229,15 +234,59 @@ public class PlayerInteractor : PlayerComponent
 
     private void OnItemDrop(InputAction.CallbackContext context)
     {
-        if (!IsOwner) return;
-        if (!context.performed) return;
-        if (!GlobalDropRule.CanDropItems) return;
+        if (!IsOwner || !context.performed || !GlobalDropRule.CanDropItems) return;
+
+        if (IsLookingTooFarDown())
+        {
+            Debug.Log("Can't drop items while looking down");
+            return;
+        }
+
+        if (!TryGetDropPosition(out Vector3 dropPos))
+        {
+            Debug.Log("Too close to wall");
+            return;
+        }
         
         Vector3 direction = transform.forward;
         
-        DropItem_Server(direction);
+        DropItem_Server(dropPos, direction);
+    }
+    
+    private bool TryGetDropPosition(out Vector3 dropPosition)
+    {
+        Vector3 origin = itemDropTransform.transform.position;
+        Vector3 direction = itemDropTransform.transform.forward;
+
+        float minAllowedDistance = dropDistance * 1;
+
+        if (Physics.SphereCast(origin, dropRadius, direction, out RaycastHit hit, dropDistance))
+        {
+            Debug.DrawLine(origin, hit.point, Color.red, 2f);
+            
+            if (hit.distance < minAllowedDistance)
+            {
+                Debug.Log(hit.collider.name);
+                dropPosition = Vector3.zero;
+                return false;
+            }
+            
+            dropPosition = hit.point - direction * dropRadius;
+            return true;
+        }
+        
+        dropPosition = origin + direction * dropDistance;
+        return true;
     }
 
+    private bool IsLookingTooFarDown()
+    {
+        Vector3 forward = itemDropTransform.transform.forward;
+        
+        float dot = Vector3.Dot(forward, Vector3.down);
+
+        return dot > lookDownThreshold;
+    }
     
     // to get rid of so much component checking
     // try to write network serializer because otherwise it won't work
@@ -273,17 +322,17 @@ public class PlayerInteractor : PlayerComponent
     }
     
     [ServerRpc(RequireOwnership = true)]
-    private void DropItem_Server(Vector3 rotation)
+    private void DropItem_Server(Vector3 position, Vector3 rotation)
     {
         if (_playerInventory.currentItem.Value == null) return;
 
         if (_playerInventory.currentItem.Value.isBig)
         {
-            _playerInventory.RemoveBigItem(_playerInventory.currentItem.Value, rotation);
+            _playerInventory.RemoveBigItem(_playerInventory.currentItem.Value, position, rotation);
         }
         else
         {
-            _playerInventory.RemoveItem(_playerInventory.currentItem.Value, rotation);
+            _playerInventory.RemoveItem(_playerInventory.currentItem.Value, position, rotation);
         }
     }
     
@@ -302,6 +351,26 @@ public class PlayerInteractor : PlayerComponent
         }
         
         return true;
+    }
+    
+    private void OnDrawGizmos()
+    {
+        if (itemDropTransform == null) return;
+
+        Vector3 origin = itemDropTransform.transform.position;
+        Vector3 direction = itemDropTransform.transform.forward;
+
+        // Start sphere
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(origin, dropRadius);
+
+        // End sphere
+        Vector3 end = origin + direction * dropDistance;
+        Gizmos.DrawWireSphere(end, dropRadius);
+
+        // Line between them
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(origin, end);
     }
 }
 
