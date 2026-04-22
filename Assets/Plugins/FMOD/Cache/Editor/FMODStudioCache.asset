@@ -136,6 +136,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 117
+--- !u!114 &-6246217516899462224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/DogAttack
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/DogAttack
+  Guid:
+    Data1: -833150338
+    Data2: 1285886930
+    Data3: -2089914970
+    Data4: -548964523
+  Banks:
+  - {fileID: 7604561571300198704}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 480
 --- !u!114 &-5921281392831743386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,13 +390,15 @@ MonoBehaviour:
   - {fileID: 2057071767134752965}
   - {fileID: -6619085596588381387}
   - {fileID: -5921281392831743386}
+  - {fileID: 859608437549525589}
+  - {fileID: -6246217516899462224}
   EditorParameters: []
   MasterBanks:
   - {fileID: 3403838664345754919}
   StringsBanks:
   - {fileID: 1196096207332177434}
   cacheVersion: 131857
-  cacheTime: 639124551294841533
+  cacheTime: 639124733968855911
   SerializableEventsDict:
   - key: event:/Footsteps
     index: 0
@@ -413,6 +442,10 @@ MonoBehaviour:
     index: 19
   - key: event:/Drop
     index: 20
+  - key: event:/DogIdle
+    index: 21
+  - key: event:/DogAttack
+    index: 22
 --- !u!114 &216120728065239244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,6 +500,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 555
+--- !u!114 &859608437549525589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/DogIdle
+  m_EditorClassIdentifier: FMODUnityEditor::FMODUnity.EditorEventRef
+  Path: event:/DogIdle
+  Guid:
+    Data1: -1911162834
+    Data2: 1216167170
+    Data3: 979081904
+    Data4: 1051298598
+  Banks:
+  - {fileID: 7604561571300198704}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3083
 --- !u!114 &1196096207332177434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,10 +542,10 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639124551294020638
+  lastModified: 639124733968001638
   FileSizes:
   - Name: Desktop
-    Value: 1806
+    Value: 1904
   Exists: 1
 --- !u!114 &2057071767134752965
 MonoBehaviour:
@@ -556,7 +616,7 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639124551294005584
+  lastModified: 639124733968001638
   FileSizes:
   - Name: Desktop
     Value: 941984
@@ -684,10 +744,10 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639124551294841533
+  lastModified: 639124733968855911
   FileSizes:
   - Name: Desktop
-    Value: 375392
+    Value: 444576
   Exists: 1
 --- !u!114 &8051479913040146471
 MonoBehaviour:

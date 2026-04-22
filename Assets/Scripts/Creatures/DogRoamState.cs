@@ -1,3 +1,4 @@
+using FMODUnity;
 using UnityEngine;
 
 public class DogRoamState : State
@@ -5,10 +6,14 @@ public class DogRoamState : State
     private readonly DogScript _dogScript;
 
     private float _maxDistance;
+
+    private float _currentTime;
+    private float _timer;
     
     public DogRoamState(StateMachine machine, DogScript dogScript) : base(machine)
     {
         _dogScript = dogScript;
+        _timer = Random.Range(_dogScript.idleSoundTimer - 1f, _dogScript.idleSoundTimer + 1f);
     }
 
     public override void Enter()
@@ -26,6 +31,13 @@ public class DogRoamState : State
 
     public override void Tick()
     {
+        _currentTime += Time.deltaTime;
+
+        if (_currentTime >= _timer)
+        {
+            PlaySoundAndRandomize();
+        }
+        
         if (!_dogScript.itemOfInterest)
         {
             Roam(false);
@@ -83,5 +95,12 @@ public class DogRoamState : State
             
             _dogScript.Invoke(hasTarget ? nameof(_dogScript.NewPathWrapper) : nameof(_dogScript.SetNewPath), 3f);
         }
+    }
+
+    private void PlaySoundAndRandomize()
+    {
+        RuntimeManager.PlayOneShotAttached(_dogScript.idleSound, _dogScript.gameObject);
+        _currentTime = 0;
+        _timer = Random.Range(_dogScript.idleSoundTimer - 1f, _dogScript.idleSoundTimer + 1f);
     }
 }

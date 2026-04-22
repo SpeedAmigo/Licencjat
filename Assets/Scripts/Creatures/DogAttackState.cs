@@ -1,3 +1,4 @@
+using FMODUnity;
 using UnityEngine;
 
 public class DogAttackState : State
@@ -84,6 +85,8 @@ public class DogAttackState : State
         if (_dogScript.playersInRange.Count <= 0) return;
         
         _dogScript.Animator.Animator.SetTrigger("Attack");
+        
+        RuntimeManager.PlayOneShot(_dogScript.attackSound, _dogScript.transform.position);
 
         if (_target.TryGetComponent<StatusEffectHandler>(out var effectHandler))
         {

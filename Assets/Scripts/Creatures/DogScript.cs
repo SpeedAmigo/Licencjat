@@ -26,6 +26,7 @@ public class DogScript : BaseEnemyScript, IStunable
     public float agroTime = 5f;
     public float agroTimer;
     public float attackTimer;
+    public float idleSoundTimer;
     
     [Header("Distance Settings")]
     public float stopDistance = 1.5f;
@@ -35,6 +36,8 @@ public class DogScript : BaseEnemyScript, IStunable
     
     [Header("Sounds")]
     public EventReference stunSound;
+    public EventReference idleSound;
+    public EventReference attackSound;
     
     [HideInInspector] public bool itemOfInterestIsHeld;
     [HideInInspector] public DogItemOfInterest itemOfInterest;

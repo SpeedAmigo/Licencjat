@@ -1723,6 +1723,7 @@ MonoBehaviour:
   agroTime: 5
   agroTimer: 0
   attackTimer: 1
+  idleSoundTimer: 5
   stopDistance: 2
   agroDistance: 5
   attackDistance: 3
@@ -1734,6 +1735,20 @@ MonoBehaviour:
       Data3: 1600549803
       Data4: -1360902061
     Path: event:/Stun
+  idleSound:
+    Guid:
+      Data1: -1911162834
+      Data2: 1216167170
+      Data3: 979081904
+      Data4: 1051298598
+    Path: event:/DogIdle
+  attackSound:
+    Guid:
+      Data1: -833150338
+      Data2: 1285886930
+      Data3: -2089914970
+      Data4: -548964523
+    Path: event:/DogAttack
   itemOfInterestIsHeld: 0
   itemOfInterest: {fileID: 0}
   holdingPlayer: {fileID: 0}
@@ -3409,6 +3424,10 @@ PrefabInstance:
     - target: {fileID: 1135657003824933385, guid: 41589846f652cd04db3b298101f707f0, type: 3}
       propertyPath: <IsNested>k__BackingField
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135657003824933385, guid: 41589846f652cd04db3b298101f707f0, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1135657003824933385, guid: 41589846f652cd04db3b298101f707f0, type: 3}
       propertyPath: <ComponentIndex>k__BackingField
