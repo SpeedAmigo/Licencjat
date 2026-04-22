@@ -1,3 +1,4 @@
+using FMODUnity;
 using UnityEngine;
 
 public class FrogStunState : State
@@ -20,6 +21,7 @@ public class FrogStunState : State
         _frogScript.frogState = FrogState.Stunned;
         
         _frogScript.statusVisualizer.ShowStatusSign(CreatureStatus.Star, _duration);
+        RuntimeManager.PlayOneShot(_frogScript.stunSound, _frogScript.transform.position);
         _frogScript.ai.isStopped = true;
     }
 

@@ -1,3 +1,4 @@
+using FMODUnity;
 using UnityEngine;
 
 public class DogStunState : State
@@ -19,7 +20,7 @@ public class DogStunState : State
         Debug.Log("Entering dog stun state");
 
         _dogScript.dogVisualizer.ShowStatusSign(CreatureStatus.Star, _duration);
-        //_dogScript.ai.simulateMovement = false;
+        RuntimeManager.PlayOneShot(_dogScript.stunSound, _dogScript.transform.position);
         _dogScript.ai.isStopped = true;
     }
 
@@ -36,7 +37,6 @@ public class DogStunState : State
     public override void Exit()
     {
         Debug.Log("Exiting dog stun state");
-        //_dogScript.ai.simulateMovement = true;
         _dogScript.ai.isStopped = false;
     }
 }

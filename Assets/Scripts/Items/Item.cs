@@ -1,6 +1,8 @@
+using System;
 using FishNet.CodeGenerating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using FMODUnity;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -18,6 +20,9 @@ namespace Items
         
         [SerializeField] protected uint maxDurability;
         [AllowMutableSyncType] protected SyncVar<uint> durability = new();
+
+        [Header("Drop Sound")]
+        [SerializeField] protected EventReference dropSound;
         
         public override void OnStartServer()
         {
@@ -63,6 +68,18 @@ namespace Items
             if (!useDurability.Value) return;
             
             durability.Value--;
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.CompareTag("Ground"))
+            {
+                RuntimeManager.PlayOneShotWithParameter(dropSound, "DropParameter", 0, transform.position);
+            }
+            else if (other.gameObject.CompareTag("Metal"))
+            {
+                RuntimeManager.PlayOneShotWithParameter(dropSound, "DropParameter", 1, transform.position);
+            }
         }
     }
 }

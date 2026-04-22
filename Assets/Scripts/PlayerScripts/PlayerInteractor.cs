@@ -260,7 +260,9 @@ public class PlayerInteractor : PlayerComponent
 
         float minAllowedDistance = dropDistance * 1;
 
-        if (Physics.SphereCast(origin, dropRadius, direction, out RaycastHit hit, dropDistance))
+        int mask = ~LayerMask.GetMask("PickableLayer");
+
+        if (Physics.SphereCast(origin, dropRadius, direction, out RaycastHit hit, dropDistance, mask))
         {
             Debug.DrawLine(origin, hit.point, Color.red, 2f);
             

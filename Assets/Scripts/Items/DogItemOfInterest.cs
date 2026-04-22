@@ -10,7 +10,7 @@ public class DogItemOfInterest : Item
     
     public event Action ItemPickedUp;
     public event Action ItemDropped;
-
+    
     protected override void PickupLogic(NetworkObject holder, NetworkConnection conn)
     {
         base.PickupLogic(holder, conn);

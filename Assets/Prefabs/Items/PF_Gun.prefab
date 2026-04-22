@@ -237,7 +237,7 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 22
+  <PrefabId>k__BackingField: 28
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 15854395541547138035
   <SceneId>k__BackingField: 0
@@ -329,6 +329,13 @@ MonoBehaviour:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
     _value: 15
+  dropSound:
+    Guid:
+      Data1: -1623485469
+      Data2: 1094659884
+      Data3: 599077815
+      Data4: -1752021425
+    Path: event:/Drop
   raycastStartPoint: {fileID: 2682355678119663154}
   shootDistance: 10
   effects:

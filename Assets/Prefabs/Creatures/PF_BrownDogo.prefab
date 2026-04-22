@@ -1727,6 +1727,13 @@ MonoBehaviour:
   agroDistance: 5
   attackDistance: 3
   maxAwareDistance: 50
+  stunSound:
+    Guid:
+      Data1: 2053389346
+      Data2: 1215442573
+      Data3: 1600549803
+      Data4: -1360902061
+    Path: event:/Stun
   itemOfInterestIsHeld: 0
   itemOfInterest: {fileID: 0}
   holdingPlayer: {fileID: 0}

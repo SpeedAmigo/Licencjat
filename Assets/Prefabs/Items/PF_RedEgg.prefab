@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5481939314350523443}
   - component: {fileID: 4394239070916592203}
   - component: {fileID: 1330696415783335479}
-  - component: {fileID: 1870078538737246698}
+  - component: {fileID: 4582969700069517868}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -90,8 +90,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1870078538737246698
-BoxCollider:
+--- !u!136 &4582969700069517868
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -108,8 +108,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.026570972, y: 0.026635848, z: 0.034930635}
+  serializedVersion: 2
+  m_Radius: 0.013
+  m_Height: 0.04
+  m_Direction: 2
   m_Center: {x: -0.000000059604645, y: 1.2333017e-16, z: 0.017357176}
 --- !u!1 &5594809409301672947
 GameObject:
@@ -167,7 +169,8 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours:
-  - {fileID: 0}
+  - {fileID: 251281392214116274}
+  - {fileID: 7188496966579168486}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -192,12 +195,12 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 0
+  <PrefabId>k__BackingField: 27
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 15027707628916095419
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
+    Position: {x: 16.16, y: -1.2970442, z: -2.388}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     Scale: {x: 1.125, y: 1.125, z: 1.125}
     IsValid: 1
@@ -211,7 +214,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -221,7 +224,7 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
+  m_ImplicitCom: 0
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 1
@@ -261,9 +264,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84420a90c3b6f2c4ab82b54cd123d793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DogItemOfInterest
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 2728572776336246488}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 2728572776336246488}
   useSeparateCollider: 1
   objectCollider: {fileID: 0}
   changeLayerOnPickup: 0
@@ -282,6 +285,14 @@ MonoBehaviour:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
     _value: 0
+  dropSound:
+    Guid:
+      Data1: -1623485469
+      Data2: 1094659884
+      Data3: 599077815
+      Data4: -1752021425
+    Path: event:/Drop
+  centerOfMass: {fileID: 0}
 --- !u!114 &7188496966579168486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,9 +305,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 255
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 2728572776336246488}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 2728572776336246488}
   _componentConfiguration: 2
   _synchronizeParent: 0
   _packing:

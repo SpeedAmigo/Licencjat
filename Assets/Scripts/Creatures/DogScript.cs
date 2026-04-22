@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FishNet.CodeGenerating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using FMODUnity;
 using Items;
 using Pathfinding;
 using UnityEngine;
@@ -31,6 +32,9 @@ public class DogScript : BaseEnemyScript, IStunable
     public float agroDistance = 10f;
     public float attackDistance;
     public float maxAwareDistance;
+    
+    [Header("Sounds")]
+    public EventReference stunSound;
     
     [HideInInspector] public bool itemOfInterestIsHeld;
     [HideInInspector] public DogItemOfInterest itemOfInterest;

@@ -486,6 +486,13 @@ MonoBehaviour:
       Data3: -1825527403
       Data4: 1175306894
     Path: event:/FrogSound
+  stunSound:
+    Guid:
+      Data1: 2053389346
+      Data2: 1215442573
+      Data3: 1600549803
+      Data4: -1360902061
+    Path: event:/Stun
 --- !u!114 &4097182591846747468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,6 +518,7 @@ MonoBehaviour:
   - {fileID: 8716587588997196050}
   - {fileID: 2043522235105447884}
   - {fileID: 1813868295671555866}
+  - {fileID: 7441812448833586482}
   - {fileID: 3257361702672036978}
   - {fileID: 6562986031532625317}
   - {fileID: 7777781800669878365}
@@ -747,6 +755,13 @@ MonoBehaviour:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
     _value: 0
+  dropSound:
+    Guid:
+      Data1: -1623485469
+      Data2: 1094659884
+      Data3: 599077815
+      Data4: -1752021425
+    Path: event:/Drop
   spitTime:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
@@ -783,9 +798,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 079be42d8f604d645a890d9a32c69555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StateMachine
-  _componentIndexCache: 255
+  _componentIndexCache: 6
   _addedNetworkObject: {fileID: 4097182591846747468}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 4097182591846747468}
 --- !u!1 &1672036666731588899
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,7 +939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 10
+  _componentIndexCache: 11
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 4097182591846747468}
 --- !u!1 &2110657887717763425
@@ -1126,7 +1141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Animating.NetworkAnimator
-  _componentIndexCache: 6
+  _componentIndexCache: 7
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 4097182591846747468}
   IgnoredParameters: []
@@ -1148,7 +1163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ad69bf32f65354fa623f60bbbe6dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CreatureWalkSoundScript
-  _componentIndexCache: 7
+  _componentIndexCache: 8
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 4097182591846747468}
   surfaceCheckRaycast: {fileID: 257626527150510420}
@@ -1577,7 +1592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 8
+  _componentIndexCache: 9
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 4097182591846747468}
 --- !u!1 &4904499755740006443
@@ -2603,7 +2618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 9
+  _componentIndexCache: 10
   _addedNetworkObject: {fileID: 4097182591846747468}
   _networkObjectCache: {fileID: 4097182591846747468}
 --- !u!1001 &2335750311435707717

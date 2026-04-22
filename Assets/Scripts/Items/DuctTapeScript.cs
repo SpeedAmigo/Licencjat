@@ -1,20 +1,27 @@
 using System;
 using FishNet.Object;
+using FMODUnity;
 using Items;
 using UnityEngine;
 
 public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryClick, ISecondaryCancel
 {
+    [Header("Dependencies")]
     [SerializeField] private Transform raycastStartPoint;
+    
+    [Header("Settings")]
     [SerializeField] private float shootDistance;
-
     [SerializeField] private float useTime;
     
+    [Header("Effects")]
     [SerializeField] private StatusEffect[] effects;
+    
+    [Header("Sounds")]
+    [SerializeField] private EventReference useSound;
     
     private bool _currentlyUsed;
     private bool _primaryClicked;
-    [SerializeField] private float _timer;
+    private float _timer;
     
     private PlayerRoot _currentPlayer;
     
@@ -50,6 +57,8 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
             Debug.Log("No more durability!");
             return;
         }
+        
+        RuntimeManager.PlayOneShotAttached(useSound, gameObject);
         
         ClickHandler(true);
         

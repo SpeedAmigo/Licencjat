@@ -27,7 +27,7 @@ public class EnergyRefillScript : NetworkBehaviour, IInteractable
         if (inventoryScript.currentItem.Value is IRechargeable rechargeable)
         {
             rechargeable.Recharge();
-            SoundCreator.PlaySoundOneShot(rechargeSound, soundPosition.position);
+            RuntimeManager.PlayOneShot(rechargeSound, soundPosition.position);
         }
     }
 

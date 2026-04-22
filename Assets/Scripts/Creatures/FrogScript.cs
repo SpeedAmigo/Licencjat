@@ -42,6 +42,7 @@ public class FrogScript : BaseEnemyScript, IStunable
     public EventReference warningSound;
     public EventReference panicSound;
     public EventReference idleSound;
+    public EventReference stunSound;
     
     public AIPath AI
     {

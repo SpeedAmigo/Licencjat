@@ -22,7 +22,7 @@ public class GunScript : Weapon, IPrimaryClick, IRechargeable
         }
 
         Camera.main.DOShakePosition(0.3f, 0.03f, 10, 90f, true);
-        SoundCreator.PlaySoundOneShot(shotSound, transform.position);
+        RuntimeManager.PlayOneShot(shotSound, transform.position);
         
         DecreaseDurability();
         Shoot();

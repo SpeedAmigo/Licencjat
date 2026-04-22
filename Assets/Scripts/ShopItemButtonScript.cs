@@ -19,12 +19,12 @@ public class ShopItemButtonScript : NetworkBehaviour, IInteractable
         if (addToBasket)
         {
             ShopManagerScript.Instance.AddItemToBasket(shopItemUIScript.ItemId);
-            SoundCreator.PlaySoundOneShot(addToBasketSound, transform.position);
+            RuntimeManager.PlayOneShot(addToBasketSound, transform.position);
         }
         else
         {
             ShopManagerScript.Instance.RemoveItemFromBasket(shopItemUIScript.ItemId);
-            SoundCreator.PlaySoundOneShot(removeFromBasketSound, transform.position);
+            RuntimeManager.PlayOneShot(removeFromBasketSound, transform.position);
         }
     }
 

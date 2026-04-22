@@ -1247,7 +1247,19 @@ retry:
                 RuntimeUtils.DebugLogWarning("[FMOD] Event not found: " + eventReference);
             }
         }
-
+        
+        public static void PlayOneShotWithParameter(EventReference eventReference, string parameterName, float value, Vector3 position = new Vector3())
+        {
+            try
+            {
+                PlayOneShot(eventReference.Guid, parameterName, value, position);
+            }
+            catch (EventNotFoundException)
+            {
+                RuntimeUtils.DebugLogWarning("[FMOD] Event not found: " + eventReference);
+            }
+        }
+        
         public static void PlayOneShot(string path, Vector3 position = new Vector3())
         {
             try
@@ -1265,6 +1277,19 @@ retry:
             if (CreateInstanceWithinMaxDistance(guid, position, out FMOD.Studio.EventInstance instance))
             {
                 instance.set3DAttributes(RuntimeUtils.To3DAttributes(position));
+                instance.start();
+                instance.release();
+            }
+        }
+        
+        public static void PlayOneShot(FMOD.GUID guid, string parameterName, float value, Vector3 position = new Vector3())
+        {
+            if (CreateInstanceWithinMaxDistance(guid, position, out FMOD.Studio.EventInstance instance))
+            {
+                instance.set3DAttributes(RuntimeUtils.To3DAttributes(position));
+
+                instance.setParameterByName(parameterName, value);
+                
                 instance.start();
                 instance.release();
             }

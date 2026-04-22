@@ -455,6 +455,13 @@ MonoBehaviour:
       Data3: -1825527403
       Data4: 1175306894
     Path: event:/FrogSound
+  stunSound:
+    Guid:
+      Data1: 2053389346
+      Data2: 1215442573
+      Data3: 1600549803
+      Data4: -1360902061
+    Path: event:/Stun
 --- !u!114 &4097182591846747468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -717,6 +724,13 @@ MonoBehaviour:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
     _value: 0
+  dropSound:
+    Guid:
+      Data1: -1623485469
+      Data2: 1094659884
+      Data3: 599077815
+      Data4: -1752021425
+    Path: event:/Drop
   spitTime:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
