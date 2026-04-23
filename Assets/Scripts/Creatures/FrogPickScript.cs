@@ -86,7 +86,7 @@ public class FrogPickScript : Item
         frogScript.pickedUp.Value = value;
     }
 
-    protected override void Update()
+    protected void Update()
     {
         if (!IsServerInitialized) return;
         

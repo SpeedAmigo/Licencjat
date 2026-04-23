@@ -25,10 +25,8 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
     
     private PlayerRoot _currentPlayer;
     
-    protected override void Update()
+    protected void Update()
     {
-        base.Update();
-        
         if (!_currentlyUsed) return;
         
         _timer -= Time.deltaTime;

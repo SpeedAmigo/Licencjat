@@ -20,7 +20,7 @@ namespace Items
         
         [SerializeField] protected uint maxDurability;
         [AllowMutableSyncType] protected SyncVar<uint> durability = new();
-
+        
         [Header("Drop Sound")]
         [SerializeField] protected EventReference dropSound;
         
@@ -30,11 +30,11 @@ namespace Items
             SetToMaxDurability();
         }
         
-        protected virtual void Update()
+        protected virtual void LateUpdate()
         {
             if (!IsServerInitialized) return;
             
-            if (_rb.IsSleeping())
+            if (_rb.IsSleeping() && !_rb.isKinematic)
             {
                 SleepNotifyObservers();
             }
@@ -69,7 +69,7 @@ namespace Items
             
             durability.Value--;
         }
-
+        
         private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.CompareTag("Ground"))

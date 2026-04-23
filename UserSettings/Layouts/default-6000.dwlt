@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1349
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 165
+  controlID: 67
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 166
+  controlID: 68
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -3115,9 +3115,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 12.644432, y: -0.20964622, z: 10.555677}
+    m_Target: {x: 7.2427235, y: -0.98863506, z: 2.1518478}
     speed: 2
-    m_Value: {x: 12.644432, y: -0.20964622, z: 10.555677}
+    m_Value: {x: 7.2427235, y: -0.98863506, z: 2.1518478}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -3163,9 +3163,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.11951452, y: -0.8036777, z: 0.17829825, w: -0.5549992}
+    m_Target: {x: -0.09233539, y: -0.8848964, z: 0.20826173, w: -0.4062741}
     speed: 2
-    m_Value: {x: 0.11951451, y: 0.8036777, z: -0.17829823, w: 0.5549992}
+    m_Value: {x: 0.09233539, y: 0.8848964, z: -0.20826171, w: 0.40627408}
   m_Size:
     m_Target: 15.99073
     speed: 2
@@ -3244,7 +3244,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: a2c2ffff8ac9ffff08fbffff
+      m_ExpandedIDs: 08fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -7158,7 +7158,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Scripts/Items
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -7168,16 +7168,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Scripts/Items
   m_LastFoldersGridSize: -1
   m_LastProjectPath: E:\Github\Licencjat
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 24380100
-    m_LastClickedID: 79908
-    m_ExpandedIDs: 0000000024380100
+    scrollPos: {x: 0, y: 179}
+    m_SelectedIDs: 463a0100
+    m_LastClickedID: 80454
+    m_ExpandedIDs: 0000000028380100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -7206,7 +7206,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000024380100
+    m_ExpandedIDs: 0000000028380100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
