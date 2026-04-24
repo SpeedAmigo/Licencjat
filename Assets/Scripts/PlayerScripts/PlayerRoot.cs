@@ -76,17 +76,11 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
 
         if (damage > 0)
         {
-            _getDamageInstance = RuntimeManager.CreateInstance(getDamageSound);
-            _getDamageInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
-            _getDamageInstance.start();
-            _getDamageInstance.release();
+            SoundCreator.Instance.PlayOneShot(getDamageSound, transform.position);
         }
         else if (damage < 0)
         {
-            _getHealInstance = RuntimeManager.CreateInstance(getHealSound);
-            _getHealInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
-            _getHealInstance.start();
-            _getHealInstance.release();
+            SoundCreator.Instance.PlayOneShot(getHealSound, transform.position);
         }
     }
     

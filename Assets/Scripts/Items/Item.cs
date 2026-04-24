@@ -74,11 +74,11 @@ namespace Items
         {
             if (other.gameObject.CompareTag("Ground"))
             {
-                RuntimeManager.PlayOneShotWithParameter(dropSound, "DropParameter", 0, transform.position);
+                RuntimeManager.PlayOneShotWithParameter(dropSound, new ParameterValues("DropParameter", 0), transform.position);
             }
             else if (other.gameObject.CompareTag("Metal"))
             {
-                RuntimeManager.PlayOneShotWithParameter(dropSound, "DropParameter", 1, transform.position);
+                RuntimeManager.PlayOneShotWithParameter(dropSound, new ParameterValues("DropParameter", 1), transform.position);
             }
         }
     }

@@ -16,6 +16,8 @@ public class EnergyRefillScript : NetworkBehaviour, IInteractable
     
     public void Interact(PlayerRoot playerRoot)
     {
+        if (playerRoot == null) return;
+        
         PlayerInventoryScript inventoryScript = playerRoot.gameObject.GetComponent<PlayerInventoryScript>();
 
         if (inventoryScript == null)
@@ -27,7 +29,7 @@ public class EnergyRefillScript : NetworkBehaviour, IInteractable
         if (inventoryScript.currentItem.Value is IRechargeable rechargeable)
         {
             rechargeable.Recharge();
-            RuntimeManager.PlayOneShot(rechargeSound, soundPosition.position);
+            SoundCreator.Instance.PlayOneShot(rechargeSound, soundPosition.position);
         }
     }
 

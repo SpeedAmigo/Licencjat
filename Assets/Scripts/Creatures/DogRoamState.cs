@@ -99,7 +99,7 @@ public class DogRoamState : State
 
     private void PlaySoundAndRandomize()
     {
-        RuntimeManager.PlayOneShotAttached(_dogScript.idleSound, _dogScript.gameObject);
+        SoundCreator.Instance.PlayOneShotAttached(_dogScript.idleSound, _dogScript.gameObject);
         _currentTime = 0;
         _timer = Random.Range(_dogScript.idleSoundTimer - 1f, _dogScript.idleSoundTimer + 1f);
     }

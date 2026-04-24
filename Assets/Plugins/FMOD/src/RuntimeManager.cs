@@ -1248,8 +1248,11 @@ retry:
             }
         }
         
-        public static void PlayOneShotWithParameter(EventReference eventReference, string parameterName, float value, Vector3 position = new Vector3())
+        public static void PlayOneShotWithParameter(EventReference eventReference, ParameterValues parameterValues, Vector3 position = new Vector3())
         {
+            var parameterName = parameterValues.parameterName;
+            var value = parameterValues.value;
+            
             try
             {
                 PlayOneShot(eventReference.Guid, parameterName, value, position);

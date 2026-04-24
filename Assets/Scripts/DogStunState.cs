@@ -20,7 +20,7 @@ public class DogStunState : State
         Debug.Log("Entering dog stun state");
 
         _dogScript.dogVisualizer.ShowStatusSign(CreatureStatus.Star, _duration);
-        RuntimeManager.PlayOneShot(_dogScript.stunSound, _dogScript.transform.position);
+        SoundCreator.Instance.PlayOneShot(_dogScript.stunSound, _dogScript.transform.position);
         _dogScript.ai.isStopped = true;
     }
 

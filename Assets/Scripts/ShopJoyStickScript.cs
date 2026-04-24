@@ -22,7 +22,7 @@ public class ShopJoyStickScript : NetworkBehaviour, IInteractable
             if (IsController)
             {
                 ShopManagerScript.Instance.BuyItems();
-                RuntimeManager.PlayOneShot(joyStickSound, transform.position);
+                SoundCreator.Instance.PlayOneShot(joyStickSound, transform.position);
                 PlayAnimServer();
             }
         }

@@ -56,7 +56,7 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
             return;
         }
         
-        RuntimeManager.PlayOneShotAttached(useSound, gameObject);
+        SoundCreator.Instance.PlayOneShotAttached(useSound, gameObject);
         
         ClickHandler(true);
         

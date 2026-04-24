@@ -34,10 +34,7 @@ public class FrogPickedUpState : State
         if (!_warningPlayed && _frogPickScript.spitTime.Value <= _frogPickScript.pickedTime * _frogScript.spitPercentWarning)
         {
             _warningPlayed = true;
-            EventInstance spitSoundInstance = RuntimeManager.CreateInstance(_frogScript.panicSound);
-            spitSoundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(_frogScript.transform.position));
-            spitSoundInstance.start();
-            spitSoundInstance.release();
+            SoundCreator.Instance.PlayOneShotAttached(_frogScript.panicSound, _frogScript.gameObject);
         }
             
         if (_frogPickScript.spitTime.Value <= 0f)
@@ -46,11 +43,8 @@ public class FrogPickedUpState : State
             _frogPickScript.pickedTime = _frogScript.GetRandomSpitTime();
             _frogPickScript.spitTime.Value = _frogPickScript.pickedTime;
             _frogScript.PlaySpitAnimation();
-
-            EventInstance spitSoundInstance = RuntimeManager.CreateInstance(_frogScript.spitSound);
-            spitSoundInstance.set3DAttributes(RuntimeUtils.To3DAttributes(_frogScript.transform.position));
-            spitSoundInstance.start();
-            spitSoundInstance.release();
+            
+            SoundCreator.Instance.PlayOneShot(_frogScript.spitSound, _frogScript.transform.position);
 
             _frogScript.PlayParticleServer();
                 

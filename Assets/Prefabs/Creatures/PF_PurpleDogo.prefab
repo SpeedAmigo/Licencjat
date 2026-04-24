@@ -1554,6 +1554,7 @@ GameObject:
   - component: {fileID: 7159004457110991321}
   - component: {fileID: 1642481043445705925}
   - component: {fileID: 7027498801529460525}
+  - component: {fileID: -426071511853607665}
   m_Layer: 0
   m_Name: PF_PurpleDogo
   m_TagString: Untagged
@@ -1666,7 +1667,7 @@ MonoBehaviour:
   rvoDensityBehavior:
     enabled: 1
     densityThreshold: 0.5
-    returnAfterBeingPushedAway: 0
+    returnAfterBeingPushedAway: 1
     progressAverage: 0
     lastJobDensityResult: 0
   repathRateCompatibility: NaN
@@ -1938,6 +1939,33 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 212815399066512759}
   _networkObjectCache: {fileID: 212815399066512759}
   activeEffects: []
+--- !u!114 &-426071511853607665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4448511021287642323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 560112f876f5746c780eca0d404e7139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AstarPathfindingProject::Pathfinding.RVO.RVOController
+  version: 1073741824
+  radiusBackingField: 0.5
+  heightBackingField: 2
+  centerBackingField: 1
+  locked: 0
+  lockWhenNotMoving: 1
+  agentTimeHorizon: 2
+  obstacleTimeHorizon: 0.5
+  maxNeighbours: 10
+  layer: 1
+  collidesWith: -1
+  wallAvoidForce: 1
+  wallAvoidFalloff: 1
+  priority: 0.5
+  debug: 0
 --- !u!1 &4477773232979579293
 GameObject:
   m_ObjectHideFlags: 0

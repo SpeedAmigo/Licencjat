@@ -86,8 +86,8 @@ public class DogAttackState : State
         
         _dogScript.Animator.Animator.SetTrigger("Attack");
         
-        RuntimeManager.PlayOneShot(_dogScript.attackSound, _dogScript.transform.position);
-
+        SoundCreator.Instance.PlayOneShot(_dogScript.attackSound, _dogScript.transform.position);
+        
         if (_target.TryGetComponent<StatusEffectHandler>(out var effectHandler))
         {
             effectHandler.ApplyEffect(_dogScript.damageEffect);
