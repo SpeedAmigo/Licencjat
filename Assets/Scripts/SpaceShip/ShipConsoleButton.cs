@@ -59,6 +59,7 @@ public class ShipConsoleButton : NetworkBehaviour, IInteractable
         else
         {
             SpawnerManager.Instance.RemoveSpawnedObjects();
+            SpawnerManager.Instance.RemoveSpawnedEggs();
         }
     }
 }

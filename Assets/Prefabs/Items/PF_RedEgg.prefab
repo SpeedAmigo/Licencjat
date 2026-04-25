@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 3684854602518515462}
   - component: {fileID: 251281392214116274}
   - component: {fileID: 7188496966579168486}
+  - component: {fileID: -6862097320020610313}
   m_Layer: 10
   m_Name: PF_RedEgg
   m_TagString: ItemOfInterest
@@ -292,7 +293,6 @@ MonoBehaviour:
       Data3: 599077815
       Data4: -1752021425
     Path: event:/Drop
-  centerOfMass: {fileID: 0}
 --- !u!114 &7188496966579168486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,3 +339,29 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
+--- !u!114 &-6862097320020610313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5594809409301672947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77f7e8f18b370443ab7c4d97c6b3d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectValue
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 2728572776336246488}
+  _networkObjectCache: {fileID: 0}
+  canPickValueOnStart: 0
+  minMaxBuyValue: {x: 0, y: 0}
+  minMaxSellValue: {x: 0, y: 0}
+  actualBuyValue:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
+  actualSellValue:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0

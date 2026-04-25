@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5900021908731926710}
   - component: {fileID: 5015589019723103555}
   - component: {fileID: 1944701620008285328}
+  - component: {fileID: -6270545114895831439}
   m_Layer: 10
   m_Name: PF_BeigeEgg
   m_TagString: ItemOfInterest
@@ -225,6 +226,32 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
+--- !u!114 &-6270545114895831439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5269844472718789215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77f7e8f18b370443ab7c4d97c6b3d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectValue
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 5905603321266583037}
+  _networkObjectCache: {fileID: 0}
+  canPickValueOnStart: 0
+  minMaxBuyValue: {x: 0, y: 0}
+  minMaxSellValue: {x: 0, y: 0}
+  actualBuyValue:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
+  actualSellValue:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
 --- !u!1 &8407521282433377340
 GameObject:
   m_ObjectHideFlags: 0
