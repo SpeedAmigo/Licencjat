@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnimalCollectorScript : NetworkBehaviour
 {
-    [SerializeField] private StudioEventEmitter emitter;
+    [SerializeField] private EventReference collectSound;
     
     private void OnTriggerEnter(Collider other)
     {
@@ -17,14 +17,11 @@ public class AnimalCollectorScript : NetworkBehaviour
             
             QuotaManagerScript.Instance.AddMoney((uint)objectValue.actualSellValue.Value);
             
+            SoundCreator.Instance.PlayOneShot(collectSound, other.transform.position);
+            
             if (networkObject != null)
             {
                 networkObject.Despawn();
-            }
-
-            if (emitter)
-            {
-                emitter.Play();
             }
         }
     }
