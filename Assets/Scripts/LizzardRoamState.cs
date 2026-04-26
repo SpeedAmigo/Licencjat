@@ -20,12 +20,12 @@ public class LizardRoamState : State
 
     public override void Tick()
     {
-        if (_lizardScript.VcInRange.Count != 0 && _lizardScript.GetLoudestVoiceAround().Volume >= _lizardScript.noiseThreshold)
+        if (_lizardScript.VcInRange.Count != 0 && _lizardScript.GetLoudestVoiceAround().voiceVolume.Value >= _lizardScript.noiseThreshold)
         {
             stateMachine.ChangeState(new LizardRunAwayState(stateMachine, _lizardScript));
         }
 
-        if (_lizardScript.VcInRange.Count != 0 && _lizardScript.GetLoudestVoiceAround().Volume < _lizardScript.noiseThreshold)
+        if (_lizardScript.VcInRange.Count != 0 && _lizardScript.GetLoudestVoiceAround().voiceVolume.Value < _lizardScript.noiseThreshold)
         {
             stateMachine.ChangeState(new LizardAttackState(stateMachine, _lizardScript));
         }

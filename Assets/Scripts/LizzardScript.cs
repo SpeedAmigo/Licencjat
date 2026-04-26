@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FishNet.Object;
 using MetaVoiceChat;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class LizardScript : BaseEnemyScript
     [SerializeField] private StateMachine lizardStateMachine;
     
     public float noiseThreshold = 0.01f;
-    public List<MetaVc> VcInRange;
+    public List<VoiceChatController> VcInRange;
 
     public float runDistance;
 
@@ -24,21 +25,24 @@ public class LizardScript : BaseEnemyScript
         
         lizardStateMachine.ChangeState(new LizardRoamState(lizardStateMachine, this));
     }
-
-    public MetaVc GetLoudestVoiceAround()
+    
+    [Server]
+    public VoiceChatController GetLoudestVoiceAround()
     {
-        MetaVc loudestVoice = null;
-        float maxVolume = 0;
+        VoiceChatController loudestVoice = null;
+        float maxVolume = 0f;
         
         foreach (var voice in VcInRange)
         {
-            if (voice.Volume > maxVolume)
+            Debug.Log(voice.voiceVolume.Value);
+            
+            if (voice.voiceVolume.Value >= maxVolume)
             {
-                maxVolume = voice.Volume;
+                maxVolume = voice.voiceVolume.Value;
                 loudestVoice = voice;
             }
         }
-
+        
         return loudestVoice;
     }
     #region Detection Region
@@ -49,12 +53,7 @@ public class LizardScript : BaseEnemyScript
         
         if (other.CompareTag("Player"))
         {
-            MetaVc vc = other.GetComponentInChildren<MetaVc>();
-
-            if (!VcInRange.Contains(vc))
-            {
-                VcInRange.Add(vc);
-            }
+            AddVcToList(other.gameObject);
         }
     }
 
@@ -64,14 +63,36 @@ public class LizardScript : BaseEnemyScript
         
         if (other.CompareTag("Player"))
         {
-            MetaVc vc = other.GetComponentInChildren<MetaVc>();
-
-            if (VcInRange.Contains(vc))
-            {
-                VcInRange.Remove(vc);
-            }
+            RemoveVcFromList(other.gameObject);
         }
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void AddVcToList(GameObject go)
+    {
+        if (!IsServerInitialized) return;
+        
+        VoiceChatController vc = go.GetComponentInChildren<VoiceChatController>();
+
+        if (!VcInRange.Contains(vc))
+        {
+            VcInRange.Add(vc);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RemoveVcFromList(GameObject go)
+    {
+        if (!IsServerInitialized) return;
+        
+        VoiceChatController vc = go.GetComponentInChildren<VoiceChatController>();
+
+        if (VcInRange.Contains(vc))
+        {
+            VcInRange.Remove(vc);
+        }
+    }
+    
     #endregion
 }
 

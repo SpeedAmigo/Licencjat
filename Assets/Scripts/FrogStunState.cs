@@ -22,6 +22,8 @@ public class FrogStunState : State
         
         _frogScript.statusVisualizer.ShowStatusSign(CreatureStatus.Star, _duration);
         SoundCreator.Instance.PlayOneShot(_frogScript.stunSound, _frogScript.transform.position);
+        
+        _frogScript.Animator.Animator.SetBool("IsHeld", true);
         _frogScript.ai.isStopped = true;
     }
 
@@ -38,6 +40,7 @@ public class FrogStunState : State
     public override void Exit()
     {
         Debug.Log("Exiting Frog Stun State");
+        _frogScript.Animator.Animator.SetBool("IsHeld", false);
         _frogScript.ai.isStopped = false;
     }
 }

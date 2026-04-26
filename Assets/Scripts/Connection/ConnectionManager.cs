@@ -21,7 +21,7 @@ public class ConnectionManager : MonoBehaviour
     
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
             Destroy(Instance);
         }
@@ -81,6 +81,13 @@ public class ConnectionManager : MonoBehaviour
         
         AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
         op.allowSceneActivation = false;
+        
+        while (op.progress < 0.9f)
+            yield return null;
+
+        op.allowSceneActivation = true;
+
+        yield return null;
 
         if (asServer)
         {
@@ -93,12 +100,7 @@ public class ConnectionManager : MonoBehaviour
             fishySteamworks.StartConnection(false);
         }
         
-        while (op.progress < 0.9f)
-            yield return null;
-
-        op.allowSceneActivation = true;
-        
-        yield return new WaitForSeconds(0.1f);
+        //yield return new WaitForSeconds(0.1f);
         
         transitionAnimator.SetTrigger("Start");
         
