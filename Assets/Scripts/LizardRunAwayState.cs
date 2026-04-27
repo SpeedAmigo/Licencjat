@@ -55,7 +55,7 @@ public class LizardRunAwayState : State
         Vector3 direction = (_lizardScript.ai.position - player.position).normalized;
         Vector3 rawTarget = _lizardScript.ai.position + direction * runDistance;
         
-        NNInfo nearest = AstarPath.active.GetNearest(rawTarget, NNConstraint.Walkable);
+        NNInfo nearest = AstarPath.active.GetNearest(rawTarget, NearestNodeConstraint.Walkable);
 
         if (nearest.node != null && nearest.node.Walkable)
         {
