@@ -5046,7 +5046,7 @@ MonoBehaviour:
   isSpeaking:
     value: 0
   volumeDetection: 1
-  speakingThreshold: 0.01
+  speakingThreshold: 0.005
 --- !u!114 &2347253015572970425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7233,6 +7233,10 @@ MonoBehaviour:
   playerRoot: {fileID: 168651848691203663}
   micAudioInput: {fileID: 4138070105619364124}
   metaVc: {fileID: 7739362931989495178}
+  voiceVolume:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
 --- !u!1 &5162959195272417882
 GameObject:
   m_ObjectHideFlags: 0

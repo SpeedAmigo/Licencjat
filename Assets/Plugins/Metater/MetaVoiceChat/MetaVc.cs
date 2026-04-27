@@ -137,6 +137,7 @@ namespace MetaVoiceChat
                 }
                 else
                 {
+                    volume = GetVolume(samples);
                     isSpeaking = true;
                 }
             }
