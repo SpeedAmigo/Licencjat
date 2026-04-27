@@ -6,9 +6,16 @@ using FMODUnity;
 using Pathfinding;
 using UnityEngine;
 
-public class FrogScript : BaseEnemyScript
+public class FrogScript : BaseEnemyScript, IStunable
 {
     #region Variables
+    
+    [Header("Dependencies")]
+    public StateMachine frogStateMachine;
+    public CreatureStatusVisualizer statusVisualizer;
+    
+    [Header("State")]
+    public FrogState frogState;
     
     [Header("General settings")]
     public bool canWalk = true;
@@ -18,13 +25,9 @@ public class FrogScript : BaseEnemyScript
     [Header("SpitParticle")]
     [SerializeField] private ParticleSystem spitParticle;
     
-    [Header("Speed settings")]
-    [SerializeField] private float walkSpeed;
-    [SerializeField] private float runSpeed;
-    
     [Header("Run away setting")]
-    [SerializeField] private int maxPlayers;
-    [SerializeField] private float runDistance = 10f;
+    public int maxPlayers;
+    public float runDistance = 10f;
     
     [Header("PickedUp settings")]
     [AllowMutableSyncType] public SyncVar<bool> pickedUp;
@@ -36,17 +39,10 @@ public class FrogScript : BaseEnemyScript
 
     [Header("Sounds")] 
     public EventReference spitSound;
-    public EventReference waringSound;
+    public EventReference warningSound;
     public EventReference panicSound;
     public EventReference idleSound;
-    
-    private bool _running;
-
-    public bool Running
-    {
-        get => _running;
-        set => _running = value;
-    }
+    public EventReference stunSound;
     
     public AIPath AI
     {
@@ -62,74 +58,21 @@ public class FrogScript : BaseEnemyScript
         
         if (canWalk)
         {
-            ai.destination = PickRandomPoint();
+            frogStateMachine.ChangeState(new FrogRoamState(frogStateMachine, this));
         }
-    }
-
-    private void Update()
-    {
-        if (!IsServerInitialized) return; // only server runs logic
-
-        ai.maxSpeed = _running ? runSpeed : walkSpeed;
-        
-        bool canRun = canRunaway && playersInRange.Count > maxPlayers;
-        
-        if (canRun)
-        {
-            RunMethod();
-        }
-        else
-        {
-            WalkMethod();
-        }
-        
-        animator.Animator.SetFloat("Speed", ai.velocity.magnitude);
-        animator.Animator.SetBool("Running", _running);
     }
     
-    [Server]
-    private void RunMethod()
+    private void Update()
     {
-        if (pickedUp.Value) return;
+        if (!IsServerInitialized) return;
+
+        ai.maxSpeed = running ? runSpeed : walkSpeed;
         
-        _running = true;
-        CancelInvoke(nameof(SetNewPath));
-
-        var target = playersInRange[0];
-        if (target != null)
-        {
-            SetRunningPath(target.transform, runDistance);
-        }
-
-        WaitingForPath = false;
-    }
-
-    [Server]
-    private void WalkMethod()
-    {
-        if (pickedUp.Value) return;
-        
-        _running = false;
-            
-        if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath) && !WaitingForPath)
-        {
-            if (!canWalk) return;
-                
-            WaitingForPath = true;
-            Invoke(nameof(SetNewPath), 3f);
-        }
+        animator.Animator.SetFloat("Speed", ai.velocity.magnitude);
+        animator.Animator.SetBool("Running", running);
     }
     
     #region HelperMethods
-    
-    private void SetRunningPath(Transform player, float runDistance)
-    {
-        Vector3 direction = (ai.position - player.position).normalized;
-        Vector3 runTarget = ai.position + direction * runDistance;
-        runTarget.y = ai.position.y;
-        
-        ai.destination = runTarget;
-    }
     
     public void PlaySpitAnimation()
     {
@@ -155,4 +98,20 @@ public class FrogScript : BaseEnemyScript
     }
     
     #endregion
+    
+    public void SetStunned(bool stunned, float duration)
+    {
+        if (stunned)
+        {
+            frogStateMachine.ChangeState(new FrogStunState(frogStateMachine, this, duration));
+        }
+    }
+}
+
+public enum FrogState
+{
+    Roaming,
+    Running,
+    PickedUp,
+    Stunned
 }

@@ -16,7 +16,7 @@ public class ShipConsoleButton : NetworkBehaviour, IInteractable
     [SerializeField] private StudioEventEmitter emitter;
     [SerializeField] private string interactText = "Interact";
     
-    public void Interact()
+    public void Interact(PlayerRoot playerRoot)
     {
         if (!consoleScript.shipPending.Value && consoleScript.shipLanded.Value == playOnLanded)
         {
@@ -59,6 +59,7 @@ public class ShipConsoleButton : NetworkBehaviour, IInteractable
         else
         {
             SpawnerManager.Instance.RemoveSpawnedObjects();
+            SpawnerManager.Instance.RemoveSpawnedEggs();
         }
     }
 }

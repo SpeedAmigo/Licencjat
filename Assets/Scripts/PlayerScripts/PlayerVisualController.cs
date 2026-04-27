@@ -3,18 +3,21 @@ using FishNet.Object;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class PlayerVisualController : NetworkBehaviour
+public class PlayerVisualController : PlayerComponent
 {
     [GUIColor("Red")]
     [SerializeField] private GameObject[] visuals;
     [GUIColor("Red")]
     [SerializeField] private NetworkAnimator networkAnimator;
     [GUIColor("Red")]
+    [SerializeField] private Animator animator;
+    [GUIColor("Red")]
     
     private PlayerController _playerController;
     
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _playerController = GetComponent<PlayerController>();
     }
     
@@ -24,11 +27,6 @@ public class PlayerVisualController : NetworkBehaviour
         if (!IsOwner)
         {
             ChangeLayerOfVisual("Player");
-            
-            /*foreach (var visual in  visuals)
-            {
-                visual.layer = LayerMask.NameToLayer("Player");
-            }*/
         }
     }
     
@@ -45,5 +43,32 @@ public class PlayerVisualController : NetworkBehaviour
         if (!IsOwner) return;
         
         networkAnimator.Animator.SetFloat("Velocity", _playerController.animatorVelocity);
+    }
+    
+    protected override void DeathHandle()
+    {
+        base.DeathHandle();
+        
+        AnimatorHandleServer(true);
+    }
+    
+    protected override void ReviveHandle()
+    {
+        base.ReviveHandle();
+        
+        AnimatorHandleServer(false);
+    }
+    
+    [ServerRpc(RequireOwnership = true)]
+    private void AnimatorHandleServer(bool hasDied)
+    {
+        AnimatorHandleClient(hasDied);
+    }
+
+    [ObserversRpc(BufferLast = true)]
+    private void AnimatorHandleClient(bool hasDied)
+    {
+        animator.enabled = !hasDied;
+        networkAnimator.enabled = !hasDied;
     }
 }

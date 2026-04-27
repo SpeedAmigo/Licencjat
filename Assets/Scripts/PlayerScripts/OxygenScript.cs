@@ -38,21 +38,6 @@ public class OxygenScript : NetworkBehaviour
     
     #endregion
     
-    #region Getters/Setters
-    
-    public float DrainRate
-    {
-        get => drainRate.Value;
-        set
-        {
-            drainRate.Value = value;
-            OnDrainRateEvent?.Invoke(drainRate.Value);
-        }
-    }
-    public float BaseDrainRate => baseDrainRate.Value;
-    
-    #endregion
-
     #region Commands
 
     [Command("SetCurrentOxygen", "Sets the current amount of oxygen.")]
@@ -112,12 +97,27 @@ public class OxygenScript : NetworkBehaviour
     private void Start()
     {
         CommandsManager.Instance.RegisterInstance(this);
+        //RegisterCommand();
+    }
+
+    private void RegisterCommand()
+    {
+        if (!IsOwner) return;
+        
     }
 
     private void Tick()
     {
-        //if (!IsOwner) return;
         if (!_hasOxygen) return;
+        
+        if (!Mathf.Approximately(drainRate.Value, _lastDrainRate))
+        {
+            UpdateDrainRate(Owner, drainRate.Value);
+            _lastDrainRate = drainRate.Value;
+            
+            Debug.Log($"drainRate: {drainRate.Value}, LastDrainRate: {_lastDrainRate}");
+        }
+        
         if (!canDrainOxygen.Value) return;
         
         currentOxygen.Value -= drainRate.Value * (float)TimeManager.TickDelta;
@@ -128,12 +128,6 @@ public class OxygenScript : NetworkBehaviour
             currentOxygen.Value = 0;
             _hasOxygen = false;
             TargetDie(Owner);
-        }
-        
-        if (!Mathf.Approximately(drainRate.Value, _lastDrainRate))
-        {
-            UpdateDrainRate(Owner, drainRate.Value);
-            _lastDrainRate = drainRate.Value;
         }
     }
 

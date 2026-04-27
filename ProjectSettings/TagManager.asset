@@ -8,6 +8,8 @@ TagManager:
   - Ground
   - Metal
   - Frog
+  - ItemOfInterest
+  - PlayerCollider
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - PickableLayer
   - ThisPlayer
   - Oxygen
-  - 
+  - ItemOfInterest
   - 
   - 
   - 

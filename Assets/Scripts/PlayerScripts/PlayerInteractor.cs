@@ -1,8 +1,9 @@
 using System;
+using FishNet.Connection;
 using FishNet.Object;
+using Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
 
 public class PlayerInteractor : PlayerComponent
@@ -15,6 +16,12 @@ public class PlayerInteractor : PlayerComponent
     [SerializeField] private NetworkObject fpItemHolder;
     [GUIColor("Red")]
     [SerializeField] private NetworkObject tpIemHolder;
+
+    [HideInInspector] public NetworkObject itemDropTransform;
+    
+    [SerializeField] private float dropRadius = 0.25f;
+    [SerializeField] private float dropDistance = 1f;
+    [SerializeField] private float lookDownThreshold = 0.8f;
     
     [Header("Interaction Distance Settings")]
     [GUIColor("Yellow")]
@@ -102,28 +109,35 @@ public class PlayerInteractor : PlayerComponent
     
     private void DetectTarget()
     {
-        bool found = false;
+        var ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (Physics.Raycast(
-                _camera.ScreenPointToRay(Mouse.current.position.ReadValue()),
-                out _hit,
-                interactionDistance))
+        bool found = false;
+        string interactText = null;
+
+        if (Physics.Raycast(ray, out _hit, interactionDistance))
         {
-            if (_hit.collider.TryGetComponent<ObjectPickable>(out var pickable))
+            var collider = _hit.collider;
+
+            if (collider.TryGetComponent(out Item pickable))
             {
-                if (pickable == _playerInventory.currentItem.Value) return;
-                
-                OnObjectDetection?.Invoke(pickable.itemDisplayName);
-                found = true;
+                if (pickable != _playerInventory.currentItem.Value)
+                {
+                    interactText = pickable.itemDisplayName;
+                    found = true;
+                }
             }
-            else if (_hit.collider.TryGetComponent<IInteractable>(out var interactable))
+            else if (collider.TryGetComponent(out IInteractable interactable))
             {
-                OnObjectDetection?.Invoke(interactable.GetInteractText());
+                interactText = interactable.GetInteractText();
                 found = true;
             }
         }
-
-        if (!found && _hasValidTarget)
+        
+        if (found)
+        {
+            OnObjectDetection?.Invoke(interactText);
+        }
+        else if (_hasValidTarget)
         {
             OnObjectUnDetection?.Invoke();
         }
@@ -131,6 +145,8 @@ public class PlayerInteractor : PlayerComponent
         _hasValidTarget = found;
     }
 
+    #region  Mouse Left/Right actions
+        
     private void OnPrimaryPerformed(InputAction.CallbackContext context)
     {
         if (ItemIsValid() && _playerInventory.currentItem.Value is IPrimaryClick primaryClick)
@@ -193,22 +209,22 @@ public class PlayerInteractor : PlayerComponent
         }
     }
     
+    #endregion
+    
     private void OnInteraction(InputAction.CallbackContext context)
     {
         if (!IsOwner) return;
         if (!context.performed) return;
         if (!playerRoot.isAlive.Value) return;
 
-        RaycastHit hit;
-
-        if (!Physics.Raycast(_camera.ScreenPointToRay(Mouse.current.position.ReadValue()), out hit, interactionDistance)) return;
-
+        if (!Physics.Raycast(_camera.ScreenPointToRay(Mouse.current.position.ReadValue()), out var hit, interactionDistance)) return;
+        
         if (!hit.collider.TryGetComponent<NetworkObject>(out var netObj)) return;
         
-        if (netObj.TryGetComponent<ObjectPickable>(out var pickup))
+        if (netObj.TryGetComponent<Item>(out var pickup))
         {
             if (pickup == _playerInventory.currentItem.Value) return;
-            Pickup_Server(netObj, fpItemHolder, tpIemHolder);
+            Pickup_Server(netObj, fpItemHolder, tpIemHolder, Owner);
         }
         else if (netObj.TryGetComponent<IInteractable>(out var interactable))
         {
@@ -218,27 +234,76 @@ public class PlayerInteractor : PlayerComponent
 
     private void OnItemDrop(InputAction.CallbackContext context)
     {
-        if (!IsOwner) return;
-        if (!context.performed) return;
+        if (!IsOwner || !context.performed || !GlobalDropRule.CanDropItems) return;
+
+        if (IsLookingTooFarDown())
+        {
+            Debug.Log("Can't drop items while looking down");
+            return;
+        }
+
+        if (!TryGetDropPosition(out Vector3 dropPos))
+        {
+            Debug.Log("Too close to wall");
+            return;
+        }
         
-        DropItem_Server();
+        Vector3 direction = transform.forward;
+        
+        DropItem_Server(dropPos, direction);
+    }
+    
+    public bool TryGetDropPosition(out Vector3 dropPosition)
+    {
+        Vector3 origin = itemDropTransform.transform.position;
+        Vector3 direction = itemDropTransform.transform.forward;
+
+        float minAllowedDistance = dropDistance * 1;
+
+        int mask = ~LayerMask.GetMask("PickableLayer");
+
+        if (Physics.SphereCast(origin, dropRadius, direction, out RaycastHit hit, dropDistance, mask))
+        {
+            Debug.DrawLine(origin, hit.point, Color.red, 2f);
+            
+            if (hit.distance < minAllowedDistance)
+            {
+                Debug.Log(hit.collider.name);
+                dropPosition = Vector3.zero;
+                return false;
+            }
+            
+            dropPosition = hit.point - direction * dropRadius;
+            return true;
+        }
+        
+        dropPosition = origin + direction * dropDistance;
+        return true;
     }
 
+    private bool IsLookingTooFarDown()
+    {
+        Vector3 forward = itemDropTransform.transform.forward;
+        
+        float dot = Vector3.Dot(forward, Vector3.down);
+
+        return dot > lookDownThreshold;
+    }
     
     // to get rid of so much component checking
     // try to write network serializer because otherwise it won't work
     [ServerRpc(RequireOwnership = false)]
-    private void Pickup_Server(NetworkObject obj, NetworkObject fpHolder, NetworkObject tpHolder)
+    private void Pickup_Server(NetworkObject obj, NetworkObject fpHolder, NetworkObject tpHolder, NetworkConnection conn)
     {
-        if (obj != null && obj.TryGetComponent<ObjectPickable>(out var pickup))
+        if (obj != null && obj.TryGetComponent<Item>(out var pickup))
         {
             if (pickup.isBig)
             {
-                _playerInventory.AddBigItem(pickup, fpHolder, tpHolder);
+                _playerInventory.AddBigItem(pickup, fpHolder, tpHolder, conn);
             }
             else if (_playerInventory.CheckForEmptySlot() && !pickup.isBig)
             {
-                _playerInventory.AddItem(pickup, fpHolder, tpHolder);
+                _playerInventory.AddItem(pickup, fpHolder, tpHolder, conn);
             }
         }
     }
@@ -254,22 +319,22 @@ public class PlayerInteractor : PlayerComponent
     {
         if (netObj.TryGetComponent<IInteractable>(out var interactable))
         {
-            interactable.Interact();
+            interactable.Interact(playerRoot);
         }
     }
     
     [ServerRpc(RequireOwnership = true)]
-    private void DropItem_Server()
+    private void DropItem_Server(Vector3 position, Vector3 rotation)
     {
         if (_playerInventory.currentItem.Value == null) return;
 
         if (_playerInventory.currentItem.Value.isBig)
         {
-            _playerInventory.RemoveBigItem(_playerInventory.currentItem.Value);
+            _playerInventory.RemoveBigItem(_playerInventory.currentItem.Value, position, rotation);
         }
         else
         {
-            _playerInventory.RemoveItem(_playerInventory.currentItem.Value);
+            _playerInventory.RemoveItem(_playerInventory.currentItem.Value, position, rotation);
         }
     }
     
@@ -288,6 +353,26 @@ public class PlayerInteractor : PlayerComponent
         }
         
         return true;
+    }
+    
+    private void OnDrawGizmos()
+    {
+        if (itemDropTransform == null) return;
+
+        Vector3 origin = itemDropTransform.transform.position;
+        Vector3 direction = itemDropTransform.transform.forward;
+
+        // Start sphere
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(origin, dropRadius);
+
+        // End sphere
+        Vector3 end = origin + direction * dropDistance;
+        Gizmos.DrawWireSphere(end, dropRadius);
+
+        // Line between them
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(origin, end);
     }
 }
 

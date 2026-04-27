@@ -57,7 +57,7 @@ public class SpaceShipParenter : NetworkBehaviour
         if (player.currentItem.Value.TryGetComponent(out FrogScript frog))
         {
             // You can use `frog` here if needed
-            player.RemoveBigItem(player.currentItem.Value);
+            player.RemoveBigItem(player.currentItem.Value, player.playerRoot.DropPosition(),  Vector3.forward);
         }
     }
 

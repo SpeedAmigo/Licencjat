@@ -6,9 +6,11 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FMOD.Studio;
 using FMODUnity;
+using Items;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class PlayerRoot : NetworkBehaviour, IPlayer
+public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
 {
     public event Action OnReviveEvent;
     
@@ -17,13 +19,18 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
     
     [Header("Sounds")]
     [SerializeField] private EventReference getDamageSound;
+    [SerializeField] private EventReference getHealSound;
+
+    [SerializeField] private Animator animator;
     
     [HideInInspector] public OxygenScript oxygen;
     private PlayerInventoryScript _playerInventory;
+    private PlayerInteractor _playerInteractor;
     
     private Vector3 _spawnPosition;
     private Quaternion _spawnRotation;
     private EventInstance _getDamageInstance;
+    private EventInstance _getHealInstance;
     
     public override void OnStartClient()
     {
@@ -39,6 +46,7 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         }
         
         _playerInventory = gameObject.GetComponent<PlayerInventoryScript>();
+        _playerInteractor = gameObject.GetComponent<PlayerInteractor>();
 
         oxygen.OnDieEvent += Die;
         
@@ -61,41 +69,49 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
     {
         oxygen.drainRate.Value += damage;
         
-        _getDamageInstance = RuntimeManager.CreateInstance(getDamageSound);
-        _getDamageInstance.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
-        _getDamageInstance.start();
-        _getDamageInstance.release();
-
-        //TakeDamageClient(oxygen.drainRate.Value);
-    }
-
-    [ObserversRpc(BufferLast = true)]
-    private void TakeDamageClient(float value)
-    {
-        oxygen.DrainRate = value;
-    }
-
-    public void Heal(float heal)
-    {
-        oxygen.DrainRate -= heal;
-
-        if (oxygen.DrainRate < oxygen.BaseDrainRate)
+        if (oxygen.drainRate.Value < oxygen.baseDrainRate.Value)
         {
-            oxygen.DrainRate = oxygen.BaseDrainRate;
+            oxygen.drainRate.Value = oxygen.baseDrainRate.Value;
+        }
+
+        if (damage > 0)
+        {
+            SoundCreator.Instance.PlayOneShot(getDamageSound, transform.position);
+        }
+        else if (damage < 0)
+        {
+            SoundCreator.Instance.PlayOneShot(getHealSound, transform.position);
         }
     }
     
-    public void RequestItemDrop(ObjectPickable item)
+    public Vector3 DropPosition()
     {
-        _playerInventory.RequestRemoveItem(item, _playerInventory);
+        return _playerInteractor.TryGetDropPosition(out Vector3 dropPosition) ? dropPosition : transform.position;
+    }
+    
+    [TargetRpc]
+    public void StartDurationFill(NetworkConnection conn, float duration)
+    {
+        PlayerUsageManager.Instance.StartFillUsage(duration);
     }
 
+    [TargetRpc]
+    public void StopDurationFill(NetworkConnection conn)
+    {
+        PlayerUsageManager.Instance.StopFillUsage();
+    }
+    
+    public void RequestItemDrop(Item item)
+    {
+        _playerInventory.RequestRemoveItem(item, _playerInventory, DropPosition());
+    }
+    
     [ServerRpc(RequireOwnership = true)]
-    public void RequestDropInventory()
+    private void RequestDropInventory()
     {
         for (int i = _playerInventory.slots.Count - 1; i >= 0; i--)
         {
-            _playerInventory.RequestRemoveItem(_playerInventory.slots[i], _playerInventory);
+            _playerInventory.RequestRemoveItem(_playerInventory.slots[i], _playerInventory, DropPosition(), true);
         }
     }
 
@@ -104,6 +120,7 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         if (!IsOwner || !isAlive.Value) return;
         
         SetPlayerAlive(false);
+        RequestDropInventory();
         GameOverManager.Instance.ComparePlayersState();
     }
 
@@ -127,7 +144,6 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
             var playerController = GetComponent<PlayerController>();
             if (playerController) playerController.enabled = false;
             
-            //RequestDropInventory();
             transform.SetPositionAndRotation(_spawnPosition, _spawnRotation);
             
             if (playerController) playerController.enabled = true;
@@ -137,36 +153,6 @@ public class PlayerRoot : NetworkBehaviour, IPlayer
         
     }
     
-    /*[Server]
-    public void ReviveServer(NetworkConnection conn)
-    {
-        ReviveClient(conn, _spawnPosition, _spawnRotation);
-    }*/
-
-    /*[Server]
-    public void RestorePlayerOxygen(NetworkConnection conn)
-    {
-        RestoreClient(conn);   
-    }*/
-
-    /*[TargetRpc]
-    private void ReviveClient(NetworkConnection conn, Vector3 pos, Quaternion rot)
-    {
-        SetPlayerAlive(true);
-        
-        ChangeOxygenOnRevive(oxygen.maxOxygen.Value, oxygen.baseDrainRate.Value);
-        
-        transform.SetPositionAndRotation(pos, rot);
-        
-        OnReviveEvent?.Invoke();
-    }*/
-    
-    /*[TargetRpc]
-    private void RestoreClient(NetworkConnection conn)
-    {
-        ChangeOxygenOnRevive(oxygen.maxOxygen.Value, oxygen.baseDrainRate.Value);
-    }*/
-
     [ServerRpc]
     private void ChangeOxygenOnRevive(float maxOxygen, float baseDrainRate)
     {

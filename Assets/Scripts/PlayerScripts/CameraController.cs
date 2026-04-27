@@ -155,7 +155,7 @@ public class CameraController : PlayerComponent
         _pitch = Mathf.Clamp(_pitch, minPitch, maxPitch);
         
         cameraHolder.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
-        armatureHolder.localRotation = Quaternion.Euler(-_pitch, 0f, 0f);
+        armatureHolder.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
     }
     
     private void HandleSwitch(InputAction.CallbackContext context)
