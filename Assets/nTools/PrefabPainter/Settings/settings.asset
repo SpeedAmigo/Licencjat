@@ -17,8 +17,8 @@ MonoBehaviour:
     brushes:
     - name: PF_01_Grass
       settings:
-        brushRadius: 2.04
-        brushSpacing: 0.8
+        brushRadius: 5.5
+        brushSpacing: 3.07
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
         brushOverlapCheckObjects: 1
@@ -36,7 +36,7 @@ MonoBehaviour:
         scaleTransformMode: 0
         scaleMode: 0
         scaleUniformMin: 1
-        scaleUniformMax: 1
+        scaleUniformMax: 1.5
         scalePerAxisMin: {x: 1, y: 1, z: 1}
         scalePerAxisMax: {x: 1, y: 1, z: 1}
         pinFixedRotation: 0
@@ -332,8 +332,8 @@ MonoBehaviour:
       customPreviewImage: {fileID: 0}
     - name: PF_Tall_Grass
       settings:
-        brushRadius: 1
-        brushSpacing: 0.5
+        brushRadius: 7.7
+        brushSpacing: 1.66
         brushOverlapCheckMode: 0
         brushOverlapDistance: 0.5
         brushOverlapCheckObjects: 1
@@ -351,7 +351,7 @@ MonoBehaviour:
         scaleTransformMode: 0
         scaleMode: 0
         scaleUniformMin: 1
-        scaleUniformMax: 1
+        scaleUniformMax: 1.5
         scalePerAxisMin: {x: 1, y: 1, z: 1}
         scalePerAxisMax: {x: 1, y: 1, z: 1}
         pinFixedRotation: 0
@@ -642,7 +642,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 0
+      selected: 1
       colorTag: 0
       customPreviewImage: {fileID: 0}
     - name: PF_Rock_3_S
@@ -957,7 +957,7 @@ MonoBehaviour:
       - gameObject: {fileID: 0}
       - gameObject: {fileID: 0}
       selectedSlot: 0
-      selected: 1
+      selected: 0
       colorTag: 0
       customPreviewImage: {fileID: 0}
     levelsGamma: 1
