@@ -92,13 +92,13 @@ public class ShopUIScript : NetworkBehaviour
         moneyText.text = moneyValue.ToString();
     }
 
-    private void OnUpdateBasketUI(Dictionary<string, uint> basketItems)
+    private void OnUpdateBasketUI(List<string> basketItems)
     {
         OnUpdateBasketUIObservers(basketItems);
     }
     
     [ObserversRpc(BufferLast = true)]
-    private void OnUpdateBasketUIObservers(Dictionary<string, uint> basketItems)
+    private void OnUpdateBasketUIObservers(List<string> basketItems)
     {
         foreach (var basketTemplate in basketTemplates)
         {
@@ -111,18 +111,16 @@ public class ShopUIScript : NetworkBehaviour
         {
             if (i >= basketTemplates.Length) break;
 
-            var itemData = ShopManagerScript.Instance.GetItemById(basketItem.Key);
+            var itemData = ShopManagerScript.Instance.GetItemById(basketItem);
             
             if (itemData == null)
             {
-                Debug.LogWarning($"Missing item for id {basketItem.Key}");
+                Debug.LogWarning($"Missing item for id {basketItem}");
                 continue;
             }
             
-            string amount = basketItem.Value.ToString();
-            
             basketTemplates[i].gameObject.SetActive(true);
-            basketTemplates[i].CardSetup(itemData, amount);
+            basketTemplates[i].CardSetup(itemData);
 
             i++;
         }

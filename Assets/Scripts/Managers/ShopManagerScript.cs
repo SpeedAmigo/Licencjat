@@ -12,7 +12,7 @@ public class ShopManagerScript : NetworkBehaviour
     public static ShopManagerScript Instance;
 
     public static event Action<uint> MoneyChanged;
-    public static event Action<Dictionary<string, uint>> BasketChanged;
+    public static event Action<List<string>> BasketChanged;
     
     [AllowMutableSyncType] public SyncVar<uint> currentMoney;
     
@@ -23,7 +23,7 @@ public class ShopManagerScript : NetworkBehaviour
     [SerializeField] private int maxBasketItems = 4;
     [SerializeField] private float spawnRate = 1f;
     
-    private Dictionary<string, uint> basketItems = new();
+    private List<string> basketItems = new();
     private int basketValue = 0;
     
     private Coroutine basketCoroutine;
@@ -62,27 +62,23 @@ public class ShopManagerScript : NetworkBehaviour
         if (!CanBuyItem(basketValue)) return;
 
         TakeMoney((uint)basketValue);
-        basketCoroutine = StartCoroutine(ItemSpawnCoroutine(basketItems));
+        basketCoroutine = StartCoroutine(ItemSpawnCoroutine(new List<string>(basketItems)));
     }
 
-    private IEnumerator ItemSpawnCoroutine(Dictionary<string, uint> basket)
+    private IEnumerator ItemSpawnCoroutine(List<string> basket)
     {
         foreach (var item in basket)
         {
-            var pickedItem = GetItemById(item.Key);
+            var pickedItem = GetItemById(item);
 
             if (pickedItem == null)
             {
-                Debug.LogWarning($"Couldn't find item with id {item.Key}");
+                Debug.LogWarning($"Couldn't find item with id {item}");
                 continue;
             }
-
-            for (int i = 0; i < item.Value; i++)
-            {
-                Debug.Log($"item quantity {item.Value}");
-                yield return new WaitForSeconds(spawnRate);
-                SpawnItem(pickedItem.itemPrefab, spawnLocation);
-            }
+            
+            yield return new WaitForSeconds(spawnRate);
+            SpawnItem(pickedItem.itemPrefab, spawnLocation);
         }
         
         basketItems.Clear();
@@ -103,13 +99,8 @@ public class ShopManagerScript : NetworkBehaviour
             Debug.LogWarning($"Couldn't find item with id {itemId}");
             return;
         }
-
-        if (!basketItems.ContainsKey(itemId))
-        {
-            basketItems[itemId] = 0;
-        }
         
-        basketItems[itemId]++;
+        basketItems.Add(itemId);
         basketValue += pickedItem.itemPrice;
         
         BasketChanged?.Invoke(basketItems);
@@ -120,19 +111,10 @@ public class ShopManagerScript : NetworkBehaviour
     {
         var pickedItem = GetItemById(itemId);
 
-        if (basketItems.ContainsKey(itemId))
+        if (basketItems.Contains(itemId))
         {
-            basketItems.TryGetValue(itemId, out var value);
-            if (value > 1)
-            {
-                basketItems[itemId]--;
-                basketValue -= pickedItem.itemPrice;
-            }
-            else
-            {
-                basketItems.Remove(itemId);
-                basketValue -= pickedItem.itemPrice;
-            }
+            basketItems.Remove(itemId);
+            basketValue -= pickedItem.itemPrice;
         } 
         
         BasketChanged?.Invoke(basketItems);
@@ -179,13 +161,6 @@ public class ShopManagerScript : NetworkBehaviour
 
     private int GetTotalBasketItemCount()
     {
-        int total = 0;
-
-        foreach (var item in basketItems)
-        {
-            total += (int)item.Value;
-        }
-        
-        return total;
+        return basketItems.Count;
     }
 }

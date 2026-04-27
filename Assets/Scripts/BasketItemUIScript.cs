@@ -1,11 +1,11 @@
 using FishNet.Object;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BasketItemUIScript : NetworkBehaviour
 {
-    [SerializeField] private TMP_Text nameText;
-    [SerializeField] private TMP_Text quantityText;
+    [SerializeField] private Image image;
     
     public override void OnStartClient()
     {
@@ -13,11 +13,10 @@ public class BasketItemUIScript : NetworkBehaviour
         gameObject.SetActive(false);
     }
 
-    public void CardSetup(ShopItemData itemData, string amount)
+    public void CardSetup(ShopItemData itemData)
     {
         gameObject.SetActive(true);
-        
-        nameText.text = itemData.itemName;
-        quantityText.text = amount;
+
+        image.sprite = itemData.itemIcon;
     }
 }
