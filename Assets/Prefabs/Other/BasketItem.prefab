@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3001174920092955750}
   - component: {fileID: 3626112164785519333}
   - component: {fileID: 1820102992940521454}
+  - component: {fileID: 2443606967331820989}
   m_Layer: 0
   m_Name: BasketItem
   m_TagString: Untagged
@@ -50,10 +51,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c709f85dbfe3a47a00059ec2209fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1820102992940521454}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 1820102992940521454}
+  interactionText: Remove
   image: {fileID: 8455208105874587124}
+  removeSound:
+    Guid:
+      Data1: 442911885
+      Data2: 1120291262
+      Data3: -1806188359
+      Data4: 96783234
+    Path: event:/ShopItemRemove
+  _itemID: 
 --- !u!114 &1820102992940521454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,7 +82,8 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
-  NetworkBehaviours: []
+  NetworkBehaviours:
+  - {fileID: 3626112164785519333}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -97,15 +108,36 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 65535
+  <PrefabId>k__BackingField: 26
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 14867664206214794569
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    Scale: {x: 0, y: 0, z: 0}
-    IsValid: 0
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    Scale: {x: 1, y: 1, z: 1}
+    IsValid: 1
+--- !u!65 &2443606967331820989
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5081495570180597741}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5134347758061743351
 GameObject:
   m_ObjectHideFlags: 0
