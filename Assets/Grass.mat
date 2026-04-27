@@ -54,6 +54,7 @@ Material:
     - _WindSpeed: 0.17
     - _WindStrength: 0.5
     m_Colors:
+    - _GrassColor: {r: 0.9245283, g: 0.5915933, b: 0.46662515, a: 1}
     - _WindDirection: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _WindDirection3: {r: 0.5, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
