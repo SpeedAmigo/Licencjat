@@ -5,6 +5,7 @@ using Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder.Shapes;
 
 public class PlayerInteractor : PlayerComponent
 {
@@ -22,6 +23,8 @@ public class PlayerInteractor : PlayerComponent
     [SerializeField] private float dropRadius = 0.25f;
     [SerializeField] private float dropDistance = 1f;
     [SerializeField] private float lookDownThreshold = 0.8f;
+    
+    [SerializeField] private GameObject crossIndicator;
     
     [Header("Interaction Distance Settings")]
     [GUIColor("Yellow")]
@@ -238,13 +241,13 @@ public class PlayerInteractor : PlayerComponent
 
         if (IsLookingTooFarDown())
         {
-            Debug.Log("Can't drop items while looking down");
+            MessageShowerScript.Instance.ShowMessage("Can't drop looking too far down", 1f);
             return;
         }
 
         if (!TryGetDropPosition(out Vector3 dropPos))
         {
-            Debug.Log("Too close to wall");
+            MessageShowerScript.Instance.ShowMessage("Too close to obstacle", 1f);
             return;
         }
         
@@ -268,7 +271,7 @@ public class PlayerInteractor : PlayerComponent
             
             if (hit.distance < minAllowedDistance)
             {
-                Debug.Log(hit.collider.name);
+                Instantiate(crossIndicator, hit.point, Quaternion.LookRotation(hit.normal));
                 dropPosition = Vector3.zero;
                 return false;
             }
