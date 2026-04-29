@@ -18,13 +18,28 @@ public class LizardScript : BaseEnemyScript
     public float runDistance;
 
     public float attackDistance;
+
+    [HideInInspector] public int attackLayer;
     
     public override void OnStartServer()
     {
         base.OnStartServer();
+
+        attackLayer = animator.Animator.GetLayerIndex("Attack");
         
         lizardStateMachine.ChangeState(new LizardRoamState(lizardStateMachine, this));
     }
+
+    private void Update()
+    {
+        if (!IsServerInitialized) return;
+        
+        /*float normalizedSpeed = ai.velocity.magnitude / ai.maxSpeed;
+        normalizedSpeed = Mathf.Clamp01(normalizedSpeed);
+        
+        animator.Animator.SetFloat("Speed", normalizedSpeed);*/
+    }
+    
     
     [Server]
     public VoiceChatController GetLoudestVoiceAround()
@@ -34,8 +49,6 @@ public class LizardScript : BaseEnemyScript
         
         foreach (var voice in VcInRange)
         {
-            Debug.Log(voice.voiceVolume.Value);
-            
             if (voice.voiceVolume.Value >= maxVolume)
             {
                 maxVolume = voice.voiceVolume.Value;
