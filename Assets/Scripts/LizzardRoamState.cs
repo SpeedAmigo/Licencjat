@@ -24,12 +24,14 @@ public class LizardRoamState : State
     {
         if (_lizardScript.VcInRange.Count != 0 && _lizardScript.GetLoudestVoiceAround().voiceVolume.Value >= _lizardScript.noiseThreshold)
         {
-            stateMachine.ChangeState(new LizardRunAwayState(stateMachine, _lizardScript));
-        }
-
-        if (_lizardScript.VcInRange.Count != 0 && _lizardScript.GetLoudestVoiceAround().voiceVolume.Value < _lizardScript.noiseThreshold)
-        {
-            stateMachine.ChangeState(new LizardAttackState(stateMachine, _lizardScript));
+            if (_lizardScript.lizardSetting == LizardSetting.Attacker)
+            {
+                stateMachine.ChangeState(new LizardAttackState(stateMachine, _lizardScript));
+            }
+            else if (_lizardScript.lizardSetting == LizardSetting.Runner)
+            {
+                stateMachine.ChangeState(new LizardRunAwayState(stateMachine, _lizardScript));
+            }
         }
         
         Roam();

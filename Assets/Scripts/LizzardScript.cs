@@ -12,6 +12,8 @@ public class LizardScript : BaseEnemyScript
     
     [Header("Dependencies")]
     [SerializeField] private StateMachine lizardStateMachine;
+
+    public LizardSetting lizardSetting;
     
     public float noiseThreshold = 0.01f;
     public List<VoiceChatController> VcInRange;
@@ -147,4 +149,10 @@ public enum LizardState
     RunningAway,
     MoveToAttack,
     Attack
+}
+
+public enum LizardSetting
+{
+    Attacker,
+    Runner
 }
