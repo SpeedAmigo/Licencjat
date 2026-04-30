@@ -143,7 +143,7 @@ public class BaseEnemyScript : NetworkBehaviour
         
         StartCoroutine(ChangeSpeedCoroutine(newSpeed, duration));
     }
-
+    
     public bool ReachedDestination()
     {
         return ai.reachedDestination && ai.reachedEndOfPath && !waitingForPath;

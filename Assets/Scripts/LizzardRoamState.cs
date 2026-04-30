@@ -16,7 +16,8 @@ public class LizardRoamState : State
         _lizardScript.lizardState = LizardState.Roam;
         _lizardScript.ChangeSpeed(_lizardScript.walkSpeed, 0.5f);
         _lizardScript.SetNewPath();
-        _lizardScript.Animator.Animator.SetLayerWeight(_lizardScript.attackLayer, 0f);
+        
+        _lizardScript.ChangeLayerWeight(_lizardScript.attackLayer, 0f, 0.2f);
     }
 
     public override void Tick()

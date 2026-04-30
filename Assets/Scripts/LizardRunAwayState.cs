@@ -16,8 +16,8 @@ public class LizardRunAwayState : State
         Debug.Log("Entered LizardRunAwayState");
         _lizardScript.lizardState = LizardState.RunningAway;
         _lizardScript.ChangeSpeed(_lizardScript.runSpeed, 0.5f);
-        _lizardScript.Animator.Animator.SetLayerWeight(_lizardScript.attackLayer, 1f);
-        _lizardScript.Animator.Animator.SetFloat("Attack", 0f, 0.1f, Time.deltaTime);
+        _lizardScript.ChangeLayerWeight(_lizardScript.attackLayer, 1f, 0.2f);
+        _lizardScript.Animator.Animator.SetFloat("Attack", 0f);
         RunMethod();
     }
 
