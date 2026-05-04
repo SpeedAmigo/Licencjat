@@ -42,7 +42,6 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
             
             _spawnPosition = transform.position;
             _spawnRotation = transform.rotation;
-            Debug.Log(_spawnPosition);
         }
         
         _playerInventory = gameObject.GetComponent<PlayerInventoryScript>();

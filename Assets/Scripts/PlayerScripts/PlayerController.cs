@@ -229,4 +229,14 @@ public class PlayerController : PlayerComponent
         if (Mathf.Abs(animatorVelocity) < 0.01f)
             animatorVelocity = 0f;
     }
+
+    protected override void DeathHandle()
+    {
+        _controller.detectCollisions = false;
+    }
+
+    protected override void ReviveHandle()
+    {
+        _controller.detectCollisions = true;
+    }
 }

@@ -24,17 +24,32 @@ public class PlayerVisualController : PlayerComponent
     public override void OnStartClient()
     {
         base.OnStartClient();
+        
         if (!IsOwner)
         {
-            ChangeLayerOfVisual("Player");
+            ChangeVisualRender(true);
+        }
+        else
+        {
+            ChangeVisualRender(false);
         }
     }
     
-    public void ChangeLayerOfVisual(string layerName)
+    public void ChangeVisualRender(bool visible)
     {
         foreach (var visual in  visuals)
         {
-            visual.layer = LayerMask.NameToLayer(layerName);
+            Renderer renderer = visual.GetComponent<Renderer>();
+
+            if (renderer == null)
+            {
+                Debug.LogWarning($"Visual {visual.name} has no renderer");
+                continue;
+            }
+            
+            renderer.shadowCastingMode = visible ? UnityEngine.Rendering.ShadowCastingMode.On : UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+            
+            //visual.layer = LayerMask.NameToLayer(layerName);
         }
     }
 

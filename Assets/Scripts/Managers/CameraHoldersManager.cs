@@ -98,11 +98,11 @@ public class CameraHoldersManager : NetworkBehaviour
         {
             if (i == _currentIndex)
             {
-                cameraStructs[i].VisualController.ChangeLayerOfVisual("ThisPlayer");
+                cameraStructs[i].VisualController.ChangeVisualRender(false);
             }
             else
             {
-                cameraStructs[i].VisualController.ChangeLayerOfVisual("Player");
+                cameraStructs[i].VisualController.ChangeVisualRender(true);
             }
         }
     }
@@ -130,11 +130,11 @@ public class CameraHoldersManager : NetworkBehaviour
         {
             if (i == _originalHolderIndex)
             {
-                cameraStructs[i].VisualController.ChangeLayerOfVisual("ThisPlayer");
+                cameraStructs[i].VisualController.ChangeVisualRender(false);
             }
             else
             {
-                cameraStructs[i].VisualController.ChangeLayerOfVisual("Player");
+                cameraStructs[i].VisualController.ChangeVisualRender(true);
             }
         }
     }

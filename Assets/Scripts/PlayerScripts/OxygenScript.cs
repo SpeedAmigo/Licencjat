@@ -115,7 +115,7 @@ public class OxygenScript : NetworkBehaviour
             UpdateDrainRate(Owner, drainRate.Value);
             _lastDrainRate = drainRate.Value;
             
-            Debug.Log($"drainRate: {drainRate.Value}, LastDrainRate: {_lastDrainRate}");
+            //Debug.Log($"drainRate: {drainRate.Value}, LastDrainRate: {_lastDrainRate}");
         }
         
         if (!canDrainOxygen.Value) return;
