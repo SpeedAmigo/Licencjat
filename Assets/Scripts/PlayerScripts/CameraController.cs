@@ -86,6 +86,7 @@ public class CameraController : PlayerComponent
         _inputSystem.Player.Move.performed += HandleSwitch;
 
         UIConsoleScript.OnConsoleOpen += HandleInput;
+        playerRoot.StunEvent += OnStunHandle;
     }
 
     private void HandleInput(bool obj)
@@ -108,6 +109,8 @@ public class CameraController : PlayerComponent
         _inputSystem.Player.Look.performed -= OnLook;
         _inputSystem.Player.Look.canceled -= OnLookCancelled;
         _inputSystem.Player.Move.performed -= HandleSwitch;
+
+        playerRoot.StunEvent -= OnStunHandle;
     }
     
     private void OnDestroy()
@@ -171,6 +174,20 @@ public class CameraController : PlayerComponent
         else if (input.x < 0)
         {
             CameraHoldersManager.Instance.SwitchDown();
+        }
+    }
+
+    private void OnStunHandle(bool stunned, float duration)
+    {
+        if (!IsOwner) return;
+        
+        if (stunned)
+        {
+            _inputSystem.Disable();
+        }
+        else
+        {
+            _inputSystem.Enable();
         }
     }
 

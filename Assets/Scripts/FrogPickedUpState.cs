@@ -50,7 +50,7 @@ public class FrogPickedUpState : State
                 
             if (_frogPickScript.playerRoot && _frogPickScript.playerEffectHandler)
             {
-                _frogPickScript.playerEffectHandler.ApplyEffect(_frogScript.damageEffect);
+                _frogPickScript.playerEffectHandler.ApplyEffects(_frogScript.damageEffects);
                 _frogPickScript.playerRoot.RequestItemDrop(_frogPickScript);
             }
             else

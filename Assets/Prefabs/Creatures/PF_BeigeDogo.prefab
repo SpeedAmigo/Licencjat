@@ -1705,7 +1705,9 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 212815399066512759}
   animator: {fileID: 4784140771492813495}
   rangeDetector: {fileID: 4738830213669662014}
-  damageEffect: {fileID: 11400000, guid: 8ea60735f1ab5c94c8947905b009d0f6, type: 2}
+  damageEffects:
+  - {fileID: 11400000, guid: 3ff7d494f8a228a40843c06a4e735a4d, type: 2}
+  - {fileID: 11400000, guid: 7e9e0de2630a8b2498b8575e62873569, type: 2}
   walkSpeed: 3
   runSpeed: 6
   playersInRange:
@@ -1723,7 +1725,7 @@ MonoBehaviour:
   targetPlayer: {fileID: 0}
   agroTime: 5
   agroTimer: 0
-  attackTimer: 1
+  attackTimer: 5
   idleSoundTimer: 5
   stopDistance: 2
   agroDistance: 5

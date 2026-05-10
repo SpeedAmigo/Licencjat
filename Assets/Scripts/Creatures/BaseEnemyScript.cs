@@ -18,7 +18,7 @@ public class BaseEnemyScript : NetworkBehaviour
     public NetworkAnimator Animator => animator;
 
     [Header("Damage settings")] 
-    public StatusEffect damageEffect;
+    public StatusEffect[] damageEffects;
     
     [Header("Speed settings")]
     public float walkSpeed;

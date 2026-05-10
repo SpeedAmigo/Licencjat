@@ -113,8 +113,9 @@ public class PlayerController : PlayerComponent
         _inputSystem.Player.Jump.performed += OnJump;
 
         UIConsoleScript.OnConsoleOpen += HandleInput;
+        playerRoot.StunEvent += OnStunHandle;
     }
-
+    
     private void HandleInput(bool obj)
     {
         if (!obj)
@@ -228,6 +229,20 @@ public class PlayerController : PlayerComponent
         
         if (Mathf.Abs(animatorVelocity) < 0.01f)
             animatorVelocity = 0f;
+    }
+    
+    private void OnStunHandle(bool stunned, float duration)
+    {
+        if (!IsOwner) return;
+
+        if (stunned)
+        {
+            _inputSystem.Disable();
+        }
+        else
+        {
+            _inputSystem.Enable();
+        }
     }
 
     protected override void DeathHandle()
