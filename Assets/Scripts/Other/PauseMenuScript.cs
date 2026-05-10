@@ -11,6 +11,7 @@ public class PauseMenuScript : NetworkBehaviour
 {
     [Header("Pause Menu Screen Dependencies")]
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject settingsMenu;
     [SerializeField] private CameraController cameraController;
     [SerializeField] private Button invitationButton;
     [SerializeField] private GameObject[] uiToHide;
@@ -60,6 +61,11 @@ public class PauseMenuScript : NetworkBehaviour
     {
         pauseMenu.SetActive(value);
 
+        if (settingsMenu.activeInHierarchy)
+        {
+            settingsMenu.SetActive(false);
+        }
+        
         foreach (var ui in uiToHide)
         {
             ui.SetActive(!value);
