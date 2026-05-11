@@ -355,9 +355,9 @@ MonoBehaviour:
   _componentIndexCache: 2
   _addedNetworkObject: {fileID: 2728572776336246488}
   _networkObjectCache: {fileID: 2728572776336246488}
-  canPickValueOnStart: 0
+  canPickValueOnStart: 1
   minMaxBuyValue: {x: 0, y: 0}
-  minMaxSellValue: {x: 0, y: 0}
+  minMaxSellValue: {x: 10, y: 15}
   actualBuyValue:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}

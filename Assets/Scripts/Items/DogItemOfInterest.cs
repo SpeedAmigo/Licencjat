@@ -4,7 +4,7 @@ using FishNet.Object;
 using Items;
 using UnityEngine;
 
-public class DogItemOfInterest : Item
+public class DogItemOfInterest : SellableItem
 {
     public event Action<NetworkObject> HoldingPlayer;
     
