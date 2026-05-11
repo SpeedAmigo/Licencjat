@@ -22,12 +22,14 @@ public class PlayerVisualController : PlayerComponent
     protected override void OnEnable()
     {
         base.OnEnable();
+        if (playerRoot == null) return;
         playerRoot.StunEvent += OnStunHandle;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
+        if (playerRoot == null) return;
         playerRoot.StunEvent -= OnStunHandle;
     }
     

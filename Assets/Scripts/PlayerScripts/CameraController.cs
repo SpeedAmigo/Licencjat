@@ -86,6 +86,8 @@ public class CameraController : PlayerComponent
         _inputSystem.Player.Move.performed += HandleSwitch;
 
         UIConsoleScript.OnConsoleOpen += HandleInput;
+
+        if (playerRoot == null) return;
         playerRoot.StunEvent += OnStunHandle;
     }
 
@@ -110,6 +112,7 @@ public class CameraController : PlayerComponent
         _inputSystem.Player.Look.canceled -= OnLookCancelled;
         _inputSystem.Player.Move.performed -= HandleSwitch;
 
+        if (playerRoot == null) return;
         playerRoot.StunEvent -= OnStunHandle;
     }
     
