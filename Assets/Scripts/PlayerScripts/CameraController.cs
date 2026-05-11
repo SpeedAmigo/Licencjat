@@ -180,6 +180,8 @@ public class CameraController : PlayerComponent
         }
     }
 
+    [SerializeField] private GameObject stunHolder;
+
     private void OnStunHandle(bool stunned, float duration)
     {
         if (!IsOwner) return;
@@ -187,10 +189,15 @@ public class CameraController : PlayerComponent
         if (stunned)
         {
             _inputSystem.Disable();
+            _playerCamera.transform.SetParent(stunHolder.transform);
         }
         else
         {
             _inputSystem.Enable();
+            _playerCamera.transform.SetParent(cameraHolder);
+            _playerCamera.transform.localPosition = Vector3.zero;
+            _playerCamera.transform.localRotation = Quaternion.identity;
+            
         }
     }
 

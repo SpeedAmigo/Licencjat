@@ -3608,6 +3608,10 @@ MonoBehaviour:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
     _value: 0
+  state:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
   getDamageSound:
     Guid:
       Data1: 1441944087
@@ -3680,6 +3684,7 @@ MonoBehaviour:
   - {fileID: 1325505856954297119}
   networkAnimator: {fileID: 7925093943019926546}
   animator: {fileID: 2662647078147688195}
+  getUpDuration: 2.56
 --- !u!114 &2459391089458958510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3702,6 +3707,7 @@ MonoBehaviour:
   cameraHolder: {fileID: 7228203977517142040}
   armatureHolder: {fileID: 8537600462703340557}
   playerCameraPrefab: {fileID: 5701870856271494237, guid: 7dca9d62b6453144abb2adbf3bbe2bb4, type: 3}
+  stunHolder: {fileID: 7120575108644387365}
 --- !u!114 &406374491888023367
 MonoBehaviour:
   m_ObjectHideFlags: 0
