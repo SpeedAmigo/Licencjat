@@ -1,3 +1,5 @@
+using System;
+using System.Timers;
 using FishNet.Object;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -19,6 +21,30 @@ public class CameraController : PlayerComponent
     [SerializeField] private Transform armatureHolder;
     [GUIColor("Red")]
     [SerializeField] private GameObject playerCameraPrefab;
+    
+    [Header("Head Bob settings")]
+    [SerializeField] private bool headBobEnabled = true;
+    [SerializeField] private float walkToggleSpeed = 5f;
+    [SerializeField] private float sprintToggleSpeed = 8f;
+
+    [Header("Walk Headbob settings")]
+    [SerializeField] private float walkAmplitude = 0.015f;
+    [SerializeField] private float walkFrequency = 10f;
+    
+    [Header("Sprint Headbob settings")]
+    [SerializeField] private float sprintAmplitude = 0.015f;
+    [SerializeField] private float sprintFrequency = 10f;
+
+    private float _currentAmplitude;
+    private float _currentFrequency;
+
+    private float _targetAmplitude;
+    private float _targetFrequency;
+    
+    private float _bobTimer;
+    
+    private Vector3 _startPosition;
+    private CharacterController _characterController;
     
     private InputSystem_Actions _inputSystem;
     private Camera _playerCamera;
@@ -43,6 +69,7 @@ public class CameraController : PlayerComponent
                 _playerCamera.transform.localRotation = Quaternion.identity;
             }
             
+            _startPosition = _playerCamera.transform.localPosition;
             _originalCameraHolder = cameraHolder;
         }
         else
@@ -73,7 +100,9 @@ public class CameraController : PlayerComponent
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         
-        //_playerRoot = GetComponent<PlayerRoot>();
+        _characterController = GetComponent<CharacterController>();
+        
+        SettingsScript.headBobSetting += HandleHeadBob;
     }
     
     protected override void OnEnable()
@@ -89,6 +118,50 @@ public class CameraController : PlayerComponent
 
         if (playerRoot == null) return;
         playerRoot.StunEvent += OnStunHandle;
+    }
+    
+    private void CheckMotion()
+    {
+        float speed = new Vector3(_characterController.velocity.x, 0, _characterController.velocity.z).magnitude;
+        
+        if (speed < walkToggleSpeed || !_characterController.isGrounded)
+        {
+            ResetPosition(6f);
+            return;
+        }
+        
+        bool isSprinting = speed >= sprintToggleSpeed;
+
+        _targetAmplitude = isSprinting ? sprintAmplitude : walkAmplitude;
+        _targetFrequency = isSprinting ? sprintFrequency : walkFrequency;
+        
+        _currentAmplitude = Mathf.Lerp(_currentAmplitude, _targetAmplitude , Time.deltaTime * 6f);
+        _currentFrequency = Mathf.Lerp(_currentFrequency, _targetFrequency , Time.deltaTime * 6f);
+        
+        Vector3 motion = FootStepMotion();
+        _playerCamera.transform.localPosition = _startPosition + motion;
+    }
+    
+    private Vector3 FootStepMotion()
+    {
+        _bobTimer += Time.deltaTime * _currentFrequency;
+        
+        Vector3 pos = Vector3.zero;
+        
+        pos.y += Mathf.Sin(_bobTimer) * _currentAmplitude;
+        pos.x += Mathf.Sin(_bobTimer * 0.5f) * _currentAmplitude * 2;
+        
+        return pos;
+    }
+
+    private void ResetPosition(float time)
+    {
+        _playerCamera.transform.localPosition = Vector3.Lerp(_playerCamera.transform.localPosition, _startPosition, Time.deltaTime * time);
+    }
+    
+    private void HandleHeadBob(bool value)
+    {
+        headBobEnabled = value;
     }
 
     private void HandleInput(bool obj)
@@ -118,6 +191,9 @@ public class CameraController : PlayerComponent
     
     private void OnDestroy()
     {
+        if (!IsOwner) return;
+        SettingsScript.headBobSetting -= HandleHeadBob;
+        
         /*if (CameraHoldersManager.Instance != null)
         {
             CameraHoldersManager.Instance.UnregisterCameraHolder(new CameraStruct(cameraHolder, gameObject.GetComponent<PlayerVisualController>(), OwnerId));
@@ -140,6 +216,10 @@ public class CameraController : PlayerComponent
         if (playerRoot.isAlive.Value)
         {
             RotationHandler();
+            if (headBobEnabled)
+            {
+                CheckMotion();
+            }
         }
     }
 
@@ -181,6 +261,7 @@ public class CameraController : PlayerComponent
     }
 
     [SerializeField] private GameObject stunHolder;
+    private bool _cameraStunned;
 
     private void OnStunHandle(bool stunned, float duration)
     {
@@ -188,11 +269,19 @@ public class CameraController : PlayerComponent
         
         if (stunned)
         {
+            headBobEnabled = false;
+            ResetPosition(0f);
+            
             _inputSystem.Disable();
             _playerCamera.transform.SetParent(stunHolder.transform);
         }
         else
         {
+            if (SettingsScript.Instance.headBobEnabled)
+            {
+                headBobEnabled = true;    
+            }
+            
             _inputSystem.Enable();
             _playerCamera.transform.SetParent(cameraHolder);
             _playerCamera.transform.localPosition = Vector3.zero;
