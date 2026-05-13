@@ -206,7 +206,8 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1820102992940521454}
   _networkObjectCache: {fileID: 1820102992940521454}
-  interactionText: Remove
+  interactText: Remove
+  rend: {fileID: 0}
   image: {fileID: 8455208105874587124}
   removeSound:
     Guid:

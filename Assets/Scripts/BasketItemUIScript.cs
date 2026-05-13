@@ -4,9 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BasketItemUIScript : NetworkBehaviour, IInteractable
+public class BasketItemUIScript : BaseInteractable
 {
-    [SerializeField] private string interactionText;
     [SerializeField] private Image image;
 
     [Header("Sounds")]
@@ -29,16 +28,11 @@ public class BasketItemUIScript : NetworkBehaviour, IInteractable
         image.sprite = itemData.itemIcon;
     }
 
-    public void Interact(PlayerRoot playerRoot)
+    public override void Interact(PlayerRoot playerRoot)
     {
         if (!ShopManagerScript.Instance || !IsController) return;
         
         ShopManagerScript.Instance.RemoveItemFromBasket(_itemID);
         SoundCreator.Instance.PlayOneShotAttached(removeSound, gameObject);
-    }
-
-    public string GetInteractText()
-    {
-        return interactionText;
     }
 }

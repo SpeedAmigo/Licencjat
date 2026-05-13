@@ -3854,6 +3854,8 @@ MonoBehaviour:
   lookDownThreshold: 0.8
   crossIndicator: {fileID: 748945255284656787, guid: 540ee13620b8fb74eadd6285265f15bb, type: 3}
   interactionDistance: 5
+  interactionColor: {r: 1, g: 1, b: 1, a: 0}
+  defaultColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &3194473695973104354
 MonoBehaviour:
   m_ObjectHideFlags: 0

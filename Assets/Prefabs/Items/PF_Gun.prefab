@@ -315,6 +315,7 @@ MonoBehaviour:
   objectsToChangeLayer:
   - {fileID: 9064307702594147723}
   - {fileID: 4853442188834254034}
+  rend: {fileID: 2941217560787768911}
   offset: {fileID: 0}
   dropForce: 5
   isBig: 0

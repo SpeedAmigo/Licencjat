@@ -25,6 +25,9 @@ public abstract class ObjectPickable : NetworkBehaviour
     [GUIColor("Yellow")]
     public GameObject[] objectsToChangeLayer;
     
+    [SerializeField] protected Renderer rend;
+    protected MaterialPropertyBlock _propertyBlock;
+    
     [Space]
     
     [GUIColor("Green")]
@@ -44,6 +47,8 @@ public abstract class ObjectPickable : NetworkBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _nt = GetComponent<NetworkTransform>();
+        
+        _propertyBlock = new MaterialPropertyBlock();
         
         if (objectCollider == null)
         {

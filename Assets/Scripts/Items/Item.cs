@@ -8,21 +8,25 @@ using UnityEngine;
 
 namespace Items
 {
-    public abstract class Item : ObjectPickable
+    public abstract class Item : ObjectPickable, IOutlineChangeable
     {
+        [Header("Item icon")]
         [GUIColor("Yellow")]
         public Sprite itemIcon;
     
+        [Header("Item display name")]
         [GUIColor("Yellow")]
         public string itemDisplayName = "Pickup";
 
-        [AllowMutableSyncType] protected SyncVar<bool> useDurability = new(true); 
-        
+        [Header("Durability Settings")]
+        [AllowMutableSyncType] protected SyncVar<bool> useDurability = new(true);
         [SerializeField] protected uint maxDurability;
         [AllowMutableSyncType] protected SyncVar<uint> durability = new();
         
         [Header("Drop Sound")]
         [SerializeField] protected EventReference dropSound;
+        
+        private static readonly int OutlineColor = Shader.PropertyToID("_OutlineColor");
         
         public override void OnStartServer()
         {
@@ -80,6 +84,17 @@ namespace Items
             {
                 RuntimeManager.PlayOneShotWithParameter(dropSound, new ParameterValues("DropParameter", 1), transform.position);
             }
+        }
+
+        public void SetOutlineColor(Color outlineColor)
+        {
+            if (rend == null) return;
+        
+            rend.GetPropertyBlock(_propertyBlock);
+        
+            _propertyBlock.SetColor(OutlineColor, outlineColor);
+        
+            rend.SetPropertyBlock(_propertyBlock);
         }
     }
 }

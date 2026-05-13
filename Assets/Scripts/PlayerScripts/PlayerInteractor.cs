@@ -18,17 +18,21 @@ public class PlayerInteractor : PlayerComponent
     [GUIColor("Red")]
     [SerializeField] private NetworkObject tpIemHolder;
 
+    [Header("Drop Settings")]
     [HideInInspector] public NetworkObject itemDropTransform;
     
     [SerializeField] private float dropRadius = 0.25f;
     [SerializeField] private float dropDistance = 1f;
     [SerializeField] private float lookDownThreshold = 0.8f;
     
+    [Header("Cross indicator")]
     [SerializeField] private GameObject crossIndicator;
     
     [Header("Interaction Distance Settings")]
     [GUIColor("Yellow")]
     [SerializeField] private float interactionDistance;
+    [SerializeField] private Color interactionColor;
+    [SerializeField] private Color defaultColor;
     
     private InputSystem_Actions _inputSystem;
     private Camera _camera;
@@ -39,6 +43,8 @@ public class PlayerInteractor : PlayerComponent
 
     private RaycastHit _hit;
     private bool _hasValidTarget;
+    
+    private IOutlineChangeable _currentOutlineChangeable;
 
     public override void OnStartClient()
     {
@@ -116,6 +122,8 @@ public class PlayerInteractor : PlayerComponent
 
         bool found = false;
         string interactText = null;
+        
+        IOutlineChangeable newOutlineChangeable = null;
 
         if (Physics.Raycast(ray, out _hit, interactionDistance))
         {
@@ -128,13 +136,36 @@ public class PlayerInteractor : PlayerComponent
                     interactText = pickable.itemDisplayName;
                     found = true;
                 }
+
+                if (pickable is IOutlineChangeable outlineChangeable)
+                {
+                    newOutlineChangeable = outlineChangeable;
+                }
             }
             else if (collider.TryGetComponent(out IInteractable interactable))
             {
                 interactText = interactable.GetInteractText();
+
+                if (interactable is IOutlineChangeable outlineChangeable)
+                {
+                    newOutlineChangeable = outlineChangeable;
+                }
+                
                 found = true;
             }
         }
+
+        if (_currentOutlineChangeable != null && _currentOutlineChangeable != newOutlineChangeable)
+        {
+            _currentOutlineChangeable.SetOutlineColor(defaultColor);
+        }
+
+        if (newOutlineChangeable != null)
+        {
+            newOutlineChangeable.SetOutlineColor(interactionColor);
+        }
+        
+        _currentOutlineChangeable = newOutlineChangeable;
         
         if (found)
         {
