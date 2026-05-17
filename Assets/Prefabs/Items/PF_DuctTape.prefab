@@ -335,6 +335,8 @@ MonoBehaviour:
       Data3: 135472772
       Data4: 1046909512
     Path: event:/TapeUsage
+  meshFilter: {fileID: 2278904794215157239}
+  usedTape: {fileID: -4213158513453270221, guid: 89fedfb17e7f1a940bf29e39bc2b9384, type: 3}
 --- !u!114 &4140132500721412695
 MonoBehaviour:
   m_ObjectHideFlags: 0

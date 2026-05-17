@@ -3707,6 +3707,13 @@ MonoBehaviour:
   cameraHolder: {fileID: 7228203977517142040}
   armatureHolder: {fileID: 8537600462703340557}
   playerCameraPrefab: {fileID: 5701870856271494237, guid: 7dca9d62b6453144abb2adbf3bbe2bb4, type: 3}
+  headBobEnabled: 1
+  walkToggleSpeed: 2
+  sprintToggleSpeed: 7
+  walkAmplitude: 0.02
+  walkFrequency: 20
+  sprintAmplitude: 0.05
+  sprintFrequency: 25
   stunHolder: {fileID: 7120575108644387365}
 --- !u!114 &406374491888023367
 MonoBehaviour:

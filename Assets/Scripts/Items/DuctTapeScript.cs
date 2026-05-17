@@ -18,6 +18,9 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
     
     [Header("Sounds")]
     [SerializeField] private EventReference useSound;
+
+    [SerializeField] private MeshFilter meshFilter;
+    [SerializeField] private Mesh usedTape;
     
     private bool _currentlyUsed;
     private bool _primaryClicked;
@@ -44,7 +47,23 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
             }
             
             DecreaseDurability();
+            ChangeTapeVisual();
             _currentlyUsed = false;
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ChangeTapeVisual()
+    {
+        ChangeTapeVisualObserver();
+    }
+    
+    [ObserversRpc]
+    private void ChangeTapeVisualObserver()
+    {
+        if (durability.Value == 0)
+        {
+            meshFilter.sharedMesh = usedTape;
         }
     }
     
@@ -96,6 +115,14 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
     
     public void OnSecondaryClick()
     {
+        if (!CheckDurability())
+        {
+            Debug.Log("No more durability!");
+            return;
+        }
+        
+        SoundCreator.Instance.PlayOneShotAttached(useSound, gameObject);
+        
         ClickHandler(false);
     }
 
