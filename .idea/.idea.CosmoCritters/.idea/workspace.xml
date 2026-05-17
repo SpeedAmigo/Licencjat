@@ -5,23 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c284735-b13c-4528-bfc9-a4dff6a1bf2b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/PF_BeigeEgg.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Items/PF_BeigeEgg.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/PF_DuctTape.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Items/PF_DuctTape.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/PF_Gun.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Items/PF_Gun.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/PF_PurpleEgg.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Items/PF_PurpleEgg.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/PF_RedEgg.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Items/PF_RedEgg.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Other/BasketItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Other/BasketItem.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player/PF_Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player/PF_Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BasketItemUIScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BasketItemUIScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EnergyRefillScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EnergyRefillScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Items/Item.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pickables/ObjectPickable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pickables/ObjectPickable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/PlayerInteractor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/PlayerInteractor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ShopItemButtonScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ShopItemButtonScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ShopJoyStickScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ShopJoyStickScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpaceShip/ShipConsoleButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SpaceShip/ShipConsoleButton.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

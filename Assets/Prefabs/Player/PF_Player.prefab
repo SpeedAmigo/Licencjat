@@ -3556,6 +3556,7 @@ Transform:
   - {fileID: 4964595914285222319}
   - {fileID: 5553532302368984450}
   - {fileID: 4185987539235042396}
+  - {fileID: 1259355246679763207}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &5007082275155993035
@@ -12220,6 +12221,51 @@ Transform:
   - {fileID: 3012553575851259550}
   m_Father: {fileID: 3764391985565695901}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7280452353952124382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1259355246679763207}
+  - component: {fileID: 8677244103251210361}
+  m_Layer: 0
+  m_Name: Settings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1259355246679763207
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7280452353952124382}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1153.3678, y: 893.6941, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2832964911782555605}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8677244103251210361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7280452353952124382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b2db15d96fc824cb776c1b05ff87a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SettingsScript
+  headBobEnabled: 1
 --- !u!1 &7327366895277634130
 GameObject:
   m_ObjectHideFlags: 0
@@ -12305,9 +12351,9 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8677244103251210361}
         m_TargetAssemblyTypeName: SettingsScript, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: HeadBobSettingsChange
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
