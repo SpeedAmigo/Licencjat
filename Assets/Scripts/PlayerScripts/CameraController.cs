@@ -102,7 +102,7 @@ public class CameraController : PlayerComponent
         
         _characterController = GetComponent<CharacterController>();
         
-        //SettingsScript.headBobSetting += HandleHeadBob;
+        SettingsScript.headBobSetting += HandleHeadBob;
     }
     
     protected override void OnEnable()
@@ -192,7 +192,7 @@ public class CameraController : PlayerComponent
     private void OnDestroy()
     {
         if (!IsOwner) return;
-        //SettingsScript.headBobSetting -= HandleHeadBob;
+        SettingsScript.headBobSetting -= HandleHeadBob;
         
         /*if (CameraHoldersManager.Instance != null)
         {
@@ -277,10 +277,10 @@ public class CameraController : PlayerComponent
         }
         else
         {
-            /*if (SettingsScript.Instance.headBobEnabled)
+            if (SettingsScript.Instance.headBobEnabled)
             {
                 headBobEnabled = true;    
-            }*/
+            }
             
             _inputSystem.Enable();
             _playerCamera.transform.SetParent(cameraHolder);
