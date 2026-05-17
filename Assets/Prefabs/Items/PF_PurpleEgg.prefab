@@ -160,6 +160,7 @@ MonoBehaviour:
   objectCollider: {fileID: 2779786384316831444}
   changeLayerOnPickup: 0
   objectsToChangeLayer: []
+  rend: {fileID: 2622339172410489194}
   offset: {fileID: 0}
   dropForce: 5
   isBig: 0

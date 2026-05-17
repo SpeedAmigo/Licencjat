@@ -206,7 +206,8 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1820102992940521454}
   _networkObjectCache: {fileID: 1820102992940521454}
-  interactionText: Remove
+  interactText: Remove
+  rend: {fileID: 0}
   image: {fileID: 8455208105874587124}
   removeSound:
     Guid:
@@ -259,7 +260,7 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 26
+  <PrefabId>k__BackingField: 27
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 14867664206214794569
   <SceneId>k__BackingField: 0
