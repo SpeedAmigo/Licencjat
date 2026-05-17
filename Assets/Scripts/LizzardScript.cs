@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using FishNet.Object;
 using MetaVoiceChat;
@@ -11,6 +12,8 @@ public class LizardScript : BaseEnemyScript
     
     [Header("Dependencies")]
     [SerializeField] private StateMachine lizardStateMachine;
+
+    public LizardSetting lizardSetting;
     
     public float noiseThreshold = 0.01f;
     public List<VoiceChatController> VcInRange;
@@ -18,13 +21,59 @@ public class LizardScript : BaseEnemyScript
     public float runDistance;
 
     public float attackDistance;
+
+    [HideInInspector] public int attackLayer;
+    
+    private Coroutine _weightCoroutine;
     
     public override void OnStartServer()
     {
         base.OnStartServer();
+
+        attackLayer = animator.Animator.GetLayerIndex("Attack");
         
         lizardStateMachine.ChangeState(new LizardRoamState(lizardStateMachine, this));
     }
+
+    private void Update()
+    {
+        if (!IsServerInitialized) return;
+        
+        /*float normalizedSpeed = ai.velocity.magnitude / ai.maxSpeed;
+        normalizedSpeed = Mathf.Clamp01(normalizedSpeed);
+        
+        animator.Animator.SetFloat("Speed", normalizedSpeed);*/
+    }
+
+    public void ChangeLayerWeight(int layerIndex, float targetWeight, float duration)
+    {
+        if (_weightCoroutine != null)
+        {
+            StopCoroutine(_weightCoroutine);
+        }
+        
+        StartCoroutine(BlendLayer(layerIndex, targetWeight, duration));
+    }
+
+    private IEnumerator BlendLayer(int layerIndex, float targetWeight, float duration)
+    {
+        float startWeight = animator.Animator.GetLayerWeight(layerIndex);
+        float time = 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float t = time / duration;
+            
+            float weight = Mathf.Lerp(startWeight, targetWeight, t);
+            animator.Animator.SetLayerWeight(layerIndex, weight);
+            
+            yield return null;
+        }
+        
+        animator.Animator.SetLayerWeight(layerIndex, targetWeight);
+    }
+    
     
     [Server]
     public VoiceChatController GetLoudestVoiceAround()
@@ -34,8 +83,6 @@ public class LizardScript : BaseEnemyScript
         
         foreach (var voice in VcInRange)
         {
-            Debug.Log(voice.voiceVolume.Value);
-            
             if (voice.voiceVolume.Value >= maxVolume)
             {
                 maxVolume = voice.voiceVolume.Value;
@@ -102,4 +149,10 @@ public enum LizardState
     RunningAway,
     MoveToAttack,
     Attack
+}
+
+public enum LizardSetting
+{
+    Attacker,
+    Runner
 }

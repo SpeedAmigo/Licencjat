@@ -3,9 +3,8 @@ using FishNet.Object;
 using FMODUnity;
 using UnityEngine;
 
-public class ShopJoyStickScript : NetworkBehaviour, IInteractable
+public class ShopJoyStickScript : BaseInteractable
 {
-    [SerializeField] private string interactText;
     [SerializeField] private EventReference joyStickSound;
     
     private NetworkAnimator _animator;
@@ -15,7 +14,7 @@ public class ShopJoyStickScript : NetworkBehaviour, IInteractable
         _animator = GetComponent<NetworkAnimator>();
     }
     
-    public void Interact(PlayerRoot playerRoot)
+    public override void Interact(PlayerRoot playerRoot)
     {
         if (ShopManagerScript.Instance && GlobalDropRule.CanDropItems)
         {
@@ -32,10 +31,5 @@ public class ShopJoyStickScript : NetworkBehaviour, IInteractable
     private void PlayAnimServer()
     {
         _animator.SetTrigger("Play");
-    }
-
-    public string GetInteractText()
-    {
-        return interactText;
     }
 }

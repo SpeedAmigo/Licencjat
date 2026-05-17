@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class ShopItemUIScript : NetworkBehaviour
 {
-    [SerializeField] private string interactText = "Buy";
-    
     [SerializeField] private TMP_Text itemPriceText;
     [SerializeField] private TMP_Text itemNameText;
     [SerializeField] private TMP_Text itemDescriptionText;

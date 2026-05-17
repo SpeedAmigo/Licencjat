@@ -13,6 +13,7 @@ public class ShopManagerScript : NetworkBehaviour
 
     public static event Action<uint> MoneyChanged;
     public static event Action<List<string>> BasketChanged;
+    public static event Action<int> BasketValueChanged;
     
     [AllowMutableSyncType] public SyncVar<uint> currentMoney;
     
@@ -84,6 +85,8 @@ public class ShopManagerScript : NetworkBehaviour
         basketItems.Clear();
         basketValue = 0;
         basketCoroutine = null;
+        
+        BasketValueChanged?.Invoke(basketValue);
         BasketChanged?.Invoke(basketItems);
     }
 
@@ -103,6 +106,7 @@ public class ShopManagerScript : NetworkBehaviour
         basketItems.Add(itemId);
         basketValue += pickedItem.itemPrice;
         
+        BasketValueChanged?.Invoke(basketValue);
         BasketChanged?.Invoke(basketItems);
     }
 
@@ -117,6 +121,7 @@ public class ShopManagerScript : NetworkBehaviour
             basketValue -= pickedItem.itemPrice;
         } 
         
+        BasketValueChanged?.Invoke(basketValue);
         BasketChanged?.Invoke(basketItems);
     }
 

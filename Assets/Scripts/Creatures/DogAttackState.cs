@@ -10,12 +10,12 @@ public class DogAttackState : State
     private float _minDistance;
     private float _maxDistance;
     
-    private GameObject _target;
+    private PlayerRoot _target;
     
     public DogAttackState(StateMachine machine, DogScript dogScript, GameObject target) : base(machine)
     {
         _dogScript = dogScript;
-        _target = target;
+        _target = target.GetComponent<PlayerRoot>();
     }
 
     public override void Enter()
@@ -67,8 +67,8 @@ public class DogAttackState : State
         }
         
         _timer -= Time.deltaTime;
-
-        if (_timer <= 0)
+        
+        if (_timer <= 0 && _target.state.Value != PlayerState.Stunned)
         {
             Attack();
             _timer = _dogScript.attackTimer;
@@ -90,7 +90,7 @@ public class DogAttackState : State
         
         if (_target.TryGetComponent<StatusEffectHandler>(out var effectHandler))
         {
-            effectHandler.ApplyEffect(_dogScript.damageEffect);
+            effectHandler.ApplyEffects(_dogScript.damageEffects);
         }
         Debug.Log("Dog has attacked!");
     }

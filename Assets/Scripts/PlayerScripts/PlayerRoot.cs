@@ -10,12 +10,14 @@ using Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
+public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable, IStunable
 {
     public event Action OnReviveEvent;
+    public event Action<bool, float> StunEvent;
     
     [Header("Player State")]
     [AllowMutableSyncType] public SyncVar<bool> isAlive;
+    [AllowMutableSyncType] public SyncVar<PlayerState> state;
     
     [Header("Sounds")]
     [SerializeField] private EventReference getDamageSound;
@@ -42,7 +44,6 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
             
             _spawnPosition = transform.position;
             _spawnRotation = transform.rotation;
-            Debug.Log(_spawnPosition);
         }
         
         _playerInventory = gameObject.GetComponent<PlayerInventoryScript>();
@@ -161,4 +162,24 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable
         oxygen.drainRate.Value = baseDrainRate;
         oxygen.UpdateCurrentStaminaTarget(Owner, maxOxygen);
     }
+
+    [Server]
+    public void SetStunned(bool stunned, float duration)
+    {
+        SetStunnedObservers(stunned, duration);
+
+        state.Value = stunned ? PlayerState.Stunned : PlayerState.Default;
+    }
+
+    [ObserversRpc]
+    private void SetStunnedObservers(bool stunned, float duration)
+    {
+        StunEvent?.Invoke(stunned, duration);
+    }
+}
+
+public enum PlayerState
+{
+    Default,
+    Stunned,
 }

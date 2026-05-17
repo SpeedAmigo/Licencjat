@@ -431,7 +431,9 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 4097182591846747468}
   animator: {fileID: 3257361702672036978}
   rangeDetector: {fileID: 1205760852057409835}
-  damageEffect: {fileID: 11400000, guid: 8ea60735f1ab5c94c8947905b009d0f6, type: 2}
+  damageEffects:
+  - {fileID: 11400000, guid: 0ea9cbf31a59ab548a963fd0452cb887, type: 2}
+  - {fileID: 11400000, guid: 8ea60735f1ab5c94c8947905b009d0f6, type: 2}
   walkSpeed: 2
   runSpeed: 8
   playersInRange:

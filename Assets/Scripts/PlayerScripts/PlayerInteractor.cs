@@ -5,6 +5,7 @@ using Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder.Shapes;
 
 public class PlayerInteractor : PlayerComponent
 {
@@ -17,15 +18,21 @@ public class PlayerInteractor : PlayerComponent
     [GUIColor("Red")]
     [SerializeField] private NetworkObject tpIemHolder;
 
+    [Header("Drop Settings")]
     [HideInInspector] public NetworkObject itemDropTransform;
     
     [SerializeField] private float dropRadius = 0.25f;
     [SerializeField] private float dropDistance = 1f;
     [SerializeField] private float lookDownThreshold = 0.8f;
     
+    [Header("Cross indicator")]
+    [SerializeField] private GameObject crossIndicator;
+    
     [Header("Interaction Distance Settings")]
     [GUIColor("Yellow")]
     [SerializeField] private float interactionDistance;
+    [SerializeField] private Color interactionColor;
+    [SerializeField] private Color defaultColor;
     
     private InputSystem_Actions _inputSystem;
     private Camera _camera;
@@ -36,6 +43,8 @@ public class PlayerInteractor : PlayerComponent
 
     private RaycastHit _hit;
     private bool _hasValidTarget;
+    
+    private IOutlineChangeable _currentOutlineChangeable;
 
     public override void OnStartClient()
     {
@@ -113,6 +122,8 @@ public class PlayerInteractor : PlayerComponent
 
         bool found = false;
         string interactText = null;
+        
+        IOutlineChangeable newOutlineChangeable = null;
 
         if (Physics.Raycast(ray, out _hit, interactionDistance))
         {
@@ -125,12 +136,38 @@ public class PlayerInteractor : PlayerComponent
                     interactText = pickable.itemDisplayName;
                     found = true;
                 }
+
+                if (pickable is IOutlineChangeable outlineChangeable)
+                {
+                    newOutlineChangeable = outlineChangeable;
+                }
             }
             else if (collider.TryGetComponent(out IInteractable interactable))
             {
                 interactText = interactable.GetInteractText();
+
+                if (interactable is IOutlineChangeable outlineChangeable)
+                {
+                    newOutlineChangeable = outlineChangeable;
+                }
+                
                 found = true;
             }
+        }
+
+        if (_currentOutlineChangeable != newOutlineChangeable)
+        {
+            if (_currentOutlineChangeable != null)
+            {
+                _currentOutlineChangeable.SetOutlineColor(defaultColor);
+            }
+
+            if (newOutlineChangeable != null)
+            {
+                newOutlineChangeable.SetOutlineColor(interactionColor);
+            }
+
+            _currentOutlineChangeable = newOutlineChangeable;
         }
         
         if (found)
@@ -238,13 +275,13 @@ public class PlayerInteractor : PlayerComponent
 
         if (IsLookingTooFarDown())
         {
-            Debug.Log("Can't drop items while looking down");
+            MessageShowerScript.Instance.ShowMessage("Can't drop looking too far down", 1f);
             return;
         }
 
         if (!TryGetDropPosition(out Vector3 dropPos))
         {
-            Debug.Log("Too close to wall");
+            MessageShowerScript.Instance.ShowMessage("Too close to obstacle", 1f);
             return;
         }
         
@@ -268,7 +305,7 @@ public class PlayerInteractor : PlayerComponent
             
             if (hit.distance < minAllowedDistance)
             {
-                Debug.Log(hit.collider.name);
+                Instantiate(crossIndicator, hit.point, Quaternion.LookRotation(hit.normal));
                 dropPosition = Vector3.zero;
                 return false;
             }

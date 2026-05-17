@@ -18,6 +18,8 @@ public class LizardAttackState : State
         _lizardScript.lizardState = LizardState.MoveToAttack;
         _lizardScript.ChangeSpeed(_lizardScript.runSpeed, 0.5f);
         _lizardScript.SetNewPath(_target.transform.position);
+        _lizardScript.ChangeLayerWeight(_lizardScript.attackLayer, 1f, 0.2f);
+        _lizardScript.Animator.Animator.SetFloat("Attack", 1f);
     }
 
     public override void Tick()

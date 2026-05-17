@@ -8,6 +8,7 @@ public class ShopUIScript : NetworkBehaviour
 {
     [SerializeField] private NetworkObject verticalGroup;
     [SerializeField] private TMP_Text moneyText;
+    [SerializeField] private TMP_Text basketValueText;
     [SerializeField] private ShopItemUIScript itemTemplatePrefab;
     [SerializeField] private BasketItemUIScript[] basketTemplates;
 
@@ -15,12 +16,14 @@ public class ShopUIScript : NetworkBehaviour
     {
         ShopManagerScript.MoneyChanged += OnMoneyChanged;
         ShopManagerScript.BasketChanged += OnUpdateBasketUI;
+        ShopManagerScript.BasketValueChanged += OnBasketChanged;
     }
 
     private void OnDisable()
     {
         ShopManagerScript.MoneyChanged -= OnMoneyChanged;
         ShopManagerScript.BasketChanged -= OnUpdateBasketUI;
+        ShopManagerScript.BasketValueChanged -= OnBasketChanged;
     }
     
     private void Start()
@@ -57,23 +60,10 @@ public class ShopUIScript : NetworkBehaviour
             spawnedTemplate.NetworkObject.SetParent(verticalGroup);
             spawnedTemplate.CardSetup(item.itemIcon, item.itemName, item.itemDescription, item.itemPrice, item.ItemID);
             spawnedTemplates.Add(spawnedTemplate);
-            
-            //SetupCardClient(spawnedTemplate, i);
         }
         
         SetupCardClient(spawnedTemplates);
     }
-
-    /*[ObserversRpc(BufferLast = true)]
-    private void SetupCardClient(NetworkObject nob, int index)
-    {
-        Debug.Log($"SetupCardClient({index})");
-        
-        var itemScript = nob.GetComponent<ShopItemUIScript>();
-        var currentIndex = ShopManagerScript.Instance.shopItems[index];
-        
-        itemScript.CardSetup(currentIndex.itemIcon, currentIndex.itemName, currentIndex.itemDescription, currentIndex.itemPrice, currentIndex.ItemID);
-    }*/
     
     [ObserversRpc(BufferLast = true)]
     private void SetupCardClient(List<NetworkObject> nobs)
@@ -90,6 +80,17 @@ public class ShopUIScript : NetworkBehaviour
     private void OnMoneyChanged(uint moneyValue)
     {
         moneyText.text = moneyValue.ToString();
+    }
+
+    private void OnBasketChanged(int basketValue)
+    {
+        OnBasketChangedObservers(basketValue);
+    }
+
+    [ObserversRpc(BufferLast = true)]
+    private void OnBasketChangedObservers(int basketValue)
+    {
+        basketValueText.text = basketValue.ToString();
     }
 
     private void OnUpdateBasketUI(List<string> basketItems)

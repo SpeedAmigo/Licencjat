@@ -5,16 +5,14 @@ using FishNet.Object.Synchronizing;
 using FMODUnity;
 using UnityEngine;
 
-public class EnergyRefillScript : NetworkBehaviour, IInteractable
+public class EnergyRefillScript : BaseInteractable
 {
-    [SerializeField] private string interactText;
     [SerializeField] private Transform soundPosition;
-
     [SerializeField] private EventReference rechargeSound;
     
     [AllowMutableSyncType] private List<IRechargeable> rechargables;
     
-    public void Interact(PlayerRoot playerRoot)
+    public override void Interact(PlayerRoot playerRoot)
     {
         if (playerRoot == null) return;
         
@@ -31,10 +29,5 @@ public class EnergyRefillScript : NetworkBehaviour, IInteractable
             rechargeable.Recharge();
             SoundCreator.Instance.PlayOneShot(rechargeSound, soundPosition.position);
         }
-    }
-
-    public string GetInteractText()
-    {
-        return interactText;
     }
 }
