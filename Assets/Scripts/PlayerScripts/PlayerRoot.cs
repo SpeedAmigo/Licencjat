@@ -14,6 +14,7 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable, IStunable
 {
     public event Action OnReviveEvent;
     public event Action<bool, float> StunEvent;
+    public event Action HealEvent;
     
     [Header("Player State")]
     [AllowMutableSyncType] public SyncVar<bool> isAlive;
@@ -82,7 +83,14 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable, IStunable
         else if (damage < 0)
         {
             SoundCreator.Instance.PlayOneShot(getHealSound, transform.position);
+            Heal(Owner);
         }
+    }
+
+    [TargetRpc]
+    private void Heal(NetworkConnection conn)
+    {
+        HealEvent?.Invoke();
     }
     
     public Vector3 DropPosition()

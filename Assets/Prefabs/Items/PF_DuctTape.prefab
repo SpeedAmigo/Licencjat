@@ -326,7 +326,7 @@ MonoBehaviour:
     Path: event:/Drop
   raycastStartPoint: {fileID: 2682355678119663154}
   shootDistance: 10
-  useTime: 5
+  useTime: 0.2
   effects:
   - {fileID: 11400000, guid: 4ff6cdc36e5f7cf47b4413076e14fa23, type: 2}
   useSound:

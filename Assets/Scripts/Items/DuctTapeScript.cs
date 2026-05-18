@@ -27,7 +27,25 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
     private float _timer;
     
     private PlayerRoot _currentPlayer;
-    
+
+    private void Start()
+    {
+        durability.OnChange += OnDurabilityChanged;
+    }
+
+    private void OnDestroy()
+    {
+        durability.OnChange -= OnDurabilityChanged;
+    }
+
+    private void OnDurabilityChanged(uint prev, uint next, bool asServer)
+    {
+        if (next == 0)
+        {
+            meshFilter.sharedMesh = usedTape;
+        }
+    }
+
     protected void Update()
     {
         if (!_currentlyUsed) return;
@@ -47,23 +65,7 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
             }
             
             DecreaseDurability();
-            ChangeTapeVisual();
             _currentlyUsed = false;
-        }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void ChangeTapeVisual()
-    {
-        ChangeTapeVisualObserver();
-    }
-    
-    [ObserversRpc]
-    private void ChangeTapeVisualObserver()
-    {
-        if (durability.Value == 0)
-        {
-            meshFilter.sharedMesh = usedTape;
         }
     }
     
