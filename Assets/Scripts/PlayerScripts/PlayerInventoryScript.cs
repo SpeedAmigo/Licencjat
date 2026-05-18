@@ -14,6 +14,7 @@ public class PlayerInventoryScript : PlayerComponent
     public static event Action<int, Sprite> OnUIUpdateAdd;
     public static event Action<int> OnUIUpdateRemove;
     public static event Action<int> OnUIFrameUpdate;
+    public static event Action<int, Item> OnUISliderUpdate;
     
     [Header("Hand Rigs")]
     [GUIColor("Red")]
@@ -139,12 +140,14 @@ public class PlayerInventoryScript : PlayerComponent
             {
                 currentItem.Value.gameObject.SetActive(false);
                 currentItem.Value = null;
+                UpdateUISlider(Owner, index, null);
                 return;
             }
             else
             {
                 currentItemIndex = index;
                 currentItem.Value = slotItem;
+                UpdateUISlider(Owner, index, currentItem.Value);
                 return;
             }
         }
@@ -152,6 +155,11 @@ public class PlayerInventoryScript : PlayerComponent
         // if pressed different key than the current slot index
         currentItemIndex = index;
         currentItem.Value = slots[index];
+        
+        if (currentItem.Value != null && currentItem.Value.useDurability.Value)
+        {
+            UpdateUISlider(Owner, index, currentItem.Value);
+        }
     }
     
     public bool CheckForEmptySlot()
@@ -249,6 +257,11 @@ public class PlayerInventoryScript : PlayerComponent
                 if (i == currentItemIndex)
                 {
                     currentItem.Value = item;
+                    
+                    if (currentItem.Value != null && currentItem.Value.useDurability.Value)
+                    {
+                        UpdateUISlider(Owner, i, currentItem.Value);
+                    }
                 }
                 else
                 {
@@ -280,6 +293,7 @@ public class PlayerInventoryScript : PlayerComponent
                     if (currentItem.Value == item)
                     {
                         currentItem.Value = null;
+                        UpdateUISlider(Owner, i, null);
                     }
                     break;
                 }
@@ -310,6 +324,12 @@ public class PlayerInventoryScript : PlayerComponent
     private void UpdateUIAdd(NetworkConnection conn, int index, Item item)
     {
         OnUIUpdateAdd?.Invoke(index, item.itemIcon); // passing free slot index and icon
+    }
+
+    [TargetRpc]
+    private void UpdateUISlider(NetworkConnection conn, int index, Item item)
+    {
+        OnUISliderUpdate?.Invoke(index, item);
     }
     
     #endregion

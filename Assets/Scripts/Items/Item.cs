@@ -19,9 +19,9 @@ namespace Items
         public string itemDisplayName = "Pickup";
 
         [Header("Durability Settings")]
-        [AllowMutableSyncType] protected SyncVar<bool> useDurability = new(true);
-        [SerializeField] protected uint maxDurability;
-        [AllowMutableSyncType] protected SyncVar<uint> durability = new();
+        [AllowMutableSyncType] public SyncVar<bool> useDurability = new(true);
+        [SerializeField] public uint maxDurability;
+        [AllowMutableSyncType] public SyncVar<uint> durability = new();
         
         [Header("Drop Sound")]
         [SerializeField] protected EventReference dropSound;
