@@ -6,24 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="8c284735-b13c-4528-bfc9-a4dff6a1bf2b" name="Changes" comment="Player Leakage and tape visuals">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/F_TAPE_PIECES.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/F_TAPE_PIECES.fbx.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Fonts/SDF_WendyOne-Regular SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fonts/SDF_WendyOne-Regular SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/MM_Lizard.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/MM_Lizard.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player/PF_Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player/PF_Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/SpaceLizzard.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/SpaceLizzard.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/PF_Gun.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Items/PF_Gun.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpaceShip/ShipConsoleButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SpaceShip/ShipConsoleButton.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/T_TAPE_PIECES_BaseMap.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/T_TAPE_PIECES_BaseMap.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/T_TAPE_PIECES_Normal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/T_TAPE_PIECES_Normal.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Timelines/SpaceShipTakeOffTimeline.playable" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Timelines/SpaceShipTakeOffTimeline.playable" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Timelines/SpaceShipTimeline.playable" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Timelines/SpaceShipTimeline.playable" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/GunScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Items/GunScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LizzardScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LizzardScript.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +168,7 @@
       <workItem from="1778491488748" duration="2463000" />
       <workItem from="1778494157027" duration="2202000" />
       <workItem from="1779100027429" duration="16029000" />
-      <workItem from="1779186038969" duration="1373000" />
+      <workItem from="1779186038969" duration="4579000" />
     </task>
     <task id="LOCAL-00001" summary="Sell able egss">
       <option name="closed" value="true" />
