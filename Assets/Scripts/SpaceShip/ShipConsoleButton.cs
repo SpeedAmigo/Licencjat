@@ -21,12 +21,13 @@ public class ShipConsoleButton : BaseInteractable
             Debug.Log($"ship status: {consoleScript.shipLanded.Value} button status: {playOnLanded}");
             playableDirector.Play();
             TimelineStart_Clients();
-            SpawnHandle(consoleScript.shipLanded.Value);
         }
         else
         {
             Debug.Log($"ship status: {consoleScript.shipLanded.Value} button status: {playOnLanded}");
         }
+        
+        //SpawnHandle(consoleScript.shipLanded.Value, consoleScript.shipPending.Value);
         
         if (emitter)
         {
@@ -41,7 +42,7 @@ public class ShipConsoleButton : BaseInteractable
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void SpawnHandle(bool landed)
+    private void SpawnHandle(bool landed, bool pending)
     {
         if (!IsServerInitialized) return;
         
