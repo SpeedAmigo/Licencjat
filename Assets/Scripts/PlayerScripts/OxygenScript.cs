@@ -12,6 +12,7 @@ public class OxygenScript : NetworkBehaviour
     public static event Action<float> OnMaxStaminaEvent;
     public static event Action<float> OnCurrentStaminaEvent;
     public static event Action<float> OnDrainRateEvent;
+    public static event Action<bool> OxygenAlertEvent;
     public event Action OnDieEvent;
     
     #endregion
@@ -32,8 +33,9 @@ public class OxygenScript : NetworkBehaviour
     #region Variables
     
     [SerializeField] private LayerMask stopOxygenDrainingLayers;
+    [SerializeField] private float percentageAlert = 0.2f; 
     
-    
+    private bool _alertCalled;
     private int _safeZoneCount = 0;
     private float _lastDrainRate = -1f;
     
@@ -116,6 +118,23 @@ public class OxygenScript : NetworkBehaviour
         
         currentOxygen.Value -= drainRate.Value * (float)TimeManager.TickDelta;
         UpdateCurrentStaminaTarget(Owner, currentOxygen.Value);
+
+        if (currentOxygen.Value <= maxOxygen.Value * percentageAlert)
+        {
+            if (!_alertCalled)
+            {
+                CallOxygenAlert(Owner, true);
+                _alertCalled = true;
+            }
+        }
+        else
+        {
+            if (_alertCalled)
+            {
+                CallOxygenAlert(Owner, false);
+                _alertCalled = false;
+            }
+        }
         
         if (currentOxygen.Value <= 0f)
         {
@@ -130,6 +149,12 @@ public class OxygenScript : NetworkBehaviour
     {
         UpdateMaxStaminaTarget(Owner, maxOxygen.Value);
         UpdateCurrentStaminaTarget(Owner, currentOxygen.Value);
+    }
+
+    [TargetRpc]
+    public void CallOxygenAlert(NetworkConnection conn, bool value) 
+    {
+        OxygenAlertEvent?.Invoke(value);
     }
 
     [TargetRpc]
