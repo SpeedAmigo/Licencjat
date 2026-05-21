@@ -165,6 +165,7 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable, IStunable
     [ServerRpc]
     private void ChangeOxygenOnRevive(float maxOxygen, float baseDrainRate)
     {
+        oxygen.hasOxygen.Value = true;
         oxygen.canDrainOxygen.Value = false;
         oxygen.currentOxygen.Value = maxOxygen;
         oxygen.drainRate.Value = baseDrainRate;

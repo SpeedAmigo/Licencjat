@@ -18,6 +18,7 @@ public class OxygenScript : NetworkBehaviour
 
     #region SyncVars
     
+    [AllowMutableSyncType] public SyncVar<bool> hasOxygen;
     [AllowMutableSyncType] public SyncVar<bool> canDrainOxygen;
     
     [AllowMutableSyncType] public SyncVar<float> maxOxygen;
@@ -32,7 +33,7 @@ public class OxygenScript : NetworkBehaviour
     
     [SerializeField] private LayerMask stopOxygenDrainingLayers;
     
-    private bool _hasOxygen;
+    
     private int _safeZoneCount = 0;
     private float _lastDrainRate = -1f;
     
@@ -77,7 +78,7 @@ public class OxygenScript : NetworkBehaviour
     public override void OnStartServer()
     {
         currentOxygen.Value = maxOxygen.Value;
-        _hasOxygen = true;
+        hasOxygen.Value = true;
         
         TimeManager.OnTick += Tick;
     }
@@ -97,18 +98,11 @@ public class OxygenScript : NetworkBehaviour
     private void Start()
     {
         CommandsManager.Instance.RegisterInstance(this);
-        //RegisterCommand();
     }
-
-    private void RegisterCommand()
-    {
-        if (!IsOwner) return;
-        
-    }
-
+    
     private void Tick()
     {
-        if (!_hasOxygen) return;
+        if (!hasOxygen.Value) return;
         
         if (!Mathf.Approximately(drainRate.Value, _lastDrainRate))
         {
@@ -126,7 +120,7 @@ public class OxygenScript : NetworkBehaviour
         if (currentOxygen.Value <= 0f)
         {
             currentOxygen.Value = 0;
-            _hasOxygen = false;
+            hasOxygen.Value = false;
             TargetDie(Owner);
         }
     }

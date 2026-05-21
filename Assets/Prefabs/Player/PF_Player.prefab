@@ -6152,7 +6152,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 552444225968618674, guid: 4071742acc22ba04caaa52fe28da5d39, type: 3}
+  - {fileID: 2100000, guid: 39e8dfdf55d0ce447aff413f4bbe402c, type: 2}
   - {fileID: 2100000, guid: 7eaa042ef0148794a863fb92b8352e0e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -9027,6 +9027,10 @@ MonoBehaviour:
   _componentIndexCache: 7
   _addedNetworkObject: {fileID: 6870339716418846082}
   _networkObjectCache: {fileID: 6870339716418846082}
+  hasOxygen:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 1
   canDrainOxygen:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
