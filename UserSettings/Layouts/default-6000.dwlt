@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 149
+  controlID: 142
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 150
+  controlID: 143
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 119
+  controlID: 53
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 61
+  controlID: 54
   draggingID: 0
 --- !u!114 &9
 MonoBehaviour:
@@ -257,7 +257,7 @@ MonoBehaviour:
   - {fileID: 16}
   - {fileID: 15}
   m_Selected: 1
-  m_LastSelected: 8
+  m_LastSelected: 0
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -282,7 +282,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 120
+  controlID: 65
   draggingID: 0
 --- !u!114 &12
 MonoBehaviour:
@@ -4714,9 +4714,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -21.794836, y: 290.11804, z: 99.07727}
+    m_Target: {x: -36.78927, y: 277.69727, z: 88.61303}
     speed: 2
-    m_Value: {x: -21.794836, y: 290.11804, z: 99.07727}
+    m_Value: {x: -36.78927, y: 277.69727, z: 88.61303}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -4764,7 +4764,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.07424673, y: 0.24856095, z: -0.019151762, w: -0.9654453}
     speed: 2
-    m_Value: {x: -0.18948807, y: 0.3312206, z: -0.06809128, w: -0.9216865}
+    m_Value: {x: -0.07424673, y: 0.24856097, z: -0.019151762, w: -0.96544534}
   m_Size:
     m_Target: 71.56051
     speed: 2
@@ -4840,10 +4840,10 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 177}
-      m_SelectedIDs: 007bffff
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: ccadffffc6faffff
+      m_ExpandedIDs: 0cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -8825,7 +8825,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Grzesiu/2DHologram
+    - Assets/Sprites/UI/Player
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -8835,16 +8835,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Grzesiu/2DHologram
+  - Assets/Sprites/UI/Player
   m_LastFoldersGridSize: -1
   m_LastProjectPath: "D:\\SZKO\u0141A\\Repo\\Licencjat"
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 15}
-    m_SelectedIDs: 24620100
-    m_LastClickedID: 90660
-    m_ExpandedIDs: 00000000406001004661010000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 343}
+    m_SelectedIDs: d4620100
+    m_LastClickedID: 90836
+    m_ExpandedIDs: 000000004a5801005859010074590100cc62010000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -8873,7 +8873,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000040600100
+    m_ExpandedIDs: 000000004a580100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
