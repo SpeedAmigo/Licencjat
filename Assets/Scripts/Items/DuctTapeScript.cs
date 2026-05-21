@@ -1,24 +1,52 @@
 using System;
 using FishNet.Object;
+using FMODUnity;
 using Items;
 using UnityEngine;
 
 public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryClick, ISecondaryCancel
 {
+    [Header("Dependencies")]
     [SerializeField] private Transform raycastStartPoint;
+    
+    [Header("Settings")]
     [SerializeField] private float shootDistance;
-
     [SerializeField] private float useTime;
     
+    [Header("Effects")]
     [SerializeField] private StatusEffect[] effects;
+    
+    [Header("Sounds")]
+    [SerializeField] private EventReference useSound;
+
+    [SerializeField] private MeshFilter meshFilter;
+    [SerializeField] private Mesh usedTape;
     
     private bool _currentlyUsed;
     private bool _primaryClicked;
-    [SerializeField] private float _timer;
+    private float _timer;
     
     private PlayerRoot _currentPlayer;
-    
-    private void Update()
+
+    private void Start()
+    {
+        durability.OnChange += OnDurabilityChanged;
+    }
+
+    private void OnDestroy()
+    {
+        durability.OnChange -= OnDurabilityChanged;
+    }
+
+    private void OnDurabilityChanged(uint prev, uint next, bool asServer)
+    {
+        if (next == 0)
+        {
+            meshFilter.sharedMesh = usedTape;
+        }
+    }
+
+    protected void Update()
     {
         if (!_currentlyUsed) return;
         
@@ -36,12 +64,21 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
                 TryApplyEffect(GetPlayerNetworkObject());
             }
             
+            DecreaseDurability();
             _currentlyUsed = false;
         }
     }
     
     public void OnPrimaryClick()
     {
+        if (!CheckDurability())
+        {
+            Debug.Log("No more durability!");
+            return;
+        }
+        
+        SoundCreator.Instance.PlayOneShotAttached(useSound, gameObject);
+        
         ClickHandler(true);
         
         var nob = RaycastShoot();
@@ -80,6 +117,14 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
     
     public void OnSecondaryClick()
     {
+        if (!CheckDurability())
+        {
+            Debug.Log("No more durability!");
+            return;
+        }
+        
+        SoundCreator.Instance.PlayOneShotAttached(useSound, gameObject);
+        
         ClickHandler(false);
     }
 
@@ -92,7 +137,7 @@ public class DuctTapeScript : Item, IPrimaryClick, IPrimaryCancel, ISecondaryCli
     {
         if (_currentlyUsed) return;
         
-        _primaryClicked  = primaryClick;
+        _primaryClicked = primaryClick;
         
         _timer = useTime;
         _currentlyUsed = true;

@@ -14,6 +14,7 @@ public class PlayerInventoryScript : PlayerComponent
     public static event Action<int, Sprite> OnUIUpdateAdd;
     public static event Action<int> OnUIUpdateRemove;
     public static event Action<int> OnUIFrameUpdate;
+    public static event Action<int, Item> OnUISliderUpdate;
     
     [Header("Hand Rigs")]
     [GUIColor("Red")]
@@ -139,12 +140,14 @@ public class PlayerInventoryScript : PlayerComponent
             {
                 currentItem.Value.gameObject.SetActive(false);
                 currentItem.Value = null;
+                UpdateUISlider(Owner, index, null);
                 return;
             }
             else
             {
                 currentItemIndex = index;
                 currentItem.Value = slotItem;
+                UpdateUISlider(Owner, index, currentItem.Value);
                 return;
             }
         }
@@ -152,6 +155,11 @@ public class PlayerInventoryScript : PlayerComponent
         // if pressed different key than the current slot index
         currentItemIndex = index;
         currentItem.Value = slots[index];
+        
+        if (currentItem.Value != null && currentItem.Value.useDurability.Value)
+        {
+            UpdateUISlider(Owner, index, currentItem.Value);
+        }
     }
     
     public bool CheckForEmptySlot()
@@ -165,19 +173,36 @@ public class PlayerInventoryScript : PlayerComponent
         }
         return false;
     }
+
+    [Server]
+    public void RequestRemoveItem(Item item, PlayerInventoryScript inventory, Vector3 position, bool setActiveOnDrop)
+    {
+        if (inventory == null || item == null) return;
+        
+        item.gameObject.SetActive(setActiveOnDrop);
+        
+        if (item.isBig)
+        {
+            inventory.RemoveBigItem(item, position, Vector3.forward);
+        }
+        else
+        {
+            inventory.RemoveItem(item, position, Vector3.forward);
+        }
+    }
     
     [Server]
-    public void RequestRemoveItem(Item item, PlayerInventoryScript inventory)
+    public void RequestRemoveItem(Item item, PlayerInventoryScript inventory, Vector3 position)
     {
         if (inventory == null || item == null) return;
 
         if (item.isBig)
         {
-            inventory.RemoveBigItem(item, Vector3.forward);
+            inventory.RemoveBigItem(item, position,  Vector3.forward);
         }
         else
         {
-            inventory.RemoveItem(item, Vector3.forward);
+            inventory.RemoveItem(item, position,  Vector3.forward);
         }
     }
     
@@ -204,11 +229,11 @@ public class PlayerInventoryScript : PlayerComponent
     }
 
     [Server]
-    public void RemoveBigItem(ObjectPickable bigItem, Vector3 rotation)
+    public void RemoveBigItem(ObjectPickable bigItem, Vector3 position, Vector3 rotation)
     {
         if (currentItem.Value && bigItem.isBig)
         {
-            bigItem.Drop(rotation);
+            bigItem.Drop(position, rotation);
             currentItem.Value = null;
         }
     }
@@ -232,6 +257,11 @@ public class PlayerInventoryScript : PlayerComponent
                 if (i == currentItemIndex)
                 {
                     currentItem.Value = item;
+                    
+                    if (currentItem.Value != null && currentItem.Value.useDurability.Value)
+                    {
+                        UpdateUISlider(Owner, i, currentItem.Value);
+                    }
                 }
                 else
                 {
@@ -247,7 +277,7 @@ public class PlayerInventoryScript : PlayerComponent
     }
 
     [Server]
-    public void RemoveItem(Item item, Vector3 rotation)
+    public void RemoveItem(Item item, Vector3 position, Vector3 rotation)
     {
         if (slots.Contains(item))
         {
@@ -258,11 +288,12 @@ public class PlayerInventoryScript : PlayerComponent
                     slots[i] = null;
                     UpdateUIRemove(Owner, i); // update UI with free slot index and null icon
                     
-                    item.Drop(rotation);
+                    item.Drop(position, rotation);
                     
                     if (currentItem.Value == item)
                     {
                         currentItem.Value = null;
+                        UpdateUISlider(Owner, i, null);
                     }
                     break;
                 }
@@ -293,6 +324,12 @@ public class PlayerInventoryScript : PlayerComponent
     private void UpdateUIAdd(NetworkConnection conn, int index, Item item)
     {
         OnUIUpdateAdd?.Invoke(index, item.itemIcon); // passing free slot index and icon
+    }
+
+    [TargetRpc]
+    private void UpdateUISlider(NetworkConnection conn, int index, Item item)
+    {
+        OnUISliderUpdate?.Invoke(index, item);
     }
     
     #endregion

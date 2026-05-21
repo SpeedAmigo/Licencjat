@@ -9,6 +9,7 @@ TagManager:
   - Metal
   - Frog
   - ItemOfInterest
+  - PlayerCollider
   layers:
   - Default
   - TransparentFX

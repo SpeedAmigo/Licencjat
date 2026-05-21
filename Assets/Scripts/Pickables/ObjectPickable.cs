@@ -1,7 +1,10 @@
 using System;
 using FishNet.Component.Transforming;
 using FishNet.Connection;
+using FishNet.Demo.Prediction.Rigidbodies;
 using FishNet.Object;
+using FishNet.Object.Prediction;
+using GameKit.Dependencies.Utilities;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -22,6 +25,9 @@ public abstract class ObjectPickable : NetworkBehaviour
     [GUIColor("Yellow")]
     public GameObject[] objectsToChangeLayer;
     
+    [SerializeField] protected Renderer rend;
+    protected MaterialPropertyBlock _propertyBlock;
+    
     [Space]
     
     [GUIColor("Green")]
@@ -30,9 +36,8 @@ public abstract class ObjectPickable : NetworkBehaviour
     public float dropForce = 5f;
     public bool isBig;
     
-    
     private NetworkTransform _nt;
-    private Rigidbody _rb;
+    protected Rigidbody _rb;
     private Collider _col;
     private Collider _secondCol;
     
@@ -42,7 +47,9 @@ public abstract class ObjectPickable : NetworkBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _nt = GetComponent<NetworkTransform>();
-
+        
+        _propertyBlock = new MaterialPropertyBlock();
+        
         if (objectCollider == null)
         {
             _col = GetComponent<Collider>();
@@ -54,7 +61,7 @@ public abstract class ObjectPickable : NetworkBehaviour
         }
     }
     
-    public void Pickup(NetworkObject fpHolder, NetworkObject tpHolder, NetworkConnection conn)
+    public virtual void Pickup(NetworkObject fpHolder, NetworkObject tpHolder, NetworkConnection conn)
     {
         if (!IsServerInitialized) return;
         NetworkObject.GiveOwnership(conn);
@@ -62,13 +69,13 @@ public abstract class ObjectPickable : NetworkBehaviour
         Pickup_Client(fpHolder, tpHolder, conn);
     }
 
-    public void Drop(Vector3 forward)
+    public void Drop(Vector3 position, Vector3 forward)
     {
         if (!IsServerInitialized) return;
         
         NetworkObject.RemoveOwnership();
         //DropLogic(forward);
-        Drop_Client(forward);
+        Drop_Client(position, forward);
     }
 
     [ObserversRpc]
@@ -101,11 +108,11 @@ public abstract class ObjectPickable : NetworkBehaviour
     }
 
     [ObserversRpc]
-    private void Drop_Client(Vector3 forward)
+    private void Drop_Client(Vector3 position, Vector3 forward)
     {
         if (IsSpawned)
         {
-            DropLogic(forward);
+            DropLogic(position, forward);
         }
         
         if (objectsToChangeLayer != null && changeLayerOnPickup)
@@ -149,15 +156,15 @@ public abstract class ObjectPickable : NetworkBehaviour
         }
     }
     
-    protected virtual void DropLogic(Vector3 forward)
+    protected virtual void DropLogic(Vector3 position, Vector3 forward)
     {
         // this was added
         _nt.enabled = true;
-        _nt.Teleport();
         
         transform.SetParent(null);
         
-        //_rb.AddRelativeForce(Vector3.forward * dropForce, ForceMode.Impulse);
+        transform.position = position;
+        _nt.Teleport();
         
         _rb.isKinematic = false;
         _rb.interpolation = RigidbodyInterpolation.None;

@@ -10,7 +10,12 @@ public class FrogScript : BaseEnemyScript, IStunable
 {
     #region Variables
     
+    [Header("Dependencies")]
+    public StateMachine frogStateMachine;
     public CreatureStatusVisualizer statusVisualizer;
+    
+    [Header("State")]
+    public FrogState frogState;
     
     [Header("General settings")]
     public bool canWalk = true;
@@ -21,8 +26,8 @@ public class FrogScript : BaseEnemyScript, IStunable
     [SerializeField] private ParticleSystem spitParticle;
     
     [Header("Run away setting")]
-    [SerializeField] private int maxPlayers;
-    [SerializeField] private float runDistance = 10f;
+    public int maxPlayers;
+    public float runDistance = 10f;
     
     [Header("PickedUp settings")]
     [AllowMutableSyncType] public SyncVar<bool> pickedUp;
@@ -34,9 +39,10 @@ public class FrogScript : BaseEnemyScript, IStunable
 
     [Header("Sounds")] 
     public EventReference spitSound;
-    public EventReference waringSound;
+    public EventReference warningSound;
     public EventReference panicSound;
     public EventReference idleSound;
+    public EventReference stunSound;
     
     public AIPath AI
     {
@@ -52,74 +58,21 @@ public class FrogScript : BaseEnemyScript, IStunable
         
         if (canWalk)
         {
-            ai.destination = PickRandomPoint();
+            frogStateMachine.ChangeState(new FrogRoamState(frogStateMachine, this));
         }
     }
-
+    
     private void Update()
     {
-        if (!IsServerInitialized) return; // only server runs logic
+        if (!IsServerInitialized) return;
 
         ai.maxSpeed = running ? runSpeed : walkSpeed;
-        
-        bool canRun = canRunaway && playersInRange.Count > maxPlayers;
-        
-        if (canRun)
-        {
-            RunMethod();
-        }
-        else
-        {
-            WalkMethod();
-        }
         
         animator.Animator.SetFloat("Speed", ai.velocity.magnitude);
         animator.Animator.SetBool("Running", running);
     }
     
-    [Server]
-    private void RunMethod()
-    {
-        if (pickedUp.Value) return;
-        
-        running = true;
-        CancelInvoke(nameof(SetNewPath));
-
-        var target = playersInRange[0];
-        if (target != null)
-        {
-            SetRunningPath(target.transform, runDistance);
-        }
-
-        WaitingForPath = false;
-    }
-
-    [Server]
-    private void WalkMethod()
-    {
-        if (pickedUp.Value) return;
-        
-        running = false;
-            
-        if (!ai.pathPending && (ai.reachedEndOfPath || !ai.hasPath) && !WaitingForPath)
-        {
-            if (!canWalk) return;
-                
-            WaitingForPath = true;
-            Invoke(nameof(SetNewPath), 3f);
-        }
-    }
-    
     #region HelperMethods
-    
-    private void SetRunningPath(Transform player, float runDistance)
-    {
-        Vector3 direction = (ai.position - player.position).normalized;
-        Vector3 runTarget = ai.position + direction * runDistance;
-        runTarget.y = ai.position.y;
-        
-        ai.destination = runTarget;
-    }
     
     public void PlaySpitAnimation()
     {
@@ -146,35 +99,19 @@ public class FrogScript : BaseEnemyScript, IStunable
     
     #endregion
     
-    public void SetStunned(bool stunned)
+    public void SetStunned(bool stunned, float duration)
     {
         if (stunned)
         {
-            statusVisualizer.ShowStatusSign(CreatureStatus.Questionmark, 1.5f);
-            Debug.Log("Stunned");
-            canWalk = false;
-            walkSpeed = 0;
-            canRunaway = false;
-            canSpit = false;
-        }
-        else
-        {
-            Debug.Log("Not Stunned");
-            
-            canWalk = true;
-            walkSpeed = 2f;
-            canRunaway = true;
-            canSpit = true;
+            frogStateMachine.ChangeState(new FrogStunState(frogStateMachine, this, duration));
         }
     }
+}
 
-    protected override void OnDetected(Collider other)
-    {
-        base.OnDetected(other);
-        
-        if (other.CompareTag("Player") && !playersInRange.Contains(other.gameObject) && statusVisualizer != null)
-        {
-            statusVisualizer.ShowStatusSign(CreatureStatus.Exclamation, 2f);
-        }
-    }
+public enum FrogState
+{
+    Roaming,
+    Running,
+    PickedUp,
+    Stunned
 }

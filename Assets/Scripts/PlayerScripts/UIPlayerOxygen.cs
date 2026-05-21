@@ -5,10 +5,20 @@ using UnityEngine.UI;
 public class UIPlayerOxygen : MonoBehaviour
 {
     private Slider _oxygenSlider;
+    [SerializeField] private Animator alertAnimator;
 
     private void Awake()
     {
         _oxygenSlider = GetComponent<Slider>();
+        
+        OxygenScript.OnMaxStaminaEvent += SetMaxOxygen;
+        OxygenScript.OnCurrentStaminaEvent += SetCurrentOxygen;
+        OxygenScript.OxygenAlertEvent += HandleAlertAnimation;
+    }
+
+    private void HandleAlertAnimation(bool value)
+    {
+        alertAnimator.enabled = value;
     }
 
     private void SetMaxOxygen(float maxOxygen)
@@ -20,14 +30,10 @@ public class UIPlayerOxygen : MonoBehaviour
     {
         _oxygenSlider.value = currentOxygen;
     }
-
-    private void OnEnable()
-    {
-        OxygenScript.OnMaxStaminaEvent += SetMaxOxygen;
-        OxygenScript.OnCurrentStaminaEvent += SetCurrentOxygen;
-    }
-
-    private void OnDisable()
+    
+    
+    
+    private void OnDestroy()
     {
         OxygenScript.OnMaxStaminaEvent -= SetMaxOxygen;
         OxygenScript.OnCurrentStaminaEvent -= SetCurrentOxygen;

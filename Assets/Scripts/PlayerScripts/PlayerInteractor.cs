@@ -4,8 +4,8 @@ using FishNet.Object;
 using Items;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
 using UnityEngine.InputSystem;
+using UnityEngine.ProBuilder.Shapes;
 
 public class PlayerInteractor : PlayerComponent
 {
@@ -17,10 +17,22 @@ public class PlayerInteractor : PlayerComponent
     [SerializeField] private NetworkObject fpItemHolder;
     [GUIColor("Red")]
     [SerializeField] private NetworkObject tpIemHolder;
+
+    [Header("Drop Settings")]
+    [HideInInspector] public NetworkObject itemDropTransform;
+    
+    [SerializeField] private float dropRadius = 0.25f;
+    [SerializeField] private float dropDistance = 1f;
+    [SerializeField] private float lookDownThreshold = 0.8f;
+    
+    [Header("Cross indicator")]
+    [SerializeField] private GameObject crossIndicator;
     
     [Header("Interaction Distance Settings")]
     [GUIColor("Yellow")]
     [SerializeField] private float interactionDistance;
+    [SerializeField] private Color interactionColor;
+    [SerializeField] private Color defaultColor;
     
     private InputSystem_Actions _inputSystem;
     private Camera _camera;
@@ -31,6 +43,8 @@ public class PlayerInteractor : PlayerComponent
 
     private RaycastHit _hit;
     private bool _hasValidTarget;
+    
+    private IOutlineChangeable _currentOutlineChangeable;
 
     public override void OnStartClient()
     {
@@ -108,6 +122,8 @@ public class PlayerInteractor : PlayerComponent
 
         bool found = false;
         string interactText = null;
+        
+        IOutlineChangeable newOutlineChangeable = null;
 
         if (Physics.Raycast(ray, out _hit, interactionDistance))
         {
@@ -120,12 +136,38 @@ public class PlayerInteractor : PlayerComponent
                     interactText = pickable.itemDisplayName;
                     found = true;
                 }
+
+                if (pickable is IOutlineChangeable outlineChangeable)
+                {
+                    newOutlineChangeable = outlineChangeable;
+                }
             }
             else if (collider.TryGetComponent(out IInteractable interactable))
             {
                 interactText = interactable.GetInteractText();
+
+                if (interactable is IOutlineChangeable outlineChangeable)
+                {
+                    newOutlineChangeable = outlineChangeable;
+                }
+                
                 found = true;
             }
+        }
+
+        if (_currentOutlineChangeable != newOutlineChangeable)
+        {
+            if (_currentOutlineChangeable != null)
+            {
+                _currentOutlineChangeable.SetOutlineColor(defaultColor);
+            }
+
+            if (newOutlineChangeable != null)
+            {
+                newOutlineChangeable.SetOutlineColor(interactionColor);
+            }
+
+            _currentOutlineChangeable = newOutlineChangeable;
         }
         
         if (found)
@@ -229,14 +271,61 @@ public class PlayerInteractor : PlayerComponent
 
     private void OnItemDrop(InputAction.CallbackContext context)
     {
-        if (!IsOwner) return;
-        if (!context.performed) return;
+        if (!IsOwner || !context.performed || !GlobalDropRule.CanDropItems) return;
+
+        if (IsLookingTooFarDown())
+        {
+            MessageShowerScript.Instance.ShowMessage("Can't drop looking too far down", 1f);
+            return;
+        }
+
+        if (!TryGetDropPosition(out Vector3 dropPos))
+        {
+            MessageShowerScript.Instance.ShowMessage("Too close to obstacle", 1f);
+            return;
+        }
         
         Vector3 direction = transform.forward;
         
-        DropItem_Server(direction);
+        DropItem_Server(dropPos, direction);
+    }
+    
+    public bool TryGetDropPosition(out Vector3 dropPosition)
+    {
+        Vector3 origin = itemDropTransform.transform.position;
+        Vector3 direction = itemDropTransform.transform.forward;
+
+        float minAllowedDistance = dropDistance * 1;
+
+        int mask = ~LayerMask.GetMask("PickableLayer");
+
+        if (Physics.SphereCast(origin, dropRadius, direction, out RaycastHit hit, dropDistance, mask))
+        {
+            Debug.DrawLine(origin, hit.point, Color.red, 2f);
+            
+            if (hit.distance < minAllowedDistance)
+            {
+                Instantiate(crossIndicator, hit.point, Quaternion.LookRotation(hit.normal));
+                dropPosition = Vector3.zero;
+                return false;
+            }
+            
+            dropPosition = hit.point - direction * dropRadius;
+            return true;
+        }
+        
+        dropPosition = origin + direction * dropDistance;
+        return true;
     }
 
+    private bool IsLookingTooFarDown()
+    {
+        Vector3 forward = itemDropTransform.transform.forward;
+        
+        float dot = Vector3.Dot(forward, Vector3.down);
+
+        return dot > lookDownThreshold;
+    }
     
     // to get rid of so much component checking
     // try to write network serializer because otherwise it won't work
@@ -267,22 +356,22 @@ public class PlayerInteractor : PlayerComponent
     {
         if (netObj.TryGetComponent<IInteractable>(out var interactable))
         {
-            interactable.Interact();
+            interactable.Interact(playerRoot);
         }
     }
     
     [ServerRpc(RequireOwnership = true)]
-    private void DropItem_Server(Vector3 rotation)
+    private void DropItem_Server(Vector3 position, Vector3 rotation)
     {
         if (_playerInventory.currentItem.Value == null) return;
 
         if (_playerInventory.currentItem.Value.isBig)
         {
-            _playerInventory.RemoveBigItem(_playerInventory.currentItem.Value, rotation);
+            _playerInventory.RemoveBigItem(_playerInventory.currentItem.Value, position, rotation);
         }
         else
         {
-            _playerInventory.RemoveItem(_playerInventory.currentItem.Value, rotation);
+            _playerInventory.RemoveItem(_playerInventory.currentItem.Value, position, rotation);
         }
     }
     
@@ -301,6 +390,26 @@ public class PlayerInteractor : PlayerComponent
         }
         
         return true;
+    }
+    
+    private void OnDrawGizmos()
+    {
+        if (itemDropTransform == null) return;
+
+        Vector3 origin = itemDropTransform.transform.position;
+        Vector3 direction = itemDropTransform.transform.forward;
+
+        // Start sphere
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(origin, dropRadius);
+
+        // End sphere
+        Vector3 end = origin + direction * dropDistance;
+        Gizmos.DrawWireSphere(end, dropRadius);
+
+        // Line between them
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(origin, end);
     }
 }
 

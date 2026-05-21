@@ -4,13 +4,13 @@ using FishNet.Object;
 using Items;
 using UnityEngine;
 
-public class DogItemOfInterest : Item
+public class DogItemOfInterest : SellableItem
 {
     public event Action<NetworkObject> HoldingPlayer;
     
     public event Action ItemPickedUp;
     public event Action ItemDropped;
-
+    
     protected override void PickupLogic(NetworkObject holder, NetworkConnection conn)
     {
         base.PickupLogic(holder, conn);
@@ -18,9 +18,9 @@ public class DogItemOfInterest : Item
         HoldingPlayer?.Invoke(holder);
     }
 
-    protected override void DropLogic(Vector3 forward)
+    protected override void DropLogic(Vector3 position, Vector3 forward)
     {
-        base.DropLogic(forward);
+        base.DropLogic(position, forward);
         ItemDropped?.Invoke();
     }
 }

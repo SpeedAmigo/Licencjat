@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IStunable
 {
-    public void SetStunned(bool stunned);
+    public void SetStunned(bool stunned, float duration);
 }

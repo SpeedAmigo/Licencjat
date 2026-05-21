@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using FishNet.CodeGenerating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using FMODUnity;
 using Items;
 using Pathfinding;
 using UnityEngine;
 
-public class DogScript : BaseEnemyScript
+public class DogScript : BaseEnemyScript, IStunable
 {
     [Header("State")]
     public DogState dogState;
     
     [Header("Dependencies")]
     [SerializeField] private StateMachine dogStateMachine;
+    public CreatureStatusVisualizer dogVisualizer;
     
     [Header("Items in range list")]
     [AllowMutableSyncType] private readonly SyncVar<GameObject> _itemOfInterestInRange = new();
@@ -24,12 +26,18 @@ public class DogScript : BaseEnemyScript
     public float agroTime = 5f;
     public float agroTimer;
     public float attackTimer;
+    public float idleSoundTimer;
     
     [Header("Distance Settings")]
     public float stopDistance = 1.5f;
     public float agroDistance = 10f;
     public float attackDistance;
     public float maxAwareDistance;
+    
+    [Header("Sounds")]
+    public EventReference stunSound;
+    public EventReference idleSound;
+    public EventReference attackSound;
     
     [HideInInspector] public bool itemOfInterestIsHeld;
     [HideInInspector] public DogItemOfInterest itemOfInterest;
@@ -64,31 +72,6 @@ public class DogScript : BaseEnemyScript
     public void NewPathWrapper()
     {
         SetNewPath(_itemOfInterestInRange.Value.transform.position);
-    }
-
-    public void ChangeSpeed(float newSpeed, float duration)
-    {
-        if (_speedCoroutine != null)
-        {
-            StopCoroutine(_speedCoroutine);
-        }
-        
-        StartCoroutine(ChangeSpeedCoroutine(newSpeed, duration));
-    }
-
-    private IEnumerator ChangeSpeedCoroutine(float newSpeed, float duration)
-    {
-        float startSpeed = ai.maxSpeed;
-        float time = 0f;
-
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            ai.maxSpeed = Mathf.Lerp(startSpeed, newSpeed, time / duration);
-            yield return null;
-        }
-
-        ai.maxSpeed = newSpeed;
     }
     
     #endregion
@@ -154,6 +137,14 @@ public class DogScript : BaseEnemyScript
     }
 
     #endregion
+
+    public void SetStunned(bool stunned, float duration)
+    {
+        if (stunned)
+        {
+            dogStateMachine.ChangeState(new DogStunState(dogStateMachine, this, duration));
+        }
+    }
 }
 
 public enum DogState

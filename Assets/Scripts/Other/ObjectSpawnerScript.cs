@@ -18,18 +18,8 @@ public class ObjectSpawnerScript : NetworkBehaviour
     
     [Header("Spawnable objects list")]
     [SerializeField] private List<SpawnAbleObject> spawnAbleObjects;
-
-    private void Update()
-    {
-        if (!IsServerInitialized) return;
-
-        if (spawnedValue < valueToSpawn)
-        {
-            SpawnObject();
-        }
-    }
     
-    private void SpawnObject()
+    public void SpawnObject()
     {
         var pickedObject = PickObjectToSpawn();
         var pickedValue = PickRandomValue(pickedObject.minMaxSellValue);
@@ -38,19 +28,21 @@ public class ObjectSpawnerScript : NetworkBehaviour
         
         pooledObject.transform.position = transform.position;
         pooledObject.transform.rotation = transform.rotation;
-        
-        //var spawnedObject = Instantiate(pickedObject.prefab, transform.position, Quaternion.identity);
+
         Spawn(pooledObject);
 
         pooledObject.GetComponent<ObjectValue>().actualSellValue.Value = pickedValue;
         
         OnObjectSpawned?.Invoke(pooledObject);
-        //SpawnerManager.Instance.spawnedObjects.Add(pooledObject);
         
         spawnedValue += pickedValue;
         
         OnValueAdd?.Invoke((uint)spawnedValue);
-        //SpawnerManager.Instance.currentlySpawnedValue += (uint)pickedValue;
+        
+        if (spawnedValue < valueToSpawn)
+        {
+            SpawnObject();
+        }
     }
 
     private SpawnAbleObject PickObjectToSpawn()

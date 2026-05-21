@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using FishNet.CodeGenerating;
 using FishNet.Component.Animating;
@@ -17,7 +18,7 @@ public class BaseEnemyScript : NetworkBehaviour
     public NetworkAnimator Animator => animator;
 
     [Header("Damage settings")] 
-    public StatusEffect damageEffect;
+    public StatusEffect[] damageEffects;
     
     [Header("Speed settings")]
     public float walkSpeed;
@@ -30,9 +31,10 @@ public class BaseEnemyScript : NetworkBehaviour
     [SerializeField] private float radius = 10f;
     
     [HideInInspector] public AIPath ai;
-    [HideInInspector] public bool WaitingForPath;
+    [HideInInspector] public bool waitingForPath;
     
     [HideInInspector] public bool running;
+    private IEnumerator _speedCoroutine;
 
     public bool Running
     {
@@ -101,29 +103,65 @@ public class BaseEnemyScript : NetworkBehaviour
     public void SetNewPath()
     {
         ai.destination = PickRandomPoint();
-        WaitingForPath = false;
+        waitingForPath = false;
     }
     
     public void SetNewPath(Vector3 target)
     {
         ai.destination = PickRandomPoint(target);
-        WaitingForPath = false;
+        waitingForPath = false;
     }
     
     public Vector3 PickRandomPoint()
     {
-        Vector3 randomPoint = Random.insideUnitSphere * radius;
-        randomPoint.y = 0;
-        randomPoint += ai.position;
-        return randomPoint;
+        Vector2 random2D = Random.insideUnitCircle * radius;
+        Vector3 randomPoint = new Vector3(random2D.x, 0, random2D.y) + ai.position;
+        
+        NearestNodeConstraint constraint = NearestNodeConstraint.Walkable;
+        var nearest = AstarPath.active.GetNearest(randomPoint, constraint);
+        
+        return nearest.position;
     }
     
     public Vector3 PickRandomPoint(Vector3 target)
     {
-        Vector3 randomPoint = Random.insideUnitSphere * radius;
-        randomPoint.y = 0;
-        randomPoint += target;
-        return randomPoint;
+        Vector2 random2D = Random.insideUnitCircle * radius;
+        Vector3 randomPoint = new Vector3(random2D.x, 0, random2D.y) + target;
+        
+        NearestNodeConstraint constraint = NearestNodeConstraint.Walkable;
+        var nearest = AstarPath.active.GetNearest(randomPoint, constraint);
+        
+        return nearest.position;
+    }
+    
+    public void ChangeSpeed(float newSpeed, float duration)
+    {
+        if (_speedCoroutine != null)
+        {
+            StopCoroutine(_speedCoroutine);
+        }
+        
+        StartCoroutine(ChangeSpeedCoroutine(newSpeed, duration));
+    }
+    
+    public bool ReachedDestination()
+    {
+        return ai.reachedDestination && ai.reachedEndOfPath && !waitingForPath;
+    }
+
+    private IEnumerator ChangeSpeedCoroutine(float newSpeed, float duration)
+    {
+        float startSpeed = ai.maxSpeed;
+        float time = 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            ai.maxSpeed = Mathf.Lerp(startSpeed, newSpeed, time / duration);
+            yield return null;
+        }
+
+        ai.maxSpeed = newSpeed;
     }
     
     # endregion

@@ -113,8 +113,9 @@ public class PlayerController : PlayerComponent
         _inputSystem.Player.Jump.performed += OnJump;
 
         UIConsoleScript.OnConsoleOpen += HandleInput;
+        playerRoot.StunEvent += OnStunHandle;
     }
-
+    
     private void HandleInput(bool obj)
     {
         if (!obj)
@@ -144,13 +145,17 @@ public class PlayerController : PlayerComponent
     {
         Vector3 move = new Vector3(_moveInput.x, 0, _moveInput.y);
         move = transform.TransformDirection(move) * _moveSpeed;
-        
+
         Vector3 horizontalCurrent = new Vector3(_currentMove.x, 0, _currentMove.z);
-        horizontalCurrent = Vector3.Lerp(horizontalCurrent, move, decelerationSpeed * Time.deltaTime);
-        
-        _currentMove = new Vector3(horizontalCurrent.x, _velocity.y, horizontalCurrent.z);
-        
-        _controller.Move(_currentMove * Time.deltaTime);
+
+        horizontalCurrent = Vector3.Lerp(
+            horizontalCurrent,
+            move,
+            decelerationSpeed * Time.deltaTime
+        );
+
+        _currentMove.x = horizontalCurrent.x;
+        _currentMove.z = horizontalCurrent.z;
     }
 
     private void OnSprint()
@@ -190,13 +195,6 @@ public class PlayerController : PlayerComponent
     private void Update()
     {
         isGrounded = _controller.isGrounded;
-        if (IsOwner)
-        {
-            if (!playerRoot.isAlive.Value) return;
-            MoveHandler();
-            OnSprint();
-            OnCurrentStamina?.Invoke(currentStamina);
-        }
         
         if (isGrounded && _velocity.y < 0)
         {
@@ -212,9 +210,23 @@ public class PlayerController : PlayerComponent
             _velocity.y += gravity * jumpMultiplier * Time.deltaTime;
         }
 
-        if (_controller.enabled)
+        /*if (_controller.enabled)
         {
             _controller.Move(_velocity * Time.deltaTime);
+        }*/
+        
+        if (IsOwner)
+        {
+            if (!playerRoot.isAlive.Value) return;
+            MoveHandler();
+            OnSprint();
+            
+            Vector3 finalMove = _currentMove;
+            finalMove.y = _velocity.y;
+
+            _controller.Move(finalMove * Time.deltaTime);
+            
+            OnCurrentStamina?.Invoke(currentStamina);
         }
         
         float targetAnim;
@@ -228,5 +240,29 @@ public class PlayerController : PlayerComponent
         
         if (Mathf.Abs(animatorVelocity) < 0.01f)
             animatorVelocity = 0f;
+    }
+    
+    private void OnStunHandle(bool stunned, float duration)
+    {
+        if (!IsOwner) return;
+
+        if (stunned)
+        {
+            _inputSystem.Disable();
+        }
+        else
+        {
+            _inputSystem.Enable();
+        }
+    }
+
+    protected override void DeathHandle()
+    {
+        _controller.detectCollisions = false;
+    }
+
+    protected override void ReviveHandle()
+    {
+        _controller.detectCollisions = true;
     }
 }

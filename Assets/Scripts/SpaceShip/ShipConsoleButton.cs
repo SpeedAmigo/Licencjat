@@ -3,7 +3,7 @@ using FMODUnity;
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class ShipConsoleButton : NetworkBehaviour, IInteractable
+public class ShipConsoleButton : BaseInteractable
 {
     [SerializeField] private SpaceShipConsoleScript consoleScript;
     
@@ -12,35 +12,29 @@ public class ShipConsoleButton : NetworkBehaviour, IInteractable
     [SerializeField] private bool playOnLanded;
     
     [Space]
-    
     [SerializeField] private StudioEventEmitter emitter;
-    [SerializeField] private string interactText = "Interact";
     
-    public void Interact()
+    public override void Interact(PlayerRoot playerRoot)
     {
         if (!consoleScript.shipPending.Value && consoleScript.shipLanded.Value == playOnLanded)
         {
             Debug.Log($"ship status: {consoleScript.shipLanded.Value} button status: {playOnLanded}");
             playableDirector.Play();
             TimelineStart_Clients();
-            SpawnHandle(consoleScript.shipLanded.Value);
         }
         else
         {
             Debug.Log($"ship status: {consoleScript.shipLanded.Value} button status: {playOnLanded}");
         }
         
+        //SpawnHandle(consoleScript.shipLanded.Value, consoleScript.shipPending.Value);
+        
         if (emitter)
         {
             emitter.Play();
         }
     }
-
-    public string GetInteractText()
-    {
-        return interactText;
-    }
-
+    
     [ObserversRpc]
     private void TimelineStart_Clients()
     {
@@ -48,7 +42,7 @@ public class ShipConsoleButton : NetworkBehaviour, IInteractable
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void SpawnHandle(bool landed)
+    private void SpawnHandle(bool landed, bool pending)
     {
         if (!IsServerInitialized) return;
         
@@ -59,6 +53,7 @@ public class ShipConsoleButton : NetworkBehaviour, IInteractable
         else
         {
             SpawnerManager.Instance.RemoveSpawnedObjects();
+            SpawnerManager.Instance.RemoveSpawnedEggs();
         }
     }
 }

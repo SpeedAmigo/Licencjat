@@ -39,6 +39,9 @@ namespace MetaVoiceChat
         [Tooltip("This allows multiple codec time overrun warnings per frame.")]
         public bool allowMultipleCodecWarningsPerFrame;
 
+        [Tooltip("Enabled will log true/false to console whenever voice from microphone exceeds the threshold limit")]
+        public bool showVoiceDetectionLogs;
+
         [Header("Serializable Reactive Properties")]
 
         [Tooltip("This is the local player and they don't want to hear anyone else.")]
@@ -50,6 +53,10 @@ namespace MetaVoiceChat
         [Tooltip("This player is speaking or trying to speak.")]
         public MetaSerializableReactiveProperty<bool> isSpeaking;
 
+        [Header("Voice Detection")] 
+        public bool volumeDetection;
+        public float speakingThreshold = 0.01f;
+
         private INetProvider netProvider;
 
         private bool isLocalPlayer;
@@ -59,12 +66,15 @@ namespace MetaVoiceChat
 
         private VcJitter jitter;
 
+        private float volume;
+        public float Volume => volume;
+
         private readonly System.Diagnostics.Stopwatch stopwatch = new();
         private double Timestamp => stopwatch.Elapsed.TotalSeconds;
 
         private bool CannotSpeak => netProvider.IsLocalPlayerDeafened || isOutputMuted;
         private bool ShouldLocalEcho => isLocalPlayer && isEchoEnabled;
-
+        
         private static readonly FrameStopwatch codecStopwatch = new();
 
         private void Awake()
@@ -109,8 +119,29 @@ namespace MetaVoiceChat
                 }
             }
 
-            bool isSpeaking = samples != null;
+            //bool isSpeaking = samples != null;
+            bool isSpeaking = false;
 
+            if (samples != null)
+            {
+                if (volumeDetection)
+                {
+                    volume = GetVolume(samples);
+                
+                    isSpeaking = volume > speakingThreshold;
+                
+                    if (showVoiceDetectionLogs)
+                    {
+                        Debug.Log(isSpeaking);
+                    }
+                }
+                else
+                {
+                    volume = GetVolume(samples);
+                    isSpeaking = true;
+                }
+            }
+            
             this.isSpeaking.Value = isSpeaking;
 
             bool shouldRelayEmpty;
@@ -230,6 +261,18 @@ namespace MetaVoiceChat
             }
 
             isSpeaking.Value = value;
+        }
+
+        private float GetVolume(float[] samples)
+        {
+            float sum = 0f;
+
+            for (int i = 0; i < samples.Length; i++)
+            {
+                sum += samples[i] * samples[i];
+            }
+            
+            return Mathf.Sqrt(sum / samples.Length);
         }
     }
 }

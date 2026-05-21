@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using FishNet.CodeGenerating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class SpawnerManager : NetworkBehaviour
@@ -11,11 +12,13 @@ public class SpawnerManager : NetworkBehaviour
     [Header("Spawners")]
     [SerializeField] private int spawnersToEnable;
     [SerializeField] private List<ObjectSpawnerScript> spawners;
+    [SerializeField] private List<EggSpawner> eggSpawners;
     
     public int dayNumber;
     
     [Header("Spawned Objects")]
     public List<NetworkObject> spawnedObjects;
+    public List<NetworkObject> spawnedEggs; 
 
     [Header("Quota info")]
     [SerializeField, Range(0,1)] private float increasePercentage; 
@@ -41,8 +44,9 @@ public class SpawnerManager : NetworkBehaviour
     {
         ObjectSpawnerScript.OnObjectSpawned += AddSpawnedObject;
         ObjectSpawnerScript.OnValueAdd += AddToCurrentlySpawnedValue;
+        EggSpawner.EggSpawned += OnAddSpawnedEgg;
     }
-
+    
     private void OnDisable()
     {
         ObjectSpawnerScript.OnObjectSpawned -= AddSpawnedObject;
@@ -53,11 +57,16 @@ public class SpawnerManager : NetworkBehaviour
     {
         currentlySpawnedValue += value;
     }
+    
+    private void OnAddSpawnedEgg(NetworkObject obj)
+    {
+        if (spawnedEggs.Contains(obj)) return;
+        spawnedEggs.Add(obj);
+    }
 
     private void AddSpawnedObject(NetworkObject obj)
     {
         if (spawnedObjects.Contains(obj)) return;
-        
         spawnedObjects.Add(obj);
     }
     
@@ -74,6 +83,12 @@ public class SpawnerManager : NetworkBehaviour
         foreach (var spawner in pickedSpawners)
         {
             spawner.valueToSpawn = perSpawnerValue;
+            spawner.SpawnObject();
+        }
+
+        foreach (var egg in eggSpawners)
+        {
+            egg.SpawnObject();
         }
     }
     
@@ -93,7 +108,7 @@ public class SpawnerManager : NetworkBehaviour
             
             Despawn(nob);
         }
-
+                
         foreach (var spawner in spawners)
         {
             spawner.valueToSpawn = 0;
@@ -101,6 +116,31 @@ public class SpawnerManager : NetworkBehaviour
         }
         
         currentlySpawnedValue = 0;
+    }
+
+    [Button]
+    [ServerRpc(RequireOwnership = false)]
+    public void RemoveSpawnedEggs()
+    {
+        for (int i = spawnedEggs.Count - 1; i >= 0; i--)
+        {
+            NetworkObject nob = spawnedEggs[i];
+
+            if (nob == null) continue;
+            
+            if (nob.transform.position.y >= 200f) continue;
+            
+            spawnedEggs.RemoveAt(i);
+            
+            if (!nob.IsSpawned) continue;
+            
+            Despawn(nob);
+        }
+        
+        foreach (var spawner in eggSpawners)
+        {
+            spawner.spawnedValue = 0;
+        }
     }
 
     private List<ObjectSpawnerScript> PickSpawners()
