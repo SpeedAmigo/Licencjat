@@ -6,17 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="8c284735-b13c-4528-bfc9-a4dff6a1bf2b" name="Changes" comment="Player Leakage and tape visuals">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/SDF_WendyOne-Regular SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fonts/SDF_WendyOne-Regular SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player/PF_Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player/PF_Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene/SampleScene Baking Set 1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene/SampleScene Baking Set 1.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/OxygenScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/OxygenScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/UIPlayerOxygen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/UIPlayerOxygen.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/nTools/PrefabPainter/Settings/settings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/nTools/PrefabPainter/Settings/settings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResolutionControlScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResolutionControlScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fmod_editor.log" beforeDir="false" afterPath="$PROJECT_DIR$/fmod_editor.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,6 +170,7 @@
       <workItem from="1779100027429" duration="16029000" />
       <workItem from="1779186038969" duration="6366000" />
       <workItem from="1779357056705" duration="3909000" />
+      <workItem from="1779444253205" duration="1397000" />
     </task>
     <task id="LOCAL-00001" summary="Sell able egss">
       <option name="closed" value="true" />

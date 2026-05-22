@@ -398,7 +398,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: 1196096207332177434}
   cacheVersion: 131857
-  cacheTime: 639149663343110532
+  cacheTime: 639149746984422123
   SerializableEventsDict:
   - key: event:/Footsteps
     index: 0
@@ -542,7 +542,7 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639149663343105571
+  lastModified: 639149746984391203
   FileSizes:
   - Name: Desktop
     Value: 2034
@@ -616,7 +616,7 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639149663343100334
+  lastModified: 639149746984360753
   FileSizes:
   - Name: Desktop
     Value: 942752
@@ -744,7 +744,7 @@ MonoBehaviour:
   Path: LicencjatSounds/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639149663343110532
+  lastModified: 639149746984422123
   FileSizes:
   - Name: Desktop
     Value: 444928
