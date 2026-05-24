@@ -6,6 +6,9 @@ public class ResolutionControlScript : MonoBehaviour
 {
     [SerializeField] private TMP_Text currentResolutionText;
     [SerializeField] private TMP_Text currentScreenModeText;
+    [SerializeField] private TMP_Text currentFPSCapText;
+    
+    [SerializeField] private CapRates[] capRates;
     
     private Resolution[] _resolutions;
     private List<Resolution> _filteredResolutions;
@@ -13,10 +16,12 @@ public class ResolutionControlScript : MonoBehaviour
     private float _currentRefreshRate;
     private int _currentResolutionIndex;
     private int _currentScreenIndex;
+    private int _currentCapIndex;
     
     private void Start()
     {
         ApplyScreenMode(_currentScreenIndex = 0);
+        ApplyFPSCap(_currentCapIndex = 1);
         ResolutionSetup();
     }
 
@@ -74,7 +79,7 @@ public class ResolutionControlScript : MonoBehaviour
     private void SetResolution()
     {
         Resolution resolution = _filteredResolutions[_currentResolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode);
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode, resolution.refreshRateRatio);
         UpdateResolutionText();
     }
 
@@ -132,4 +137,47 @@ public class ResolutionControlScript : MonoBehaviour
         Screen.fullScreenMode = pickedMode;
         currentScreenModeText.text = textToDisplay;
     }
+    
+    public void CycleUpCap()
+    {
+        _currentCapIndex++;
+        
+        if (_currentCapIndex >= capRates.Length)
+        {
+            _currentCapIndex = 0;
+        }
+        
+        ApplyFPSCap(_currentCapIndex);
+    }
+
+    public void CycleDownCap()
+    {
+        _currentCapIndex--;
+        
+        if (_currentCapIndex < 0)
+        {
+            _currentCapIndex = capRates.Length - 1;
+        }
+        
+        ApplyFPSCap(_currentCapIndex);
+    }
+    
+    private void ApplyFPSCap(int index)
+    {
+        Application.targetFrameRate = capRates[index].value;
+
+        if (Application.targetFrameRate == -1)
+        {
+            currentFPSCapText.text = "Unlimited";
+            return;
+        }
+        
+        currentFPSCapText.text = capRates[index].value.ToString();
+    }
+}
+
+[System.Serializable]
+public class CapRates
+{
+    public int value;
 }
