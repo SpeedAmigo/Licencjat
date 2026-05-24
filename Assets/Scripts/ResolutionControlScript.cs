@@ -20,9 +20,14 @@ public class ResolutionControlScript : MonoBehaviour
     
     private void Start()
     {
-        ApplyScreenMode(_currentScreenIndex = 0);
-        ApplyFPSCap(_currentCapIndex = 1);
+        _currentCapIndex = PlayerPrefs.GetInt("FPS", _currentCapIndex = 1);
+        _currentScreenIndex = PlayerPrefs.GetInt("Screen", _currentScreenIndex = 0);
+        _currentResolutionIndex = PlayerPrefs.GetInt("Resolution", _currentResolutionIndex = 0);
+        
+        ApplyScreenMode(_currentScreenIndex);
+        ApplyFPSCap(_currentCapIndex);
         ResolutionSetup();
+        SetResolution();
     }
 
     private void ResolutionSetup()
@@ -40,14 +45,11 @@ public class ResolutionControlScript : MonoBehaviour
             }
         }
         
-        for (int i = 0; i < _filteredResolutions.Count; i++)
-        {
-            if (_filteredResolutions[i].width == Screen.width && _filteredResolutions[i].height == Screen.height)
-            {
-                _currentResolutionIndex = i;
-                break;
-            }
-        }
+        _currentResolutionIndex = Mathf.Clamp(
+            _currentResolutionIndex,
+            0,
+            _filteredResolutions.Count - 1
+        );
         
         UpdateResolutionText();
     }
@@ -80,6 +82,9 @@ public class ResolutionControlScript : MonoBehaviour
     {
         Resolution resolution = _filteredResolutions[_currentResolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode, resolution.refreshRateRatio);
+        PlayerPrefs.SetInt("Resolution", _currentResolutionIndex);
+        PlayerPrefs.Save();
+        
         UpdateResolutionText();
     }
 
@@ -134,6 +139,8 @@ public class ResolutionControlScript : MonoBehaviour
                 break;
         }
 
+        PlayerPrefs.SetInt("Screen", index);
+        PlayerPrefs.Save();
         Screen.fullScreenMode = pickedMode;
         currentScreenModeText.text = textToDisplay;
     }
@@ -165,6 +172,8 @@ public class ResolutionControlScript : MonoBehaviour
     private void ApplyFPSCap(int index)
     {
         Application.targetFrameRate = capRates[index].value;
+        PlayerPrefs.SetInt("FPS", index);
+        PlayerPrefs.Save();
 
         if (Application.targetFrameRate == -1)
         {
