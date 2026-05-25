@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using FishNet.Object;
 using UnityEngine;
 
-public class LizardScript : BaseEnemyScript
+public class LizardScript : BaseEnemyScript, IStunable
 {
     [Header("State")]
     public LizardState lizardState;
     
     [Header("Dependencies")]
     [SerializeField] private StateMachine lizardStateMachine;
+    public CreatureStatusVisualizer lizardVisualizer;
 
     public LizardSetting lizardSetting;
     
@@ -139,6 +140,14 @@ public class LizardScript : BaseEnemyScript
     }
     
     #endregion
+
+    public void SetStunned(bool stunned, float duration)
+    {
+        if (stunned)
+        {
+            lizardStateMachine.ChangeState(new LizardStunState(lizardStateMachine, this, duration));
+        }
+    }
 }
 
 public enum LizardState

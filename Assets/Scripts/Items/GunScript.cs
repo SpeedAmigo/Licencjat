@@ -16,6 +16,7 @@ public class GunScript : Weapon, IPrimaryClick, IRechargeable
     [SerializeField] EventReference shotSound;
 
     [SerializeField] private ParticleSystem barrelParticles;
+    [SerializeField] private ParticleSystem hitParticles;
     [SerializeField] private LineRenderer lr;
     
     public void OnPrimaryClick()
@@ -35,6 +36,19 @@ public class GunScript : Weapon, IPrimaryClick, IRechargeable
     }
 
     [ServerRpc(RequireOwnership = false)]
+    private void PlayHitParticles(Vector3 position)
+    {
+        PlayHitParticlesObservers(position);
+    }
+
+    [ObserversRpc]
+    private void PlayHitParticlesObservers(Vector3 position)
+    {
+        hitParticles.transform.position = position;
+        hitParticles.Play();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
     private void PlayBarrelParticles()
     {
         PlayBarrelParticlesObserver();
@@ -49,16 +63,25 @@ public class GunScript : Weapon, IPrimaryClick, IRechargeable
     private void Shoot()
     {
         Ray ray = new Ray(raycastStartPoint.position, raycastStartPoint.forward);
+        Vector3 endPoint;
         
         if (Physics.Raycast(ray, out RaycastHit hit, shootDistance))
         {
+            endPoint = hit.point;
+            
             if (hit.collider.TryGetComponent<NetworkObject>(out var nob))
             {
                 TryApplyEffect(nob);
             }
+            
+            PlayHitParticles(hit.point);
+        }
+        else
+        {
+            endPoint = ray.origin + ray.direction * shootDistance;
         }
         
-        PlayLaserBeamServer(raycastStartPoint.position, hit.point);
+        PlayLaserBeamServer(raycastStartPoint.position, endPoint);
     }
 
     [ServerRpc(RequireOwnership = false)]
