@@ -69,6 +69,8 @@ public class GunScript : Weapon, IPrimaryClick, IRechargeable
         {
             endPoint = hit.point;
             
+            Debug.Log(hit.collider.name);
+            
             if (hit.collider.TryGetComponent<NetworkObject>(out var nob))
             {
                 TryApplyEffect(nob);
@@ -112,6 +114,12 @@ public class GunScript : Weapon, IPrimaryClick, IRechargeable
     private void TryApplyEffect(NetworkObject target)
     {
        var handler = target.GetComponent<StatusEffectHandler>();
+       
+       // additional check for players 
+       if (handler == null)
+       {
+           handler = target.transform.parent.GetComponent<StatusEffectHandler>();
+       }
 
        if (handler == null)
        {

@@ -9539,7 +9539,6 @@ MonoBehaviour:
   - {fileID: 4553676669488110052}
   - {fileID: 874296193848525078}
   - {fileID: 762722046519068931}
-  - {fileID: 1325505856954297119}
   networkAnimator: {fileID: 7925093943019926546}
   animator: {fileID: 2662647078147688195}
   getUpDuration: 2.56
