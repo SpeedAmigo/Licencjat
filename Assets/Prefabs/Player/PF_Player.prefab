@@ -554,7 +554,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -1694,8 +1694,8 @@ ParticleSystem:
         m_RotationOrder: 4
     startFrame:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 3
+      scalar: 0.9999
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1750,14 +1750,14 @@ ParticleSystem:
     tilesY: 1
     animationType: 0
     rowIndex: 0
-    cycles: 1
+    cycles: 0.5
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 7a44501d507f5a84ba61d0644e4c57ce, type: 3}
-    - sprite: {fileID: 21300000, guid: 8deab21f822313545a300b09db3d7781, type: 3}
-    - sprite: {fileID: 21300000, guid: 500c2090374c23c46b5e6bf83c986967, type: 3}
-    - sprite: {fileID: 21300000, guid: 4e535eb17ce57034d9db51dce11375da, type: 3}
+    - sprite: {fileID: -686397664, guid: aa2318c5ef29a3144a1206170b3366cb, type: 3}
+    - sprite: {fileID: 595666301, guid: aa2318c5ef29a3144a1206170b3366cb, type: 3}
+    - sprite: {fileID: 997907190, guid: aa2318c5ef29a3144a1206170b3366cb, type: 3}
+    - sprite: {fileID: 501709003, guid: aa2318c5ef29a3144a1206170b3366cb, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -9906,7 +9906,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5434755968665637914}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.35964483}
+  m_AnchorMin: {x: 0, y: 0.35973734}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -11300,10 +11300,10 @@ RectTransform:
   - {fileID: 1267646743763391894}
   m_Father: {fileID: 5103543323135374165}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 450}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2966110907492150229
 GameObject:
@@ -12420,7 +12420,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8913448469370923584}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.64035517
+  m_Size: 0.64026266
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -17338,10 +17338,10 @@ RectTransform:
   - {fileID: 7897238793607341522}
   m_Father: {fileID: 4623979603099476862}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0024719, y: 0.000019073}
-  m_SizeDelta: {x: 799.99, y: 450}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2582669133968116387
 CanvasRenderer:
@@ -22758,7 +22758,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -23898,8 +23898,8 @@ ParticleSystem:
         m_RotationOrder: 4
     startFrame:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 3
+      scalar: 0.9999
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -23954,14 +23954,14 @@ ParticleSystem:
     tilesY: 1
     animationType: 0
     rowIndex: 0
-    cycles: 1
+    cycles: 0.5
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 7a44501d507f5a84ba61d0644e4c57ce, type: 3}
-    - sprite: {fileID: 21300000, guid: 8deab21f822313545a300b09db3d7781, type: 3}
-    - sprite: {fileID: 21300000, guid: 500c2090374c23c46b5e6bf83c986967, type: 3}
-    - sprite: {fileID: 21300000, guid: 4e535eb17ce57034d9db51dce11375da, type: 3}
+    - sprite: {fileID: -686397664, guid: aa2318c5ef29a3144a1206170b3366cb, type: 3}
+    - sprite: {fileID: 595666301, guid: aa2318c5ef29a3144a1206170b3366cb, type: 3}
+    - sprite: {fileID: 997907190, guid: aa2318c5ef29a3144a1206170b3366cb, type: 3}
+    - sprite: {fileID: 501709003, guid: aa2318c5ef29a3144a1206170b3366cb, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -28258,7 +28258,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -29398,8 +29398,8 @@ ParticleSystem:
         m_RotationOrder: 4
     startFrame:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 3
+      scalar: 0.9999
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -29454,14 +29454,14 @@ ParticleSystem:
     tilesY: 1
     animationType: 0
     rowIndex: 0
-    cycles: 1
+    cycles: 0.5
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 7a44501d507f5a84ba61d0644e4c57ce, type: 3}
-    - sprite: {fileID: 21300000, guid: 8deab21f822313545a300b09db3d7781, type: 3}
-    - sprite: {fileID: 21300000, guid: 500c2090374c23c46b5e6bf83c986967, type: 3}
-    - sprite: {fileID: 21300000, guid: 4e535eb17ce57034d9db51dce11375da, type: 3}
+    - sprite: {fileID: -686397664, guid: aa2318c5ef29a3144a1206170b3366cb, type: 3}
+    - sprite: {fileID: 595666301, guid: aa2318c5ef29a3144a1206170b3366cb, type: 3}
+    - sprite: {fileID: 997907190, guid: aa2318c5ef29a3144a1206170b3366cb, type: 3}
+    - sprite: {fileID: 501709003, guid: aa2318c5ef29a3144a1206170b3366cb, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:

@@ -118,7 +118,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 56
+  controlID: 153
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 57
+  controlID: 154
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 119
+  controlID: 124
   draggingID: 0
 --- !u!114 &12
 MonoBehaviour:
@@ -507,7 +507,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 08fbffff
+      m_ExpandedIDs: f0b5f4fff221f6ff8a6ef6ff9e6ef6ffa46ef6ffae6ef6ffb86ef6ffc66ef6ff647bf6ff08faffffaaaf0a00dcaf0a00e6af0a001ab00a002ab00a0070b00a00fca50c001ca60c005aa60c0076a60c00a8a60c000ea70c0036a70c0056a70c00
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1035,15 +1035,15 @@ MonoBehaviour:
   m_OverrideSceneCullingMask: 6917529027641081856
   m_SceneIsLit: 1
   m_SceneLighting: 1
-  m_2DMode: 0
+  m_2DMode: 1
   m_isRotationLocked: 0
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -9.026239, y: 300.66168, z: 28.117691}
+    m_Target: {x: 1168.3798, y: 727.94434, z: 1306.0527}
     speed: 2
-    m_Value: {x: -9.026239, y: 300.66168, z: 28.117691}
+    m_Value: {x: 1168.3798, y: 727.94434, z: 1306.0527}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1089,20 +1089,20 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.12314356, y: 0.25416085, z: -0.032632243, w: -0.958556}
+    m_Target: {x: 0, y: 0, z: 0, w: 1}
     speed: 2
-    m_Value: {x: -0.12314356, y: 0.25416085, z: -0.032632243, w: -0.958556}
+    m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 1.1232276
+    m_Target: 1003.80615
     speed: 2
-    m_Value: 1.1232276
+    m_Value: 1003.80615
   m_Ortho:
-    m_Target: 0
+    m_Target: 1
     speed: 2
-    m_Value: 0
+    m_Value: 1
   m_CameraSettings:
-    m_Speed: 0.84058
-    m_SpeedNormalized: 0.42
+    m_Speed: 1.6201894
+    m_SpeedNormalized: 0.8099997
     m_SpeedMin: 0.001
     m_SpeedMax: 2
     m_EasingEnabled: 1
@@ -1113,7 +1113,7 @@ MonoBehaviour:
     m_FarClip: 10000
     m_DynamicClip: 1
     m_OcclusionCulling: 0
-  m_LastSceneViewRotation: {x: -0.12314356, y: 0.25416085, z: -0.032632243, w: -0.958556}
+  m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
   m_LastSceneViewOrtho: 0
   m_Viewpoint:
     m_SceneView: {fileID: 17}
@@ -7847,7 +7847,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Scenes
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -7857,16 +7857,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: E:\Github\CosmoCritters
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 113}
-    m_SelectedIDs: c4610100
-    m_LastClickedID: 90564
-    m_ExpandedIDs: 00000000186f0100
+    scrollPos: {x: 0, y: 81}
+    m_SelectedIDs: 2e700100
+    m_LastClickedID: 94254
+    m_ExpandedIDs: 00000000ac130100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -7895,7 +7895,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000186f0100
+    m_ExpandedIDs: 00000000ac130100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -7991,7 +7991,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 400960
+  m_LastSelectedObjectID: -627814
 --- !u!114 &26
 MonoBehaviour:
   m_ObjectHideFlags: 52

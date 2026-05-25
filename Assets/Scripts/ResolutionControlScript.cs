@@ -22,12 +22,10 @@ public class ResolutionControlScript : MonoBehaviour
     {
         _currentCapIndex = PlayerPrefs.GetInt("FPS", _currentCapIndex = 1);
         _currentScreenIndex = PlayerPrefs.GetInt("Screen", _currentScreenIndex = 0);
-        _currentResolutionIndex = PlayerPrefs.GetInt("Resolution", _currentResolutionIndex = 0);
         
         ApplyScreenMode(_currentScreenIndex);
         ApplyFPSCap(_currentCapIndex);
         ResolutionSetup();
-        SetResolution();
     }
 
     private void ResolutionSetup()
@@ -43,6 +41,25 @@ public class ResolutionControlScript : MonoBehaviour
             {
                 _filteredResolutions.Add(_resolutions[i]);
             }
+        }
+
+        if (PlayerPrefs.HasKey("Resolution"))
+        {
+            _currentResolutionIndex = PlayerPrefs.GetInt("Resolution");
+        }
+        else
+        {
+            for (int i = 0; i < _filteredResolutions.Count; i++)
+            {
+                Resolution resolution = _filteredResolutions[i];
+
+                if (resolution.width == Screen.currentResolution.width &&
+                    resolution.height == Screen.currentResolution.height)
+                {
+                    _currentResolutionIndex = i;
+                    break;
+                }
+            } 
         }
         
         _currentResolutionIndex = Mathf.Clamp(
@@ -80,8 +97,11 @@ public class ResolutionControlScript : MonoBehaviour
 
     private void SetResolution()
     {
+        if (_filteredResolutions.Count == 0) return;
+        
         Resolution resolution = _filteredResolutions[_currentResolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode, resolution.refreshRateRatio);
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode);
+        
         PlayerPrefs.SetInt("Resolution", _currentResolutionIndex);
         PlayerPrefs.Save();
         
@@ -126,11 +146,11 @@ public class ResolutionControlScript : MonoBehaviour
         switch (index)
         {
             case 0:
-                pickedMode = FullScreenMode.ExclusiveFullScreen;
+                pickedMode = FullScreenMode.FullScreenWindow;
                 textToDisplay = "Full Screen";
                 break;
             case 1:
-                pickedMode = FullScreenMode.FullScreenWindow;
+                pickedMode = FullScreenMode.MaximizedWindow;
                 textToDisplay = "Full Screen Window";
                 break;
             case 2:
