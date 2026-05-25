@@ -4691,8 +4691,8 @@ MonoBehaviour:
   pickNextWaypointDist: 2
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
-  preventMovingBackwards: 0
-  constrainInsideGraph: 0
+  preventMovingBackwards: 1
+  constrainInsideGraph: 1
 --- !u!114 &49520327559793370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4926,6 +4926,10 @@ PrefabInstance:
     - target: {fileID: 426450984527418220, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 539635749006507717, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 893498575154687388, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
       propertyPath: m_Pivot.x

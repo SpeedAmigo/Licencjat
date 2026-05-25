@@ -4691,8 +4691,8 @@ MonoBehaviour:
   pickNextWaypointDist: 2
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
-  preventMovingBackwards: 0
-  constrainInsideGraph: 0
+  preventMovingBackwards: 1
+  constrainInsideGraph: 1
 --- !u!114 &49520327559793370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5303,7 +5303,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1244259089383504643, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
       propertyPath: SerializedTransformProperties.Position.y
-      value: 0.00439
+      value: 0.00144
       objectReference: {fileID: 0}
     - target: {fileID: 1244259089383504643, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
       propertyPath: SerializedTransformProperties.Position.z
