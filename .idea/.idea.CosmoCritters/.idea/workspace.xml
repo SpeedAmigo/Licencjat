@@ -6,16 +6,70 @@
   <component name="ChangeListManager">
     <list default="true" id="8c284735-b13c-4528-bfc9-a4dff6a1bf2b" name="Changes" comment="Player Leakage and tape visuals">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Alert.controller" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Alert.controller.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/AC_Lizard.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/AC_Lizard.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Atlas particles.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Atlas particles.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BROKEN_HELMET_HELMET_BaseMap.1001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BROKEN_HELMET_HELMET_BaseMap.1001.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BROKEN_HELMET_HELMET_Normal.1001.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BROKEN_HELMET_HELMET_Normal.1001.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/DespawnSignal.signal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/DespawnSignal.signal.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Fonts/SDF_WendyOne-Regular SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fonts/SDF_WendyOne-Regular SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player/PF_Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player/PF_Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Menu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Menu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MM_Helmet.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MM_Helmet.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/OxygenAlertAnimation.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/OxygenAlertAnimation.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Particles Three.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Particles Three.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Particles four.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Particles four.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Particles one.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Particles one.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Particles two.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Particles two.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/BlueSpaceLizard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/BlueSpaceLizard.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/GreenSpaceLizard 3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/GreenSpaceLizard 3.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/OrangeSpaceLizard 2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/OrangeSpaceLizard 2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_BeigeDogo.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_BeigeDogo.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PinkSpaceLizard 1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PinkSpaceLizard 1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/PF_Gun.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Items/PF_Gun.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DogStunState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DogStunState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/GunScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Items/GunScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LizardAttackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LizardAttackState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LizzardScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LizzardScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ResolutionControlScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ResolutionControlScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Master.bank" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/Master.bank" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/Master.strings.bank" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/Master.strings.bank" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/SFX.bank" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/SFX.bank" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SpawnSignal.signal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SpawnSignal.signal.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/arrow_deafult.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/arrow_deafult.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/arrow_hovered.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/arrow_hovered.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/arrow_pressed.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/arrow_pressed.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/charge_bar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/charge_bar.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/check_deafult1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/check_deafult1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/check_hovered1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/check_hovered1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/check_pressed1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/check_pressed1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/checkmark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/checkmark.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/oxygen_warning.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/oxygen_warning.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/resolution_block.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/resolution_block.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scroll_back.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scroll_back.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scroll_deafult.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scroll_deafult.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scroll_hovered.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scroll_hovered.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scroll_pressed.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/scroll_pressed.png.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,6 +125,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/IOutlineChangeable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interfaces/IInteractable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Items/Item.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/LizardStunState.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Pickables/ObjectPickable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerScripts/CameraController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerScripts/PlayerInteractor.cs" root0="FORCE_HIGHLIGHTING" />
@@ -192,7 +247,8 @@
       <workItem from="1779357056705" duration="3909000" />
       <workItem from="1779444253205" duration="1397000" />
       <workItem from="1779620487329" duration="6341000" />
-      <workItem from="1779700631039" duration="1021000" />
+      <workItem from="1779700631039" duration="5507000" />
+      <workItem from="1779723560692" duration="1646000" />
     </task>
     <task id="LOCAL-00001" summary="Sell able egss">
       <option name="closed" value="true" />

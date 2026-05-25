@@ -54,6 +54,12 @@ public class LizardAttackState : State
         {
             Debug.Log("Attack");
             _lizardScript.lizardState = LizardState.Attack;
+            
+            if (_target.TryGetComponent<StatusEffectHandler>(out var effectHandler))
+            {
+                effectHandler.ApplyEffects(_lizardScript.damageEffects);
+            }
+            
             stateMachine.ChangeState(new LizardRunAwayState(stateMachine, _lizardScript));
         }
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DogStunState : State
 {
-    DogScript _dogScript;
+    private DogScript _dogScript;
 
     private readonly float _duration;
     private float _currentTime = 0f;

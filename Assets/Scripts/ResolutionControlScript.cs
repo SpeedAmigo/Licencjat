@@ -20,7 +20,7 @@ public class ResolutionControlScript : MonoBehaviour
     
     private void Start()
     {
-        _currentCapIndex = PlayerPrefs.GetInt("FPS", _currentCapIndex = 1);
+        _currentCapIndex = PlayerPrefs.GetInt("FPS", _currentCapIndex = capRates.Length - 1);
         _currentScreenIndex = PlayerPrefs.GetInt("Screen", _currentScreenIndex = 0);
         
         ApplyScreenMode(_currentScreenIndex);
