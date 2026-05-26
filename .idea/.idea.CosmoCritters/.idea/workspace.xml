@@ -7,26 +7,23 @@
     <list default="true" id="8c284735-b13c-4528-bfc9-a4dff6a1bf2b" name="Changes" comment="Player Leakage and tape visuals">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Fonts/SDF_WendyOne-Regular SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fonts/SDF_WendyOne-Regular SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Folder.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Folder/laser.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Folder/laser.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Folder/mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Folder/mat/laser.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Folder/mat/laser.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Folder/mat/laser_smooth_albedo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Folder/mat/laser_smooth_albedo.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Folder/mat/op.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Folder/mat/op.jpeg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Folder/mat/particle.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/New Folder/mat/particle.mat.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/BlueSpaceLizard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/BlueSpaceLizard.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/GreenSpaceLizard 3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/GreenSpaceLizard 3.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/OrangeSpaceLizard 2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/OrangeSpaceLizard 2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_BeigeDogo.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_BeigeDogo.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_BlueSpaceFrog.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_BlueSpaceFrog.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_BrownDogo.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_BrownDogo.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_GreenSpaceFrog.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_GreenSpaceFrog.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_PinkSpaceFrog.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_PinkSpaceFrog.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_PurpleDogo.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_PurpleDogo.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_PurpleSpaceFrog.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_PurpleSpaceFrog.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_RedSpaceFrog.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_RedSpaceFrog.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PinkSpaceLizard 1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PinkSpaceLizard 1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player/PF_Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player/PF_Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/GunScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Items/GunScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/laser_smooth_albedo.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/laser_smooth_albedo.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/op.jpeg.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/op.jpeg.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Creatures/BaseEnemyScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Creatures/BaseEnemyScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LizardAttackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LizardAttackState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LizzardRoamState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LizzardRoamState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

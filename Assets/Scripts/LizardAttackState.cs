@@ -24,12 +24,12 @@ public class LizardAttackState : State
 
     public override void Tick()
     {
-        if (_lizardScript.VcInRange.Count != 0 && _lizardScript.GetLoudestVoiceAround().voiceVolume.Value >= _lizardScript.noiseThreshold)
+        MoveToAttack();
+        
+        /*if (_lizardScript.VcInRange.Count != 0 && _lizardScript.GetLoudestVoiceAround().voiceVolume.Value >= _lizardScript.noiseThreshold)
         {
             stateMachine.ChangeState(new LizardRunAwayState(stateMachine, _lizardScript));
-        }
-        
-        MoveToAttack();
+        }*/
     }
 
     public override void Exit()
@@ -39,27 +39,42 @@ public class LizardAttackState : State
     
     private void MoveToAttack()
     {
-        var target = _target.transform.position;
+        if (_target == null)
+            return;
 
-        Vector3 direction = _lizardScript.transform.position - target;
+        Vector3 target = _target.transform.position;
+
+        Vector3 direction = (target - _lizardScript.transform.position).normalized;
         direction.y = 0f;
-        direction.Normalize();
 
-        Vector3 offsetPosition = target + direction * (_lizardScript.attackDistance - 1f);
+        Vector3 offsetPosition = target - direction * (_lizardScript.attackDistance - 1f);
         offsetPosition.y = _lizardScript.transform.position.y;
-        
+
         _lizardScript.ai.destination = offsetPosition;
         
-        if (Vector3.Distance(_lizardScript.transform.position, target) <= _lizardScript.attackDistance)
+        float distance = Vector3.Distance(
+            _lizardScript.transform.position,
+            _target.transform.position
+        );
+        
+        Debug.Log(distance);
+        
+        if (distance <= _lizardScript.attackDistance)
         {
             Debug.Log("Attack");
+
             _lizardScript.lizardState = LizardState.Attack;
-            
-            if (_target.TryGetComponent<StatusEffectHandler>(out var effectHandler))
+
+            if (_target.transform.parent.TryGetComponent<StatusEffectHandler>(out var effectHandler))
             {
+                Debug.Log(effectHandler.name);
                 effectHandler.ApplyEffects(_lizardScript.damageEffects);
             }
-            
+            else
+            {
+                Debug.Log("statusEffect Empty");
+            }
+
             stateMachine.ChangeState(new LizardRunAwayState(stateMachine, _lizardScript));
         }
     }

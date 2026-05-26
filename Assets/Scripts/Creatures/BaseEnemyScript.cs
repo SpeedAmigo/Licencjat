@@ -11,6 +11,9 @@ using UnityEngine;
 [RequireComponent(typeof(AIPath))]
 public class BaseEnemyScript : NetworkBehaviour
 {
+    public bool destinationLog = false;
+    public bool targetPosLog = false;
+    
     [Header("Dependencies")]
     [SerializeField] protected NetworkAnimator animator;
     [SerializeField] private RangeDetector rangeDetector;
@@ -114,24 +117,82 @@ public class BaseEnemyScript : NetworkBehaviour
     
     public Vector3 PickRandomPoint()
     {
-        Vector2 random2D = Random.insideUnitCircle * radius;
-        Vector3 randomPoint = new Vector3(random2D.x, 0, random2D.y) + ai.position;
-        
-        NearestNodeConstraint constraint = NearestNodeConstraint.Walkable;
-        var nearest = AstarPath.active.GetNearest(randomPoint, constraint);
-        
-        return nearest.position;
+        GraphNode startNode = AstarPath.active.GetNearest(ai.position).node;
+
+        for (int i = 0; i < 20; i++)
+        {
+            Vector2 random2D = Random.insideUnitCircle * radius;
+            Vector3 randomPoint = new Vector3(random2D.x, 0, random2D.y) + ai.position;
+
+            var nearest = AstarPath.active.GetNearest(
+                randomPoint,
+                NearestNodeConstraint.Walkable
+            );
+
+            GraphNode targetNode = nearest.node;
+            
+            if (targetNode == null)
+                continue;
+            
+            if (targetNode == startNode)
+                continue;
+            
+            /*Vector3 finalPos = (Vector3)targetNode.position;
+            
+            if (Vector3.Distance(ai.position, finalPos) < 2f)
+                continue;*/
+            
+            if (PathUtilities.IsPathPossible(startNode, targetNode))
+            {
+                if (targetPosLog)
+                {
+                    Debug.Log(targetNode.position);
+                }
+                return (Vector3)targetNode.position;
+            }
+        }
+
+        // fallback if nothing valid found
+        Debug.LogWarning($"{gameObject.name}: FAILED TO FIND VALID TARGET");
+        return ai.position;
     }
     
     public Vector3 PickRandomPoint(Vector3 target)
     {
-        Vector2 random2D = Random.insideUnitCircle * radius;
-        Vector3 randomPoint = new Vector3(random2D.x, 0, random2D.y) + target;
-        
-        NearestNodeConstraint constraint = NearestNodeConstraint.Walkable;
-        var nearest = AstarPath.active.GetNearest(randomPoint, constraint);
-        
-        return nearest.position;
+        GraphNode startNode = AstarPath.active.GetNearest(ai.position).node;
+
+        for (int i = 0; i < 20; i++)
+        {
+            Vector2 random2D = Random.insideUnitCircle * radius;
+            Vector3 randomPoint = new Vector3(random2D.x, 0, random2D.y) + target;
+
+            var nearest = AstarPath.active.GetNearest(
+                randomPoint,
+                NearestNodeConstraint.Walkable
+            );
+
+            GraphNode targetNode = nearest.node;
+
+            if (targetNode == null)
+                continue;
+            
+            if (targetNode == startNode)
+                continue;
+            
+            Vector3 finalPos = (Vector3)targetNode.position;
+
+            if (Vector3.Distance(ai.position, finalPos) < 2f)
+                continue;
+
+            if (PathUtilities.IsPathPossible(startNode, targetNode))
+            {
+                return (Vector3)targetNode.position;
+            }
+        }
+
+        // fallback if nothing valid found
+        Debug.LogWarning($"{gameObject.name}: FAILED TO FIND VALID TARGET");
+        return ai.position;
     }
     
     public void ChangeSpeed(float newSpeed, float duration)
@@ -146,6 +207,11 @@ public class BaseEnemyScript : NetworkBehaviour
     
     public bool ReachedDestination()
     {
+        if (destinationLog)
+        {
+            Debug.Log($"{gameObject.name}: ReachedDestination");
+        }
+        
         return ai.reachedDestination && ai.reachedEndOfPath && !waitingForPath;
     }
 

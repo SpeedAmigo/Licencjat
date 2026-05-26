@@ -1555,6 +1555,7 @@ GameObject:
   - component: {fileID: 1642481043445705925}
   - component: {fileID: 1071942193463258181}
   - component: {fileID: 3152865375824017965}
+  - component: {fileID: 3130029362105956166}
   m_Layer: 0
   m_Name: PF_BeigeDogo
   m_TagString: Untagged
@@ -1683,7 +1684,7 @@ MonoBehaviour:
   maxAcceleration: -2.5
   rotationSpeed: 360
   slowdownDistance: 0.6
-  pickNextWaypointDist: 3
+  pickNextWaypointDist: 0.5
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   preventMovingBackwards: 1
@@ -1703,6 +1704,8 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 212815399066512759}
   _networkObjectCache: {fileID: 212815399066512759}
+  destinationLog: 0
+  targetPosLog: 0
   animator: {fileID: 4784140771492813495}
   rangeDetector: {fileID: 4738830213669662014}
   damageEffects:
@@ -1725,7 +1728,7 @@ MonoBehaviour:
   targetPlayer: {fileID: 0}
   agroTime: 5
   agroTimer: 0
-  attackTimer: 5
+  attackTimer: 7
   idleSoundTimer: 5
   stopDistance: 2
   agroDistance: 5
@@ -1968,6 +1971,22 @@ MonoBehaviour:
   wallAvoidFalloff: 1
   priority: 0.5
   debug: 0
+--- !u!114 &3130029362105956166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4448511021287642323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77f586f285b3847808d79083bd19ef1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AstarPathfindingProject::Pathfinding.FunnelModifier
+  version: 1073741824
+  quality: 1
+  splitAtEveryPortal: 0
+  accountForGridPenalties: 0
 --- !u!1 &4477773232979579293
 GameObject:
   m_ObjectHideFlags: 0

@@ -57,6 +57,7 @@ public class LizardRoamState : State
         {
             _lizardScript.waitingForPath = true;
             _lizardScript.Invoke(nameof(_lizardScript.SetNewPath), 3f);
+            Debug.Log("setting new path");
         }
     }
 }
