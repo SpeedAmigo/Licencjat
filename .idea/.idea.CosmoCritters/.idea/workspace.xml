@@ -21,7 +21,6 @@
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PinkSpaceLizard 1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PinkSpaceLizard 1.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Creatures/BaseEnemyScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Creatures/BaseEnemyScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LizardAttackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LizardAttackState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/LizzardRoamState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LizzardRoamState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
     </list>
@@ -202,6 +201,7 @@
       <workItem from="1779620487329" duration="6341000" />
       <workItem from="1779700631039" duration="5507000" />
       <workItem from="1779723560692" duration="1646000" />
+      <workItem from="1779819294390" duration="4553000" />
     </task>
     <task id="LOCAL-00001" summary="Sell able egss">
       <option name="closed" value="true" />

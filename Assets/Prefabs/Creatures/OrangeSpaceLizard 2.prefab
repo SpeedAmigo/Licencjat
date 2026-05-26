@@ -4506,7 +4506,6 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 49520327559793370}
   _networkObjectCache: {fileID: 49520327559793370}
-  destinationLog: 1
   animator: {fileID: 5240463051071270253}
   rangeDetector: {fileID: 6021675773144320893}
   damageEffects:
@@ -4518,6 +4517,7 @@ MonoBehaviour:
     NetworkBehaviour: {fileID: 0}
     Collection: []
   radius: 10
+  allowedTags: 00000000
   ai: {fileID: 0}
   waitingForPath: 0
   running: 0
@@ -4614,6 +4614,7 @@ MonoBehaviour:
   traversableTags: -1
   tagCostMultipliers:
   - 1
+  - 10
   - 1
   - 1
   - 1
@@ -4644,8 +4645,7 @@ MonoBehaviour:
   - 1
   - 1
   - 1
-  - 1
-  tagEntryCosts: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  tagEntryCosts: 00000000e8030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
 --- !u!114 &1436267152059960028
@@ -4689,7 +4689,7 @@ MonoBehaviour:
     visualizeSensitivity: 0
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 0.6
+  slowdownDistance: 3
   pickNextWaypointDist: 0.2
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
@@ -4815,7 +4815,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

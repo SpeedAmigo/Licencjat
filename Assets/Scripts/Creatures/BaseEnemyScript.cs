@@ -6,14 +6,12 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using Pathfinding;
 using RaycastPro.Detectors;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(AIPath))]
 public class BaseEnemyScript : NetworkBehaviour
 {
-    public bool destinationLog = false;
-    public bool targetPosLog = false;
-    
     [Header("Dependencies")]
     [SerializeField] protected NetworkAnimator animator;
     [SerializeField] private RangeDetector rangeDetector;
@@ -32,6 +30,9 @@ public class BaseEnemyScript : NetworkBehaviour
     
     [Header("AI Movement Settings")]
     [SerializeField] private float radius = 10f;
+
+    [Header("Pathfinding Tags")] 
+    [SerializeField] private int[] allowedTags = { 0 };
     
     [HideInInspector] public AIPath ai;
     [HideInInspector] public bool waitingForPath;
@@ -103,6 +104,21 @@ public class BaseEnemyScript : NetworkBehaviour
     
     #region AI
     
+    private NNConstraint GetConstraint()
+    {
+        NNConstraint constraint = NNConstraint.Default;
+
+        constraint.constrainWalkability = true;
+        constraint.walkable = true;
+
+        constraint.constrainTags = true;
+
+        // Allow only tag 0
+        constraint.tags = 1 << 0;
+
+        return constraint;
+    }
+    
     public void SetNewPath()
     {
         ai.destination = PickRandomPoint();
@@ -117,7 +133,9 @@ public class BaseEnemyScript : NetworkBehaviour
     
     public Vector3 PickRandomPoint()
     {
-        GraphNode startNode = AstarPath.active.GetNearest(ai.position).node;
+        NNConstraint constraint = GetConstraint();
+        
+        GraphNode startNode = AstarPath.active.GetNearest(ai.position, constraint).node;
 
         for (int i = 0; i < 20; i++)
         {
@@ -126,7 +144,7 @@ public class BaseEnemyScript : NetworkBehaviour
 
             var nearest = AstarPath.active.GetNearest(
                 randomPoint,
-                NearestNodeConstraint.Walkable
+                constraint
             );
 
             GraphNode targetNode = nearest.node;
@@ -144,21 +162,38 @@ public class BaseEnemyScript : NetworkBehaviour
             
             if (PathUtilities.IsPathPossible(startNode, targetNode))
             {
-                if (targetPosLog)
-                {
-                    Debug.Log(targetNode.position);
-                }
                 return (Vector3)targetNode.position;
             }
         }
 
         // fallback if nothing valid found
         Debug.LogWarning($"{gameObject.name}: FAILED TO FIND VALID TARGET");
+        //ClampToGraph();
         return ai.position;
+    }
+    
+    public void ClampToGraph()
+    {
+        var nearest = AstarPath.active.GetNearest(
+            transform.position,
+            NearestNodeConstraint.Walkable
+        );
+
+        if (nearest.node != null)
+        {
+            Vector3 validPos = (Vector3)nearest.node.position;
+
+            // Keep original Y if needed
+            validPos.y = transform.position.y;
+
+            ai.Teleport(validPos);
+        }
     }
     
     public Vector3 PickRandomPoint(Vector3 target)
     {
+        NNConstraint constraint = GetConstraint();
+        
         GraphNode startNode = AstarPath.active.GetNearest(ai.position).node;
 
         for (int i = 0; i < 20; i++)
@@ -168,7 +203,7 @@ public class BaseEnemyScript : NetworkBehaviour
 
             var nearest = AstarPath.active.GetNearest(
                 randomPoint,
-                NearestNodeConstraint.Walkable
+                constraint
             );
 
             GraphNode targetNode = nearest.node;
@@ -207,11 +242,6 @@ public class BaseEnemyScript : NetworkBehaviour
     
     public bool ReachedDestination()
     {
-        if (destinationLog)
-        {
-            Debug.Log($"{gameObject.name}: ReachedDestination");
-        }
-        
         return ai.reachedDestination && ai.reachedEndOfPath && !waitingForPath;
     }
 
