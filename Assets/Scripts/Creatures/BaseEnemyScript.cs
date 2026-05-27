@@ -6,6 +6,7 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using Pathfinding;
 using RaycastPro.Detectors;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(AIPath))]
@@ -29,12 +30,15 @@ public class BaseEnemyScript : NetworkBehaviour
     
     [Header("AI Movement Settings")]
     [SerializeField] private float radius = 10f;
+
+    [Header("Pathfinding Tags")] 
+    [SerializeField] private int[] allowedTags = { 0 };
     
     [HideInInspector] public AIPath ai;
     [HideInInspector] public bool waitingForPath;
     
     [HideInInspector] public bool running;
-    private IEnumerator _speedCoroutine;
+    private Coroutine _speedCoroutine;
 
     public bool Running
     {
@@ -100,6 +104,21 @@ public class BaseEnemyScript : NetworkBehaviour
     
     #region AI
     
+    private NNConstraint GetConstraint()
+    {
+        NNConstraint constraint = NNConstraint.Default;
+
+        constraint.constrainWalkability = true;
+        constraint.walkable = true;
+
+        constraint.constrainTags = true;
+
+        // Allow only tag 0
+        constraint.tags = 1 << 0;
+
+        return constraint;
+    }
+    
     public void SetNewPath()
     {
         ai.destination = PickRandomPoint();
@@ -114,24 +133,82 @@ public class BaseEnemyScript : NetworkBehaviour
     
     public Vector3 PickRandomPoint()
     {
-        Vector2 random2D = Random.insideUnitCircle * radius;
-        Vector3 randomPoint = new Vector3(random2D.x, 0, random2D.y) + ai.position;
+        NNConstraint constraint = GetConstraint();
         
-        NearestNodeConstraint constraint = NearestNodeConstraint.Walkable;
-        var nearest = AstarPath.active.GetNearest(randomPoint, constraint);
-        
-        return nearest.position;
+        GraphNode startNode = AstarPath.active.GetNearest(ai.position, constraint).node;
+
+        for (int i = 0; i < 20; i++)
+        {
+            Vector2 random2D = Random.insideUnitCircle * radius;
+            Vector3 randomPoint = new Vector3(random2D.x, 0, random2D.y) + ai.position;
+
+            var nearest = AstarPath.active.GetNearest(
+                randomPoint,
+                constraint
+            );
+
+            GraphNode targetNode = nearest.node;
+            
+            if (targetNode == null)
+                continue;
+            
+            if (targetNode == startNode)
+                continue;
+            
+            /*Vector3 finalPos = (Vector3)targetNode.position;
+            
+            if (Vector3.Distance(ai.position, finalPos) < 2f)
+                continue;*/
+            
+            if (PathUtilities.IsPathPossible(startNode, targetNode))
+            {
+                return (Vector3)targetNode.position;
+            }
+        }
+
+        // fallback if nothing valid found
+        Debug.LogWarning($"{gameObject.name}: FAILED TO FIND VALID TARGET");
+        return ai.position;
     }
     
     public Vector3 PickRandomPoint(Vector3 target)
     {
-        Vector2 random2D = Random.insideUnitCircle * radius;
-        Vector3 randomPoint = new Vector3(random2D.x, 0, random2D.y) + target;
+        NNConstraint constraint = GetConstraint();
         
-        NearestNodeConstraint constraint = NearestNodeConstraint.Walkable;
-        var nearest = AstarPath.active.GetNearest(randomPoint, constraint);
-        
-        return nearest.position;
+        GraphNode startNode = AstarPath.active.GetNearest(ai.position).node;
+
+        for (int i = 0; i < 20; i++)
+        {
+            Vector2 random2D = Random.insideUnitCircle * radius;
+            Vector3 randomPoint = new Vector3(random2D.x, 0, random2D.y) + target;
+
+            var nearest = AstarPath.active.GetNearest(
+                randomPoint,
+                constraint
+            );
+
+            GraphNode targetNode = nearest.node;
+
+            if (targetNode == null)
+                continue;
+            
+            if (targetNode == startNode)
+                continue;
+            
+            Vector3 finalPos = (Vector3)targetNode.position;
+
+            if (Vector3.Distance(ai.position, finalPos) < 2f)
+                continue;
+
+            if (PathUtilities.IsPathPossible(startNode, targetNode))
+            {
+                return (Vector3)targetNode.position;
+            }
+        }
+
+        // fallback if nothing valid found
+        Debug.LogWarning($"{gameObject.name}: FAILED TO FIND VALID TARGET");
+        return ai.position;
     }
     
     public void ChangeSpeed(float newSpeed, float duration)
@@ -141,7 +218,7 @@ public class BaseEnemyScript : NetworkBehaviour
             StopCoroutine(_speedCoroutine);
         }
         
-        StartCoroutine(ChangeSpeedCoroutine(newSpeed, duration));
+        _speedCoroutine = StartCoroutine(ChangeSpeedCoroutine(newSpeed, duration));
     }
     
     public bool ReachedDestination()

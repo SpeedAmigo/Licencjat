@@ -1847,7 +1847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Object.EmptyNetworkBehaviour
-  _componentIndexCache: 5
+  _componentIndexCache: 6
   _addedNetworkObject: {fileID: 49520327559793370}
   _networkObjectCache: {fileID: 49520327559793370}
 --- !u!1 &3549759704899344641
@@ -3928,7 +3928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Animating.NetworkAnimator
-  _componentIndexCache: 4
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 49520327559793370}
   _networkObjectCache: {fileID: 49520327559793370}
   IgnoredParameters: []
@@ -4465,6 +4465,7 @@ GameObject:
   - component: {fileID: 49520327559793370}
   - component: {fileID: 4709396963781955774}
   - component: {fileID: 3685390840063342037}
+  - component: {fileID: -3203631040774834538}
   m_Layer: 0
   m_Name: GreenSpaceLizard 3
   m_TagString: Untagged
@@ -4507,7 +4508,9 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 49520327559793370}
   animator: {fileID: 5240463051071270253}
   rangeDetector: {fileID: 6021675773144320893}
-  damageEffects: []
+  damageEffects:
+  - {fileID: 11400000, guid: 69b1fe92ec1cfb84aa7659b11c5d4a2c, type: 2}
+  - {fileID: 11400000, guid: d39dfcaab84ee3f4292703ead1f4dce8, type: 2}
   walkSpeed: 7
   runSpeed: 15
   playersInRange:
@@ -4515,6 +4518,7 @@ MonoBehaviour:
     NetworkBehaviour: {fileID: 0}
     Collection: []
   radius: 10
+  allowedTags: 00000000
   ai: {fileID: 0}
   waitingForPath: 0
   running: 0
@@ -4580,9 +4584,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26cd3588aff200a4cbe80d6eb188d27f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectHandler
-  _componentIndexCache: 255
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 49520327559793370}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 49520327559793370}
   activeEffects: []
 --- !u!114 &4217473461449138802
 MonoBehaviour:
@@ -4611,6 +4615,7 @@ MonoBehaviour:
   traversableTags: -1
   tagCostMultipliers:
   - 1
+  - 10
   - 1
   - 1
   - 1
@@ -4641,8 +4646,7 @@ MonoBehaviour:
   - 1
   - 1
   - 1
-  - 1
-  tagEntryCosts: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  tagEntryCosts: 00000000e8030000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
 --- !u!114 &1436267152059960028
@@ -4666,7 +4670,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  endReachedDistance: 0.2
+  endReachedDistance: 1
   whenCloseToDestination: 0
   rvoDensityBehavior:
     enabled: 1
@@ -4686,12 +4690,12 @@ MonoBehaviour:
     visualizeSensitivity: 0
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 0.6
-  pickNextWaypointDist: 2
+  slowdownDistance: 3
+  pickNextWaypointDist: 0.2
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
-  preventMovingBackwards: 0
-  constrainInsideGraph: 0
+  preventMovingBackwards: 1
+  constrainInsideGraph: 1
 --- !u!114 &49520327559793370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4714,6 +4718,7 @@ MonoBehaviour:
   - {fileID: 3248725328975619371}
   - {fileID: 6103033075237682776}
   - {fileID: 2685621899560667613}
+  - {fileID: 4860223204529123107}
   - {fileID: 4709396963781955774}
   - {fileID: 5240463051071270253}
   - {fileID: -6489474100878958863}
@@ -4764,7 +4769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: FishNet.Runtime::FishNet.Component.Transforming.NetworkTransform
-  _componentIndexCache: 3
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 49520327559793370}
   _networkObjectCache: {fileID: 49520327559793370}
   _componentConfiguration: 2
@@ -4819,6 +4824,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.51, z: 0}
+--- !u!114 &-3203631040774834538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8945289868945267571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 560112f876f5746c780eca0d404e7139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AstarPathfindingProject::Pathfinding.RVO.RVOController
+  version: 1073741824
+  radiusBackingField: 0.5
+  heightBackingField: 2
+  centerBackingField: 1
+  locked: 0
+  lockWhenNotMoving: 0
+  agentTimeHorizon: 2
+  obstacleTimeHorizon: 0.5
+  maxNeighbours: 10
+  layer: 1
+  collidesWith: -1
+  wallAvoidForce: 1
+  wallAvoidFalloff: 1
+  priority: 0.5
+  debug: 0
 --- !u!1 &8997071261684645670
 GameObject:
   m_ObjectHideFlags: 0
@@ -4926,6 +4958,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 539635749006507717, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 893498575154687388, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -5027,6 +5063,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1244259089383504643, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244259089383504643, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
       propertyPath: <ComponentIndex>k__BackingField
       value: 2
       objectReference: {fileID: 0}
@@ -5052,7 +5092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1244259089383504643, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
       propertyPath: SerializedTransformProperties.Position.y
-      value: 0.00439
+      value: 0.00144
       objectReference: {fileID: 0}
     - target: {fileID: 1244259089383504643, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
       propertyPath: SerializedTransformProperties.Position.z
@@ -5102,6 +5142,10 @@ PrefabInstance:
     - target: {fileID: 1135657003824933385, guid: 41589846f652cd04db3b298101f707f0, type: 3}
       propertyPath: <IsNested>k__BackingField
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135657003824933385, guid: 41589846f652cd04db3b298101f707f0, type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1135657003824933385, guid: 41589846f652cd04db3b298101f707f0, type: 3}
       propertyPath: <ComponentIndex>k__BackingField
