@@ -6,34 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8c284735-b13c-4528-bfc9-a4dff6a1bf2b" name="Changes" comment="Player Leakage and tape visuals">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/2DHologram.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/2DHologram/2DHologram.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/2DHologram/2DHologram.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/2DHologram/2DHologramShader.shadergraph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/2DHologram/2DHologramShader.shadergraph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/2DHologram/2DHologramTexture.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/2DHologram/2DHologramTexture.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animations/AC_SpaceFrog.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/AC_SpaceFrog.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/SDF_WendyOne-Regular SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fonts/SDF_WendyOne-Regular SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/MM_Helmet.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/MM_Helmet.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/SpaceshipMaterials/MM_Laser.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/SpaceshipMaterials/MM_Laser.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/SpaceshipMaterials/MM_SpaceShip.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/SpaceshipMaterials/MM_SpaceShip.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/BlueSpaceLizard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/BlueSpaceLizard.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/GreenSpaceLizard 3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/GreenSpaceLizard 3.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/OrangeSpaceLizard 2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/OrangeSpaceLizard 2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PinkSpaceLizard 1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PinkSpaceLizard 1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player/PF_Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player/PF_Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/PerformanceTestRunInfo.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/PerformanceTestRunInfo.json.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/PerformanceTestRunSettings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/PerformanceTestRunSettings.json.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Creatures/BaseEnemyScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Creatures/BaseEnemyScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FrogRoamState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FrogRoamState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LizardRunAwayState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LizardRunAwayState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/laser.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/laser.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/particle.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/particle.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +90,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;fifi&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
