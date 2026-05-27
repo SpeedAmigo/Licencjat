@@ -4510,6 +4510,7 @@ MonoBehaviour:
   rangeDetector: {fileID: 6021675773144320893}
   damageEffects:
   - {fileID: 11400000, guid: 69b1fe92ec1cfb84aa7659b11c5d4a2c, type: 2}
+  - {fileID: 11400000, guid: d39dfcaab84ee3f4292703ead1f4dce8, type: 2}
   walkSpeed: 7
   runSpeed: 15
   playersInRange:
@@ -4517,6 +4518,7 @@ MonoBehaviour:
     NetworkBehaviour: {fileID: 0}
     Collection: []
   radius: 10
+  allowedTags: 00000000
   ai: {fileID: 0}
   waitingForPath: 0
   running: 0

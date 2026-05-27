@@ -44,7 +44,7 @@ public class FrogRoamState : State
         if (!_frogScript.ai.pathPending && (_frogScript.ai.reachedEndOfPath || !_frogScript.ai.hasPath) && !_frogScript.waitingForPath)
         {
             if (!_frogScript.canWalk) return;
-                
+            
             _frogScript.waitingForPath = true;
             _frogScript.Invoke(nameof(_frogScript.SetNewPath), 3f);
         }

@@ -38,7 +38,7 @@ public class BaseEnemyScript : NetworkBehaviour
     [HideInInspector] public bool waitingForPath;
     
     [HideInInspector] public bool running;
-    private IEnumerator _speedCoroutine;
+    private Coroutine _speedCoroutine;
 
     public bool Running
     {
@@ -168,26 +168,7 @@ public class BaseEnemyScript : NetworkBehaviour
 
         // fallback if nothing valid found
         Debug.LogWarning($"{gameObject.name}: FAILED TO FIND VALID TARGET");
-        //ClampToGraph();
         return ai.position;
-    }
-    
-    public void ClampToGraph()
-    {
-        var nearest = AstarPath.active.GetNearest(
-            transform.position,
-            NearestNodeConstraint.Walkable
-        );
-
-        if (nearest.node != null)
-        {
-            Vector3 validPos = (Vector3)nearest.node.position;
-
-            // Keep original Y if needed
-            validPos.y = transform.position.y;
-
-            ai.Teleport(validPos);
-        }
     }
     
     public Vector3 PickRandomPoint(Vector3 target)
@@ -237,7 +218,7 @@ public class BaseEnemyScript : NetworkBehaviour
             StopCoroutine(_speedCoroutine);
         }
         
-        StartCoroutine(ChangeSpeedCoroutine(newSpeed, duration));
+        _speedCoroutine = StartCoroutine(ChangeSpeedCoroutine(newSpeed, duration));
     }
     
     public bool ReachedDestination()
