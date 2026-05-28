@@ -78,7 +78,7 @@ public abstract class ObjectPickable : NetworkBehaviour
         Drop_Client(position, forward);
     }
 
-    [ObserversRpc]
+    [ObserversRpc(BufferLast = true)]
     private void Pickup_Client(NetworkObject fpHolder, NetworkObject tpHolder, NetworkConnection conn)
     {
         if (fpHolder.IsOwner)
@@ -107,7 +107,7 @@ public abstract class ObjectPickable : NetworkBehaviour
         }
     }
 
-    [ObserversRpc]
+    [ObserversRpc(BufferLast = true)]
     private void Drop_Client(Vector3 position, Vector3 forward)
     {
         if (IsSpawned)

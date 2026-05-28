@@ -57,8 +57,6 @@ public class LizardAttackState : State
             _target.transform.position
         );
         
-        Debug.Log(distance);
-        
         if (distance <= _lizardScript.attackDistance)
         {
             Debug.Log("Attack");

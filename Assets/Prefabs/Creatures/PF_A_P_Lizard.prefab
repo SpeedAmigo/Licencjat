@@ -5107,9 +5107,29 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
+--- !u!95 &1002231098827100243 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4862093174255520669, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
+  m_PrefabInstance: {fileID: 5661372334316608462}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1342383398349549071 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6642851997310252481, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
+  m_PrefabInstance: {fileID: 5661372334316608462}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2832026475161929957 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7628074362325504811, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
+  m_PrefabInstance: {fileID: 5661372334316608462}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4825435600582866514 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 893498575154687388, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
+  m_PrefabInstance: {fileID: 5661372334316608462}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4943082663406511551 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 722941379517808241, guid: d401e2aad7c63824e9fa4ed87a85c32d, type: 3}
   m_PrefabInstance: {fileID: 5661372334316608462}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &6905499443650060493 stripped
@@ -5244,6 +5264,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_StatusVisualizer
       objectReference: {fileID: 0}
+    - target: {fileID: 3379239861401033553, guid: 41589846f652cd04db3b298101f707f0, type: 3}
+      propertyPath: starAnimator
+      value: 
+      objectReference: {fileID: 4943082663406511551}
+    - target: {fileID: 3379239861401033553, guid: 41589846f652cd04db3b298101f707f0, type: 3}
+      propertyPath: angerAnimator
+      value: 
+      objectReference: {fileID: 1002231098827100243}
+    - target: {fileID: 3379239861401033553, guid: 41589846f652cd04db3b298101f707f0, type: 3}
+      propertyPath: exclamationAnimator
+      value: 
+      objectReference: {fileID: 2832026475161929957}
+    - target: {fileID: 3379239861401033553, guid: 41589846f652cd04db3b298101f707f0, type: 3}
+      propertyPath: questionmarkAnimator
+      value: 
+      objectReference: {fileID: 1342383398349549071}
     - target: {fileID: 8807011003335680966, guid: 41589846f652cd04db3b298101f707f0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

@@ -18,6 +18,9 @@ public abstract class PlayerComponent : NetworkBehaviour
         
         if (playerRoot.oxygen == null) return;
         playerRoot.oxygen.OnDieEvent += DeathHandle;
+        
+        if (playerRoot == null) return;
+        playerRoot.SpectateEvent += SpectateHandle;
     }
 
     protected virtual void OnDisable()
@@ -27,6 +30,9 @@ public abstract class PlayerComponent : NetworkBehaviour
         
         if (playerRoot.oxygen == null) return;
         playerRoot.oxygen.OnDieEvent -= DeathHandle;
+
+        if (playerRoot == null) return;
+        playerRoot.SpectateEvent -= SpectateHandle;
     }
 
     [Preserve]
@@ -34,4 +40,7 @@ public abstract class PlayerComponent : NetworkBehaviour
 
     [Preserve]
     protected virtual void ReviveHandle() {}
+    
+    [Preserve]
+    protected virtual void SpectateHandle(bool value) {}
 }

@@ -9484,6 +9484,9 @@ MonoBehaviour:
       Data3: 100156564
       Data4: -1562368871
     Path: event:/GlassCrack
+  helmetGameObject: {fileID: 762722046519068931}
+  faceGameObject: {fileID: 4553676669488110052}
+  bodyGameObject: {fileID: 8133183005628573526}
   animator: {fileID: 0}
   oxygen: {fileID: 6642265341395905583}
 --- !u!114 &6464208683758692392
@@ -9507,6 +9510,11 @@ MonoBehaviour:
   jumpForce: 0.8
   fallMultiplier: 2
   jumpMultiplier: 2
+  spectateSpeed: 10
+  spectateSprintSpeed: 20
+  scrollSpeedStep: 200
+  minSpectateSpeed: 2
+  maxSpectateSpeed: 50
   currentStamina: 0
   maxStamina: 100
   staminaDrainRate: 15
@@ -9651,7 +9659,7 @@ MonoBehaviour:
   maxOxygen:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
-    _value: 3000
+    _value: 6000
   currentOxygen:
     NetworkManager: {fileID: 0}
     NetworkBehaviour: {fileID: 0}
@@ -16775,6 +16783,7 @@ GameObject:
   - component: {fileID: 6832471236091358522}
   - component: {fileID: 1297271310127475886}
   - component: {fileID: 8211946869133407314}
+  - component: {fileID: 4928843799052390540}
   m_Layer: 0
   m_Name: PlayerCanvas
   m_TagString: Untagged
@@ -16918,6 +16927,28 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 6870339716418846082}
   playerRoot: {fileID: 168651848691203663}
   spectatorUI: {fileID: 4802808502484046356}
+--- !u!114 &4928843799052390540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5507095502798269290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9860b8ece6ff75489a790a98fbcd2ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 6870339716418846082}
+  _networkObjectCache: {fileID: 0}
+  playerRoot: {fileID: 168651848691203663}
+  uiToDeactivate:
+  - {fileID: 6380014608436349041}
+  - {fileID: 210307647197558259}
+  - {fileID: 7555625763386737350}
+  - {fileID: 2714717125401761168}
+  - {fileID: 6708695232905985576}
 --- !u!1 &5517875763140366116
 GameObject:
   m_ObjectHideFlags: 0

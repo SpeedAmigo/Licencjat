@@ -45,6 +45,8 @@ public class PlayerInteractor : PlayerComponent
     private bool _hasValidTarget;
     
     private IOutlineChangeable _currentOutlineChangeable;
+    
+    private bool _isSpectating;
 
     public override void OnStartClient()
     {
@@ -112,8 +114,11 @@ public class PlayerInteractor : PlayerComponent
         {
             OnSecondaryHold();
         }
-        
-        DetectTarget();
+
+        if (!_isSpectating)
+        {
+            DetectTarget();
+        } 
     }
     
     private void DetectTarget()
@@ -392,6 +397,11 @@ public class PlayerInteractor : PlayerComponent
         return true;
     }
     
+    protected override void SpectateHandle(bool value)
+    {
+        _isSpectating = value;
+    }
+
     private void OnDrawGizmos()
     {
         if (itemDropTransform == null) return;

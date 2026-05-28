@@ -79,7 +79,10 @@ public class ShopManagerScript : NetworkBehaviour
             }
             
             yield return new WaitForSeconds(spawnRate);
-            SpawnItem(pickedItem.itemPrefab, spawnLocation);
+            if (pickedItem.itemPrefab != null)
+            {
+                SpawnItem(pickedItem.itemPrefab, spawnLocation);
+            }
         }
         
         basketItems.Clear();

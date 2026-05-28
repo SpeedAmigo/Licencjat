@@ -6,6 +6,36 @@
   <component name="ChangeListManager">
     <list default="true" id="8c284735-b13c-4528-bfc9-a4dff6a1bf2b" name="Changes" comment="Player Leakage and tape visuals">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Fonts/SDF_WendyOne-Regular SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fonts/SDF_WendyOne-Regular SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/PlayerMaterials/MM_BearBody.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/PlayerMaterials/MM_BearBody.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/PlayerMaterials/MM_BearFace.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/PlayerMaterials/MM_BearFace.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/PlayerMaterials/MM_BearHelmet.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/PlayerMaterials/MM_BearHelmet.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/SpaceshipMaterials/MM_BLue_Chair.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/SpaceshipMaterials/MM_BLue_Chair.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/SpaceshipMaterials/MM_Console.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/SpaceshipMaterials/MM_Console.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/SpaceshipMaterials/MM_ConsoleButton.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/SpaceshipMaterials/MM_ConsoleButton.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/SpaceshipMaterials/MM_ConsoleButton_1.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/SpaceshipMaterials/MM_ConsoleButton_1.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_A_G_Lizard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_A_G_Lizard.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_A_O_Lizard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_A_O_Lizard.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_A_P_Lizard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_A_P_Lizard.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_R_G_Lizard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_R_G_Lizard.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_R_O_Lizard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_R_O_Lizard.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_R_P_Lizard.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Creatures/PF_R_P_Lizard.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player/PF_Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player/PF_Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Menu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Menu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LizardAttackState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LizardAttackState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/ShopManagerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/ShopManagerScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NameBadgeScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NameBadgeScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Other/CommandsManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Other/CommandsManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Pickables/ObjectPickable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Pickables/ObjectPickable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/PlayerComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/PlayerComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/PlayerInteractor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/PlayerInteractor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/PlayerRoot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/PlayerRoot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/PlayerVisualController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/PlayerVisualController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +95,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Pickables/ObjectPickable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerScripts/CameraController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerScripts/PlayerInteractor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerSkinChangeScript.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ResolutionControlScript.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/SellableItem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/SellableItem.cs.meta" root0="FORCE_HIGHLIGHTING" />
@@ -187,6 +218,10 @@
       <workItem from="1779723560692" duration="1646000" />
       <workItem from="1779819294390" duration="5224000" />
       <workItem from="1779866810044" duration="5419000" />
+      <workItem from="1779891613242" duration="42000" />
+      <workItem from="1779895468289" duration="1532000" />
+      <workItem from="1779959622236" duration="143000" />
+      <workItem from="1779959780004" duration="11426000" />
     </task>
     <task id="LOCAL-00001" summary="Sell able egss">
       <option name="closed" value="true" />

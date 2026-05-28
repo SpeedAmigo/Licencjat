@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baf2cc5d71f6ac74ebea8ef208ede21a, type: 3}
+  m_Name: OxygenShopItem
+  m_EditorClassIdentifier: Assembly-CSharp::ShopItemData
+  itemId: 6035f43e-b805-41be-8b8d-96f8e8ddb37c
+  itemPrefab: {fileID: 0}
+  itemPrice: 50
+  itemName: Oxygen
+  itemDescription: Give Player additional oxygen
+  itemIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}

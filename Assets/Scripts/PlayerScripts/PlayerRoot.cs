@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Commands;
 using FishNet.CodeGenerating;
 using FishNet.Component.Spawning;
 using FishNet.Connection;
@@ -12,6 +14,7 @@ using UnityEngine;
 
 public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable, IStunable
 {
+    public event Action<bool> SpectateEvent;
     public event Action OnReviveEvent;
     public event Action<bool, float> StunEvent;
     public event Action HealEvent;
@@ -23,6 +26,11 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable, IStunable
     [Header("Sounds")]
     [SerializeField] private EventReference getDamageSound;
     [SerializeField] private EventReference getHealSound;
+    
+    [Header("Skin Game objects")]
+    [SerializeField] private GameObject helmetGameObject;
+    [SerializeField] private GameObject faceGameObject;
+    [SerializeField] private GameObject bodyGameObject;
 
     [SerializeField] private Animator animator;
     
@@ -34,6 +42,11 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable, IStunable
     private Quaternion _spawnRotation;
     private EventInstance _getDamageInstance;
     private EventInstance _getHealInstance;
+
+    private void Start()
+    {
+        CommandsManager.Instance.RegisterInstance(this);
+    }
     
     public override void OnStartClient()
     {
@@ -184,6 +197,34 @@ public class PlayerRoot : NetworkBehaviour, IPlayer, IDamageable, IStunable
     private void SetStunnedObservers(bool stunned, float duration)
     {
         StunEvent?.Invoke(stunned, duration);
+    }
+
+    [Command("SetSpectator", "Set current player into spectator mode")]
+    [ServerRpc(RequireOwnership = false)]
+    public void SetSpectator(bool value)
+    {
+        SetSpectatorTarget(Owner, value);
+    }
+
+    [TargetRpc]
+    private void SetSpectatorTarget(NetworkConnection conn, bool value)
+    {
+        SpectateEvent?.Invoke(value);
+    }
+
+    public GameObject GetPlayerHelmet()
+    {
+        return helmetGameObject;
+    }
+    
+    public GameObject GetPlayerFace()
+    {
+        return faceGameObject;
+    }
+    
+    public GameObject GetPlayerBody()
+    {
+        return bodyGameObject;
     }
 }
 

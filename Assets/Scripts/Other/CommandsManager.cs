@@ -18,7 +18,10 @@ namespace Commands
 
         public void RegisterInstance(object instance)
         {
-            _instances.Add(instance.GetType(), instance);
+            if (!_instances.ContainsKey(instance.GetType()))
+            {
+                _instances.Add(instance.GetType(), instance);   
+            }
         }
 
         private void Awake()

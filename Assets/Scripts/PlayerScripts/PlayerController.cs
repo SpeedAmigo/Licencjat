@@ -19,6 +19,16 @@ public class PlayerController : PlayerComponent
     [GUIColor("Yellow")]
     [SerializeField] private float jumpMultiplier = 2f;
     
+    [Header("Spectate Settings")]
+    [SerializeField] private float spectateSpeed = 10f;
+    [SerializeField] private float spectateSprintSpeed = 20f;
+
+    [SerializeField] private float scrollSpeedStep = 2f;
+    [SerializeField] private float minSpectateSpeed = 2f;
+    [SerializeField] private float maxSpectateSpeed = 50f;
+
+    private float _currentSpectateSpeed;
+    
     [Header("Stamina Settings")]
     [GUIColor("Blue")]
     [SerializeField] private float currentStamina;
@@ -56,6 +66,8 @@ public class PlayerController : PlayerComponent
     private bool isGrounded;
 
     public float animatorVelocity;
+
+    private bool _isSpectating;
     
     public override void OnStartClient()
     {
@@ -79,6 +91,8 @@ public class PlayerController : PlayerComponent
     private void Start()
     {
         currentStamina = maxStamina;
+        
+        _currentSpectateSpeed = spectateSpeed;
         
         OnMaxStamina?.Invoke(maxStamina);
         OnCurrentStamina?.Invoke(currentStamina);
@@ -194,6 +208,15 @@ public class PlayerController : PlayerComponent
     
     private void Update()
     {
+        if (!IsOwner) return;
+        
+        if (_isSpectating)
+        {
+            SpectateMovement();
+            return;
+        }
+        
+        // normal movement
         isGrounded = _controller.isGrounded;
         
         if (isGrounded && _velocity.y < 0)
@@ -264,5 +287,55 @@ public class PlayerController : PlayerComponent
     protected override void ReviveHandle()
     {
         _controller.detectCollisions = true;
+    }
+
+    protected override void SpectateHandle(bool value)
+    {
+        _isSpectating = value;
+    }
+    
+    private void SpectateMovement()
+    {
+        float scroll = Mouse.current.scroll.ReadValue().y;
+        
+        if (scroll != 0)
+        {
+            _currentSpectateSpeed += scroll * scrollSpeedStep * Time.deltaTime;
+            
+            _currentSpectateSpeed = Mathf.Clamp(
+                _currentSpectateSpeed,
+                minSpectateSpeed,
+                maxSpectateSpeed
+            );
+        }
+        
+        Transform cam = Camera.main.transform;
+
+        // Camera-relative movement
+        Vector3 forward = cam.forward;
+        Vector3 right = cam.right;
+
+        Vector3 move =
+            forward * _moveInput.y +
+            right * _moveInput.x;
+
+        // Optional vertical movement
+        if (Keyboard.current.spaceKey.isPressed)
+        {
+            move += Vector3.up;
+        }
+
+        if (Keyboard.current.leftCtrlKey.isPressed)
+        {
+            move += Vector3.down;
+        }
+
+        move.Normalize();
+        
+        float speed = _inputSystem.Player.Sprint.IsPressed()
+            ? _currentSpectateSpeed * 2f
+            : _currentSpectateSpeed;
+
+        _controller.Move(move * speed * Time.deltaTime);
     }
 }

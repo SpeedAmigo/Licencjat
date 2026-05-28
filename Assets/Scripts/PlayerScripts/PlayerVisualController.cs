@@ -3,6 +3,7 @@ using FishNet.Component.Animating;
 using FishNet.Object;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerVisualController : PlayerComponent
 {
@@ -71,6 +72,29 @@ public class PlayerVisualController : PlayerComponent
         }
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    private void ToggleVisualsServer(bool visible)
+    {
+        ToggleVisualsObservers(visible);
+    }
+
+    [ObserversRpc]
+    private void ToggleVisualsObservers(bool visible)
+    {
+        foreach (var visual in  visuals)
+        {
+            Renderer renderer = visual.GetComponent<Renderer>();
+
+            if (renderer == null)
+            {
+                Debug.LogWarning($"Visual {visual.name} has no renderer");
+                continue;
+            }
+
+            renderer.shadowCastingMode = ShadowCastingMode.ShadowsOnly;
+        }
+    }
+
     private void Update()
     {
         if (!IsOwner) return;
@@ -117,6 +141,11 @@ public class PlayerVisualController : PlayerComponent
         base.ReviveHandle();
         
         AnimatorHandleServer(false);
+    }
+
+    protected override void SpectateHandle(bool value)
+    {
+        ToggleVisualsServer(value);
     }
     
     [ServerRpc(RequireOwnership = true)]
