@@ -114,12 +114,7 @@ public class OxygenScript : NetworkBehaviour
             //Debug.Log($"drainRate: {drainRate.Value}, LastDrainRate: {_lastDrainRate}");
         }
         
-        if (!canDrainOxygen.Value) return;
-        
-        currentOxygen.Value -= drainRate.Value * (float)TimeManager.TickDelta;
-        UpdateCurrentStaminaTarget(Owner, currentOxygen.Value);
-
-        if (currentOxygen.Value <= maxOxygen.Value * percentageAlert)
+        if (currentOxygen.Value < maxOxygen.Value * percentageAlert)
         {
             if (!_alertCalled)
             {
@@ -135,6 +130,11 @@ public class OxygenScript : NetworkBehaviour
                 _alertCalled = false;
             }
         }
+        
+        if (!canDrainOxygen.Value) return;
+        
+        currentOxygen.Value -= drainRate.Value * (float)TimeManager.TickDelta;
+        UpdateCurrentStaminaTarget(Owner, currentOxygen.Value);
         
         if (currentOxygen.Value <= 0f)
         {

@@ -18,7 +18,11 @@ public class UIPlayerOxygen : MonoBehaviour
 
     private void HandleAlertAnimation(bool value)
     {
+        alertAnimator.Play("OxygenAlertAnimation", 0, 0f);
         alertAnimator.enabled = value;
+
+        alertAnimator.speed = value ? 1f : 0f;
+        Debug.Log(value);
     }
 
     private void SetMaxOxygen(float maxOxygen)
@@ -30,8 +34,6 @@ public class UIPlayerOxygen : MonoBehaviour
     {
         _oxygenSlider.value = currentOxygen;
     }
-    
-    
     
     private void OnDestroy()
     {
