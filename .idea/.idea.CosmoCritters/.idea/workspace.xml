@@ -7,8 +7,6 @@
     <list default="true" id="8c284735-b13c-4528-bfc9-a4dff6a1bf2b" name="Changes" comment="Player Leakage and tape visuals">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CosmoCritters/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Fonts/SDF_WendyOne-Regular SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Fonts/SDF_WendyOne-Regular SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/OxygenScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/OxygenScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/UIPlayerOxygen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerScripts/UIPlayerOxygen.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-6000.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -196,7 +194,8 @@
       <workItem from="1779895468289" duration="1532000" />
       <workItem from="1779959622236" duration="143000" />
       <workItem from="1779959780004" duration="12312000" />
-      <workItem from="1780060123749" duration="2535000" />
+      <workItem from="1780060123749" duration="2653000" />
+      <workItem from="1780518775494" duration="22000" />
     </task>
     <task id="LOCAL-00001" summary="Sell able egss">
       <option name="closed" value="true" />

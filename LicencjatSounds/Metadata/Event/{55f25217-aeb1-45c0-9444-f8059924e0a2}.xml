@@ -5,7 +5,7 @@
 			<value>GlassCrack</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{285675ff-ae1a-47a3-9d55-b13aa832dceb}</destination>
@@ -122,6 +122,7 @@
 	<object class="MixerBusEffectChain" id="{6533bbc0-19bf-4e8c-8251-cfd8c6ae2290}">
 		<relationship name="effects">
 			<destination>{b8153a14-d502-45de-b35a-05b087e2a991}</destination>
+			<destination>{973f701b-6322-4709-a4f5-2ef2aa81b766}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{52e98d58-7e23-4efa-af2c-aa4b0d87f844}" />
@@ -141,5 +142,6 @@
 	</object>
 	<object class="MixerBusPanner" id="{c78afeab-ad17-40f2-9700-2c08e7164581}" />
 	<object class="MixerBusFader" id="{b8153a14-d502-45de-b35a-05b087e2a991}" />
+	<object class="SpatialiserEffect" id="{973f701b-6322-4709-a4f5-2ef2aa81b766}" />
 	<object class="MixerBusFader" id="{6ec3c7af-04cf-4f4e-a3e7-56ab9dc72d05}" />
 </objects>
